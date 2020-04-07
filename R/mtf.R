@@ -141,6 +141,38 @@ read_mtf <- function(path = "data-raw/mtf/") {
   MTF$D_B_4 <- car::recode(MTF$D_B_4, "1=5;2=4;4=2;5=1")
   MTF$D_B_6 <- car::recode(MTF$D_B_6, "1=5;2=4;4=2;5=1")
 
+  # Standardize variable names
+  MTF <- janitor::clean_names(MTF)
+
   # This function returns the cleaned dataset as a tibble
   return(MTF)
+}
+#' Aggregate MTF scales
+#'
+#' @param data Cleaned MTF data from read_mtf()
+#'
+#' @return A tibble with clean MTF data where key scales are aggregated
+aggregate_mtf <- function(data) {
+  data %>%
+    # Scales and TV questions are aggregated
+    mutate(
+      self_esteem = rowMeans(select_at(., vars(contains("se_"))), na.rm = TRUE),
+      depression = rowMeans(select_at(., vars(contains("d_b_"))), na.rm = TRUE),
+      loneliness = rowMeans(select_at(., vars(contains("l_mtf_"))), na.rm = TRUE),
+      tv = rowMeans(select_at(., vars(contains("tv_"))), na.rm = TRUE)
+    ) %>%
+    # Remove individual items
+    dplyr::select(-matches("[0-9]+"), -contains("tv_")) %>%
+    # Select variables and specify their order
+    dplyr::select(
+      year, sex, grade,
+      self_esteem, depression, loneliness,
+      social_media, tv
+    ) %>%
+    # Year & social_media are numeric
+    mutate_at(vars(year, social_media), ~ as.numeric(as.character(.))) %>%
+    # Take out rows where all predictors are missing
+    filter(!(is.na(social_media) & is.na(tv))) %>%
+    # Take out rows where all outcomes are missing
+    filter(!(is.na(self_esteem) & is.na(depression) & is.na(loneliness)))
 }
