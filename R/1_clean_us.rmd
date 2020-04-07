@@ -1,0 +1,774 @@
+---
+title: "1_dataclean"
+author: "Amy Orben"
+date: "23/01/2020"
+output: html_document
+---
+
+In this script I clean data for the Understanding Society dataset. It is set up to be similar (both in structure and naming convention) to the cleaning script I created for the MCS (Millennium Cohort Study) dataset. 
+
+```{r defaults, cache=FALSE, include=FALSE}
+knitr::opts_chunk$set(warning=F)
+set.seed(230120)
+options(width = 120, digits = 3)
+```
+
+```{r load packages, include=FALSE}
+# Load libraries
+packages <- c("corrplot", "foreign", "gridExtra", "knitr", 
+              "lavaan", "mice", "plyr", "tidyverse", "magrittr", "reshape2")
+invisible(lapply(packages, library, character.only = TRUE))
+rm(packages)
+```
+
+# Understanding Society
+The Understanding Society dataset is an annual longitudinal study of 40,000 UK households. The data collection takes place over a 24 month period, so the waves overlap. The study is run by the Institute for Social and Economic Research at the University of Essex; it began in 2009 and has been going ever since. It might be of interest to some that it is the successor to the British Household Panel Survey. 
+
+The dataset can be accessed via the UK Data Service after completing a usage agreement: beta.ukdataservice.ac.uk/datacatalogue/series/series?id=2000053
+
+We dont work with the whole dataset but with a special subsample of 10-15 year olds, which are a member of a household interviewed as part of Understanding Society. Adolescent members of the households are interviewed and re-interviewed every year till they graduate into the adult questionnaire. The data is available in SPSS, Stata and ASCII formats. We use SPSS for import and name each wave by the time when it was first collected. For example, wave 1 was developed in 2008, collected in 2009 and 2010 and processed in 2011 - we will call this wave the 2009 wave. 
+
+We also merge this adolescent data with data from young adults in the adult sample (16-21 year olds). This allows us to track adolescent development over a longer period of time. 
+
+This first markdown file implements the data importing, cleaning and wrangling necessary for the analyses to proceed. In total we load 9 waves of the data as released in February 2020. 
+
+### Load Adolescent Data, Simple Cleaning and Formatting Steps
+
+We first specify the number of waves we want to load. 
+```{r settings, include = F}
+waves <- 9
+```
+
+We then load the adolescent data from the folders downloaded from the UK data service. 
+```{r load-individual-datasets}
+# Load individual youth dataset from 'idata' folder which is placed (as when downloaded from the UK data service) in /data/raw/us_w/
+# This creates 8 datasets "idata_1, idata_2, ..., idata_8"
+for (i in 1:waves){
+assign(paste("idata", i, sep = "_"), 
+       read.spss(paste0(paste0("../a_us/raw/spss/spss24/ukhls_w", i, "/"), letters[i],"_youth.sav"), 
+                 use.value.labels = FALSE, to.data.frame = TRUE, use.missings = TRUE)
+       )
+}
+```
+
+We create a function that cleans this data: it defines NAs, it removes yp from the beginning of variable names to make them eaiser to naviage and it only selects those variables of interest to proceed to the further analyses. We then apply this function to all seven datasets and remove the original data. 
+```{r function-clean-data}
+####################################################################################################################################################
+# Function: clean_data
+# Inpout: an idata_x file
+# Method: this function cleans the data, it defines NAs (any negative numbers), it removes the yp from the beginning of variable names, and
+#         it also selects those variables of interest for further analyses.
+#         This is important because the datasets are very large and difficult to handle in full 
+# Output: smaller data file 
+####################################################################################################################################################
+
+clean_data <- function(dataset){
+  is.na(dataset[, ]) <- dataset[, ] < 0 #define NAs
+
+  dataset %<>% 
+    dplyr::select(-ends_with("_sex")) %>%
+    rename_all(~str_replace(., "yp", "")) %>% 
+    dplyr::select(
+      contains("pidp"), #participant ID
+      contains("hidp"), #househould identifer
+      ends_with("age_dv"), #participant age
+      contains("fnspid"),
+      contains("mnspid"),
+      ends_with("socweb"), 
+      ends_with("famsup"), 
+      ends_with("netcht"), 
+      ends_with("tvvidhrs"), 
+      ends_with("tvvidhrw"), 
+      ends_with("comp"), 
+      ends_with("pchw"),
+      ends_with("cintnt"),
+      ends_with("cpgs"),
+      ends_with("consol"),
+      ends_with("constm"),
+      ends_with("mulpgms"),
+      ends_with("mobu"),
+      ends_with("hsw"),
+      ends_with("hap"),
+      ends_with("hfm"),
+      ends_with("hfr"),
+      ends_with("hsc"),
+      ends_with("hlf"),
+      contains("est"),
+      contains("sdq"),
+      contains("npal"),
+      contains("eatlivu"),
+      contains("dklm"),
+      contains("regalco"),
+      contains("evralc"),
+      contains("evrsmo"),
+      contains("smofrq"),
+      ends_with("late"),
+      ends_with("acvwell"),
+      ends_with("truant"),
+      ends_with("npn_dv"),
+      -ends_with("_orig"),
+      -ends_with("sdqes_dv"),
+      -ends_with("sdqcp_dv"),
+      -ends_with("sdqha_dv"),
+      -ends_with("sdqpp_dv"),
+      -ends_with("sdqps_dv"),
+      -ends_with("sdqtd_dv")
+  )
+  return(dataset)
+}
+
+# apply function to all seven datasets
+data_1 <- clean_data(idata_1)
+data_2 <- clean_data(idata_2)
+data_3 <- clean_data(idata_3)
+data_4 <- clean_data(idata_4)
+data_5 <- clean_data(idata_5)
+data_6 <- clean_data(idata_6)
+data_7 <- clean_data(idata_7)
+data_8 <- clean_data(idata_8)
+data_9 <- clean_data(idata_9)
+
+# We will now remove idata files from the workspace as they are not needed anymore
+rm(list = c("idata_1", "idata_2", "idata_3", "idata_4", "idata_5", "idata_6", "idata_7", "idata_8", "idata_9"))
+```
+
+We  need to create the datasets we will then analyse. Because it is easier to data wrangle with a long format dataset, we convert the dataset into long format, meaning that there will be multiple rows for paarticipants. We will convert the data to wide format again later in the script. To make the long format data we first remove the year on year indicators in front of each variable, create a year variable indicating what year the responses were collected, and then merge the datasets.
+```{r make-long-dataset}
+# make long dataset
+names(data_1) <- str_replace(names(data_1), "a_", "") #remove year indicator
+data_1$year <- rep("2009", nrow(data_1)) #make index of year
+names(data_2) <- str_replace(names(data_2), "b_", "")
+data_2$year <- rep("2010", nrow(data_2))
+names(data_3) <- str_replace(names(data_3), "c_", "")
+data_3$year <- rep("2011", nrow(data_3))
+names(data_4) <- str_replace(names(data_4), "d_", "")
+data_4$year <- rep("2012", nrow(data_4))
+names(data_5) <- str_replace(names(data_5), "e_", "")
+data_5$year <- rep("2013", nrow(data_5))
+names(data_6) <- str_replace(names(data_6), "f_", "")
+data_6$year <- rep("2014", nrow(data_6))
+names(data_7) <- str_replace(names(data_7), "g_", "")
+data_7$year <- rep("2015", nrow(data_7))
+names(data_8) <- str_replace(names(data_8), "h_", "")
+data_8$year <- rep("2016", nrow(data_8))
+names(data_9) <- str_replace(names(data_9), "i_", "")
+data_9$year <- rep("2017", nrow(data_9))
+
+data_long <- dplyr::bind_rows(data_1, data_2, data_3, data_4, data_5, data_6, data_7, data_8, data_9)
+data_long$year <- as.factor(data_long$year)
+
+# remove single datasets
+rm(list = c("data_1", "data_2", "data_3", "data_4", "data_5", "data_6", "data_7", "data_8", "data_9"))
+```
+
+### Load over 16 and parent data 
+
+Our sample ages out of the youth dataset at age 16, but complete the adult questionnaire, which also includes a certain number of questions only asked of 'young adults' between the ages of 16 and 21. We therefore merge those that completed well-being and social media questionnaires as adults, which they only do if they are between ages 16 and 21. We then clean that data too. 
+```{r make function to clean young adult data}
+clean_youngadult_data <- function(dataset){
+  is.na(dataset[, ]) <- dataset[, ] < 0 #define NAs
+  
+dataset %<>% 
+  dplyr::select(
+    contains("pidp"),
+    contains("hidp"),
+    contains("fnspid"),
+    contains("mnspid"),
+    contains("scghq"),
+    contains("sclfsat"), # 1= health, 2 = income, 7 = amount of leisure time, o = life
+    contains("scsf"), # not available in wave 1; 1 = general health, 2a = health limits moderate activities, 2b = health limits several flights of stairs, 3a = last 4 weeks, physical health limits amount of work, 3b = last 4 weeks, physical health limits kind of work, 4a = last 4 weeks, mental health means accomplished less, 4b = last 4 weeks, mental health meant worked less carefully, 5 = last 4 weeks, pain infered with work, 6a = last 4 weeks, felt calm and peaceful, 6b = last 4 weeks, had a lot of energy, 6c = last 4 weeks, felt downhearted and depressed, 7 = last 4 weeks, physical or mental health interfered with social life
+    ends_with("netcht"), #only wave 3,6,9 for adults, but waves 3-9 for 16 to 21 year olds
+    ends_with("socweb"), #only wave 3,6,9 for adults, but waves 3-9 for 16 to 21 year olds
+    ends_with("sclackcom"), #Only wave 9
+    ends_with("scleftout"), #Only wave 9
+    ends_with("scisolate"), #Only wave 9
+    ends_with("sclonely"), #Only wave 9
+    ends_with("sf12pcs_dv"),
+    ends_with("sf12mcs_dv"),
+    ends_with("scghq1_dv"),
+    ends_with("age_dv")
+    )
+}
+```
+
+The young adult data used above is stored in the same data file as all the other parent data. As loading such large datasets takes a long time we also extract the variables we want from parents (i.e. our control variables) during this same stage. Below we have therefore written the cleaning script for the parent data. 
+```{r cleaning-function-mother}
+####################################################################################################################################################
+# Function: clean_data (second version, now for the mother)
+# Input: an mdata_x file
+# Method: this function cleans the  mothersdata, it defines NAs (any negative numbers) and
+#         it also selects those variables of interest for further analyses.
+#         This is important because the datasets are very large and difficult to handle in full 
+# Output: smaller data file 
+####################################################################################################################################################
+
+clean_data <- function(dataset){
+  is.na(dataset[, ]) <- dataset[, ] < 0 #define NAs
+  
+dataset %<>% 
+  dplyr::select(
+    contains("pidp"),
+    contains("hidp"),
+    ends_with("qfhigh_dv"),
+    ends_with("socialkid"),
+    ends_with("jbnssec8_dv"),
+    ends_with("sf12pcs_dv"),
+    ends_with("sf12mcs_dv")
+    )
+}
+```
+
+Now we load each adult dataset (in pairs of two because they bust the computer's memory). We then extract both the young adult and parent data, lastly removing the large original data files as well. 
+
+In waves 3, 6 and 9 the social media use questions were filled out by all adults, not just the young adults (in waves 1 and 2 they were not filled out at all). For those waves where all adults filled in the questionnaire they were named differently (e.g. "c_netcht" instead of "c_ypnetcht"). To make sure there is no variable duplication we therefore renamed those variables so that they are the same for all waves. Note: The young adult and adult social media questions are identical, except that adults can get prompted with an additional phrase if they dont know what social media is: "This might include for business or professional reasons, dating, or just chatting or interacting with friends"."
+```{r import-mother-data}
+# load first two datasets, not all of them as that would bust R memory
+for (i in 1:2){
+assign(paste("mdata", i, sep = "_"), 
+       read.spss(paste0(paste0("../a_us/raw/spss/spss24/ukhls_w", i, "/"), letters[i],"_indresp.sav"),
+                 use.value.labels = FALSE,
+                 to.data.frame = TRUE,
+                 use.missings = TRUE))
+}
+
+# apply function to first two datasets
+data_1 <- clean_data(mdata_1)
+ya_data_1 <- clean_youngadult_data(mdata_1)
+rm(mdata_1)
+data_2 <- clean_data(mdata_2)
+ya_data_2 <- clean_youngadult_data(mdata_2)
+rm(mdata_2)
+
+# next two datasets
+for (i in 3:4){
+assign(paste("mdata", i, sep = "_"), 
+       read.spss(paste0(paste0("../a_us/raw/spss/spss24/ukhls_w", i, "/"), letters[i],"_indresp.sav"),
+                 use.value.labels = FALSE,
+                 to.data.frame = TRUE,
+                 use.missings = TRUE))
+}
+data_3 <- clean_data(mdata_3)
+ya_data_3 <- clean_youngadult_data(mdata_3)
+ya_data_3 %<>% rename(ypnetcht = "c_netcht") %>% rename(ypsocweb = "c_socweb")
+rm(mdata_3)
+data_4 <- clean_data(mdata_4)
+ya_data_4 <- clean_youngadult_data(mdata_4)
+rm(mdata_4)
+
+# another two datasets!
+for (i in 5:6){
+assign(paste("mdata", i, sep = "_"), 
+       read.spss(paste0(paste0("../a_us/raw/spss/spss24/ukhls_w", i, "/"), letters[i],"_indresp.sav"),
+                 use.value.labels = FALSE,
+                 to.data.frame = TRUE,
+                 use.missings = TRUE))
+}
+data_5 <- clean_data(mdata_5)
+ya_data_5 <- clean_youngadult_data(mdata_5)
+rm(mdata_5)
+data_6 <- clean_data(mdata_6)
+ya_data_6 <- clean_youngadult_data(mdata_6)
+ya_data_6 %<>% rename(ypnetcht = "f_netcht") %>% rename(ypsocweb = "f_socweb")
+rm(mdata_6)
+
+for (i in 7:8){
+assign(paste("mdata", i, sep = "_"), 
+       read.spss(paste0(paste0("../a_us/raw/spss/spss24/ukhls_w", i, "/"), letters[i],"_indresp.sav"),
+                 use.value.labels = FALSE,
+                 to.data.frame = TRUE,
+                 use.missings = TRUE))
+}
+data_7 <- clean_data(mdata_7)
+ya_data_7 <- clean_youngadult_data(mdata_7)
+rm(mdata_7)
+data_8 <- clean_data(mdata_8)
+ya_data_8 <- clean_youngadult_data(mdata_8)
+rm(mdata_8)
+
+for (i in 9:9){
+assign(paste("mdata", i, sep = "_"), 
+       read.spss(paste0(paste0("../a_us/raw/spss/spss24/ukhls_w", i, "/"), letters[i],"_indresp.sav"),
+                 use.value.labels = FALSE,
+                 to.data.frame = TRUE,
+                 use.missings = TRUE))
+}
+data_9 <- clean_data(mdata_9)
+ya_data_9 <- clean_youngadult_data(mdata_9)
+ya_data_9 %<>% rename(ypnetcht = "i_netcht") %>% rename(ypsocweb = "i_socweb")
+rm(mdata_9)
+```
+
+### Merge Yong Adult with adolescent data 
+
+To merge the YA adult with the adolescent data we first need to transfer it into long format. We do this in the same way as we did it for the adolescent data. 
+```{r make-long-dataset}
+# make long dataset
+names(ya_data_1) <- str_replace(names(ya_data_1), "a_", "") #remove year indicator
+ya_data_1$year <- rep("2009", nrow(ya_data_1)) #make index of year
+names(ya_data_2) <- str_replace(names(ya_data_2), "b_", "")
+ya_data_2$year <- rep("2010", nrow(ya_data_2))
+names(ya_data_3) <- str_replace(names(ya_data_3), "c_", "")
+ya_data_3$year <- rep("2011", nrow(ya_data_3))
+names(ya_data_4) <- str_replace(names(ya_data_4), "d_", "")
+ya_data_4$year <- rep("2012", nrow(ya_data_4))
+names(ya_data_5) <- str_replace(names(ya_data_5), "e_", "")
+ya_data_5$year <- rep("2013", nrow(ya_data_5))
+names(ya_data_6) <- str_replace(names(ya_data_6), "f_", "")
+ya_data_6$year <- rep("2014", nrow(ya_data_6))
+names(ya_data_7) <- str_replace(names(ya_data_7), "g_", "")
+ya_data_7$year <- rep("2015", nrow(ya_data_7))
+names(ya_data_8) <- str_replace(names(ya_data_8), "h_", "")
+ya_data_8$year <- rep("2016", nrow(ya_data_8))
+names(ya_data_9) <- str_replace(names(ya_data_9), "i_", "")
+ya_data_9$year <- rep("2017", nrow(ya_data_9))
+
+ya_data_long <- dplyr::bind_rows(ya_data_1, ya_data_2, ya_data_3, ya_data_4, ya_data_5, ya_data_6, ya_data_7, ya_data_8, ya_data_9)
+ya_data_long$year <- as.factor(ya_data_long$year)
+
+# remove single datasets
+rm(list = c("ya_data_1", "ya_data_2", "ya_data_3", "ya_data_4", "ya_data_5", "ya_data_6", "ya_data_7", "ya_data_8", "ya_data_9"))
+```
+
+Here we flip the young adult life satisfaction questions as they are in the opposite direction to those filled out by adolescents
+```{r flip YA lifesat}
+ya_data_long %<>% mutate_at(vars(contains("sclfsat")), function(x) 8 - x)
+```
+
+We merge the data, excluding any teenagers from the adolescent data that are under 10 or over 15, and excluding any young adults from the YA data that are under 16 or over 21
+```{r merge}
+data_long %<>% filter(age_dv > 9) %>% filter(age_dv < 16)
+ya_data_long %<>% filter(age_dv > 15) %>% filter(age_dv < 22)
+
+data_long_withya <- full_join(data_long, ya_data_long, by = c("pidp", "year", "age_dv", "hidp", "fnspid", "mnspid"))
+```
+
+### Load stable characteristics file 
+In Understanding Society that have a specific file "ukhls_wx/xwavedat.sav" which indicates stable characteristics of participants in the survey. We prefer to use this for sex and ethnicity because it is derived from multiple interviews and checked for consistency. This data is stored in a different file and is joined to the data below.
+```{r read stable data}
+data_stable <- read.spss("../a_us/raw/spss/spss24/ukhls_wx/xwavedat.sav", 
+                 use.value.labels = FALSE, to.data.frame = TRUE, use.missings = TRUE)
+is.na(data_stable[, ]) <- data_stable[, ] < 0 #define NAs to antying under 0
+data_stable <- data_stable %>% dplyr::select(pidp, sex_dv, ethn_dv)
+data_long_withya <- left_join(data_long_withya, data_stable, by = "pidp")
+```
+
+### Rename and finalise adolecent and YA data
+To finalse this step of cleaning the adolescent and YA we rename all the variables we cleaned to make them more understandable. We should note here that the names for self-esteem and the SDQ differ from those in the Millennium Cohort Study cleaning script (if provided as part of the project), this is because the questions differ between the two different studies. 
+
+We do not rename those variables that are already neatly named: sdqa-sdqy (24 items: Strengths and Difficulties Questionnaire), scghqa-scghql (12 items: subjective well-being GHQ scale), scsf1-scsf7 (multiple items for the SF-12 measuring mental and physical health)
+```{r ya rename}
+data_long_withya %<>% dplyr::rename(
+    age = age_dv,
+    sex = sex_dv,
+    ethnicity = ethn_dv,
+    socialmedia = socweb,
+    socialmedia_ya = ypsocweb,
+    socialmediaamount = netcht,
+    socialmediaamount_ya = ypnetcht,
+    familysupport = famsup, #odd waves
+    tvamount = tvvidhrs,
+    tvamount_weekend = tvvidhrw, #even waves
+    computer = comp, #odd waves
+    computer_hmwrk = pchw, #odd waves
+    computer_internet = cintnt, #odd waves
+    computer_games = cpgs, #odd waves
+    console = consol, #odd waves
+    consoleamount = constm, #odd waves
+    multiplayer_games = mulpgms, #even waves
+    own_mobilephone = mobu, #odd waves
+    satisfaction_schoolwork = hsw,
+    satisfaction_appearance = hap,
+    satisfaction_family = hfm,
+    satisfaction_friends = hfr,
+    satisfaction_school = hsc,
+    satisfaction_life = hlf,
+    familyeat = eatlivu,
+    truant = truant,
+    friends = npal,
+    alcohol = evralc,
+    alcoholamount = dklm,
+    alcoholregular = regalco, #odd waves
+    smoking = evrsmo,
+    smokingamount = smofrq,
+    stay_late = late,
+    importance_academic = acvwell,
+    selfesteem_a = esta,
+    selfesteem_b = esti,
+    selfesteem_c = estb,
+    selfesteem_d = estj,
+    selfesteem_e = estc,
+    selfesteem_f = estk,
+    selfesteem_g = este,
+    selfesteem_h = estf,
+    ghq_likert = scghq1_dv,
+    ghq_caseness = scghq2_dv,
+    satisfaction_health = sclfsat1,
+    satisfaction_income = sclfsat2,
+    satisfaction_leisure = sclfsat7,
+    satisfaction_life_ya = sclfsato,
+    sf12_physical_health = sf12pcs_dv,
+    sf12_mental_health = sf12mcs_dv,
+    sca_lonely_companionship = sclackcom,
+    sca_lonely_leftout = scleftout,
+    sca_lonely_isolated = scisolate,
+    sca_lonely_lonely = sclonely
+    )
+```
+
+### Clean household data 
+
+We load and clean household data to merge with our children and YA to provide control variables. First we create a cleaning function like for the questionnaires above.
+```{r cleaning-function-household}
+####################################################################################################################################################
+# Function: clean_data (third version, now for the household)
+# Inpout: an hdata_x file
+# Method: this function cleans the  household data, it defines NAs (any negative numbers) and
+#         it also selects those variables of interest for further analyses.
+#         This is important because the datasets are very large and difficult to handle in full 
+# Output: smaller hdata file 
+########################################################################################################################################
+clean_data <- function(dataset){
+  is.na(dataset[, ]) <- dataset[, ] < 0 #define NAs
+  
+dataset %<>% 
+  dplyr::select(
+    contains("pidp"),
+    contains("hidp"),
+    ends_with("fihhmnnet1_dv"),
+    ends_with("nkids_dv"))
+}
+```
+
+I then apply this function to all waves of the data, loading the data in the process.
+```{r clean-household-level-datasets}
+# we now also load and clean the household level datasets
+for (i in 1:waves){
+assign(paste("hdata", i, sep = "_"), 
+       read.spss(paste0(paste0("../a_us/raw/spss/spss24/ukhls_w", i, "/"), letters[i],"_hhresp.sav"),
+                 use.value.labels = FALSE,
+                 to.data.frame = TRUE,
+                 use.missings = TRUE))
+}
+
+hdata_1 <- clean_data(hdata_1)
+hdata_2 <- clean_data(hdata_2)
+hdata_3 <- clean_data(hdata_3)
+hdata_4 <- clean_data(hdata_4)
+hdata_5 <- clean_data(hdata_5)
+hdata_6 <- clean_data(hdata_6)
+hdata_7 <- clean_data(hdata_7)
+hdata_8 <- clean_data(hdata_8)
+
+rm(clean_data)
+```
+
+I then put the data into long format. 
+```{r make-long-dataset-mother}
+names(hdata_1) <- str_replace(names(hdata_1), "a_", "") #remove year indicator
+hdata_1$year <- rep("2009", nrow(hdata_1)) #make index of years
+names(hdata_2) <- str_replace(names(hdata_2), "b_", "")
+hdata_2$year <- rep("2010", nrow(hdata_2))
+names(hdata_3) <- str_replace(names(hdata_3), "c_", "")
+hdata_3$year <- rep("2011", nrow(hdata_3))
+names(hdata_4) <- str_replace(names(hdata_4), "d_", "")
+hdata_4$year <- rep("2012", nrow(hdata_4))
+names(hdata_5) <- str_replace(names(hdata_5), "e_", "")
+hdata_5$year <- rep("2013", nrow(hdata_5))
+names(hdata_6) <- str_replace(names(hdata_6), "f_", "")
+hdata_6$year <- rep("2014", nrow(hdata_6))
+names(hdata_7) <- str_replace(names(hdata_7), "g_", "")
+hdata_7$year <- rep("2015", nrow(hdata_7))
+names(hdata_8) <- str_replace(names(hdata_8), "h_", "")
+hdata_8$year <- rep("2016", nrow(hdata_8))
+names(hdata_9) <- str_replace(names(hdata_9), "i_", "")
+hdata_9$year <- rep("2017", nrow(hdata_9))
+
+data_long_household <- dplyr::bind_rows(hdata_1, hdata_2, hdata_3, hdata_4, hdata_5, hdata_6, hdata_7, hdata_8)
+data_long_household$year <- as.factor(data_long_household$year)
+rm(hdata_1, hdata_2, hdata_3, hdata_4, hdata_5, hdata_6, hdata_7, hdata_8)
+```
+
+We join the adolescent/YA datasets and household level datasets together via the household identifier "hidp"
+```{r control-datasets-3}
+data_long_withya <- left_join(data_long_withya, data_long_household, by = c("hidp", "year"))
+```
+
+### Join IMD data
+We merged restricted data to produce a csv file with each hidp with the imd score of the place the child is living. We will merge this here 
+
+```{r merge imd}
+data_imd <- read.csv(file = "../a_us/cleaned/us_imd.csv")
+data_imd$year <- as.factor(data_imd$year)
+data_long_withya <- left_join(data_long_withya, data_imd, by = c("hidp", "year"))
+```
+
+### Clean parent data 
+
+In both the youth and young adult data there are variables that denote the parents. fnspid/mnspid "Cross-wave person identifier (PIDP) of natural/adoptive/step father/mother. Based on edited information collected in the household grid. If there is more than one person who meets the criteria, the default is to select the person with the lowest PNO in the household." We can therefore match the mothers and fathers data with both teens and YA to provide further control variables.
+
+We first make the parent dataset into a long format.
+```{r make-long-dataset}
+names(data_1) <- str_replace(names(data_1), "a_", "") #remove year indicator
+names(data_1) <- str_replace(names(data_1), "sf6", "scsf6")
+data_1$year <- rep("2009", nrow(data_1)) #make index of years
+names(data_2) <- str_replace(names(data_2), "b_", "")
+data_2$year <- rep("2010", nrow(data_2))
+names(data_3) <- str_replace(names(data_3), "c_", "")
+data_3$year <- rep("2011", nrow(data_3))
+names(data_4) <- str_replace(names(data_4), "d_", "")
+data_4$year <- rep("2012", nrow(data_4))
+names(data_5) <- str_replace(names(data_5), "e_", "")
+data_5$year <- rep("2013", nrow(data_5))
+names(data_6) <- str_replace(names(data_6), "f_", "")
+data_6$year <- rep("2014", nrow(data_6))
+names(data_7) <- str_replace(names(data_7), "g_", "")
+data_7$year <- rep("2015", nrow(data_7))
+names(data_8) <- str_replace(names(data_8), "h_", "")
+data_8$year <- rep("2016", nrow(data_8))
+names(data_9) <- str_replace(names(data_9), "i_", "")
+data_9$year <- rep("2017", nrow(data_9))
+
+data_long_parent <- dplyr::bind_rows(data_1, data_2, data_3, data_4, data_5, data_6, data_7, data_8)
+data_long_parent$year <- as.factor(data_long_parent$year)
+rm(data_1, data_2, data_3, data_4, data_5, data_6, data_7, data_8)
+```
+
+We need to rename the identifiers so that they dont get wrongly combined with the youth identifiers when we merge the two datasets
+```{r rename-data}
+names(data_long_parent)[names(data_long_parent) == "pidp"] <- 'pnpid'
+data_long_parent <- data_long_parent %>% dplyr::select(-nqfhigh_dv) #delete two variables we do not need
+```
+
+We now merge the parents data with the children/YA data. This needs to be done in two steps. Firstly we merge the mother id in the child/YA data to get the mothers, we then rename the variables merged and do the same for the father. 
+
+We first merge the mother data and change the variable names to mother.
+```{r controls-data}
+# combine the datasets matching the participant ids and the year
+data_long <- left_join(data_long_withya, data_long_parent, by = c("mnspid" = "pnpid", "year" = "year", "hidp" = "hidp"))
+
+data_long %<>% dplyr::rename(
+    m_qfhigh_dv = qfhigh_dv,
+    m_socialkid = socialkid,
+    m_jbnssec8_dv = jbnssec8_dv,
+    m_sf12pcs_dv = sf12pcs_dv,
+    m_sf12mcs_dv = sf12mcs_dv)
+```
+
+We now do the same for fathers. 
+```{r controls-data-father}
+# combine the datasets matching the participant ids and the year
+data_long <- left_join(data_long, data_long_parent, by = c("fnspid" = "pnpid", "year" = "year", "hidp" = "hidp"))
+
+data_long %<>% dplyr::rename(
+    f_qfhigh_dv = qfhigh_dv,
+    f_socialkid = socialkid,
+    f_jbnssec8_dv = jbnssec8_dv,
+    f_sf12pcs_dv = sf12pcs_dv,
+    f_sf12mcs_dv = sf12mcs_dv)
+```
+
+Lastly we clean up the overlap between the young adult questions and the adolescent questions which are currently stored in different variables. 
+```{r clean up YA and adolescent}
+data_long$satisfaction_life <- ifelse(data_long$age < 16, data_long$satisfaction_life, ifelse(data_long$age > 15, data_long$satisfaction_life_ya, NA)) 
+data_long$socialmedia <- ifelse(data_long$age < 16, data_long$socialmedia, ifelse(data_long$age > 15, data_long$socialmedia_ya, NA))
+data_long$socialmediaamount <- ifelse(data_long$age < 16, data_long$socialmediaamount, ifelse(data_long$age > 15, data_long$socialmediaamount_ya, NA))
+
+data_long <- data_long %>% dplyr::select(-satisfaction_life_ya, -socialmedia_ya, -socialmediaamount_ya)
+```
+
+### Recoding of variables
+
+Now that we have the whole dataset merged and cleaned, and in a handy long format, we can start looking at our variables of interest, we need to inspect, clean and recode some of them. 
+
+First we rename the rest pf the parental and household variables to make it clearer what they are measuring
+```{r rename}
+data_long %<>% dplyr::rename(
+    m_qualification = m_qfhigh_dv, 
+    m_physical_health = m_sf12pcs_dv,
+    m_mental_health = m_sf12mcs_dv,
+    m_socialkid = m_socialkid, #odd waves
+    m_employment_quality = m_jbnssec8_dv,
+    f_qualification = f_qfhigh_dv, 
+    f_physical_health = f_sf12pcs_dv,
+    f_mental_health = f_sf12mcs_dv,
+    f_socialkid = f_socialkid, #odd waves
+    f_employment_quality = f_jbnssec8_dv,
+    h_income = fihhmnnet1_dv,
+    h_sib_number = nkids_dv,
+    h_live_parent = npn_dv
+    ) %>%
+  dplyr::select(-mnspid, 
+         -fnspid,
+         -hidp)
+```
+
+To be able to inspect variables I make a function that looks at the histogram split by a certain variables
+```{r inspect function}
+inspect_hist <- function(inspect_var, split_var){
+  data_long %>% 
+  dplyr::select(inspect_var, split_var) %>%
+  gather(var, value, -c(split_var)) %>%
+  ggplot(aes(x = value)) +
+  geom_bar() +
+  facet_grid(get(split_var) ~ var, scales = 'free') +
+  theme_classic()
+}
+```
+
+We first clean and recode the **social media use** variable. This variable is complicated as there was a mistake on the side of Understanding Society, who were inconsistent in how they directed children and adults through the study in different years. Sometimes those who said they dont use social media on "netcht" were automatically coded as none on "socweb" and sometimes this wasnt the case. There is no easy solution for this, so we went with a recoding solution detailed below. If a participant said they do not own a social media account or they dont use social media to interact with friends we coded them as 1, for the rest of the participants we took their netcht score. This creates the following scale, which is ordinal in nature: 1 = None, 2 = Less than an hour, 3 = 1-3 hours, 4 = 4-6 hours, 5 = 7 or more hours
+```{r make netchtpool}
+is.na(data_long[, c("socialmediaamount", "socialmedia")]) <- data_long[, c("socialmediaamount", "socialmedia")] == 9 #set 9 to NA to revert coding error
+data_long$socialmedia <- ifelse((data_long$socialmedia == 2 | data_long$socialmediaamount == 1), 1,
+                               ifelse(data_long$socialmediaamount == 2, 2, 
+                                       ifelse(data_long$socialmediaamount == 3, 3,
+                                              ifelse(data_long$socialmediaamount == 4, 4,
+                                                     ifelse(data_long$socialmediaamount == 5, 5, NA)))))
+data_long %<>% dplyr::select(-socialmediaamount)
+
+inspect_hist("socialmedia", "age")
+inspect_hist("socialmedia", "year")
+```
+
+**Life satisfaction** has some issues with its coding in the data as well. The 7 item scale has a couple of partiicpants who scored 9. As the score for missing data is -9, we assume that these participants were wrongly coded and therefore code them as missing data. We also need to reverse code all of the variables so that high scores show high satisfaciton.
+```{r correlations lfsat}
+is.na(data_long[, c("satisfaction_schoolwork", "satisfaction_appearance", "satisfaction_family", "satisfaction_friends", "satisfaction_school", "satisfaction_life", "satisfaction_health", "satisfaction_leisure", "satisfaction_income")]) <- data_long[, c("satisfaction_schoolwork", "satisfaction_appearance", "satisfaction_family", "satisfaction_friends", "satisfaction_school", "satisfaction_life", "satisfaction_health", "satisfaction_leisure", "satisfaction_income")] == 9
+
+data_long %<>% mutate_at(vars(contains("satisfaction_")), function(x) 8 - x)
+
+inspect_hist("satisfaction_life", "age")
+inspect_hist("satisfaction_life", "year")
+```
+
+**SDQ**
+```{r correlations sdq}
+data_long %<>% mutate_at(c("sdql", "sdqv", "sdqr", "sdqb", 
+                                "sdqe", "sdqo", "sdqj",
+                                "sdqf", "sdqm", "sdqs", "sdqc",
+                                "sdqp", "sdqw", "sdqx", "sdqh"), function(x) 4 - x)
+
+inspect_hist("sdqa", "age")
+inspect_hist("sdqa", "year")
+```
+
+**Selfesteem**
+```{r correlations self esteem, eval = TRUE, include = TRUE}
+data_long %<>% mutate_at(c("selfesteem_a", "selfesteem_d", "selfesteem_e", "selfesteem_f"), function(x) 5 - x)
+
+inspect_hist("selfesteem_a", "age")
+inspect_hist("selfesteem_a", "year")
+```
+
+I also clean the variables for young adults: loneliness (we swap it so that higher scores means more less loneliness, i.e. better outcomes)
+```{r loneliness}
+inspect_hist("sca_lonely_lonely", "age")
+inspect_hist("sca_lonely_lonely", "year")
+
+data_long %<>% mutate_at(vars(contains("sca_lonely")), function(x) 4 - x)
+```
+
+For the general health questionnaire we swap the sides so that higher scores means better outcomes. We do not need to flip the s12 MCS or PCS as there higher scores means higher functioning
+```{r ghq}
+inspect_hist("scghqb", "age")
+inspect_hist("scghqb", "year")
+
+data_long %<>% mutate_at(vars(contains("scghq")), function(x) 5 - x)
+```
+
+For **sex** we recode the variable so that 1 = male, 0 = female and we make NA the 13 data points who had inconsistent responses about their gender. 
+```{r recode gender}
+data_long %<>% 
+  mutate(sex = ifelse(data_long$sex == 0, NA, ifelse(data_long$sex == 2, "female", "male"))) %>%
+  mutate(sex = factor(sex))
+
+inspect_hist("sex", "age")
+inspect_hist("sex", "year")
+```
+
+For **ethnicity** we recode the variable as 1 for non-white and 0 as white. We class as white "british/english/scottish/welsh/northern irish", "irish", "any other white background", we do not count those of mixed white heritage.  
+```{r recode ethnicity}
+data_long %<>% 
+  mutate(ethnicity = as.numeric(ethnicity)) %>%
+  mutate(ethnicity = as.factor(ifelse(data_long$ethnicity < 5, "white", "non-white")))
+
+inspect_hist("ethnicity", "age")
+inspect_hist("ethnicity", "year")
+```
+
+For **smoking** we code those 1 who said they never smoked on the "smoking" question. We then used the "smokingamount" to complete the rest (2 = "I have smoked only once or twice", 3 = "I used to smoke but I dont know", 4 = "I sometimes smoke, but not every week", 5 = "I usually smoke between one and six cigarettes a week", 6 = "I usually smoke more than six cigarettes a week").   
+```{r smoking recode}
+data_long %<>% 
+  mutate(smoking = ifelse(data_long$smoking == 2, 0, data_long$smokingamount) + 1) %>%
+  dplyr::select(-smokingamount)
+```
+
+For **alcohol** we first reverse code dklm so that higher scores mean more alcohol consumption. Similar to smoking we then code all those who said they did not drink alcohol on "evralc" as 1 and if not they got their dklm score (5 = "Most days", 4 = "Once or twice a week", 3 = "2 or 3 times", 2 = "Once only", 1 = "Never")  
+```{r recode alcohol}
+data_long %<>% 
+  mutate(alcoholamount = ifelse(data_long$alcoholamount == 1, 5, 
+                          ifelse(data_long$alcoholamount == 2, 4, 
+                                 ifelse(data_long$alcoholamount == 3, 3, 
+                                        ifelse(data_long$alcoholamount == 4, 2, 
+                                               ifelse(data_long$alcoholamount == 5, 1, 
+                                                      ifelse(data_long$alcoholamount == 6, 1, NA))))))) %>%
+  mutate(alcohol = ifelse(data_long$alcohol == 2, 1, .$alcoholamount)) %>%
+  dplyr::select(-alcoholamount)
+```
+
+For income levels we take the log of total household income (but we first transform participants who had 0 income to having 0.1 income), to normalise the variables:
+```{r recode income}
+data_long$h_income[which(data_long$h_income==0)] = 0.1
+data_long %<>%
+  mutate(h_income_log = log(h_income))
+```
+
+Take log of friends 
+```{r logs friends}
+data_long$friends[which(data_long$friends==0)] = 0.1
+data_long %<>%
+  mutate(friends_log = log(friends))
+```
+
+Reverse academic importance
+```{r academic well}
+data_long$importance_academic <- 5-data_long$importance_academic
+```
+
+Educational qualification of parents is recoded. The measure is sadly not the same structure as the academic qualification in the MCS, and we need to recode it in some way. We threfore code as "5" = 1-6 ("higher degree"/"1st degree or equivalent"/"diploma in HE"/"teaching qualification not PGCE"/"Nursing or other medical qualification"/"Other higher degree"), "4" = 7-12 (A level, Welsh Baccalaureate, International Baccalaureate, AS Level, Highers (scotland), Cert 6th Year Studies), "3" = 13-14 (GCSE/O levels, CSE), "2" = 15-16 (Standard/o/lower, Other school certificate), "1" = 96 (those who stated they had "none of the above")
+```{r paternal educational qualifications}
+data_long$m_qualification <- as.ordered(ifelse(data_long$m_qualification < 7, 5, 
+                                    ifelse(data_long$m_qualification < 13 & data_long$m_qualification > 6, 4, 
+                                           ifelse(data_long$m_qualification == 13 | data_long$m_qualification == 14, 3, 
+                                                  ifelse(data_long$m_qualification == 15 | data_long$m_qualification == 16, 2, 
+                                                         ifelse(data_long$m_qualification == 96, 1, NA)))
+)))
+data_long$f_qualification <- as.ordered(ifelse(data_long$f_qualification < 7, 5, 
+                                    ifelse(data_long$f_qualification < 13 & data_long$f_qualification > 6, 4, 
+                                           ifelse(data_long$f_qualification == 13 | data_long$f_qualification == 14, 3, 
+                                                  ifelse(data_long$f_qualification == 15 | data_long$f_qualification == 16, 2, 
+                                                         ifelse(data_long$f_qualification == 96, 1, NA)))
+)))
+```
+
+Furthermore we recode employment quality of parents. 
+```{r employment quality}
+data_long$f_employment_quality <- as.ordered(data_long$f_qualification)
+data_long$m_employment_quality <- as.ordered(data_long$m_qualification)
+```
+
+Natural parent
+We recode so that there is a score of 1 if both natural parents live with child, and a score of 0 if one or none of the natural parents live with the child. 
+```{r natural parents in household}
+data_long$h_live_parent <- as.factor(ifelse(data_long$h_live_parent == 2, "both parents", "single or no parents"))
+```
+
+Sibling number, we take the children number and subtract one to get the number of siblings for the teenager
+```{r sibling numb}
+data_long$h_sib_number <- ifelse(data_long$h_sib_number == 0, NA, (data_long$h_sib_number - 1))
+```
+
+We don't need to recode **tv use, familyeat, late, m_mental_health, m_physical_health**. 
+
+Save that data
+```{r save data}
+write_csv(data_long, path = "../a_us/cleaned/us_cleaned.csv")
+```
