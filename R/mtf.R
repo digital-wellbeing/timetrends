@@ -163,9 +163,5 @@ aggregate_mtf <- function(data) {
       social_media, tv
     ) %>%
     # Year & social_media are numeric
-    mutate_at(vars(year, social_media), ~ as.numeric(as.character(.))) %>%
-    # Take out rows where all predictors are missing
-    filter(!(is.na(social_media) & is.na(tv))) %>%
-    # Take out rows where all outcomes are missing
-    filter(!(is.na(self_esteem) & is.na(depression) & is.na(loneliness)))
+    mutate_at(vars(year, social_media), ~ as.numeric(as.character(.)))
 }
