@@ -58,13 +58,10 @@ read_mtf <- function(path = "data-raw/mtf/") {
     # Cleaning the vectors
     indices <- vector("numeric")
     names <- vector("character")
-    # Console output to track the progess
-    cat("\r", paste0("Data from file ", i, " of ", length(MTFfiles), " extracted (", format(round(i / length(MTFfiles) * 100, 2), nsmall = 2), "%)."))
-    flush.console()
   }
 
   # Merging the data in the main dataframe
-  MTF <- plyr::rbind.fill(intermediate)
+  MTF <- bind_rows(intermediate)
 
   # After merging the files, there are some leftover things we still have to do
   #   * Variables with the labels 'SAT LIFE AS WHL' and 'CMP SATFD' are actually the same variable and they should be merged;
