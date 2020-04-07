@@ -37,7 +37,7 @@ read_mtf <- function(path = "data-raw/mtf/") {
     # Importing the file and adding it to the intermediate list
     intermediate[[i]] <- read_dta(MTFfiles[i])
     # Checking if the Grade variable is present in the file; if not, it's 12th grade
-    if (any(grepl("WHAT GRADE LEVEL", unlist(var_label(intermediate[[i]])))) == F) {
+    if (any(grepl("WHAT GRADE LEVL", unlist(var_label(intermediate[[i]])))) == F) {
       intermediate[[i]][, (ncol(intermediate[[i]]) + 1)] <- 12
       var_label(intermediate[[i]][ncol(intermediate[[i]])]) <- "WHAT GRADE LEVL"
     }
