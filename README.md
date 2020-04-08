@@ -28,11 +28,4 @@ The dependencies between files, functions, and scripts are managed by [drake](ht
 
 ### Parallel processing
 
-By default we use the [future](https://cran.r-project.org/web/packages/future/index.html) package for parallel processing on a local computer. If you have the faster [zeroMQ](https://zeromq.org/download/) system library installed, you can use it instead by switching to these settings in `make.R`:
-
-```
-# future::plan("multiprocess")
-# parallelism <- "future"
-options(clustermq.scheduler = "multicore")
-parallelism <- "clustermq"
-```
+By default we use the [future](https://cran.r-project.org/web/packages/future/index.html) package for parallel processing on a local computer. If you have the faster [zeroMQ](https://zeromq.org/download/) system library installed, you can use it instead by changing the settings in `make.R`.
