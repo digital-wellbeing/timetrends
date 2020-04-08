@@ -1,0 +1,13 @@
+# Unnecessary and intermediate R files
+.Rhistory
+.RData
+.Rproj.user
+**/*.Rout
+*_files/
+*_cache/
+.drake/
+# System files and logs
+**/.DS_Store
+**/*.log
+# Raw data must be individually downloaded to data-raw/
+data-raw/

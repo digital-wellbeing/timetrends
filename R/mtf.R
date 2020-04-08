@@ -140,6 +140,7 @@ read_mtf <- function(path = "data-raw/mtf/") {
   # This function returns the cleaned dataset as a tibble
   return(MTF)
 }
+
 #' Aggregate MTF scales
 #'
 #' @param data Cleaned MTF data from read_mtf()
