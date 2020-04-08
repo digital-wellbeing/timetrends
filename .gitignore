@@ -11,3 +11,5 @@
 **/*.log
 # Raw data must be individually downloaded to data-raw/
 data-raw/
+# Outputs
+output/
