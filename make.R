@@ -13,6 +13,7 @@ plan <- drake_plan(
   mtf_aggregated = aggregate_mtf(mtf),
   # Prep US data
   us = read_us(file_in("data-raw/us/")),
+  us_aggregated = aggregate_us(us),
   # Prep YRBS data
   yrbs = read_yrbs(file_in("data-raw/yrbs/sadc_2017_national.sav")),
   # Main results output

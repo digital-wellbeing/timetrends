@@ -467,3 +467,31 @@ read_household_data <- function(filename){
   names(dataset) <- str_remove(names(dataset), "[a-z]_")
   return(dataset)
 }
+
+#' Aggregate US scales
+#'
+#' @param data Cleaned US data from read_us()
+#'
+#' @return A tibble with clean US data where key scales are aggregated
+aggregate_us <- function(data) {
+  data %>%
+    mutate(
+      satisfaction = rowMeans(select_at(., vars(contains("satisfaction_"))), na.rm = TRUE),
+      sdq = rowMeans(select_at(., vars(contains("sdq"))), na.rm = TRUE),
+      selfesteem = rowMeans(select_at(., vars(contains("selfesteem_"))), na.rm = TRUE),
+      scghq = rowMeans(select_at(., vars(contains("scghq"))), na.rm = TRUE),
+      scsf = rowMeans(select_at(., vars(contains("scsf"))), na.rm = TRUE),
+      sca = rowMeans(select_at(., vars(contains("sca_"))), na.rm = TRUE),
+      tv = rowMeans(select_at(., vars(contains("tvamount"))), na.rm = TRUE)
+    ) %>%
+    # Remove individual items
+    dplyr::select(
+      -contains("satisfaction_"),
+      -matches("sdq[a-z]"),
+      -contains("selfesteem_"),
+      -matches("scghq[a-z]"),
+      -matches("scsf[0-9]"),
+      -contains("sca_"),
+      -contains("tvamount")
+      )
+}
