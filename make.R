@@ -3,6 +3,7 @@
 # Load packages and source functions
 source("R/packages.R")
 source("R/mtf.R")
+source("R/us.R")
 source("R/yrbs.R")
 
 # drake plan specifies the analysis workflow
@@ -10,6 +11,8 @@ plan <- drake_plan(
   # Prepare MTF data
   mtf = read_mtf(file_in("data-raw/mtf/")),
   mtf_aggregated = aggregate_mtf(mtf),
+  # Prep US data
+  us = read_us(file_in("data-raw/us/")),
   # Prep YRBS data
   yrbs = read_yrbs(file_in("data-raw/yrbs/sadc_2017_national.sav")),
   # Main results output
