@@ -52,6 +52,18 @@ read_yrbs <- function(path = "data-raw/yrbs/sadc_2017_national.sav") {
   # Drop cases where grade, age, or sex are unknown
   data <- drop_na(data, grade, age, sex)
 
+  # Give meaningful names
+  data <- rename(
+    data,
+    tv = q80,
+    device = q81,
+    sad_hopeless = q25,
+    suicide_1 = q26,
+    suicide_2 = q27,
+    suicide_3 = q28,
+    suicide_4 = q29
+  )
+
   # This function returns the cleaned dataset
   return(data)
 }

@@ -481,17 +481,15 @@ aggregate_us <- function(data) {
       selfesteem = rowMeans(select_at(., vars(contains("selfesteem_"))), na.rm = TRUE),
       scghq = rowMeans(select_at(., vars(contains("scghq"))), na.rm = TRUE),
       scsf = rowMeans(select_at(., vars(contains("scsf"))), na.rm = TRUE),
-      sca = rowMeans(select_at(., vars(contains("sca_"))), na.rm = TRUE),
-      tv = rowMeans(select_at(., vars(contains("tvamount"))), na.rm = TRUE)
+      sca = rowMeans(select_at(., vars(contains("sca_"))), na.rm = TRUE)
     ) %>%
-    # Remove individual items
     dplyr::select(
+      # Remove individual items
       -contains("satisfaction_"),
       -matches("sdq[a-z]"),
       -contains("selfesteem_"),
       -matches("scghq[a-z]"),
       -matches("scsf[0-9]"),
-      -contains("sca_"),
-      -contains("tvamount")
+      -contains("sca_")
       )
 }

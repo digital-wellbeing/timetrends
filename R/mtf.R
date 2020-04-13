@@ -114,16 +114,17 @@ read_mtf <- function(path = "data-raw/mtf/") {
   # * Categorical variables will be turned to factors;
   MTF$`YEAR OF` <- as.factor(MTF$`YEAR OF`)
   MTF$`S SEX` <- as.factor(MTF$`S SEX`)
-  MTF$`WHAT GRADE LEVL` <- as.factor(MTF$`WHAT GRADE LEVL`)
-
-  # * Some columns are not numeric for some reason and they should be, so we'll make sure that everything except the year, grade and sex is numeric;
-  MTF[, c(4:33)] <- as.numeric(as.matrix(MTF[, c(4:33)]))
+  MTF$`WHAT GRADE LEVL` <- factor(
+    MTF$`WHAT GRADE LEVL`,
+    levels = c(8, 10, 12),
+    labels = c("8th grade", "10th grade", "12th grade")
+  )
 
   # * We will sort the data by year of administration.
   MTF <- arrange(MTF, `YEAR OF`)
 
   # Rename variables
-  colnames(MTF) <- c("Year", "Sex", "Grade", "H", "S", "SE_R_1", "SE_R_7", "SE_R_4", "SE_R_5", "SE_R_2", "D_B_1", "D_B_2", "SE_R_10", "F", "TV/WEEKDAY", "L_MTF_1", "L_MTF_2", "L_MTF_3", "L_MTF_4", "L_MTF_5", "L_MTF_6", "D_B_3", "D_B_4", "D_B_5", "D_B_6", "TV/WEEKEND", "COMPUTER/SCHOOL", "COMPUTER/OTHER", "COMPUTER JOB", "INTERNET/WEEK", "GAMING/WEEK", "social_media", "SCREENTIME/WEEKDAY", "SCREENTIME/WEEKEND")
+  colnames(MTF) <- c("Year", "Sex", "age", "H", "S", "SE_R_1", "SE_R_7", "SE_R_4", "SE_R_5", "SE_R_2", "D_B_1", "D_B_2", "SE_R_10", "F", "TV/WEEKDAY", "L_MTF_1", "L_MTF_2", "L_MTF_3", "L_MTF_4", "L_MTF_5", "L_MTF_6", "D_B_3", "D_B_4", "D_B_5", "D_B_6", "TV/WEEKEND", "COMPUTER/SCHOOL", "COMPUTER/OTHER", "COMPUTER JOB", "INTERNET/WEEK", "GAMING/WEEK", "social_media", "SCREENTIME/WEEKDAY", "SCREENTIME/WEEKEND")
 
   # Let's also recode the items, so that all the responses indicate higher development of the construct - higher self-esteem, higher loneliness, more depressive symptoms. We'll also assign labels to those variables.
   MTF$SE_R_5 <- car::recode(MTF$SE_R_5, "1=5;2=4;4=2;5=1")
@@ -143,6 +144,8 @@ read_mtf <- function(path = "data-raw/mtf/") {
 
 #' Aggregate MTF scales
 #'
+#' Greater values indicate greater well-being!
+#'
 #' @param data Cleaned MTF data from read_mtf()
 #'
 #' @return A tibble with clean MTF data where key scales are aggregated
@@ -151,15 +154,15 @@ aggregate_mtf <- function(data) {
     # Scales and TV questions are aggregated
     mutate(
       self_esteem = rowMeans(select_at(., vars(contains("se_"))), na.rm = TRUE),
-      depression = rowMeans(select_at(., vars(contains("d_b_"))), na.rm = TRUE),
-      loneliness = rowMeans(select_at(., vars(contains("l_mtf_"))), na.rm = TRUE),
+      depression = 5 - rowMeans(select_at(., vars(contains("d_b_"))), na.rm = TRUE),
+      loneliness = 5 - rowMeans(select_at(., vars(contains("l_mtf_"))), na.rm = TRUE),
       tv = rowMeans(select_at(., vars(contains("tv_"))), na.rm = TRUE)
     ) %>%
     # Remove individual items
     dplyr::select(-matches("[0-9]+"), -contains("tv_")) %>%
     # Select variables and specify their order
     dplyr::select(
-      year, sex, grade,
+      year, sex, age,
       self_esteem, depression, loneliness,
       social_media, tv
     ) %>%

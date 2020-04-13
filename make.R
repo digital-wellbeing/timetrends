@@ -2,6 +2,7 @@
 
 # Load packages and source functions
 source("R/packages.R")
+source("R/functions.R")
 source("R/mtf.R")
 source("R/us.R")
 source("R/yrbs.R")
@@ -19,8 +20,8 @@ plan <- drake_plan(
   # Main results output
   results = target(
     rmarkdown::render(
-      input = knitr_in("results.Rmd"),
-      output_file = file_out("output/results.html"),
+      input = knitr_in("dashboard.Rmd"),
+      output_file = file_out("output/dashboard.html"),
       output_dir = "output"
     )
   )
@@ -33,6 +34,6 @@ future::plan("multiprocess")
 # Run analyses
 make(
   plan = plan,
-  parallelism = "future",  # or "future" or "clustermq"
-  jobs = 4
+  parallelism = "loop",  # or "future" or "clustermq"
+  jobs = 1
 )

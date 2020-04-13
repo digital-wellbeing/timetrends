@@ -6,6 +6,7 @@ packages <- c(
   "drake",
   "car",
   "rmarkdown",
+  "flexdashboard",
   "scales",
   "janitor",
   "broom",
