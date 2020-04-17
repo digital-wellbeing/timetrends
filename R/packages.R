@@ -4,9 +4,12 @@
 options(repos = "http://cran.rstudio.com/")
 packages <- c(
   "drake",
+  "clustermq",
   "car",
   "rmarkdown",
   "flexdashboard",
+  "ggstance",
+  "plotly",
   "scales",
   "janitor",
   "broom",

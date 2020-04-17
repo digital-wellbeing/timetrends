@@ -138,19 +138,8 @@ read_mtf <- function(path = "data-raw/mtf/") {
   # Standardize variable names
   MTF <- janitor::clean_names(MTF)
 
-  # This function returns the cleaned dataset as a tibble
-  return(MTF)
-}
-
-#' Aggregate MTF scales
-#'
-#' Greater values indicate greater well-being!
-#'
-#' @param data Cleaned MTF data from read_mtf()
-#'
-#' @return A tibble with clean MTF data where key scales are aggregated
-aggregate_mtf <- function(data) {
-  data %>%
+  # Aggregate, rename, recode
+  MTF <- MTF %>%
     # Scales and TV questions are aggregated
     mutate(
       self_esteem = rowMeans(select_at(., vars(contains("se_"))), na.rm = TRUE),
@@ -160,12 +149,18 @@ aggregate_mtf <- function(data) {
     ) %>%
     # Remove individual items
     dplyr::select(-matches("[0-9]+"), -contains("tv_")) %>%
-    # Select variables and specify their order
+    # Select variables and tag predictors and outcomes
     dplyr::select(
       year, sex, age,
-      self_esteem, depression, loneliness,
-      social_media, tv
+      y_self_esteem = self_esteem,
+      y_depression = depression,
+      y_loneliness = loneliness,
+      x_social_media = social_media,
+      x_tv = tv
     ) %>%
     # Year & social_media are numeric
-    mutate_at(vars(year, social_media), ~ as.numeric(as.character(.)))
+    mutate_at(vars(year, x_social_media), ~ as.numeric(as.character(.)))
+
+  # This function returns the cleaned dataset as a tibble
+  return(MTF)
 }

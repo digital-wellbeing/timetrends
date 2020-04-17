@@ -7,7 +7,7 @@ output:
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(
-  cache = TRUE,
+  cache = FALSE,
   echo = FALSE,
   message = FALSE,
   warning = FALSE,
@@ -18,264 +18,248 @@ knitr::opts_chunk$set(
 theme_set(
   theme_linedraw() +
     theme(
-      panel.grid.minor = element_blank()
+      panel.grid.minor = element_blank(),
+      strip.background = element_rect(fill = "#2780e3", colour = "#2780e3")
     )
 )
-set.seed(1)
-loadd(mtf_aggregated, us_aggregated, yrbs)
+```
+
+
+# Summary
+
+## Column
+
+### Summary
+
+#### Introduction
+
+We studied the relationship between digital technology use and well-being using three representative large datasets, Monitoring the Future (MTF), Youth Risk Behavior Surveillance System (YRBSS), and Understanding Society (US). Each dataset contained two digital technology use variables (Television viewing was measured in all surveys, MTF and US included a social media use question, and YRBSS a digital device use question), and a number of well-being items and scales. **We recoded all well-being items such that greater values indicate greater well-being (e.g. greater depression values indicate lower depression).**
+
+#### Methods and results
+
+First, for each of the datasets, we fitted an ordinary linear regression model, separately for each of the standardized well-being outcomes ($y$) and standardized technology use variables ($x$), which predicted the outcome from the technology use variable, and its interaction with year (`lm(y ~ x * year)`). The key coefficients were the simple effects of each $x$ on each outcome $y$, and the interaction terms $x \times year$ (linear change of effects over time).
+
+By and large, the simple relations were small and negative (the large points and 95%CI error bars in the figure on the right). Generally, the "effects" of social media and digital device use were more negative than those of TV viewing. There was also great variation in the effects across ages and sexes (small points).
+
+The results on the technology effects' change over time were more mixed. In the MTF dataset, the change was clearly positive; technology effects on wellbeing were becoming more positive over time. However, there was no clear pattern in the US and YRBSS datasets, and both negative and positive significant interactions were observed.
+
+The results for each dataset are presented in more detail in their own tabs in the dashboard ([MTF](#monitoring-the-future), [YRBS](#youth-risk-behavior-survey), and [US](#understanding-society)).
+
+#### What's next
+
+- If the interaction model is interesting, do SCA
+- Longitudinal / within-person analysis of Understanding Society dataset
+- Hierarchical model to better summarize models across years, sexes, and ages
+
+## Column {.tabset}
+
+### Technology effects
+
+```{r}
+loadd(fits1, fits2)
+# Get coefficients from fits
+coefs <- bind_rows(fits1, fits2) %>% 
+  ungroup() %>% 
+  mutate(outcome = str_remove(outcome, "y_"), predictor = str_remove(predictor, "x_")) %>% 
+  mutate(out = map(fit, ~tidy(., conf.int = TRUE, conf.type = "Wald"))) %>% 
+  mutate(N = map_dbl(fit, ~nrow(.$model))) %>% 
+  unnest(out)
+```
+
+```{r}
+xs <- filter(coefs, term == "x")
+# Plot effect of X on Y at year 2010
+p <- drop_na(xs, sex) %>% 
+  ggplot(aes(estimate, outcome, col = predictor)) +
+  geom_vline(xintercept = 0) +
+  geom_point(
+    alpha = .5,
+    shape = 1, position = position_jitterdodgev(jitter.height = .1, dodge.height = .6),
+    aes(text = glue("b = {round(estimate, 2)}, p = {round(p.value, 2)} ({sex} {age})"), group = predictor)
+  ) +
+  geom_point(
+    data = filter(xs, is.na(sex)),
+    aes(
+      text = glue("b = {round(estimate, 2)}, p = {round(p.value, 2)} (Average)"), 
+      group = predictor
+    ), 
+    position = position_dodgev(.6), size = 2
+  ) +
+  geom_errorbarh(
+    data = filter(xs, is.na(sex)),
+    aes(xmin = conf.low, xmax = conf.high), 
+    position = position_dodgev(.6), height = .15
+  ) +
+  facet_wrap(~study, ncol = 1, scales = "free_y") +
+  labs(
+    title = "Technology effects in 2010"
+  ) +
+  theme(axis.title = element_blank())
+fig <- ggplotly(p, tooltip = c("text")) 
+fig <- fig %>% 
+  layout(
+    xaxis = list(
+      title = "Standardized regression coefficient",
+      zeroline = TRUE,
+      showline = TRUE,
+      showgrid = FALSE
+    )
+  )
+fig
+```
+
+### Effects' change over time
+
+```{r}
+xs <- filter(coefs, term == "x:year")
+# Plot interaction terms
+p <- drop_na(xs, sex) %>% 
+  ggplot(aes(estimate, outcome, col = predictor)) +
+  geom_vline(xintercept = 0) +
+  geom_point(
+    alpha = .5,
+    shape = 1, position = position_jitterdodgev(jitter.height = .1, dodge.height = .6),
+    aes(text = glue("b = {round(estimate, 2)}, p = {round(p.value, 2)} ({sex} {age})"), group = predictor)
+  ) +
+  geom_point(
+    data = filter(xs, is.na(sex)),
+    aes(
+      text = glue("b = {round(estimate, 2)}, p = {round(p.value, 2)} (Average)"), 
+      group = predictor
+    ), 
+    position = position_dodgev(.6), size = 2
+  ) +
+  geom_errorbarh(
+    data = filter(xs, is.na(sex)),
+    aes(xmin = conf.low, xmax = conf.high), 
+    position = position_dodgev(.6), height = .15
+  ) +
+  facet_wrap(~study, ncol = 1, scales = "free_y") +
+  labs(
+    title = "Yearly changes in technology effects"
+  ) +
+  theme(axis.title = element_blank())
+fig <- ggplotly(p, tooltip = c("text")) 
+fig <- fig %>% 
+  layout(
+    xaxis = list(
+      title = "Standardized regression coefficient",
+      zeroline = TRUE,
+      showline = TRUE,
+      showgrid = FALSE
+    )
+  )
+fig
 ```
 
 # Monitoring the Future
 
 ## Column
 
-We look at the relationship between well-being (depression, loneliness, and self esteem) and technology use (social media and tv) longitudinally in the Monitoring the Future dataset. **Note that all variables are recoded such that greater values indicate greater well-being** (e.g. greater values of loneliness indicate greater well-being re loneliness).
-
 ### Temporal trends
 
-```{r}
-plot_data(
-  mtf_aggregated, 
-  variables = c(social_media, tv, self_esteem:loneliness)
-  )
+```{r mtf-data-plot, fig.height = 8}
+loadd(mtf)
+fig <- plot_data(mtf, variables = c(contains("y_"), contains("x_")))
+fig
 ```
 
 ## Column {.tabset}
 
-### Social media
-
-#### Model 1
-
-This model predicts standardized depression, loneliness, and self-esteem in separate models from standardized social media use separately for each year, sex, and grade. That is, we fit 
-
-$$
-y_i \sim N(\alpha + \beta \text{social media}_i, \sigma^2)
-$$ 
-
-(`lm(y ~ social_media)`) separately to to each combination of year, sex, grade, and outcome (y). We then plot the $\beta$ coefficients below.
-
-```{r}
-fits_1 <- make_fits_1(
-  mtf_aggregated, 
-  yvars = c(self_esteem:loneliness),
-  xvars = c(social_media, tv)
-)
-plot_fits_1(fits_1, "social_media")
-```
-
-- Social media looks consistently associated with worse outcomes for younger individuals and females. 
-- Overall, outcomes appear to be improving over time.
-
-#### Model 2
-
-This model predicts standardized well-being outcomes from standardized social media use, year and their interaction, separately for every combination of sex, age, and outcome. This time we assume that year is a linear predictor to get estimates of temporal trends in the social media - well-being relationship. That is, we fit 
-
-$$
-y_i \sim N(\alpha + \beta_1 \text{social media}_i + \beta_2 \text{year}_i + \beta_3 \text{social media}_i\times\text{year}_i, \sigma^2)
-$$ 
-
-(`lm(y ~ social_media * year)`) separately to each of the three outcomes and combinations of sex and grade.
-
-```{r}
-fits_2 <- make_fits_2(
-  mtf_aggregated, 
-  yvars = c(self_esteem:loneliness),
-  xvars = c(social_media, tv)
-)
-plot_fits_2(fits_2, "social_media")
-```
-
-For all subgroups (sex and grades), the social-media - well-being relationship is becoming more positive over time. In 2017, social media use related positively to self esteem, and negatively to loneliness. The estimated social media by year interaction parameters (the magnitude of change in the social media - well being relation per decade) are shown below.
-
-```{r}
-tabulate_fits_2(fits_2, "social_media")
-```
-
 ### TV
 
-#### Model 1
-
-This is the same model as Model 1 for social media use, but now we use TV use as the predictor.
-
 ```{r}
-plot_fits_1(fits_1, "tv")
+mtf_fits <- mtf %>% 
+  mutate(year = year - 2010) %>% 
+  group_by(year, sex, age) %>% 
+  make_fits(xvars = starts_with("x_"), yvars = starts_with("y_"), model = ~lm(y ~ x, data = .)) %>% 
+  ungroup() %>% 
+  mutate(outcome = str_remove(outcome, "y_"), predictor = str_remove(predictor, "x_")) %>% 
+  mutate(year = year + 2010)
+mtf_fits %>% 
+  plot_fits("tv")
 ```
 
-#### Model 2
-
-This is the same model as Model 2 for social media use, but now we use TV use as the predictor.
+### Social media
 
 ```{r}
-plot_fits_2(fits_2, "tv")
+mtf_fits %>% 
+  plot_fits("social_media")
 ```
-
-- The TV - well-being relationship is becoming more positive over time. 
-
-The estimated TV by year interaction parameters (the magnitude of change in the TV - well being relation per decade) are shown below.
-
-```{r}
-tabulate_fits_2(fits_2, "tv")
-```
-
 
 # Youth Risk Behavior Survey
 
 ## Column
 
-We look at the relationship between well-being (four suicide questions and one question on sadness and hopelessness) and technology use (tv use and devce) with the YRBS dataset. **Note that all variables are recoded such that greater values indicate greater well-being** (e.g. greater values of suicide indicate greater well-being re suicidal thought).
-
 ### Temporal trends
 
-```{r yrbs-data-figure}
-# Plot all measures' averages across time
-plot_data(yrbs, c(sad_hopeless:device))
+```{r yrbs-data-figure, fig.height = 8}
+loadd(yrbs)
+fig <- plot_data(yrbs, variables = c(contains("y_"), contains("x_")))
+fig
 ```
 
 ## Column {.tabset}
 
 ### TV
 
-#### Model 1
-
-The YRBS well-being variables are a mix of binary and ordinal responses, we therefore use an ordinal regression model with a probit link, which results in beta coefficients interpretable exactly as in the MtF models. Otherwise models 1 and 2 are the same as the MtF models.
-
 ```{r}
-fits_1 <- make_fits_1(
-  yrbs %>% mutate(age = grade), 
-  yvars = c(sad_hopeless:suicide_4),
-  xvars = c(tv, device),
-  model = ~ordinal::clm(factor(y) ~ x, link = "probit", data = .)
-)
-plot_fits_1(fits_1, "tv")
-```
-
-- The majority of relationships between TV viewing and well-being are negative, but very small and non-significant
-- I can't see anything happening over time
-
-#### Model 2
-
-Model two includes year as a linear predictor, and an interaction with year and tv use (see Model 2 for MtF dataset).
-
-```{r}
-fits_2 <- make_fits_2(
-  yrbs %>% mutate(age = grade), 
-  yvars = c(sad_hopeless:suicide_4),
-  xvars = c(tv, device),
-  model = ~ordinal::clm(factor(y) ~ x*year, link = "probit", data = .)
-)
-plot_fits_2(fits_2, "tv")
-```
-
-- Suicide 3 and 4 specifically ask about how many times the respondent attempted suicide, and if they did, whether it resulted in hospitalization, respectively. Those two variables are the only ones that are consistently negatively predicted by tv viewing.
-- There is no consistent pattern of change over time, as shown by the interaction terms below
-
-```{r}
-tabulate_fits_2(fits_2, "tv")
+yrbs_fits <- yrbs %>% 
+  mutate(year = year - 2010) %>% 
+  group_by(year, sex, age) %>% 
+  make_fits(xvars = starts_with("x_"), yvars = starts_with("y_"), model = ~lm(y ~ x, data = .)) %>% 
+  ungroup() %>% 
+  mutate(outcome = str_remove(outcome, "y_"), predictor = str_remove(predictor, "x_")) %>% 
+  mutate(year = year + 2010)
+yrbs_fits %>% 
+  plot_fits("tv")
 ```
 
 ### Digital device use
 
-#### Model 1
-
 ```{r}
-plot_fits_1(fits_1, "device")
-```
-
-- Digital device use is a stronger negative predictor of well-being than TV viewing.
-- The relationship appears similar across years and ages
-
-#### Model 2
-
-```{r}
-plot_fits_2(fits_2, "device")
-```
-
-- No consistent pattern of change over time
-- Interaction terms are tabulated below
-
-```{r}
-tabulate_fits_2(fits_2, "device")
+yrbs_fits %>%  
+  plot_fits("device")
 ```
 
 # Understanding Society
 
-```{r}
-us_aggregated <- us_aggregated %>% 
-  drop_na(sex, year, age) %>% 
-  mutate(age = factor(age)) %>% 
-  mutate(year = as.numeric(year))
-```
-
 ## Column
-
-We look at the relationship between well-being (scghq, scsf, sdq, and self esteem) and technology use (social media and tv). **Note that all variables are recoded such that greater values indicate greater well-being**.
-
-Unlike the MtF and YRBS datasets, Understanding Society has surveyed many individuals repeatedly across time, and we can therefore look at within-person relationships as well.
 
 ### Temporal trends
 
-```{r}
-# Plot all measures' averages across time
-plot_data(us_aggregated, c(socialmedia, tvamount, sdq, selfesteem, scghq, scsf))
+```{r us-data-plot, fig.height = 8}
+loadd(us)
+us <- select(us, -y_sca)  # Not enough observations over time
+fig <- plot_data(us, variables = c(contains("y_"), contains("x_")))
+fig
 ```
 
 ## Column {.tabset}
 
 ### TV
 
-#### Model 1
-
 ```{r}
-fits_1 <- make_fits_1(
-  us_aggregated,
-  yvars = c(sdq, selfesteem, scghq, scsf),
-  xvars = c(socialmedia, tvamount)
-)
-plot_fits_1(fits_1, "tvamount")
+us_fits <- us %>% 
+  mutate(year = year - 2010) %>% 
+  group_by(year, sex, age) %>% 
+  make_fits(xvars = starts_with("x_"), yvars = starts_with("y_"), model = ~lm(y ~ x, data = .)) %>% 
+  ungroup() %>% 
+  mutate(outcome = str_remove(outcome, "y_"), predictor = str_remove(predictor, "x_")) %>% 
+  mutate(year = year + 2010)
+us_fits %>% 
+  plot_fits("tv")
 ```
 
-#### Model 2
+### Social media
 
 ```{r}
-fits_2 <- make_fits_2(
-  us_aggregated,
-  yvars = c(sdq, selfesteem, scghq, scsf),
-  xvars = c(socialmedia, tvamount)
-)
-plot_fits_2(fits_2, "tvamount")
-```
-
-```{r}
-tabulate_fits_2(fits_2, "tvamount")
-```
-
-### Digital device use
-
-#### Model 1
-
-```{r}
-plot_fits_1(fits_1, "socialmedia")
-```
-
-#### Model 2
-
-```{r}
-plot_fits_2(fits_2, "socialmedia")
-```
-
-```{r}
-tabulate_fits_2(fits_2, "socialmedia")
+us_fits %>% 
+  plot_fits("social_media")
 ```
 
 ### Within-person relationships
 
-```{r, eval = FALSE}
-# Fit lme4 model to outcome ~ predictor [todo]
-lme4_fit_model <- function(data, y, x) {
-  lmer(
-    as.formula(glue("{y} ~ {x}*sex*grade*year + (1 + {x} | year)")),
-    data = data %>% mutate(year = year - min(unique(data$year)))
-  )
-}
-```
+Unlike the MtF and YRBS datasets, Understanding Society has surveyed many individuals repeatedly across time, and we can therefore look at within-person relationships as well.
 
+Nothing here yet

@@ -231,7 +231,7 @@ read_us <- function(path = "data-raw/us/") {
 
   # For **sex** we recode the variable so that 1 = male, 0 = female and we make NA the 13 data points who had inconsistent responses about their gender.
   data <- data %>%
-    mutate(sex = ifelse(data$sex == 0, NA, ifelse(data$sex == 2, "female", "male"))) %>%
+    mutate(sex = ifelse(data$sex == 0, NA, ifelse(data$sex == 2, "Female", "Male"))) %>%
     mutate(sex = factor(sex))
 
   # For **ethnicity** we recode the variable as 1 for non-white and 0 as white. We class as white "british/english/scottish/welsh/northern irish", "irish", "any other white background", we do not count those of mixed white heritage.
@@ -300,12 +300,45 @@ read_us <- function(path = "data-raw/us/") {
   data <- rename(data, year = "wave")
   data$year <- as.character(as.numeric(data$year) + 2008)
 
+  # Aggregate scales and select relevant variables
+  data <- data %>%
+    mutate(
+      satisfaction = rowMeans(select_at(., vars(contains("satisfaction_"))), na.rm = TRUE),
+      sdq = rowMeans(select_at(., vars(contains("sdq"))), na.rm = TRUE),
+      self_esteem = rowMeans(select_at(., vars(contains("selfesteem_"))), na.rm = TRUE),
+      scghq = rowMeans(select_at(., vars(contains("scghq"))), na.rm = TRUE),
+      scsf = rowMeans(select_at(., vars(contains("scsf"))), na.rm = TRUE),
+      sca = rowMeans(select_at(., vars(contains("sca_"))), na.rm = TRUE)
+    ) %>%
+    dplyr::select(
+      # Remove individual items
+      -contains("satisfaction_"),
+      -matches("sdq[a-z]"),
+      -contains("selfesteem_"),
+      -matches("scghq[a-z]"),
+      -matches("scsf[0-9]"),
+      -contains("sca_"),
+      -tvamount_weekend
+    ) %>%
+    # Drop all rows where sex, year, or age are unknown
+    drop_na(sex, year, age) %>%
+    mutate(age = factor(paste(age, "years"))) %>%
+    mutate(year = as.numeric(year)) %>%
+    # Tag outcomes and predictors
+    rename(
+      y_satisfaction = satisfaction,
+      y_sdq = sdq,
+      y_self_esteem = self_esteem,
+      y_scghq = scghq,
+      y_scsf = scsf,
+      y_sca = sca,
+      x_tv = tvamount,  # Weekday only
+      x_social_media = socialmedia
+    )
+
   # Return clean dataset
   return(data)
 }
-
-
-
 
 inspect_hist <- function(inspect_var, split_var){
   data_long %>%
@@ -466,30 +499,4 @@ read_household_data <- function(filename){
   dataset <- zap_labels(dataset)
   names(dataset) <- str_remove(names(dataset), "[a-z]_")
   return(dataset)
-}
-
-#' Aggregate US scales
-#'
-#' @param data Cleaned US data from read_us()
-#'
-#' @return A tibble with clean US data where key scales are aggregated
-aggregate_us <- function(data) {
-  data %>%
-    mutate(
-      satisfaction = rowMeans(select_at(., vars(contains("satisfaction_"))), na.rm = TRUE),
-      sdq = rowMeans(select_at(., vars(contains("sdq"))), na.rm = TRUE),
-      selfesteem = rowMeans(select_at(., vars(contains("selfesteem_"))), na.rm = TRUE),
-      scghq = rowMeans(select_at(., vars(contains("scghq"))), na.rm = TRUE),
-      scsf = rowMeans(select_at(., vars(contains("scsf"))), na.rm = TRUE),
-      sca = rowMeans(select_at(., vars(contains("sca_"))), na.rm = TRUE)
-    ) %>%
-    dplyr::select(
-      # Remove individual items
-      -contains("satisfaction_"),
-      -matches("sdq[a-z]"),
-      -contains("selfesteem_"),
-      -matches("scghq[a-z]"),
-      -matches("scsf[0-9]"),
-      -contains("sca_")
-      )
 }
