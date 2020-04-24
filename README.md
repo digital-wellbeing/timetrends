@@ -1,5 +1,11 @@
 # Happiness epidemic
 
+## Reproduce analyses
+
+Reproduce all analyses by running `make.R` (e.g. `Rscript make.R` in your command line.)
+
+The dependencies between files, functions, and scripts are managed by [drake](https://docs.ropensci.org/drake/index.html), which ensures that all intermediate computations are up to date. If you want to run analyses interactively, source the files in `R/` to make sure you are using the same packages and functions as the other analyses.
+
 ## Raw data
 
 The datasets' Terms of Use prevent us for sharing the data files here, so you must download the raw data yourself. Get the data as follows so it is in the format expected by our code: 
@@ -24,13 +30,3 @@ The Understanding Society dataset is an annual longitudinal study of 40,000 UK h
 	- https://www.cdc.gov/healthyyouth/data/yrbs/data.htm
 	- Download the National ASCII format data and the associated SPSS syntax to `data-raw/yrbs/`
 	- Process the ASCII file in place with the SPSS syntax file, so you end up with a file `data-raw/yrbs/sadc_2017_national.sav`
-
-## Run analyses
-
-Reproduce all analyses by running `make.R` (e.g. `Rscript make.R` in your command line.)
-
-The dependencies between files, functions, and scripts are managed by [drake](https://docs.ropensci.org/drake/index.html), which ensures that all intermediate computations are up to date. If you want to run analyses interactively, source `R/packages.R` to make sure you are using the same packages as the other analyses.
-
-### Parallel processing
-
-By default we use the [future](https://cran.r-project.org/web/packages/future/index.html) package for parallel processing on a local computer. If you have the faster [zeroMQ](https://zeromq.org/download/) system library installed, you can use it instead by changing the settings in `make.R`.
