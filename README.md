@@ -1,4 +1,4 @@
-# Happiness epidemic
+# Time trends in technology effects
 
 ## Reproduce analyses
 
