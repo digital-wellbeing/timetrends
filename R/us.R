@@ -308,7 +308,8 @@ read_us <- function(path = "data-raw/us/") {
       self_esteem = rowMeans(select_at(., vars(contains("selfesteem_"))), na.rm = TRUE),
       scghq = rowMeans(select_at(., vars(contains("scghq"))), na.rm = TRUE),
       scsf = rowMeans(select_at(., vars(contains("scsf"))), na.rm = TRUE),
-      sca = rowMeans(select_at(., vars(contains("sca_"))), na.rm = TRUE)
+      games = rowMeans(select_at(., vars(computer_games, consoleamount)), na.rm = TRUE)
+      # sca = rowMeans(select_at(., vars(contains("sca_"))), na.rm = TRUE)  # Only 1 year
     ) %>%
     dplyr::select(
       # Remove individual items
@@ -322,7 +323,6 @@ read_us <- function(path = "data-raw/us/") {
     ) %>%
     # Drop all rows where sex, year, or age are unknown
     drop_na(sex, year, age) %>%
-    mutate(age = factor(paste(age, "years"))) %>%
     mutate(year = as.numeric(year)) %>%
     # Tag outcomes and predictors
     rename(
@@ -331,8 +331,9 @@ read_us <- function(path = "data-raw/us/") {
       y_self_esteem = self_esteem,
       y_scghq = scghq,
       y_scsf = scsf,
-      y_sca = sca,
+      # y_sca = sca,
       x_tv = tvamount,  # Weekday only
+      x_games = games,
       x_social_media = socialmedia
     )
 
@@ -340,26 +341,14 @@ read_us <- function(path = "data-raw/us/") {
   return(data)
 }
 
-inspect_hist <- function(inspect_var, split_var){
-  data_long %>%
-    dplyr::select(inspect_var, split_var) %>%
-    gather(var, value, -c(split_var)) %>%
-    ggplot(aes(x = value)) +
-    geom_bar() +
-    facet_grid(get(split_var) ~ var, scales = 'free') +
-    theme_classic()
-}
-
 read_adolescent_data <- function(filename){
   # We create a function that cleans this data: it defines NAs, it removes yp from the beginning of variable names to make them eaiser to naviage and it only selects those variables of interest to proceed to the further analyses. We then apply this function to all seven datasets and remove the original data.
-  ####################################################################################################################################################
   # Function: read_adolescent_data
   # Inpout: an idata_x file
   # Method: this function cleans the data, it defines NAs (any negative numbers), it removes the yp from the beginning of variable names, and
   #         it also selects those variables of interest for further analyses.
   #         This is important because the datasets are very large and difficult to handle in full
   # Output: smaller data file
-  ####################################################################################################################################################
   dataset <- read_spss(filename)
   dataset <- dataset %>%
     dplyr::select(-ends_with("_sex")) %>%
@@ -450,14 +439,12 @@ read_youngadult_data <- function(filename){
 
 read_parent_data <- function(filename){
   # The young adult data used above is stored in the same data file as all the other parent data. As loading such large datasets takes a long time we also extract the variables we want from parents (i.e. our control variables) during this same stage. Below we have therefore written the cleaning script for the parent data.
-  ####################################################################################################################################################
   # Function: clean_data (second version, now for the mother)
   # Input: an mdata_x file
   # Method: this function cleans the  mothersdata, it defines NAs (any negative numbers) and
   #         it also selects those variables of interest for further analyses.
   #         This is important because the datasets are very large and difficult to handle in full
   # Output: smaller data file
-  ####################################################################################################################################################
   dataset <- read_spss(
     filename,
     col_select = c(
@@ -478,14 +465,12 @@ read_parent_data <- function(filename){
 }
 
 read_household_data <- function(filename){
-  ####################################################################################################################################################
   # Function: clean_data (third version, now for the household)
   # Inpout: an hdata_x file
   # Method: this function cleans the  household data, it defines NAs (any negative numbers) and
   #         it also selects those variables of interest for further analyses.
   #         This is important because the datasets are very large and difficult to handle in full
   # Output: smaller hdata file
-  ########################################################################################################################################
   dataset <- read_spss(
     filename,
     col_select = c(

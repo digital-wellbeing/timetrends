@@ -1,265 +1,220 @@
 ---
-title: "Results"
+title: "Technology effect timecourses"
 output: 
   flexdashboard::flex_dashboard:
     orientation: columns
+    source: https://github.com/digital-wellbeing/timetrends
+editor_options: 
+  chunk_output_type: console
 ---
 
 ```{r setup, include=FALSE}
+# This file is run by make.R, which sources the required functions and loads the necessary packages
+# (For interactive use, first source make.R)
 knitr::opts_chunk$set(
   cache = FALSE,
   echo = FALSE,
   message = FALSE,
   warning = FALSE,
   fig.width = 8,
-  fig.height = 6,
+  fig.height = 7,
   fig.retina = 2
 )
 theme_set(
   theme_linedraw() +
     theme(
-      panel.grid.minor = element_blank(),
+      panel.grid = element_blank(),
       strip.background = element_rect(fill = "#2780e3", colour = "#2780e3")
     )
 )
+# Load data and other saved objects from cache
+# (These are the named objects x inside drake_plan(x = ...) in make.R)
+loadd(data_long)
+loadd(mtf, us, yrbs)
 ```
 
-
-# Summary
+# Introduction
 
 ## Column
 
-### Summary
+### Introduction
 
-#### Introduction
+We studied how the relationship between digital technology use and well-being has changed over time using three representative large datasets. We used the following key variables from the datasets
 
-We studied the relationship between digital technology use and well-being using three representative large datasets, Monitoring the Future (MTF), Youth Risk Behavior Surveillance System (YRBSS), and Understanding Society (US). Each dataset contained two digital technology use variables (Television viewing was measured in all surveys, MTF and US included a social media use question, and YRBSS a digital device use question), and a number of well-being items and scales. **We recoded all well-being items such that greater values indicate greater well-being (e.g. greater depression values indicate lower depression).**
+- Monitoring the Future (MTF)
+  - TV viewing and social media use
+  - Rosenberg self-esteem scale (mean of 6 items); Bentler Medical & Psychological Functioning Inventory (mean of six depression items); MtF Loneliness scale (mean of six items)
+- Understanding Society (US)
+  - TV viewing, social media use, and gaming (console and computer)
+  - Rosenberg self-esteem scale (mean of 8 items); Strengths & weaknesses questionnaire (mean of items); Subjective well-being GHQ scale (mean of 12 items); SF-12 mental and physical health (mean of 7 items); Satisfaction scale (mean of six items)
+- Youth Risk Behavior Surveillance System (YRBSS)
+  - TV viewing and digital device use
+  - 4 suicidal ideation items and 1 item about sad/hopelessness (raw binary items)
+  
+**We recoded all well-being items such that greater values indicate greater well-being (e.g. greater depression values indicate lower depression).**
 
-#### Methods and results
+### Key findings
 
-First, for each of the datasets, we fitted an ordinary linear regression model, separately for each of the standardized well-being outcomes ($y$) and standardized technology use variables ($x$), which predicted the outcome from the technology use variable, and its interaction with year (`lm(y ~ x * year)`). The key coefficients were the simple effects of each $x$ on each outcome $y$, and the interaction terms $x \times year$ (linear change of effects over time).
+- Large decline in TV viewing with a corresponding increase in social media and device use
+- On average, technology use variables were negatively related to wellbeing outcomes, but the relations were small and varied over studies, years, and outcomes/predictors
+- Some technology variables were becoming more positively associated with wellbeing over time, some more negatively, and some were more stable
 
-By and large, the simple relations were small and negative (the large points and 95%CI error bars in the figure on the right). Generally, the "effects" of social media and digital device use were more negative than those of TV viewing. There was also great variation in the effects across ages and sexes (small points).
+# Results {.storyboard}
 
-The results on the technology effects' change over time were more mixed. In the MTF dataset, the change was clearly positive; technology effects on wellbeing were becoming more positive over time. However, there was no clear pattern in the US and YRBSS datasets, and both negative and positive significant interactions were observed.
-
-The results for each dataset are presented in more detail in their own tabs in the dashboard ([MTF](#monitoring-the-future), [YRBS](#youth-risk-behavior-survey), and [US](#understanding-society)).
-
-#### What's next
-
-- If the interaction model is interesting, do SCA
-- Longitudinal / within-person analysis of Understanding Society dataset
-- Hierarchical model to better summarize models across years, sexes, and ages
-
-## Column {.tabset}
-
-### Technology effects
+### Monitoring the Future
 
 ```{r}
-loadd(fits1, fits2)
-# Get coefficients from fits
-coefs <- bind_rows(fits1, fits2) %>% 
-  ungroup() %>% 
-  mutate(outcome = str_remove(outcome, "y_"), predictor = str_remove(predictor, "x_")) %>% 
-  mutate(out = map(fit, ~tidy(., conf.int = TRUE, conf.type = "Wald"))) %>% 
-  mutate(N = map_dbl(fit, ~nrow(.$model))) %>% 
-  unnest(out)
+plot_data(mtf) %>% 
+  ggplotly(tooltip = c("text")) %>% 
+  style(hoverlabel = list(bgcolor = "white"))
 ```
 
+***
+
+- The average well-being variables showed signs of decline over time 
+- Decline in TV viewing but a large uptick in social media use
+
+### Understanding Society
+
 ```{r}
-xs <- filter(coefs, term == "x")
-# Plot effect of X on Y at year 2010
-p <- drop_na(xs, sex) %>% 
-  ggplot(aes(estimate, outcome, col = predictor)) +
-  geom_vline(xintercept = 0) +
-  geom_point(
-    alpha = .5,
-    shape = 1, position = position_jitterdodgev(jitter.height = .1, dodge.height = .6),
-    aes(text = glue("b = {round(estimate, 2)}, p = {round(p.value, 2)} ({sex} {age})"), group = predictor)
-  ) +
-  geom_point(
-    data = filter(xs, is.na(sex)),
-    aes(
-      text = glue("b = {round(estimate, 2)}, p = {round(p.value, 2)} (Average)"), 
-      group = predictor
-    ), 
-    position = position_dodgev(.6), size = 2
-  ) +
-  geom_errorbarh(
-    data = filter(xs, is.na(sex)),
-    aes(xmin = conf.low, xmax = conf.high), 
-    position = position_dodgev(.6), height = .15
-  ) +
-  facet_wrap(~study, ncol = 1, scales = "free_y") +
-  labs(
-    title = "Technology effects in 2010"
-  ) +
-  theme(axis.title = element_blank())
-fig <- ggplotly(p, tooltip = c("text")) 
-fig <- fig %>% 
-  layout(
-    xaxis = list(
-      title = "Standardized regression coefficient",
-      zeroline = TRUE,
-      showline = TRUE,
-      showgrid = FALSE
+plot_data(us) %>% 
+  ggplotly(tooltip = c("text")) %>% 
+  style(hoverlabel = list(bgcolor = "white"))
+```
+
+***
+
+- Declines in well-being metrics (if any) were less prominent than in MtF (but note shorter sampling frame)
+- TV viewing declined over time whereas social media use had increased
+- Something odd in scsf and tv viewing, needs to be looked in to
+
+### Youth Risk Behavior Surveillance System
+
+```{r}
+plot_data(yrbs) %>% 
+  ggplotly(tooltip = c("text")) %>% 
+  style(hoverlabel = list(bgcolor = "white"))
+```
+
+***
+
+- The numbered suicide items are basically in increasing order of severity
+- Again, declines (if any) in wellbeing were less prominent than in MTF
+- Increase in digital device use and decline in TV viewing
+
+### Technology effects over time
+
+```{r}
+# Fit two models (linear year and factor year) to all Xs and Ys
+fits <- data_long %>%
+  mutate(year = year-2010) %>%
+  group_by(study, outcome, predictor) %>% 
+  mutate_at(c("y", "x"), ~scale(.)[,1]) %>% 
+  nest() 
+# Fit gaussian models to MTF and US, binomial models to YRBS
+fits_c <- fits %>% 
+  filter(study != "YRBS") %>% 
+  mutate(fit1 = map(data, ~lm(y ~ x*year, data = .))) %>%
+  mutate(fit2 = map(data, ~lm(y ~ x*factor(year), data = .))) %>%
+  select(-data)
+fits_b <- fits %>% 
+  filter(study == "YRBS") %>% 
+  mutate(fit1 = map(data, ~glm(ordered(y) ~ x*year, family = binomial("probit"), data = .))) %>%
+  mutate(fit2 = map(data, ~glm(ordered(y) ~ x*factor(year), family = binomial("probit"), data = .))) %>%
+  select(-data)
+fits <- bind_rows(fits_c, fits_b)
+rm(fits_c, fits_b)
+
+# Linear trend coefficients
+fits <- fits %>% 
+  mutate(coef_linear = map(fit1, ~tidy(., conf.int = TRUE, conf.type = "Wald")))
+# Effects of X at each level of year (from factor model)
+fits <- fits %>% 
+  mutate(
+    coef_factor = map(
+      fit2, 
+      ~emtrends(., ~year|x, var = "x") %>% 
+        as.data.frame() %>% 
+        as_tibble() %>% 
+        mutate(year = year + 2010)
     )
   )
-fig
 ```
 
-### Effects' change over time
-
 ```{r}
-xs <- filter(coefs, term == "x:year")
-# Plot interaction terms
-p <- drop_na(xs, sex) %>% 
-  ggplot(aes(estimate, outcome, col = predictor)) +
-  geom_vline(xintercept = 0) +
-  geom_point(
-    alpha = .5,
-    shape = 1, position = position_jitterdodgev(jitter.height = .1, dodge.height = .6),
-    aes(text = glue("b = {round(estimate, 2)}, p = {round(p.value, 2)} ({sex} {age})"), group = predictor)
-  ) +
-  geom_point(
-    data = filter(xs, is.na(sex)),
+fig1 <- fits %>%
+  ungroup() %>% 
+  unnest(coef_factor) %>% 
+  # Binomial model CIs are named differently than gaussian models... Ensure same names
+  mutate(
+    lower.CL = coalesce(.$lower.CL, .$asymp.LCL),
+    upper.CL = coalesce(.$upper.CL, .$asymp.UCL)
+  ) %>% 
+  mutate(year = lubridate::ymd(year, truncated = 2)) %>% 
+  # Create nicer labels
+  mutate(
+    sp = glue("{predictor} ({study})"),
+    annotation = glue("{outcome} ~ {predictor}, 95%CI = [{round(lower.CL, 2)}, {round(upper.CL, 2)}]")
+    ) %>% 
+  ggplot(
     aes(
-      text = glue("b = {round(estimate, 2)}, p = {round(p.value, 2)} (Average)"), 
-      group = predictor
-    ), 
-    position = position_dodgev(.6), size = 2
-  ) +
-  geom_errorbarh(
-    data = filter(xs, is.na(sex)),
-    aes(xmin = conf.low, xmax = conf.high), 
-    position = position_dodgev(.6), height = .15
-  ) +
-  facet_wrap(~study, ncol = 1, scales = "free_y") +
-  labs(
-    title = "Yearly changes in technology effects"
-  ) +
-  theme(axis.title = element_blank())
-fig <- ggplotly(p, tooltip = c("text")) 
-fig <- fig %>% 
-  layout(
-    xaxis = list(
-      title = "Standardized regression coefficient",
-      zeroline = TRUE,
-      showline = TRUE,
-      showgrid = FALSE
+      year, x.trend, ymin = lower.CL, ymax = upper.CL, col = outcome, fill = outcome,
+      group = outcome
     )
+  ) +
+  geom_hline(yintercept = 0) +
+  scale_y_continuous("Estimate", breaks = pretty_breaks()) +
+  geom_line() +
+  geom_point(aes(text = annotation)) +
+  geom_ribbon(alpha = .2, size = 0) +
+  facet_wrap("sp", scales = "free", ncol = 3) +
+  theme(
+    axis.title.x = element_blank(), 
+    panel.grid = element_blank(), plot.margin = unit(rep(.6, 4), "cm")
   )
-fig
+gg1 <- ggplotly(fig1, tooltip = c("text"))
+style(gg1, hoverlabel = list(bgcolor = "white"))
 ```
 
-# Monitoring the Future
+***
 
-## Column
+We first fitted an ordinary linear regression model separately for each of the standardized well-being outcomes ($y$) and standardized technology use variables ($x$) in each study. The model predicted the outcome from the technology use variable, and its interaction with year (`lm(y ~ x * year)`; a probit GLM was used for the binary items in YRBSS data). We treated year as a categorical variable to obtain estimates of the technology effects for each year. 
 
-### Temporal trends
+- The effects were mostly negative and small
+- In the MTF data, effects (particularly on loneliness) were becoming more positive over time
 
-```{r mtf-data-plot, fig.height = 8}
-loadd(mtf)
-fig <- plot_data(mtf, variables = c(contains("y_"), contains("x_")))
-fig
-```
-
-## Column {.tabset}
-
-### TV
+### Modeling change with an interaction term
 
 ```{r}
-mtf_fits <- mtf %>% 
-  mutate(year = year - 2010) %>% 
-  group_by(year, sex, age) %>% 
-  make_fits(xvars = starts_with("x_"), yvars = starts_with("y_"), model = ~lm(y ~ x, data = .)) %>% 
+fig2 <- fits %>% 
+  unnest(coef_linear) %>% 
+  filter(term == "x:year") %>% 
   ungroup() %>% 
-  mutate(outcome = str_remove(outcome, "y_"), predictor = str_remove(predictor, "x_")) %>% 
-  mutate(year = year + 2010)
-mtf_fits %>% 
-  plot_fits("tv")
+  mutate(
+    annotation = glue("{outcome} ~ {predictor}, p = {round(p.value, 3)}")
+  ) %>% 
+  ggplot(aes(glue("{predictor}\n({study})"), estimate*10, col = outcome, fill = outcome)) +
+  scale_color_discrete() +
+  geom_hline(yintercept = 0) +
+  scale_y_continuous("Interaction estimate (in decades)", breaks = pretty_breaks()) +
+  scale_x_discrete("Predictor\n(study)") +
+  geom_point(position = position_dodge(.25), aes(text = annotation), size = 2.5) +
+  geom_linerange(
+    aes(ymin = conf.low*10, ymax = conf.high*10, text = annotation),
+    position = position_dodge(.25), size = .2
+  ) +
+  theme(
+    panel.grid = element_blank()
+  )
+gg2 <- ggplotly(fig2, tooltip = c("text"))
+style(gg2, hoverlabel = list(bgcolor = "white"))
 ```
 
-### Social media
+***
 
-```{r}
-mtf_fits %>% 
-  plot_fits("social_media")
-```
+Then, we fitted a model where year was treated as a continuous variable, in order to estimate the linear change of technology effects over time (the interaction term between year and predictor).
 
-# Youth Risk Behavior Survey
-
-## Column
-
-### Temporal trends
-
-```{r yrbs-data-figure, fig.height = 8}
-loadd(yrbs)
-fig <- plot_data(yrbs, variables = c(contains("y_"), contains("x_")))
-fig
-```
-
-## Column {.tabset}
-
-### TV
-
-```{r}
-yrbs_fits <- yrbs %>% 
-  mutate(year = year - 2010) %>% 
-  group_by(year, sex, age) %>% 
-  make_fits(xvars = starts_with("x_"), yvars = starts_with("y_"), model = ~lm(y ~ x, data = .)) %>% 
-  ungroup() %>% 
-  mutate(outcome = str_remove(outcome, "y_"), predictor = str_remove(predictor, "x_")) %>% 
-  mutate(year = year + 2010)
-yrbs_fits %>% 
-  plot_fits("tv")
-```
-
-### Digital device use
-
-```{r}
-yrbs_fits %>%  
-  plot_fits("device")
-```
-
-# Understanding Society
-
-## Column
-
-### Temporal trends
-
-```{r us-data-plot, fig.height = 8}
-loadd(us)
-us <- select(us, -y_sca)  # Not enough observations over time
-fig <- plot_data(us, variables = c(contains("y_"), contains("x_")))
-fig
-```
-
-## Column {.tabset}
-
-### TV
-
-```{r}
-us_fits <- us %>% 
-  mutate(year = year - 2010) %>% 
-  group_by(year, sex, age) %>% 
-  make_fits(xvars = starts_with("x_"), yvars = starts_with("y_"), model = ~lm(y ~ x, data = .)) %>% 
-  ungroup() %>% 
-  mutate(outcome = str_remove(outcome, "y_"), predictor = str_remove(predictor, "x_")) %>% 
-  mutate(year = year + 2010)
-us_fits %>% 
-  plot_fits("tv")
-```
-
-### Social media
-
-```{r}
-us_fits %>% 
-  plot_fits("social_media")
-```
-
-### Within-person relationships
-
-Unlike the MtF and YRBS datasets, Understanding Society has surveyed many individuals repeatedly across time, and we can therefore look at within-person relationships as well.
-
-Nothing here yet
+- Device use was becoming more positively predictive of two suicidal ideation items, but more negatively for three others
+- Gaming was becoming more positively predictive of satisfaction and strengths&weaknesses
+- Social media results were mixed; in the MtF data relations were becoming more positive, whereas the US interaction estimates were both negative and positive
+- TV viewing was becoming more positively predictive of wellbeing in the MTF data, with more mixed results in the US dataset (but note similar estimated magnitudes for self esteem), and little to no consistent change was indicated in the YRBS dataset

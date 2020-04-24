@@ -1,38 +1,36 @@
 #' Plot X and Y variables of a single study
 #'
-#' @param data `dat` subsetted to desired study
-#' @param variables which variables to plot
+#' @param data mtf/us/yrbs
 #'
 #' @return ggplot2
-plot_data <- function(data, variables) {
+plot_data <- function(data, variables = c(starts_with("x_"), starts_with("y_"))) {
   variables <- enquo(variables)
-  data %>%
-    mutate(year = as.numeric(year), age = as.factor(age)) %>%
-    drop_na(year, sex, age) %>%
-    select(year, sex, age, !!variables) %>%
-    pivot_longer(-c(year, sex, age)) %>%
+  data_sex_age <- data %>%
+    pivot_longer(!!variables, names_to = "variable", values_to = "value") %>%
     drop_na(value) %>%
-    mutate(name = str_remove(name, "[x|y]_")) %>%
-    group_by(name) %>%
-    mutate(value = value / max(.$value)) %>%
-    group_by(sex, year, age, name) %>%
-    summarise(value = mean(value, na.rm = TRUE)) %>%
-    ggplot(aes(year, value, col = age, fill = age)) +
-    scale_color_viridis_d("") +
-    scale_fill_viridis_d("") +
-    scale_y_continuous(
-      "Mean scaled value",
-      breaks = pretty_breaks(4),
-    ) +
-    scale_x_continuous(
-      "Year",
-      breaks = pretty_breaks(4),
-      labels = function(x) paste0("'", str_sub(x, 3, 4))
-    ) +
-    geom_line(size = .8) +
-    facet_grid(name~sex, scales = "free") +
-    labs(caption = "Note: All variables are scaled to the 0-1 interval.\nPositive values indicate greater wellbeing.") +
-    theme(legend.position = "bottom")
+    mutate(variable = str_remove(variable, "[x|y]_")) %>%
+    group_by(year, variable, sex, age) %>%
+    summarise(value = mean(value, na.rm = TRUE), n = n()) %>%
+    ungroup() %>%
+    mutate(group = glue("{age} {sex}")) %>%
+    mutate(annotation = glue("{sex} {age}y"))
+  data_sex <- data_sex_age %>%
+    group_by(year, variable, sex) %>%
+    summarise(value = mean(value, na.rm = TRUE), n = n()) %>%
+    mutate(age = "Average") %>%
+    ungroup() %>%
+    mutate(annotation = glue("{sex} mean"))
+  data_sex %>%
+    ggplot(aes(year, value, color = sex, text = annotation)) +
+    scale_y_continuous("Mean value") +
+    scale_x_continuous(breaks = pretty_breaks()) +
+    stat_summary(fun = mean, geom = "line", size = .8) +
+    geom_line(data = data_sex_age, aes(group = group), alpha = .15, size = .4) +
+    facet_wrap("variable", scales = "free_y", nrow = 3) +
+    theme(
+      legend.position = "bottom",
+      legend.title = element_blank()
+    )
 }
 
 make_fits <- function(

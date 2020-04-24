@@ -9,41 +9,42 @@ source("R/yrbs.R")
 
 # drake plan specifies the analysis workflow
 plan <- drake_plan(
-  # Preprocess raw datasets and then combine to one data frame
-  mtf = read_mtf(file_in("data-raw/mtf/")),
-  us = read_us(file_in("data-raw/us/")),
-  yrbs = read_yrbs(file_in("data-raw/yrbs/sadc_2017_national.sav")),
-  dat = bind_rows(mtf, us, yrbs, .id = "study") %>%
-    mutate(study = factor(study, labels = c("MTF", "US", "YRBS"))),
-  # Fit all models
-  # Fit y~x*year separately to every study, x, and y
-  fits1 = make_fits(
-    group_by(dat, study) %>% mutate(year = year - 2010),
-    yvars = starts_with("y_"), xvars = starts_with("x_"), model = ~lm(y ~ x*year, data = .)
+  # Preprocess raw datasets
+  mtf = target(read_mtf(file_in("data-raw/mtf/")), format = "fst_tbl"),
+  us = target(read_us(file_in("data-raw/us/")), format = "fst_tbl"),
+  yrbs = target(read_yrbs(file_in("data-raw/yrbs/sadc_2017_national.sav")), format = "fst_tbl"),
+  # Create a harmonised long data frame of all studies for modelling
+  # Note: Ys are duplicated across Xs
+  data_long = target(
+    bind_rows(mtf, us, yrbs, .id = "study") %>%
+      mutate(study = factor(study, labels = c("MTF", "US", "YRBS"))) %>%
+      mutate(age = cut(age, breaks = c(0, 14, 100), labels = c("<15", ">15"))) %>%
+      select(study, year, sex, age, starts_with("y_"), starts_with("x_")) %>%
+      pivot_longer(starts_with("y_"), names_to = "outcome", values_to = "y") %>%
+      pivot_longer(starts_with("x_"), names_to = "predictor", values_to = "x") %>%
+      drop_na(y, x) %>%
+      mutate(outcome = str_remove(outcome, "y_"), predictor = str_remove(predictor, "x_")) %>%
+      group_by(study, outcome, predictor),
+    format = "fst_tbl"
   ),
-  # Fit y~x*year separately to every study, x, y, sex, and age
-  fits2 = make_fits(
-    group_by(dat, study, age, sex) %>% mutate(year = year - 2010),
-    yvars = starts_with("y_"), xvars = starts_with("x_"), model = ~lm(y ~ x*year, data = .)
-  ),
-  # Main results output
-  results = target(
+  # Create output documents
+  dashboard = target(
     rmarkdown::render(
       input = knitr_in("dashboard.Rmd"),
       output_file = file_out("output/dashboard.html"),
       output_dir = "output"
-    )
+    ), quiet = TRUE
   )
 )
 
 # Parallel processing settings
 # options(clustermq.scheduler = "multicore")
-# future::plan("multiprocess")
+future::plan("multiprocess")
 
 # Run analyses
 make(
   plan = plan,
-  parallelism = "loop",  # or "future" or "clustermq"
+  parallelism = "future",
   lock_envir = FALSE, lock_cache = FALSE,
-  jobs = 1
+  jobs = 4
 )

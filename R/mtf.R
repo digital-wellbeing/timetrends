@@ -114,11 +114,9 @@ read_mtf <- function(path = "data-raw/mtf/") {
   # * Categorical variables will be turned to factors;
   MTF$`YEAR OF` <- as.factor(MTF$`YEAR OF`)
   MTF$`S SEX` <- as.factor(MTF$`S SEX`)
-  MTF$`WHAT GRADE LEVL` <- factor(
-    MTF$`WHAT GRADE LEVL`,
-    levels = c(8, 10, 12),
-    labels = c("8th grade", "10th grade", "12th grade")
-  )
+
+  # Convert grade to approximate age (age = grade + 5)
+  MTF$`WHAT GRADE LEVL` <- MTF$`WHAT GRADE LEVL` + 5
 
   # * We will sort the data by year of administration.
   MTF <- arrange(MTF, `YEAR OF`)
@@ -160,6 +158,9 @@ read_mtf <- function(path = "data-raw/mtf/") {
     ) %>%
     # Year & social_media are numeric
     mutate_at(vars(year, x_social_media), ~ as.numeric(as.character(.)))
+
+  # Remove data before 1991 because it only includes 12th graders (and thus if you include it, any change over time in the aggregate may just reflect a change from 12th graders to mean(8th grade, 10th grade, 12th grade)...)
+  MTF <- filter(MTF, year > 1990)
 
   # This function returns the cleaned dataset as a tibble
   return(MTF)

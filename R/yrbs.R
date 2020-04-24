@@ -34,6 +34,8 @@ read_yrbs <- function(path = "data-raw/yrbs/sadc_2017_national.sav") {
   # During the past 12 months, how many times did you actually attempt suicide?
   # Reverse code so greater numbers are fewer attempts
   data <- mutate(data, q28 = 5 - as.numeric(q28))
+  # Dichotomize: 0 = any number of attempts, 1 = no attempts
+  data <- mutate(data, q28 = ifelse(q28==0, 0, 1))
 
   # If you attempted suicide during the past 12 months, did any attempt result in an injury, poisoning, or overdose that had to be treated by a doctor or nurse?
   # Code those who did not attempt suicide or did not need to see a doctor as 1, those who had to see doctor as 0
@@ -64,12 +66,8 @@ read_yrbs <- function(path = "data-raw/yrbs/sadc_2017_national.sav") {
     y_suicide_4 = q29
   )
 
-  # The age by grade table suggests we should use Grade as the age variable
-  # because there are very few age 12-13-14 individuals
-  data <- data %>%
-    select(-age) %>%
-    rename(age = grade)
-  levels(data$age) <- paste(levels(data$age), "grade")
+  # Use age only (there are very few age 12-13-14 individuals)
+  data <- data %>% select(-grade)
 
   # This function returns the cleaned dataset
   return(data)
