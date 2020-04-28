@@ -6,6 +6,8 @@ Reproduce all analyses by running `make.R` (e.g. `Rscript make.R` in your comman
 
 The dependencies between files, functions, and scripts are managed by [drake](https://docs.ropensci.org/drake/index.html), which ensures that all intermediate computations are up to date. If you want to run analyses interactively, source the files in `R/` to make sure you are using the same packages and functions as the other analyses.
 
+To make sure that computations are reproduced in the same environment, we use [renv](https://rstudio.github.io/renv/articles/collaborating.html). To get started, type `renv::init()` in the R console (`install.packages("renv")` if you don't have it).
+
 ## Raw data
 
 The datasets' Terms of Use prevent us for sharing the data files here, so you must download the raw data yourself. Get the data as follows so it is in the format expected by our code: 
