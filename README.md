@@ -2,6 +2,7 @@
 
 Authors:
 Matti Vuorre (matti.vuorre@oii.ox.ac.uk)
+Augustin Mutak (augustin@psihometar.hr)
 
 ## Reproduce analyses
 
