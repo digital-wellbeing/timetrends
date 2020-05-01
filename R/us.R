@@ -11,17 +11,17 @@ read_us <- function(path = "data-raw/us/") {
   files_adolescent <- list.files(path, pattern = "_youth.sav", recursive = TRUE, full.names = TRUE)
   files_adolescent <- files_adolescent[str_detect(files_adolescent, "ukhls")]
   data_adolescent <- map(files_adolescent, read_adolescent_data)
-
   # Combine adolescent data from different waves (files) into long format
   data_adolescent <- bind_rows(data_adolescent, .id = "wave")
 
-  # In waves 3, 6 and 9 the social media use questions were filled out by all adults, not just the young adults (in waves 1 and 2 they were not filled out at all). For those waves where all adults filled in the questionnaire they were named differently (e.g. "c_netcht" instead of "c_ypnetcht"). To make sure there is no variable duplication we therefore renamed those variables so that they are the same for all waves. Note: The young adult and adult social media questions are identical, except that adults can get prompted with an additional phrase if they dont know what social media is: "This might include for business or professional reasons, dating, or just chatting or interacting with friends"."
+  # Load young adult's data
   files_pya <- list.files(path, pattern = "_indresp.sav", recursive = TRUE, full.names = TRUE)
   files_pya <- files_pya[str_detect(files_pya, "ukhls")]
   data_ya <- map(files_pya, read_youngadult_data)
-  data_ya[[3]] <- data_ya[[3]] %>% rename(ypnetcht = "netcht") %>% rename(ypsocweb = "socweb")
-  data_ya[[6]] <- data_ya[[6]] %>% rename(ypnetcht = "netcht") %>% rename(ypsocweb = "socweb")
-  data_ya[[9]] <- data_ya[[9]] %>% rename(ypnetcht = "netcht") %>% rename(ypsocweb = "socweb")
+  # In waves 3, 6 and 9 the social media use questions were filled out by all adults, not just the young adults (in waves 1 and 2 they were not filled out at all). For those waves where all adults filled in the questionnaire they were named differently (e.g. "c_netcht" instead of "c_ypnetcht"). To make sure there is no variable duplication we therefore renamed those variables so that they are the same for all waves. Note: The young adult and adult social media questions are identical, except that adults can get prompted with an additional phrase if they dont know what social media is: "This might include for business or professional reasons, dating, or just chatting or interacting with friends"."
+  data_ya[[3]] <- rename(data_ya[[3]], ypnetcht = "netcht", ypsocweb = "socweb")
+  data_ya[[6]] <- rename(data_ya[[6]], ypnetcht = "netcht", ypsocweb = "socweb")
+  data_ya[[9]] <- rename(data_ya[[9]], ypnetcht = "netcht", ypsocweb = "socweb")
   # Combine YAs data from all waves into long format
   data_ya <- dplyr::bind_rows(data_ya, .id = "wave")
 
