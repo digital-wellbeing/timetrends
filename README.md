@@ -1,16 +1,19 @@
 # Time trends in technology effects
 
 Authors:
-Matti Vuorre (matti.vuorre@oii.ox.ac.uk)
-Augustin Mutak (augustin@psihometar.hr)
+
+- Matti Vuorre (matti.vuorre@oii.ox.ac.uk)
+- Augustin Mutak (augustin@psihometar.hr)
+
+## Preface
+
+We study the timecourse of technology effects on adolescent wellbeing in three large representative datasets.
 
 ## Reproduce analyses
 
-Reproduce all analyses by running `make.R` (e.g. `Rscript make.R` in your command line.)
+Open the `timetrends.Rproj` in R Studio (ensures correct relative paths), and run `renv::init()` (ensures you have the required R version and packages). If you don't have the [renv](https://rstudio.github.io/renv/articles/collaborating.html) package, install it first; `install.packages("renv")`.
 
-The dependencies between files, functions, and scripts are managed by [drake](https://docs.ropensci.org/drake/index.html), which ensures that all intermediate computations are up to date. If you want to run analyses interactively, source the files in `R/` to make sure you are using the same packages and functions as the other analyses.
-
-To make sure that computations are reproduced in the same environment, we use [renv](https://rstudio.github.io/renv/articles/collaborating.html). To get started, type `renv::init()` in the R console (`install.packages("renv")` if you don't have it).
+Once you have the required packages, reproduce all analyses by running `make.R` (e.g. `Rscript make.R` in your command line.) To run analyses interactively, follow the steps specified in `make.R`.
 
 ## Raw data
 

@@ -1,4 +1,5 @@
 # Make all analyses
+# see https://docs.ropensci.org/drake/index.html
 
 # Load packages and source functions
 source("R/packages.R")
