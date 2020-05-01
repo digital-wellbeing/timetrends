@@ -225,9 +225,13 @@ read_us <- function(path = "data-raw/us/") {
   data <- data %>%
     mutate_at(vars(contains("sca_lonely")), function(x) 4 - x)
 
-  # For the general health questionnaire we swap the sides so that higher scores means better outcomes. We do not need to flip the s12 MCS or PCS as there higher scores means higher functioning
+  # For the general health questionnaire we swap the sides so that higher scores means better outcomes.
   data <- data %>%
     mutate_at(vars(contains("scghq")), function(x) 5 - x)
+
+  # SCSF: Items have different ranges (1-5 and 1-3). Maybe scale to unit interval?
+  # Higher numbers mean greater wellbeing except items 1, 5, 6a, 6b, so those should be reversed.
+
 
   # For **sex** we recode the variable so that 1 = male, 0 = female and we make NA the 13 data points who had inconsistent responses about their gender.
   data <- data %>%
