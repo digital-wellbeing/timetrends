@@ -16,7 +16,7 @@ read_mtf <- function(path = "data-raw/mtf/") {
   )
 
   # After this, we have to list all the variables we want to examine in our study. We should do this by using labels of variables which can be found in the codebooks. The reason we're doing this is because label naming of the MTF dataset remained more or less consistent throughout the years, while variable naming isn't consistent. Therefore, we can merge the data from different years by using labels, but not by using variable names themselves. For now, let's go with the following variables:
-  vars <- c("YEAR OF", "S SEX", "s SEX", "WHAT GRADE LEVL", "VRY HPY THS DAY", "SATISFD W MYSELF", "LIFE MEANINGLESS", "I ENJOY LIFE", "HOPELESS", "GOOD TO BE ALIVE", "FUTR R LIFE WRSE", "AM PRSN OF WORTH", "DO WELL AS OTHRS", "MUCH TO B PROUD", "I AM NO GOOD", "I DO WRONG THING", "MY LIFE NT USEFL", "POS ATT TWD SELF", "OFTN FEEL LONELY", "ALWYS SM1 HELP", "OFTN FL LEFT OUT", "USLY SM1 TALK TO", "OFT WSH MOR FRND", "USLY FRDS BE WTH", "SAT LIFE AS WHL", "CMP SATFD", "PUTR SC", "PUTR OT", "PUTR JO", "DAY HRS WATCH", "END HRS WATCH", "W GAMING", "W INTERNET", "TV/DAY", "TV/WKEND", "WEB FACEBK")
+  vars <- c("YEAR OF", "S SEX", "s SEX", "WHAT GRADE LEVL", "VRY HPY THS DAY", "SATISFD W MYSELF", "LIFE MEANINGLESS", "I ENJOY LIFE", "HOPELESS", "GOOD TO BE ALIVE", "FUTR R LIFE WRSE", "AM PRSN OF WORTH", "DO WELL AS OTHRS", "MUCH TO B PROUD", "I AM NO GOOD", "I DO WRONG THING", "MY LIFE NT USEFL", "POS ATT TWD SELF", "OFTN FEEL LONELY", "ALWYS SM1 HELP", "OFTN FL LEFT OUT", "USLY SM1 TALK TO", "OFT WSH MOR FRND", "USLY FRDS BE WTH", "SAT LIFE AS WHL", "CMP SATFD", "PUTR SC", "PUTR OT", "PUTR JO", "DAY HRS WATCH", "END HRS WATCH", "W GAMING", "W INTERNET", "TV/DAY", "TV/WKEND", "WEB FACEBK", "HRS MUSIC")
 
   # Before proceeding with the merge, we have to create:
   # * An empty dataframe that will contain the merged data after the process is complete, which has the same number of columns as the number of our variables of interest and the columns are named accordingly;
@@ -122,7 +122,7 @@ read_mtf <- function(path = "data-raw/mtf/") {
   MTF <- arrange(MTF, `YEAR OF`)
 
   # Rename variables
-  colnames(MTF) <- c("Year", "Sex", "age", "H", "S", "SE_R_1", "SE_R_7", "SE_R_4", "SE_R_5", "SE_R_2", "D_B_1", "D_B_2", "SE_R_10", "F", "TV/WEEKDAY", "L_MTF_1", "L_MTF_2", "L_MTF_3", "L_MTF_4", "L_MTF_5", "L_MTF_6", "D_B_3", "D_B_4", "D_B_5", "D_B_6", "TV/WEEKEND", "COMPUTER/SCHOOL", "COMPUTER/OTHER", "COMPUTER JOB", "INTERNET/WEEK", "GAMING/WEEK", "social_media", "SCREENTIME/WEEKDAY", "SCREENTIME/WEEKEND")
+  colnames(MTF) <- c("Year", "Sex", "age", "H", "S", "SE_R_1", "SE_R_7", "SE_R_4", "SE_R_5", "SE_R_2", "D_B_1", "D_B_2", "SE_R_10", "F", "TV/WEEKDAY", "L_MTF_1", "L_MTF_2", "L_MTF_3", "L_MTF_4", "L_MTF_5", "L_MTF_6", "D_B_3", "D_B_4", "D_B_5", "D_B_6", "TV/WEEKEND", "COMPUTER/SCHOOL", "COMPUTER/OTHER", "COMPUTER JOB", "INTERNET/WEEK", "GAMING/WEEK", "social_media", "music", "SCREENTIME/WEEKDAY", "SCREENTIME/WEEKEND")
 
   # Let's also recode the items, so that all the responses indicate higher development of the construct - higher self-esteem, higher loneliness, more depressive symptoms. We'll also assign labels to those variables.
   MTF$SE_R_5 <- car::recode(MTF$SE_R_5, "1=5;2=4;4=2;5=1")
@@ -154,7 +154,8 @@ read_mtf <- function(path = "data-raw/mtf/") {
       y_depression = depression,
       y_loneliness = loneliness,
       x_social_media = social_media,
-      x_tv = tv
+      x_tv = tv,
+      x_music = music
     ) %>%
     # Year & social_media are numeric
     mutate_at(vars(year, x_social_media), ~ as.numeric(as.character(.)))

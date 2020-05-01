@@ -1,5 +1,9 @@
 # Time trends in technology effects
 
+Authors:
+Matti Vuorre (matti.vuorre@oii.ox.ac.uk)
+Augustin Mutak (augustin@psihometar.hr)
+
 ## Reproduce analyses
 
 Reproduce all analyses by running `make.R` (e.g. `Rscript make.R` in your command line.)
