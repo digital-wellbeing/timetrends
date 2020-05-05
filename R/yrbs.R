@@ -54,16 +54,15 @@ read_yrbs <- function(path = "data-raw/yrbs/sadc_2017_national.sav") {
   # Drop cases where grade, age, or sex are unknown
   data <- drop_na(data, grade, age, sex)
 
-  # Give meaningful names and tag outcomes/predictors
-  data <- rename(
-    data,
+  # Aggregate items and tag outcomes/predictors
+  data <- data %>%
+    mutate(
+      y_suicide = rowMeans(select_at(., vars(q25:q29)), na.rm = TRUE)
+    ) %>%
+    select(-c(q25:q29)) %>%
+    rename(
     x_tv = q80,
-    x_device = q81,
-    y_sad_hopeless = q25,
-    y_suicide_1 = q26,
-    y_suicide_2 = q27,
-    y_suicide_3 = q28,
-    y_suicide_4 = q29
+    x_device = q81
   )
 
   # Use age only (there are very few age 12-13-14 individuals)
