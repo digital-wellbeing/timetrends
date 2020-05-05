@@ -22,8 +22,8 @@ plot_data <- function(data, variables = c(starts_with("x_"), starts_with("y_")))
     mutate(annotation = glue("{sex} mean"))
   data_sex %>%
     ggplot(aes(year, value, color = sex, text = annotation)) +
-    scale_y_continuous("Mean value") +
-    scale_x_continuous(breaks = pretty_breaks()) +
+    scale_y_continuous("Mean value", breaks = pretty_breaks()) +
+    scale_x_continuous("Year", breaks = pretty_breaks()) +
     stat_summary(fun = mean, geom = "line", size = .8) +
     geom_line(data = data_sex_age, aes(group = group), alpha = .15, size = .4) +
     facet_wrap("variable", scales = "free_y", nrow = 3) +

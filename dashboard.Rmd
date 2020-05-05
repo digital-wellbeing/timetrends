@@ -49,8 +49,8 @@ We studied how the relationship between digital technology use and well-being ha
   - Rosenberg self-esteem scale (mean of 8 items); Strengths & weaknesses questionnaire (mean of items); Subjective well-being GHQ scale (mean of 12 items); SF-12 mental and physical health (mean of 7 items); Satisfaction scale (mean of six items)
 - Youth Risk Behavior Surveillance System (YRBSS)
   - TV viewing and digital device use
-  - 4 suicidal ideation items and 1 item about sad/hopelessness (raw binary items)
-  
+  - 4 suicidal ideation items and 1 item about sad/hopelessness (mean of these 5 binary items)
+
 **We recoded all well-being items such that greater values indicate greater well-being (e.g. greater depression values indicate lower depression).**
 
 ### Key findings
@@ -108,29 +108,18 @@ plot_data(yrbs) %>%
 # Fit two models (linear year and factor year) to all Xs and Ys
 fits <- data_long %>%
   mutate(year = year-2010) %>%
-  group_by(study, outcome, predictor) %>% 
+  group_by(study, outcome, predictor, sex) %>% 
   mutate_at(c("y", "x"), ~scale(.)[,1]) %>% 
-  nest() 
-# Fit gaussian models to MTF and US, binomial models to YRBS
-fits_c <- fits %>% 
-  filter(study != "YRBS") %>% 
+  nest() %>% 
   mutate(fit1 = map(data, ~lm(y ~ x*year, data = .))) %>%
   mutate(fit2 = map(data, ~lm(y ~ x*factor(year), data = .))) %>%
   select(-data)
-fits_b <- fits %>% 
-  filter(study == "YRBS") %>% 
-  mutate(fit1 = map(data, ~glm(ordered(y) ~ x*year, family = binomial("probit"), data = .))) %>%
-  mutate(fit2 = map(data, ~glm(ordered(y) ~ x*factor(year), family = binomial("probit"), data = .))) %>%
-  select(-data)
-fits <- bind_rows(fits_c, fits_b)
-rm(fits_c, fits_b)
 
-# Linear trend coefficients
-fits <- fits %>% 
-  mutate(coef_linear = map(fit1, ~tidy(., conf.int = TRUE, conf.type = "Wald")))
-# Effects of X at each level of year (from factor model)
 fits <- fits %>% 
   mutate(
+    # Linear trend coefficients
+    coef_linear = map(fit1, ~tidy(., conf.int = TRUE, conf.type = "Wald")),
+    # Effects of X at each level of year (from factor model)
     coef_factor = map(
       fit2, 
       ~emtrends(., ~year|x, var = "x") %>% 
@@ -138,79 +127,55 @@ fits <- fits %>%
         as_tibble() %>% 
         mutate(year = year + 2010)
     )
-  )
+  ) %>% 
+  ungroup()
 ```
 
 ```{r}
+interactions <- fits %>% 
+  unnest(coef_linear) %>% 
+  filter(term == "x:year") %>% 
+  mutate(
+    interaction = glue("b[x*year]*10 = {round(estimate*10, 2)}, p = {round(p.value, 4)}")
+    ) %>% 
+  select(study, sex, outcome, predictor, interaction)
 fig1 <- fits %>%
   ungroup() %>% 
   unnest(coef_factor) %>% 
-  # Binomial model CIs are named differently than gaussian models... Ensure same names
-  mutate(
-    lower.CL = coalesce(.$lower.CL, .$asymp.LCL),
-    upper.CL = coalesce(.$upper.CL, .$asymp.UCL)
-  ) %>% 
+  left_join(interactions) %>% 
+  filter(!str_detect(predictor, "music")) %>% 
   mutate(year = lubridate::ymd(year, truncated = 2)) %>% 
   # Create nicer labels
-  mutate(
-    sp = glue("{predictor} ({study})"),
-    annotation = glue("{outcome} ~ {predictor}, 95%CI = [{round(lower.CL, 2)}, {round(upper.CL, 2)}]")
-    ) %>% 
+  mutate(sp = glue("{study}: {outcome} ~ {predictor}")) %>% 
   ggplot(
     aes(
-      year, x.trend, ymin = lower.CL, ymax = upper.CL, col = outcome, fill = outcome,
-      group = outcome
+      year, x.trend, ymin = lower.CL, ymax = upper.CL, 
+      col = sex, fill = sex, group = sex
     )
   ) +
   geom_hline(yintercept = 0) +
   scale_y_continuous("Estimate", breaks = pretty_breaks()) +
   geom_line() +
-  geom_point(aes(text = annotation)) +
+  geom_point(aes(text = interaction)) +
   geom_ribbon(alpha = .2, size = 0) +
-  facet_wrap("sp", scales = "free", ncol = 3) +
+  facet_wrap("sp", scales = "free_x") +
   theme(
-    axis.title.x = element_blank(), 
-    panel.grid = element_blank(), plot.margin = unit(rep(.6, 4), "cm")
+    legend.position = "bottom", 
+    legend.title = element_blank(),
+    axis.title.x = element_blank()
+    # panel.grid = element_blank(), plot.margin = unit(rep(.6, 4), "cm")
   )
 gg1 <- ggplotly(fig1, tooltip = c("text"))
-style(gg1, hoverlabel = list(bgcolor = "white"))
+style(gg1, hoverlabel = list(bgcolor = "white")) %>% 
+  layout(legend = list(orientation = "h", x = .7, y = 0))
 ```
 
 ***
 
-We first fitted an ordinary linear regression model separately for each of the standardized well-being outcomes ($y$) and standardized technology use variables ($x$) in each study. The model predicted the outcome from the technology use variable, and its interaction with year (`lm(y ~ x * year)`; a probit GLM was used for the binary items in YRBSS data). We treated year as a categorical variable to obtain estimates of the technology effects for each year. 
+We first fitted an ordinary linear regression model separately for each of the standardized well-being outcomes ($y$) and standardized technology use variables ($x$) in each study. The model predicted the outcome from the technology use variable, and its interaction with year (`lm(y ~ x * year)`). We treated year as a categorical variable to obtain estimates of the technology effects for each year. 
 
 - The effects were mostly negative and small
 - In the MTF data, effects (particularly on loneliness) were becoming more positive over time
-
-### Modeling change with an interaction term
-
-```{r}
-fig2 <- fits %>% 
-  unnest(coef_linear) %>% 
-  filter(term == "x:year") %>% 
-  ungroup() %>% 
-  mutate(
-    annotation = glue("{outcome} ~ {predictor}, p = {round(p.value, 3)}")
-  ) %>% 
-  ggplot(aes(glue("{predictor}\n({study})"), estimate*10, col = outcome, fill = outcome)) +
-  scale_color_discrete() +
-  geom_hline(yintercept = 0) +
-  scale_y_continuous("Interaction estimate (in decades)", breaks = pretty_breaks()) +
-  scale_x_discrete("Predictor\n(study)") +
-  geom_point(position = position_dodge(.25), aes(text = annotation), size = 2.5) +
-  geom_linerange(
-    aes(ymin = conf.low*10, ymax = conf.high*10, text = annotation),
-    position = position_dodge(.25), size = .2
-  ) +
-  theme(
-    panel.grid = element_blank()
-  )
-gg2 <- ggplotly(fig2, tooltip = c("text"))
-style(gg2, hoverlabel = list(bgcolor = "white"))
-```
-
-***
 
 Then, we fitted a model where year was treated as a continuous variable, in order to estimate the linear change of technology effects over time (the interaction term between year and predictor).
 
