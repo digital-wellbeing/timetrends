@@ -28,8 +28,7 @@ theme_set(
     )
 )
 # Load data and other saved objects from cache
-# (These are the named objects x inside drake_plan(x = ...) in make.R)
-loadd(data_long)
+# (These are the named objects inside drake_plan() in make.R)
 loadd(mtf, us, yrbs)
 ```
 
@@ -51,7 +50,7 @@ We studied how the relationship between digital technology use and well-being ha
   - TV viewing and digital device use
   - 4 suicidal ideation items and 1 item about sad/hopelessness (mean of these 5 binary items)
 
-**We recoded all well-being items such that greater values indicate greater well-being (e.g. greater depression values indicate lower depression).**
+**We recoded all well-being items such that greater values indicate greater well-being (e.g. greater depression values indicate lower depression). Analyses were restricted to individuals 15 years old or younger.**
 
 ### Key findings
 
@@ -64,7 +63,10 @@ We studied how the relationship between digital technology use and well-being ha
 ### Monitoring the Future
 
 ```{r}
-plot_data(mtf) %>% 
+plot_data(
+  mtf, 
+  variables = c(tv, social_media, self_esteem, depression, loneliness)
+) %>% 
   ggplotly(tooltip = c("text")) %>% 
   style(hoverlabel = list(bgcolor = "white"))
 ```
@@ -77,7 +79,10 @@ plot_data(mtf) %>%
 ### Understanding Society
 
 ```{r}
-plot_data(us) %>% 
+plot_data(
+  us,
+  c(tv, social_media, self_esteem, sdq)
+) %>% 
   ggplotly(tooltip = c("text")) %>% 
   style(hoverlabel = list(bgcolor = "white"))
 ```
@@ -91,7 +96,10 @@ plot_data(us) %>%
 ### Youth Risk Behavior Surveillance System
 
 ```{r}
-plot_data(yrbs) %>% 
+plot_data(
+  yrbs,
+  c(sad_lonely:device)
+) %>% 
   ggplotly(tooltip = c("text")) %>% 
   style(hoverlabel = list(bgcolor = "white"))
 ```
@@ -105,6 +113,25 @@ plot_data(yrbs) %>%
 ### Technology effects over time
 
 ```{r}
+# Create a harmonised long data frame of all studies for modelling
+# Note: Ys are duplicated across Xs
+data_long <- bind_rows(
+  select(mtf, year:depression),
+  select(us, year, sex, age, social_media, tv, sdq, self_esteem),
+  select(yrbs, -race, -suicide, -suicide_4),
+  .id = "study"
+) %>% 
+  mutate(study = factor(study, labels = c("MTF", "US", "YRBS"))) %>%
+  pivot_longer(
+    c(self_esteem, depression, sdq, sad_lonely, contains("suicide_")), 
+    names_to = "outcome", values_to = "y"
+  ) %>%
+  pivot_longer(
+    c(tv, social_media, device), 
+    names_to = "predictor", values_to = "x"
+  ) %>%
+  drop_na(y, x) %>%
+  group_by(study, outcome, predictor)
 # Fit two models (linear year and factor year) to all Xs and Ys
 fits <- data_long %>%
   mutate(year = year-2010) %>%
@@ -137,7 +164,7 @@ interactions <- fits %>%
   filter(term == "x:year") %>% 
   mutate(
     interaction = glue("b[x*year]*10 = {round(estimate*10, 2)}, p = {round(p.value, 4)}")
-    ) %>% 
+  ) %>% 
   select(study, sex, outcome, predictor, interaction)
 fig1 <- fits %>%
   ungroup() %>% 

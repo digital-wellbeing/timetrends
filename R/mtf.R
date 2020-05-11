@@ -111,8 +111,7 @@ read_mtf <- function(path = "data-raw/mtf/") {
   # * All unnecessary variables which were used in the merging process have to be removed to save memory and space;
   rm(i, indices, j, labels, MTFfiles, vars, names, intermediate)
 
-  # * Categorical variables will be turned to factors;
-  MTF$`YEAR OF` <- as.factor(MTF$`YEAR OF`)
+  # * Sex will be turned to factor;
   MTF$`S SEX` <- as.factor(MTF$`S SEX`)
 
   # Convert grade to approximate age (age = grade + 5)
@@ -136,6 +135,12 @@ read_mtf <- function(path = "data-raw/mtf/") {
   # Standardize variable names
   MTF <- janitor::clean_names(MTF)
 
+  # Remove data before 1991 because it only includes 12th graders (and thus if you include it, any change over time in the aggregate may just reflect a change from 12th graders to mean(8th grade, 10th grade, 12th grade)...)
+  MTF <- filter(MTF, year > 1990)
+
+  # Focus on individuals 15 years old or younger
+  MTF <- filter(MTF, age <= 15)
+
   # Aggregate, rename, recode
   MTF <- MTF %>%
     # Scales and TV questions are aggregated
@@ -145,23 +150,12 @@ read_mtf <- function(path = "data-raw/mtf/") {
       loneliness = 5 - rowMeans(select_at(., vars(contains("l_mtf_"))), na.rm = TRUE),
       tv = rowMeans(select_at(., vars(contains("tv_"))), na.rm = TRUE)
     ) %>%
-    # Remove individual items
-    dplyr::select(-matches("[0-9]+"), -contains("tv_")) %>%
-    # Select variables and tag predictors and outcomes
+    # Select variables
     dplyr::select(
-      year, sex, age,
-      y_self_esteem = self_esteem,
-      y_depression = depression,
-      y_loneliness = loneliness,
-      x_social_media = social_media,
-      x_tv = tv,
-      x_music = music
-    ) %>%
-    # Year & social_media are numeric
-    mutate_at(vars(year, x_social_media), ~ as.numeric(as.character(.)))
-
-  # Remove data before 1991 because it only includes 12th graders (and thus if you include it, any change over time in the aggregate may just reflect a change from 12th graders to mean(8th grade, 10th grade, 12th grade)...)
-  MTF <- filter(MTF, year > 1990)
+      year, sex, age, tv, social_media,
+      self_esteem, depression, loneliness,
+      contains("se_"), contains("d_b_"), contains("l_mtf_")
+    )
 
   # This function returns the cleaned dataset as a tibble
   return(MTF)

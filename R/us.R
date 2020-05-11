@@ -231,7 +231,8 @@ read_us <- function(path = "data-raw/us/") {
 
   # SCSF: Items have different ranges (1-5 and 1-3). Maybe scale to unit interval?
   # Higher numbers mean greater wellbeing except items 1, 5, 6a, 6b, so those should be reversed.
-
+  data <- data %>%
+    mutate_at(vars(scsf1, scsf5, scsf6a, scsf6b), function(x) 6 - x)
 
   # For **sex** we recode the variable so that 1 = male, 0 = female and we make NA the 13 data points who had inconsistent responses about their gender.
   data <- data %>%
@@ -304,23 +305,25 @@ read_us <- function(path = "data-raw/us/") {
   data <- rename(data, year = "wave")
   data$year <- as.numeric(data$year) + 2008
 
+  # Focus on individuals 15 years old or younger
+  data <- filter(data, age <= 15)
+
   # Aggregate scales
   # x_ and y_ prefixes tag outcomes and predictors for analyses
   data <- data %>%
     # Drop all rows where sex, year, or age are unknown
     drop_na(sex, year, age) %>%
     mutate(
-      y_satisfaction = rowMeans(select_at(., vars(contains("satisfaction_"))), na.rm = TRUE),
-      y_sdq = rowMeans(select_at(., vars(contains("sdq"))), na.rm = TRUE),
-      y_self_esteem = rowMeans(select_at(., vars(contains("selfesteem_"))), na.rm = TRUE),
-      y_scghq = rowMeans(select_at(., vars(contains("scghq"))), na.rm = TRUE),
-      y_scsf = rowMeans(select_at(., vars(contains("scsf"))), na.rm = TRUE),
-      x_games = rowMeans(select_at(., vars(computer_games, consoleamount)), na.rm = TRUE)
-      # sca = rowMeans(select_at(., vars(contains("sca_"))), na.rm = TRUE)  # Only 1 year
+      satisfaction = rowMeans(select_at(., vars(contains("satisfaction_"))), na.rm = TRUE),
+      sdq = rowMeans(select_at(., vars(contains("sdq"))), na.rm = TRUE),
+      self_esteem = rowMeans(select_at(., vars(contains("selfesteem_"))), na.rm = TRUE),
+      scghq = rowMeans(select_at(., vars(contains("scghq"))), na.rm = TRUE),
+      scsf = rowMeans(select_at(., vars(contains("scsf"))), na.rm = TRUE),
+      games = rowMeans(select_at(., vars(computer_games, consoleamount)), na.rm = TRUE)
     ) %>%
     rename(
-      x_tv = tvamount,  # Weekday only
-      x_social_media = socialmedia
+      tv = tvamount,  # Weekday only
+      social_media = socialmedia
     )
 
   # Return clean dataset

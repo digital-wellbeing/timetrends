@@ -34,12 +34,14 @@ read_yrbs <- function(path = "data-raw/yrbs/sadc_2017_national.sav") {
   # During the past 12 months, how many times did you actually attempt suicide?
   # Reverse code so greater numbers are fewer attempts
   data <- mutate(data, q28 = 5 - as.numeric(q28))
-  # Dichotomize: 0 = any number of attempts, 1 = no attempts
-  data <- mutate(data, q28 = ifelse(q28==0, 0, 1))
 
   # If you attempted suicide during the past 12 months, did any attempt result in an injury, poisoning, or overdose that had to be treated by a doctor or nurse?
-  # Code those who did not attempt suicide or did not need to see a doctor as 1, those who had to see doctor as 0
-  data <- mutate(data, q29 = ifelse(q29 == "Yes", 0, 1))
+  # Recode as numeric so that greater numbers are greater wellbeing (0-2)
+  data <- mutate(
+    data,
+    q29 = factor(q29, levels = c("Yes", "No", "Did not attempt suicide")),
+    q29 = as.numeric(q29)-1
+    )
 
   # Recode age as continuous with correct values
   # Note: 12 and 18 include younger/older individuals
@@ -48,24 +50,29 @@ read_yrbs <- function(path = "data-raw/yrbs/sadc_2017_national.sav") {
   # Rename race variable
   data <- rename(data, race = race7)
 
-  # Convert tech variable to continuous
+  # Convert tech variable to numeric
   data <- mutate_at(data, vars(q80, q81), ~as.numeric(.) - 1)
 
   # Drop cases where grade, age, or sex are unknown
   data <- drop_na(data, grade, age, sex)
 
-  # Aggregate items and tag outcomes/predictors
+  # Rename and aggregate
   data <- data %>%
-    mutate(
-      y_suicide = rowMeans(select_at(., vars(q25:q29)), na.rm = TRUE)
-    ) %>%
-    select(-c(q25:q29)) %>%
     rename(
-    x_tv = q80,
-    x_device = q81
-  )
+      tv = q80,
+      device = q81,
+      sad_lonely = q25,
+      suicide_1 = q26,
+      suicide_2 = q27,
+      suicide_3 = q28,
+      suicide_4 = q29,
+    ) %>%
+    mutate(
+      suicide = rowMeans(select_at(., vars(starts_with("suicide_"))), na.rm = TRUE)
+    )
 
-  # Use age only (there are very few age 12-13-14 individuals)
+  # Focus on individuals 15 years old or younger
+  data <- filter(data, age <= 15)
   data <- data %>% select(-grade)
 
   # This function returns the cleaned dataset
