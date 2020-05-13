@@ -2,7 +2,7 @@
 
 #' Read and clean YRBS data
 #'
-#' Create a clean data frame from the YRBS SPSS data file. All well-being variables are coded so that greater values indicate greater well-being (e.g. greater values of suicide variables mean e.g. fewer suicide attempts).
+#' Create a clean data frame from the YRBS SPSS data file.
 #'
 #' @param path Location of the YRBS data file (character; "data-raw/yrbs/sadc_2017_national.sav")
 #'
@@ -28,18 +28,16 @@ read_yrbs <- function(path = "data-raw/yrbs/sadc_2017_national.sav") {
   # Read about the variables at
   # https://www.cdc.gov/healthyyouth/data/yrbs/pdf/2017/2017_yrbs_sadc_documentation.pdf
 
-  # Sad/Lonely and Dichotomous suicide variables to 0 (yes) - 1 (no)
-  data <- mutate_at(data, vars(q25, q26, q27), ~as.numeric(.) - 1)
+  # Sad/Lonely and Dichotomous suicide variables to numeric (0 = no, 1 = yes)
+  data <- mutate_at(data, vars(q25, q26, q27), ~1 - (as.numeric(.) - 1))
 
   # During the past 12 months, how many times did you actually attempt suicide?
-  # Reverse code so greater numbers are fewer attempts
-  data <- mutate(data, q28 = 5 - as.numeric(q28))
+  data <- mutate(data, q28 = as.numeric(q28) - 1)
 
   # If you attempted suicide during the past 12 months, did any attempt result in an injury, poisoning, or overdose that had to be treated by a doctor or nurse?
-  # Recode as numeric so that greater numbers are greater wellbeing (0-2)
   data <- mutate(
     data,
-    q29 = factor(q29, levels = c("Yes", "No", "Did not attempt suicide")),
+    q29 = factor(q29, levels = c("Did not attempt suicide", "No", "Yes")),
     q29 = as.numeric(q29)-1
     )
 
@@ -74,6 +72,9 @@ read_yrbs <- function(path = "data-raw/yrbs/sadc_2017_national.sav") {
   # Focus on individuals 15 years old or younger
   data <- filter(data, age <= 15)
   data <- data %>% select(-grade)
+
+  # Save data to disk
+  saveRDS(data, "data/yrbs.rds")
 
   # This function returns the cleaned dataset
   return(data)

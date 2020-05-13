@@ -1,6 +1,7 @@
 # Attach packages required in project
 # options(repos = "http://cran.rstudio.com/")  # If needed for cluster
 library(drake)
+library(future)
 library(fst)
 library(plotly)
 library(scales)
@@ -10,4 +11,7 @@ library(glue)
 library(emmeans)
 library(labelled)
 library(haven)
+library(lavaan)
+library(semPlot)
+library(patchwork)
 library(tidyverse)

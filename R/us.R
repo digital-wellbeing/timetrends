@@ -326,6 +326,9 @@ read_us <- function(path = "data-raw/us/") {
       social_media = socialmedia
     )
 
+  # Save file to disk
+  saveRDS(data, "data/us.rds")
+
   # Return clean dataset
   return(data)
 }

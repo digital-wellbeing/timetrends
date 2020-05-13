@@ -20,13 +20,6 @@ knitr::opts_chunk$set(
   fig.height = 7,
   fig.retina = 2
 )
-theme_set(
-  theme_linedraw() +
-    theme(
-      panel.grid = element_blank(),
-      strip.background = element_rect(fill = "#2780e3", colour = "#2780e3")
-    )
-)
 # Load data and other saved objects from cache
 # (These are the named objects inside drake_plan() in make.R)
 loadd(mtf, us, yrbs)

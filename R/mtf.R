@@ -146,8 +146,8 @@ read_mtf <- function(path = "data-raw/mtf/") {
     # Scales and TV questions are aggregated
     mutate(
       self_esteem = rowMeans(select_at(., vars(contains("se_"))), na.rm = TRUE),
-      depression = 5 - rowMeans(select_at(., vars(contains("d_b_"))), na.rm = TRUE),
-      loneliness = 5 - rowMeans(select_at(., vars(contains("l_mtf_"))), na.rm = TRUE),
+      depression = rowMeans(select_at(., vars(contains("d_b_"))), na.rm = TRUE),
+      loneliness = rowMeans(select_at(., vars(contains("l_mtf_"))), na.rm = TRUE),
       tv = rowMeans(select_at(., vars(contains("tv_"))), na.rm = TRUE)
     ) %>%
     # Select variables
@@ -156,6 +156,9 @@ read_mtf <- function(path = "data-raw/mtf/") {
       self_esteem, depression, loneliness,
       contains("se_"), contains("d_b_"), contains("l_mtf_")
     )
+
+  # Save to disk
+  saveRDS(MTF, "data/mtf.rds")
 
   # This function returns the cleaned dataset as a tibble
   return(MTF)
