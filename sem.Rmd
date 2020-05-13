@@ -1,0 +1,183 @@
+---
+title: "Latent Variable Models"
+author: "Matti"
+date: "13/05/2020"
+output: 
+  html_document:
+    toc: true
+    toc_depth: 2
+    toc_float: true
+---
+
+```{r setup, include=FALSE}
+# source make.R to make prerequisites, load packages & functions
+```
+
+We've split our analyses to three main groups of outcomes; negative mental health, loneliness, and self-esteem. Here, we fit structural equation models to variables in those groups, using available predictors (TV, social media, digital device use) in the three datasets (MTF, US, YRBSS).
+
+# Negative mental health
+
+## Depression (MTF)
+
+```{r}
+loadd(mtf)  # Load processed datasets
+# Code predictors so that 0 is in the data
+mtf <- mtf %>% 
+  mutate(tv = tv - 3, sm = social_media - 3, yr = year - 2014)
+```
+
+### Social Media
+
+First, get the relationship between latent depression and social media for each year
+
+```{r}
+sem0 <- '
+  depression =~ d_b_1 + d_b_2 + d_b_3 + d_b_4 + d_b_5 + d_b_6
+  depression ~ sm
+'
+fits <- mtf %>% 
+  drop_na(sm) %>% 
+  group_by(year, sex) %>% 
+  nest() %>% 
+  mutate(sem = map(data, ~sem(sem0, data = .))) %>% 
+  mutate(lm = map(data, ~lm(scale(depression) ~ scale(sm), data = .))) %>% 
+  mutate(out_sem = map(sem, ~tidy(.))) %>% 
+  mutate(out_lm = map(lm, ~tidy(., conf.int = TRUE)))
+a <- fits %>%   
+  unnest(out_sem) %>% 
+  filter(term == "depression ~ sm") %>% 
+  ggplot(aes(year, estimate, col = sex, fill = sex)) +
+  scale_y_continuous("Estimate (± 95% CI)", limits = c(-.1, .1)) +
+  geom_hline(yintercept = 0, lty = 2, size = .25) +
+  geom_ribbon(aes(ymin = conf.low, ymax = conf.high), col = NA, alpha = .2) +
+  geom_line() +
+  labs(
+    title = "Depression - Social media",
+    subtitle = "Depression: Latent variable"
+  ) +
+  theme(
+    legend.position = "bottom",
+    axis.title.x = element_blank(),
+    legend.title = element_blank()
+    )
+b <- a %+% 
+  (fits %>% 
+  unnest(out_lm) %>% 
+  filter(term == "scale(sm)")) +
+  labs(
+    title = "Depression - Social media",
+    subtitle = "Depression: Mean of items"
+  )
+a | b
+```
+
+Model depression on social media in the MTF data using the six depression indicators.
+
+```{r}
+sem0 <- '
+  depression =~ d_b_1 + d_b_2 + d_b_3 + d_b_4 + d_b_5 + d_b_6
+  depression ~ sm + yr + 0*sm:yr
+'
+
+sem1 <- '
+  depression =~ d_b_1 + d_b_2 + d_b_3 + d_b_4 + d_b_5 + d_b_6
+  depression ~ sm + yr + sm:yr
+'
+
+fit_sem0 <- sem(sem0, data = mtf)
+fit_sem1 <- sem(sem1, data = mtf)
+summary(fit_sem0)
+summary(fit_sem1)
+semPaths(
+  fit_sem1, 
+  what = "path",
+  whatLabels = "est",
+  nCharNodes = 7,
+  edge.label.cex = 1,
+  edge.label.color = "black"
+  )
+anova(fit_sem0, fit_sem1)
+```
+
+## Suicide (YRBS)
+
+### Device
+
+```{r}
+loadd(yrbs)
+# Code predictors so that 0 is in the data
+yrbs <- yrbs %>% 
+  mutate(tv = tv - 3, dv = device - 3, yr = year - 2014)
+```
+
+First, get the relationship between latent suicide and device for each year. The mean here is terrible because its three items, two of which are binary.
+
+```{r}
+sem0 <- '
+  suicide =~ suicide_1 + suicide_2 + suicide_3
+  suicide ~ dv
+'
+fits <- yrbs %>% 
+  drop_na(dv) %>% 
+  group_by(year, sex) %>% 
+  nest() %>% 
+  mutate(sem = map(data, ~sem(sem0, data = .))) %>% 
+  mutate(lm = map(data, ~lm(scale(suicide) ~ scale(dv), data = .))) %>% 
+  mutate(out_sem = map(sem, ~tidy(.))) %>% 
+  mutate(out_lm = map(lm, ~tidy(., conf.int = TRUE)))
+a <- fits %>%   
+  unnest(out_sem) %>% 
+  filter(term == "suicide ~ dv") %>% 
+  ggplot(aes(year, estimate, col = sex, fill = sex)) +
+  scale_y_continuous("Estimate (± 95% CI)") +
+  geom_hline(yintercept = 0, lty = 2, size = .25) +
+  geom_ribbon(aes(ymin = conf.low, ymax = conf.high), col = NA, alpha = .2) +
+  geom_line() +
+  labs(
+    title = "Suicide - Device use",
+    subtitle = "Latent variable"
+  ) +
+  theme(
+    legend.position = "bottom",
+    axis.title.x = element_blank(),
+    legend.title = element_blank()
+    )
+b <- a %+% 
+  (fits %>% 
+  unnest(out_lm) %>% 
+  filter(term == "scale(dv)")) +
+  labs(
+    title = "Suicide - Device use",
+    subtitle = "Mean of items"
+  )
+a | b
+```
+
+Model suicide on device use in the YRBSS data using three suicide indicators.
+
+```{r}
+sem0 <- '
+  suicide =~ suicide_1 + suicide_2 + suicide_3
+  suicide ~ dv + yr + 0*dv:yr
+'
+
+sem1 <- '
+  suicide =~ suicide_1 + suicide_2 + suicide_3
+  suicide ~ dv + yr + dv:yr
+'
+
+fit_sem0 <- sem(sem0, data = yrbs)
+fit_sem1 <- sem(sem1, data = yrbs)
+summary(fit_sem0)
+summary(fit_sem1)
+semPaths(
+  fit_sem1, 
+  what = "path",
+  whatLabels = "est",
+  nCharNodes = 7,
+  edge.label.cex = 1,
+  edge.label.color = "black"
+  )
+anova(fit_sem0, fit_sem1)
+```
+
