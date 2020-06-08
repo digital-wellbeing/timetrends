@@ -11,6 +11,7 @@
 **/*.log
 # Raw data must be individually downloaded to data-raw/
 data-raw/
+data/
 # Outputs
-output/
 **/*.html
+**/*.pdf

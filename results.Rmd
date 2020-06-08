@@ -1,0 +1,422 @@
+---
+title: "Methods and Results"
+author: "Matti"
+date: "`r Sys.Date()`"
+output: 
+  bookdown::html_document2:
+    number_sections: false
+    toc: true
+    toc_depth: 1
+    toc_float: false
+---
+
+```{r setup, include=FALSE}
+library(scales)
+library(broom)
+library(knitr)
+library(glue)
+library(lavaan)
+library(semPlot)
+library(magrittr)
+library(tidyverse)
+library(patchwork)
+opts_chunk$set(
+  cache = TRUE,
+  echo = FALSE,
+  message = FALSE,
+  warning = FALSE,
+  fig.retina = 2, 
+  fig.width = 8,
+  fig.align = 'center'
+)
+theme_set(
+  theme_linedraw() +
+    theme(
+      panel.grid = element_blank(),
+      strip.background = element_rect(fill = "#2780e3", colour = "#2780e3")
+    )
+)
+```
+
+# Introduction
+
+We studied how the relationship between digital technology use and mental health in teenagers (10-15 year olds) has changed over time using three representative large datasets.
+
+# Methods
+
+## Datasets and measures
+
+```{r data-prep}
+mtf <- read_rds("data/mtf.rds")
+us <- read_rds("data/us.rds")
+yrbs <- read_rds("data/yrbs.rds")
+
+# Code predictors so that 0 is in the data
+mtf <- mtf %>% 
+  mutate(TV = tv - 3, SM = social_media - 3, Year = year - 2014)
+yrbs <- yrbs %>% 
+  mutate(TV = tv - 4, DV = device - 4, Year = year - 2014) %>% 
+  mutate(suicide_3 = ifelse(suicide_3==0, 0, 1))
+us <- us %>% 
+  mutate(TV = tv - 3, SM = socialmedia - 3, Year = year - 2014)
+us_sdq <- us %>% 
+  select(-starts_with("est")) %>% 
+  # SDQ only measured in 2009, 2011, 2013, 2015, 2017
+  filter(year %in% c(2009, 2011, 2013, 2015, 2017))
+us_se <- us %>% 
+  select(-starts_with("sdq")) %>% 
+  # Self esteem in even years
+  filter(year %in% c(2010, 2012, 2014, 2016, 2018))
+
+# http://sdqinfo.org/c9.html
+sdq_emo <- c("psomatic, pworries, punhappy, pclingy, pafraid")
+sdq_emo <- c("sdqc", "sdqh", "sdqm", "sdqp", "sdqx")
+
+sdq_con <- c("ptantrum, qobeys, pfights, plies, psteals")
+sdq_con <- c("sdqe", "sdqg", "sdql", "sdqr", "sdqv")
+```
+
+### Monitoring the Future
+
+Monitoring the Future (MTF) asked two relevant questions about technology use. Since 1991, MTF asked about TV watching on weekdays and -ends ("How much TV do you estimate you watch on an average WEEKDAY/WEEKEND?"; 1 = "None" to 7 = "Five hours or more" (weekdays) or "9 hours or more" (weekends)). We used the mean of these two questions in the analyses, below. Since 2012, MTF has included a question about social media use ("How often do you [...] Visit social networking websites (like Facebook)"; 1 = "Never" to 5 = "Almost every day").
+
+MTF also included, since 1991, six depressive symptom items from the Bentler Medical and Psychological Functioning Inventory (e.g. "Life often seems meaningless"; 1 = "Disagree" to 5 = "Agree").
+
+```{r alpha, eval = FALSE}
+table(mtf$year, mtf$d_b_1, useNA = "always")
+psych::alpha(select(mtf, starts_with("d_b_")))
+```
+
+### Understanding Society
+
+Understanding Society (US) included two technology use related questions. It asked about TV watching ("Hours spent watching TV, video and DVDs on a normal school day?"; 1 = "None" to 5 = "7 or more hours"; a question about weekend watching was only asked every second year so we did not include it) and social media ("Hours using social media on weekdays"; 1 = "None" to 5 = "7 or more hours") every year between 2009 and 2017. 
+
+US also included the Strengths and Difficulties Questionnaire on odd years between 2009 and 2017, from which we used the emotional symptoms (5 items, e.g. "I worry a lot"; 1 = "Not true" to 3 = "Certainly true") and conduct problems subscales (5 items, e.g. "I get very angry and often lose my temper"; 1 = "Not true" to 3 = "Certainly true"). All SDQ items were coded such that greater values indicated greater negative problems/symptoms.
+
+### Youth Risk Behavior Surveillance System
+
+The Youth Risk Behavior Surveillance System (YRBS) has collected data every second year since 2007, and contained a question about TV watching ("On an average school day, how many hours do you watch TV?"; 1 = "I do not watch TV on an average school day" to 7 = "5 or more hours per day") and digital device use ("On an average school day, how many hours do you play video or computer games or use a computer for something that is not school work? (Count time spent on things such as Xbox, PlayStation, an iPad or other tablet, a smartphone, texting, YouTube, Instagram, Facebook, or other social media.)"; 1 = "I do not play video or computer games or use a computer for something that is not school work" to 7 = "5 or more hours per day"). 
+
+YRBS contained five items related to depression and suicidal ideation / behavior, but we did not use the fifth item because it was a question about severity, conditional on a suicide attempt. Of the remaining items, three were binary (e.g. "During the past 12 months, did you ever seriously consider attempting suicide?"; recoded to 0 = "No", 1 = "Yes") and one was ordinal ("During the past 12 months, how many times did you actually attempt suicide?"; 0 = "0 times" to 4 = "6 or more times", but we recoded this as binary 0 = "0 times" to 1 = 1 or more times).
+
+# Results
+
+```{r data-figure, fig.cap = "Timecourses of focal variables from three datasets examined in the current study. Each line represents the mean of the relevant items from each dataset. SDQ = Strengths and Difficulties Questionnaire.", fig.height = 7}
+mtf_plot <- mtf %>% 
+  mutate(
+    Depression = rowMeans(select(., starts_with("d_b"))),
+    `Self-esteem` = rowMeans(select(., starts_with("se_r"))),
+    Loneliness = rowMeans(select(., starts_with("l_mtf"))),
+    TV = tv, `Social media` = social_media
+    ) %>% 
+  select(year, sex, TV, `Social media`, Depression) %>% 
+  pivot_longer(-c(year:sex)) %>% 
+  ggplot(aes(year, value, color = sex)) +
+  scale_color_brewer(palette = "Dark2") +
+  scale_y_continuous("MTF\nMean value", breaks = pretty_breaks()) +
+  scale_x_continuous("Year", breaks = pretty_breaks()) +
+  geom_blank() +
+  stat_summary(fun = mean, geom = "line", size = .8) +
+  facet_wrap("name", scales = "free_y", nrow = 3) +
+  theme(
+    axis.title.x = element_blank(),
+    legend.position = "none"
+    )
+us_plot <- us %>% 
+  mutate(
+    `SDQ conduct` = rowMeans(select(., sdq_con)),
+    `SDQ emotion` = rowMeans(select(., sdq_emo)),
+    TV = tv, `Social media` = socialmedia
+    ) %>% 
+  select(year, sex, TV, `Social media`, `SDQ conduct`, `SDQ emotion`) %>% 
+  pivot_longer(-c(year:sex)) %>% 
+  ggplot(aes(year, value, color = sex)) +
+  scale_color_brewer(palette = "Dark2") +
+  scale_y_continuous("US\nMean value", breaks = pretty_breaks()) +
+  scale_x_continuous("Year", breaks = pretty_breaks()) +
+  geom_blank() +
+  stat_summary(fun = mean, geom = "line", size = .8) +
+  facet_wrap("name", scales = "free_y", nrow = 4) +
+  theme(
+    axis.title.x = element_blank(),
+    legend.position = "none"
+    )
+yrbs_plot <- yrbs %>% 
+  mutate(
+    Suicide = rowMeans(select(., sad_lonely:suicide_3)),
+    TV = tv, `Device use` = device
+  ) %>% 
+  select(year, sex, TV, `Device use`, Suicide) %>% 
+  pivot_longer(-c(year:sex)) %>% 
+  mutate(name = factor(name, levels = c("Suicide", "Device use", "TV"))) %>% 
+  ggplot(aes(year, value, color = sex)) +
+  scale_color_brewer(palette = "Dark2") +
+  scale_y_continuous("YRBS\nMean value", breaks = pretty_breaks()) +
+  scale_x_continuous("Year", breaks = pretty_breaks()) +
+  geom_blank() +
+  stat_summary(fun = mean, geom = "line", size = .8) +
+  facet_wrap("name", scales = "free_y", nrow = 3) +
+  theme(
+    legend.position = "bottom",
+    legend.title = element_blank()
+    )
+(mtf_plot | us_plot | yrbs_plot)
+```
+
+The key variables are visualized over time in Figure \@ref(fig:data-figure). To summarize their trajectories over time, we regressed each variable on time (see Table \@ref(tab:data-table)).
+
+```{r data-table}
+bind_rows(
+  mtf_plot$data,
+  us_plot$data,
+  yrbs_plot$data,
+  .id = "Dataset"
+) %>% 
+  mutate(Dataset = factor(Dataset, labels = c("MTF", "US", "YRBS"))) %>% 
+  group_by(Dataset, sex, name) %>% 
+  group_modify(~tidy(lm(value ~ year, data = .))) %>% 
+  filter(term != "(Intercept)") %>% 
+  mutate(x = glue("b = {format(round(estimate, 3), nsmall = 3)} ({scales::pvalue(p.value, add_p = TRUE)})")) %>% 
+  select(Dataset, Variable=name, sex, x) %>% 
+  ungroup() %>% 
+  pivot_wider(names_from = sex, values_from = x) %>% 
+  kable(caption = "Linear relation between Variable and year.")
+```
+
+## Latent variable analysis
+
+```{r model-fitting-function}
+#' Model an outcome on predictors in 1 dataset
+#'
+#' Fits models using items' mean, and SEMs
+#'
+#' @param data Data frame (data.frame / tibble)
+#' @param items Names of items in `data` that define latent y (chr vector)
+#' @param x Name of predictor in `data` (character)
+#' @param y What the latent y should be called (character)
+#' @param ordered Passed to lavaan::sem()
+#' @param missing Passed to lavaan::sem()
+#'
+#' @return A list of two dataframes. 
+#'   1: models (SEMs and using mean of items) with year as factor
+#'   2: models (SEMs and using mean of items) with year as linear predictor
+fit_sem <- function(dataset, items, x, y, ordered = NULL, missing = "fiml") {
+  
+  # Name of dataset
+  name <- deparse(substitute(dataset))
+  
+  # Drop rows where predictor is missing
+  dataset <- drop_na(dataset, all_of(x))
+  # Drop rows where all items are missing
+  dataset$miss <- apply(select(dataset, all_of(items)), 1, function(x) sum(is.na(x)))
+  dataset <- filter(dataset, miss < length(items))
+  
+  # Combine names of items to a string for lavaan model
+  items_all <- paste0(items, collapse = " + ")
+  
+  # Fit models to each year
+  semf <- glue("{y} =~ {items_all}\n{y} ~ {x}")
+  fit_f <- dataset %>% 
+    # Create mean of items
+    mutate(im = rowMeans(select(., all_of(items)))) %>%
+    group_by(year, sex) %>% 
+    nest() %>% 
+    mutate(
+      dataset = name,
+      x = x,
+      y = y,
+      fit_lm_f = map(data, ~lm(as.formula(glue("im ~ {x}")), data = .)),
+      fit_sem_f = map(data, ~sem(semf, missing = missing, data = ., ordered = ordered), conf.int = TRUE)
+    ) %>% 
+    select(-data)
+  
+  # Models using year as linear predictor
+  sem0 <- glue("{y} =~ {items_all}\n{y} ~ {x} + Year + 0*{x}:Year")
+  sem1 <- glue("{y} =~ {items_all}\n{y} ~ {x} + Year + {x}:Year")
+  fit_l <- dataset %>% 
+    # Create mean of items
+    mutate(im = rowMeans(select(., all_of(items)))) %>%
+    group_by(sex) %>% 
+    nest() %>% 
+    mutate(
+      dataset = name,
+      x = x,
+      y = y,
+      fit_lm_0 = map(data, ~lm(as.formula(glue("im ~ {x} + Year")), data = .)),
+      fit_lm_1 = map(data, ~lm(as.formula(glue("im ~ {x} * Year")), data = .)),
+      fit_sem_0 = map(data, ~sem(sem0, missing = missing, data = ., ordered = ordered)),
+      fit_sem_1 = map(data, ~sem(sem1, missing = missing, data = ., ordered = ordered))
+    ) %>% 
+    select(-data)
+  
+  list(
+    fit_f = fit_f,
+    fit_l = fit_l
+  )
+}
+```
+
+```{r fit-SEMs}
+# Negative mental health
+mtf_dep_sm <- fit_sem(mtf, paste0("d_b_", 1:6), "SM", "Depression")
+mtf_dep_tv <- fit_sem(mtf, paste0("d_b_", 1:6), "TV", "Depression")
+yrbs_ds_dv <- fit_sem(
+  yrbs, 
+  c("sad_lonely", paste0("suicide_", 1:3)),
+  "DV", "Suicide",
+)
+yrbs_ds_tv <- fit_sem(
+  yrbs, 
+  c("sad_lonely", paste0("suicide_", 1:3)),
+  "TV", "Suicide"
+)
+us_sdqemo_sm <- fit_sem(us_sdq, sdq_emo, "SM", "SDQ.Emo")
+us_sdqemo_tv <- fit_sem(us_sdq, sdq_emo, "TV", "SDQ.Emo")
+us_sdqcon_sm <- fit_sem(us_sdq, sdq_con, "SM", "SDQ.Con")
+us_sdqcon_tv <- fit_sem(us_sdq, sdq_con, "TV", "SDQ.Con")
+sem_1 <- list(
+  mtf_dep_sm, mtf_dep_tv, yrbs_ds_dv, 
+  yrbs_ds_tv, us_sdqcon_sm, us_sdqcon_tv, 
+  us_sdqemo_sm, us_sdqemo_tv
+)
+
+# # Self-esteem
+# mtf_se_sm <- fit_sem(mtf, paste0("se_r_", c(1, 7, 4, 5, 2, 10)), "SM", "Self.esteem")
+# mtf_se_tv <- fit_sem(mtf, paste0("se_r_", c(1, 7, 4, 5, 2, 10)), "TV", "Self.esteem")
+# us_se_sm <- fit_sem(
+#   us_se, 
+#   paste0("est", c("a", "i", "b", "j", "c", "k", "e", "f")), 
+#   "SM", "Self.esteem"
+# )
+# us_se_tv <- fit_sem(
+#   us_se, 
+#   paste0("est", c("a", "i", "b", "j", "c", "k", "e", "f")), 
+#   "TV", "Self.esteem"
+# )
+# sem_2 <- list(
+#   mtf_se_sm, mtf_se_tv,
+#   us_se_sm, us_se_tv
+# )
+
+# # Loneliness
+# mtf_l_sm <- fit_sem(mtf, paste0("l_mtf_", 1:6), "SM", "Loneliness")
+# mtf_l_tv <- fit_sem(mtf, paste0("l_mtf_", 1:6), "TV", "Loneliness")
+# sem_3 <- list(
+#   mtf_l_sm, mtf_l_tv
+# )
+
+```
+
+We then analyzed the potential relationships, and how they vary over time, between technology use and mental health with a series of structural equation models: For each dataset, mental health outcome, and predictor, we fitted a structural equation model that predicted the latent mental health attribute from a technology use variable, year (as a continuous linear predictor), and the year-technology use interaction (Figure \@ref(fig:sem-figure)). For example, in the MTF dataset, the model specified Depression as a latent variable indicated by the six depression items, and then predicted Depression from social media, year, and their interaction. The critical interaction parameter was then tested by the its *p* value, and by comparing the model to an otherwise identical model, but one that lacked the interaction term, by using Akaike's Information Criterion (AIC).
+
+```{r sem-figure, fig.cap = "Diagram of the structural equation model described in text. SM = Social media; SM:Year = Interaction term between social media and year; d_b_1 = 1st Depression item from Bentler's scale."}
+semPaths(
+  mtf_dep_sm$fit_l$fit_sem_1[[1]], 
+  what = "path",
+  whatLabels = "name", 
+  intercepts = FALSE,
+  include = 1, ask = FALSE, title = FALSE, 
+  exoCov = FALSE, exoVar = FALSE,
+  sizeLat = 12, sizeMan = 9,
+  nCharNodes = 10,
+  edge.label.cex = 1,
+  edge.label.color = "black"
+)
+```
+
+Before analyses, we excluded rows of data where either the predictor variable or all of the response items were missing, otherwise we used FIML to account for missing data in the response items. Before testing the key hypothesis about linear change in effects, we estimated the relationship between each latent mental health variable and technology use indicator separately for every available year (Figure \@ref(fig:fig-year-factor).)
+
+```{r fig-year-factor, fig.cap = "Relationship between latent mental health variable (e.g. Depression) and each technology use variable (e.g. Social media). SM = Social Media; SDQ.Con = Strengths and Difficulties Questionnaire, Conduct problems subscale; SDQ.Emo = SDQ Emotional symptoms subscale; DV = Device use; Depression ~ SM = Depression predicted from Social Media use."}
+# SEM relationship for each year
+sem_1 %>% 
+  map(~extract2(., "fit_f")) %>% 
+  bind_rows() %>% 
+  ungroup() %>% 
+  mutate(out = map(fit_sem_f, ~standardizedSolution(.))) %>% 
+  unnest(out) %>% 
+  filter(lhs == glue("{y}"), rhs == glue("{x}")) %>% 
+  ggplot(aes(year, est.std, col = sex, fill = sex)) +
+  scale_color_brewer(palette = "Dark2", aesthetics = c("color", "fill")) +
+  scale_x_continuous(breaks = pretty_breaks()) +
+  scale_y_continuous("Estimate (± 95% CI)") +
+  geom_hline(yintercept = 0, lty = 2, size = .25) +
+  geom_ribbon(aes(ymin = ci.lower, ymax = ci.upper), col = NA, alpha = .2) +
+  geom_point() +
+  geom_line() +
+  facet_wrap(~paste(y, x, sep = " ~ "), scales = "free") +
+  theme(
+    legend.position = "bottom",
+    axis.title.x = element_blank(),
+    legend.title = element_blank()
+  )
+```
+
+```{r figure-all-parameters, eval = FALSE}
+sem_1 %>% 
+  map(~magrittr::extract2(., "fit_l")) %>% 
+  bind_rows() %>% 
+  mutate(tab = map(fit_sem_1, ~standardizedSolution(.))) %>% 
+  select(-c(fit_lm_0:fit_sem_1)) %>% 
+  unnest(tab) %>% 
+  filter(op == "~") %>% 
+  mutate(
+    a = case_when(
+      rhs == glue("{x}") ~ "Effect",
+      rhs == glue("Year") ~ "Year",
+      rhs == glue("{x}:Year") ~ "Year x Effect",
+    )
+  ) %>% 
+  separate(dataset, c("dataset", "discard")) %>% 
+  mutate(x = glue("({toupper(dataset)}) {y} ~ {x}")) %>% 
+  ggplot(aes(est.std, x, col = sex)) +
+  scale_color_brewer(palette = "Dark2") +
+  geom_vline(xintercept = 0, lty = 2) +
+    ggstance::geom_pointrangeh(
+    aes(xmin = ci.lower, xmax = ci.upper),
+    position = position_dodge(.2)
+  ) +
+  # geom_point() +
+  facet_wrap("a", scales = "free_x", ncol = 3) +
+  theme(legend.position = "bottom")
+```
+
+The key test was then whether there had been an increase or decrease in any trend observed in Figure \@ref(fig:fig-year-factor) when year was treated as a linear predictor and interacted with the technology use variable. As can be seen from Figure \@ref(fig:fig-interactions), the results suggested mixed changes in technology use - mental health relations over time. 
+
+```{r fig-interactions, fig.cap = "Estimated interaction between the predictor in question (e.g Depression ~ SM = Depression predicted from social media) and year, with 95%CIs. The shape of the points indicate whether the AIC difference between null and test models was greater than 3 (triangle = yes; point = no)."}
+# Parameters and model comparisons
+tmp <- sem_1 %>% 
+  map(~magrittr::extract2(., "fit_l")) %>% 
+  bind_rows() %>% 
+  mutate(
+    AIC0 = map_dbl(fit_sem_0, AIC),
+    AIC1 = map_dbl(fit_sem_1, AIC),
+    AIC0_1 = AIC0 - AIC1
+  ) 
+tmp %>%   
+  mutate(out = map(fit_sem_1, ~standardizedSolution(.))) %>% 
+  unnest(out) %>% 
+  # filter(term == glue("{y} ~ {x}:yr")) %>% 
+  filter(op == "~") %>% 
+  filter(str_detect(rhs, ":")) %>% 
+  mutate(term = glue("{y} ~ {x}")) %>% 
+  mutate(term = fct_rev(term)) %>% 
+  ggplot(aes(est.std, term, col = sex, shape = abs(AIC0_1) > 3)) +
+  scale_shape_discrete(guide = guide_none()) +
+  scale_color_brewer(palette = "Dark2") +
+  scale_x_continuous("Interaction estimate (± 95% CI)") +
+  geom_vline(xintercept = 0, lty = 2, size = .25) +
+  ggstance::geom_pointrangeh(
+    aes(xmin = ci.lower, xmax = ci.upper),
+    position = position_dodge(.2)
+  ) +
+  theme(
+    axis.title.y = element_blank(), 
+    legend.title = element_blank()
+  )
+```
+
+The negative interaction estimates for the Depression - social media relationship (top row of Figure \@ref(fig:fig-interactions)) suggested that social media use's relationship with depression was becoming more negative; i.e. that in 2017 greater social media use was associated with less depression than it was in 2012. The relationship between social media and Depression TV viewing and Depression, similarly, had become less positive. 
+
+Similarly, the relationships between technology use and conduct problems (SDQ) were becoming less positive over time, but only the interaction estimate for female's social media - SDQ: conduct problems scale was significantly different from zero. On the other hand, the results regarding the emotional symptoms were in the opposite direction, and suggested that the relationships between emotional symptoms and technology use were becoming more positive.
+
+Finally, the results suggested that the relationships between suicidal ideation and behavior, and technology use, were not changing between 2007 and 2017.

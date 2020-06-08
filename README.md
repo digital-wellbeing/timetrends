@@ -5,13 +5,7 @@ Authors:
 - Matti Vuorre (matti.vuorre@oii.ox.ac.uk)
 - Augustin Mutak (augustin@psihometar.hr)
 
-## Preface
-
 We study the timecourse of technology effects on adolescent wellbeing in three large representative datasets.
-
-## Reproduce analyses
-
-Reproduce all analyses by running `make.R` (e.g. `Rscript make.R` in your command line.) To run analyses interactively, follow the steps specified in `make.R`.
 
 ## Raw data
 
@@ -37,3 +31,7 @@ The Understanding Society dataset is an annual longitudinal study of 40,000 UK h
 	- https://www.cdc.gov/healthyyouth/data/yrbs/data.htm
 	- Download the National ASCII format data and the associated SPSS syntax to `data-raw/yrbs/`
 	- Process the ASCII file in place with the SPSS syntax file, so you end up with a file `data-raw/yrbs/sadc_2017_national.sav`
+
+## Analyses
+
+Each dataset has its own rmarkdown file for preprocessing, which saves clean data in `data/`. Run those before the analyses (rmarkdown files in root).

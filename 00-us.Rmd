@@ -1,0 +1,151 @@
+---
+title: "Preprocess YRBSS data"
+author: "Amy & Matti"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    toc: true
+    toc_depth: 2
+    toc_float: true
+---
+
+```{r setup, include = FALSE}
+library(tidyverse)
+library(haven)
+```
+
+```{r}
+# Function to read adolescents' data from one file
+read_adolescent_data <- function(filename){
+  # Select relevant variables, define NAs (any negative numbers), remove "yp" from the beginning of variable names
+  dataset <- read_spss(filename)
+  dataset <- dataset %>%
+    select(-ends_with("_sex")) %>%
+    rename_all(~str_replace(., "yp", "")) %>%
+    select(
+      contains("pidp"), # Participant ID
+      contains("hidp"), # Househould identifer
+      ends_with("age_dv"), # Participant age
+      ends_with("socweb"), # Do you have social media profile?
+      ends_with("netcht"),  # Hours using social media on weekdays
+      ends_with("tvvidhrs"),  # TV on weekdays (all waves)
+      contains("est"),  # Self-esteem questions
+      contains("sdq"),  # Strengths and difficulties
+      -ends_with("_orig"),
+      -ends_with("sdqes_dv"),
+      -ends_with("sdqcp_dv"),
+      -ends_with("sdqha_dv"),
+      -ends_with("sdqpp_dv"),
+      -ends_with("sdqps_dv"),
+      -ends_with("sdqtd_dv")
+    )
+  is.na(dataset[, ]) <- dataset[, ] < 0 #define NAs
+  # Remove dataset indicator letter from variable names so that datasets can be merged
+  names(dataset) <- str_remove(names(dataset), "[a-z]_")
+  return(dataset)
+}
+```
+
+```{r}
+# Load the adolescent data from the folders downloaded from the UK data service.
+files_adolescent <- list.files("data-raw/us/", pattern = "_youth.sav", recursive = TRUE, full.names = TRUE)
+files_adolescent <- files_adolescent[str_detect(files_adolescent, "ukhls")]
+data <- map(files_adolescent, read_adolescent_data)
+# Combine adolescent data from different waves (files) into long format
+# Removes SPSS labels from variables & values
+data <- bind_rows(data, .id = "wave")
+```
+
+```{r}
+# Exclude any teenagers from the adolescent data that are under 10 or over 15
+data <- data %>% 
+  filter(between(age_dv, 10, 15))
+```
+
+```{r}
+# Get sex from "stable characteristics" file
+# In Understanding Society that have a specific file "ukhls_wx/xwavedat.sav" which indicates stable characteristics of participants in the survey. We prefer to use this for sex because it is derived from multiple interviews and checked for consistency.
+data_stable <- list.files(
+  "data-raw/us/", 
+  pattern = "xwavedat.sav", recursive = TRUE, full.names = TRUE
+) %>%
+  read_spss(col_select = c("pidp", "sex_dv"))
+is.na(data_stable[, ]) <- data_stable[, ] < 0 # define NAs as anything under 0
+data_stable$sex_dv <- as_factor(data_stable$sex_dv) %>% fct_drop()
+
+data <- left_join(data, data_stable, by = "pidp")
+table(data$sex_dv)
+```
+
+```{r}
+# Rename variables
+data <- data %>%
+  rename(
+    age = age_dv,
+    sex = sex_dv,
+    socialmedia = socweb,
+    socialmediaamount = netcht,
+    tv = tvvidhrs
+  )
+```
+
+We first clean and recode the social media use variable. This variable is complicated as there was a mistake on the side of Understanding Society, who were inconsistent in how they directed children and adults through the study in different years. Sometimes those who said they dont use social media on "netcht" were automatically coded as none on "socweb" and sometimes this wasnt the case. There is no easy solution for this, so we went with a recoding solution detailed below. If a participant said they do not own a social media account or they dont use social media to interact with friends we coded them as 1, for the rest of the participants we took their netcht score. This creates the following scale, which is ordinal in nature: 1 = None, 2 = Less than an hour, 3 = 1-3 hours, 4 = 4-6 hours, 5 = 7 or more hours
+
+```{r}
+# set 9 to NA to revert coding error
+is.na(data[, c("socialmediaamount", "socialmedia")]) <- data[, c("socialmediaamount", "socialmedia")] == 9
+data$socialmedia <- ifelse((data$socialmedia == 2 | data$socialmediaamount == 1), 1,
+                           ifelse(data$socialmediaamount == 2, 2,
+                                  ifelse(data$socialmediaamount == 3, 3,
+                                         ifelse(data$socialmediaamount == 4, 4,
+                                                ifelse(data$socialmediaamount == 5, 5, NA)))))
+data <- data %>% select(-socialmediaamount)
+```
+
+Strengths and difficulties
+Recode: Greater values indicate greater difficulties
+
+```{r}
+cor(select(data, starts_with("sdq")), use = "pairwise.complete.obs") %>% 
+  round(2)
+data <- data %>%
+  mutate_at(
+    paste0("sdq", c("a", "d", "g", "i", "k", "n", "q", "t", "u", "y")),
+    function(x) 4 - x
+  )
+```
+
+Self esteem
+Recode: Greater values indicate greater self esteem
+
+```{r}
+data <- data %>%
+  mutate_at(
+    paste0("est", c("i", "b", "e", "f")), 
+    function(x) 5 - x
+  )
+```
+
+Sex: Take out (10) inconsistent responses
+
+```{r}
+table(data$sex)
+data <- filter(data, sex != "inconsistent")
+data <- data %>% 
+  mutate(sex = factor(sex, levels = c("Female", "Male")))
+table(data$sex, useNA = "always")
+```
+
+```{r}
+# Convert wave to year
+# Waves 1-9 to years 2009 ->
+data <- rename(data, year = "wave")
+data$year <- as.numeric(data$year) + 2008
+
+data <- data %>%
+  # Drop all rows where sex, year, or age are unknown
+  drop_na(sex, year, age)
+
+# Save file to disk
+saveRDS(data, "data/us.rds")
+```
