@@ -96,10 +96,13 @@ for (i in 1:length(MTFfiles)) {
   # Cleaning the vectors
   indices <- vector("numeric")
   names <- vector("character")
+  
+  # Remove value labels so can be merged
+  intermediate[[i]] <- zap_labels(intermediate[[i]])
 }
 
 # Merging the data in the main dataframe
-MTF <- bind_rows(intermediate)
+MTF <- plyr::rbind.fill(intermediate)
 ```
 
 After merging the files, there are some leftover things we still have to do
