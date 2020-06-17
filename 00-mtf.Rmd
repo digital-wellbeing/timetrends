@@ -246,10 +246,7 @@ Aggregate, rename, recode
 
 ```{r}
 MTF <- MTF %>%
-  # Mean of TV
-  mutate(
-    tv = rowMeans(select_at(., vars(contains("tv_"))), na.rm = TRUE)
-  ) %>%
+  rename(tv = tv_weekday) %>% 
   # Select variables
   select(
     year, sex, age, tv, social_media,
