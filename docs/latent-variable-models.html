@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 8 Latent Variable Models | Technology effect timecourses</title>
+  <meta name="description" content="Chapter 8 Latent Variable Models | Technology effect timecourses" />
+  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 8 Latent Variable Models | Technology effect timecourses" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 8 Latent Variable Models | Technology effect timecourses" />
+  
+  
+  
+
+<meta name="author" content="Matti Vuorre" />
+
+
+<meta name="date" content="2020-09-02" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="bayesian-generalized-linear-mixed-model.html"/>
+
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+
+
+<style type="text/css">
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Technology effect timecourses</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Preface</a><ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#analyses-and-reproducibility"><i class="fa fa-check"></i><b>1.1</b> Analyses and reproducibility</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#raw-data"><i class="fa fa-check"></i><b>1.2</b> Raw data</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="mtf-preprocessing.html"><a href="mtf-preprocessing.html"><i class="fa fa-check"></i><b>2</b> MTF preprocessing</a><ul>
+<li class="chapter" data-level="2.1" data-path="mtf-preprocessing.html"><a href="mtf-preprocessing.html#save-to-disk"><i class="fa fa-check"></i><b>2.1</b> Save to disk</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="us-preprocessing.html"><a href="us-preprocessing.html"><i class="fa fa-check"></i><b>3</b> US preprocessing</a><ul>
+<li class="chapter" data-level="3.1" data-path="us-preprocessing.html"><a href="us-preprocessing.html#year"><i class="fa fa-check"></i><b>3.1</b> Year</a></li>
+<li class="chapter" data-level="3.2" data-path="us-preprocessing.html"><a href="us-preprocessing.html#strengths-and-difficulties"><i class="fa fa-check"></i><b>3.2</b> Strengths and difficulties</a></li>
+<li class="chapter" data-level="3.3" data-path="us-preprocessing.html"><a href="us-preprocessing.html#save-file"><i class="fa fa-check"></i><b>3.3</b> Save file</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="yrbs-preprocessing.html"><a href="yrbs-preprocessing.html"><i class="fa fa-check"></i><b>4</b> YRBS preprocessing</a><ul>
+<li class="chapter" data-level="4.1" data-path="yrbs-preprocessing.html"><a href="yrbs-preprocessing.html#recode-variables"><i class="fa fa-check"></i><b>4.1</b> Recode Variables</a></li>
+<li class="chapter" data-level="4.2" data-path="yrbs-preprocessing.html"><a href="yrbs-preprocessing.html#age"><i class="fa fa-check"></i><b>4.2</b> Age</a></li>
+<li class="chapter" data-level="4.3" data-path="yrbs-preprocessing.html"><a href="yrbs-preprocessing.html#tech-variables"><i class="fa fa-check"></i><b>4.3</b> Tech variables</a></li>
+<li class="chapter" data-level="4.4" data-path="yrbs-preprocessing.html"><a href="yrbs-preprocessing.html#sex"><i class="fa fa-check"></i><b>4.4</b> Sex</a></li>
+<li class="chapter" data-level="4.5" data-path="yrbs-preprocessing.html"><a href="yrbs-preprocessing.html#rename-and-save"><i class="fa fa-check"></i><b>4.5</b> Rename and save</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="data-descriptives.html"><a href="data-descriptives.html"><i class="fa fa-check"></i><b>5</b> Data descriptives</a><ul>
+<li class="chapter" data-level="5.1" data-path="data-descriptives.html"><a href="data-descriptives.html#data"><i class="fa fa-check"></i><b>5.1</b> Data</a><ul>
+<li class="chapter" data-level="5.1.1" data-path="data-descriptives.html"><a href="data-descriptives.html#sample-sizes-and-years"><i class="fa fa-check"></i><b>5.1.1</b> Sample sizes and years</a></li>
+<li class="chapter" data-level="5.1.2" data-path="data-descriptives.html"><a href="data-descriptives.html#outcomes"><i class="fa fa-check"></i><b>5.1.2</b> Outcomes</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="data-descriptives.html"><a href="data-descriptives.html#figures"><i class="fa fa-check"></i><b>5.2</b> Figures</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="generalized-linear-model.html"><a href="generalized-linear-model.html"><i class="fa fa-check"></i><b>6</b> Generalized Linear Model</a><ul>
+<li class="chapter" data-level="6.1" data-path="data-descriptives.html"><a href="data-descriptives.html#data"><i class="fa fa-check"></i><b>6.1</b> Data</a></li>
+<li class="chapter" data-level="6.2" data-path="generalized-linear-model.html"><a href="generalized-linear-model.html#yearly-correlations-figure"><i class="fa fa-check"></i><b>6.2</b> Yearly correlations figure</a></li>
+<li class="chapter" data-level="6.3" data-path="generalized-linear-model.html"><a href="generalized-linear-model.html#models"><i class="fa fa-check"></i><b>6.3</b> Models</a></li>
+<li class="chapter" data-level="6.4" data-path="generalized-linear-model.html"><a href="generalized-linear-model.html#results"><i class="fa fa-check"></i><b>6.4</b> Results</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="bayesian-generalized-linear-mixed-model.html"><a href="bayesian-generalized-linear-mixed-model.html"><i class="fa fa-check"></i><b>7</b> Bayesian Generalized Linear Mixed Model</a><ul>
+<li class="chapter" data-level="7.1" data-path="data-descriptives.html"><a href="data-descriptives.html#data"><i class="fa fa-check"></i><b>7.1</b> Data</a></li>
+<li class="chapter" data-level="7.2" data-path="generalized-linear-model.html"><a href="generalized-linear-model.html#models"><i class="fa fa-check"></i><b>7.2</b> Models</a><ul>
+<li class="chapter" data-level="7.2.1" data-path="bayesian-generalized-linear-mixed-model.html"><a href="bayesian-generalized-linear-mixed-model.html#estimate"><i class="fa fa-check"></i><b>7.2.1</b> Estimate</a></li>
+<li class="chapter" data-level="7.2.2" data-path="bayesian-generalized-linear-mixed-model.html"><a href="bayesian-generalized-linear-mixed-model.html#year-and-tech"><i class="fa fa-check"></i><b>7.2.2</b> Year and tech</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="latent-variable-models.html"><a href="latent-variable-models.html"><i class="fa fa-check"></i><b>8</b> Latent Variable Models</a><ul>
+<li class="chapter" data-level="8.1" data-path="data-descriptives.html"><a href="data-descriptives.html#data"><i class="fa fa-check"></i><b>8.1</b> Data</a></li>
+<li class="chapter" data-level="8.2" data-path="generalized-linear-model.html"><a href="generalized-linear-model.html#models"><i class="fa fa-check"></i><b>8.2</b> Models</a></li>
+<li class="chapter" data-level="8.3" data-path="generalized-linear-model.html"><a href="generalized-linear-model.html#results"><i class="fa fa-check"></i><b>8.3</b> Results</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Technology effect timecourses</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="latent-variable-models" class="section level1">
+<h1><span class="header-section-number">Chapter 8</span> Latent Variable Models</h1>
+<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="latent-variable-models.html#cb93-1"></a><span class="co"># Parallel processing settings</span></span>
+<span id="cb93-2"><a href="latent-variable-models.html#cb93-2"></a><span class="kw">plan</span>(<span class="kw">multisession</span>(<span class="dt">workers =</span> parallel<span class="op">::</span><span class="kw">detectCores</span>(<span class="dt">logical =</span> <span class="ot">FALSE</span>)))</span></code></pre></div>
+<div id="data" class="section level2">
+<h2><span class="header-section-number">8.1</span> Data</h2>
+<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb94-1"><a href="latent-variable-models.html#cb94-1"></a>mtf &lt;-<span class="st"> </span><span class="kw">read_rds</span>(<span class="st">&quot;data/mtf.rds&quot;</span>)</span>
+<span id="cb94-2"><a href="latent-variable-models.html#cb94-2"></a>us &lt;-<span class="st"> </span><span class="kw">read_rds</span>(<span class="st">&quot;data/us.rds&quot;</span>)</span>
+<span id="cb94-3"><a href="latent-variable-models.html#cb94-3"></a>yrbs &lt;-<span class="st"> </span><span class="kw">read_rds</span>(<span class="st">&quot;data/yrbs.rds&quot;</span>)</span></code></pre></div>
+</div>
+<div id="models" class="section level2">
+<h2><span class="header-section-number">8.2</span> Models</h2>
+<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="latent-variable-models.html#cb95-1"></a>fit &lt;-<span class="st"> </span><span class="cf">function</span>(data, items, x, y, name, <span class="dt">missing =</span> <span class="st">&quot;ml&quot;</span>) {</span>
+<span id="cb95-2"><a href="latent-variable-models.html#cb95-2"></a>  <span class="co"># Center year</span></span>
+<span id="cb95-3"><a href="latent-variable-models.html#cb95-3"></a>  data &lt;-<span class="st"> </span><span class="kw">mutate</span>(data, <span class="dt">Year =</span> Year <span class="op">-</span><span class="st"> </span><span class="dv">2017</span>)</span>
+<span id="cb95-4"><a href="latent-variable-models.html#cb95-4"></a>  </span>
+<span id="cb95-5"><a href="latent-variable-models.html#cb95-5"></a>  <span class="co"># Contrast code sex</span></span>
+<span id="cb95-6"><a href="latent-variable-models.html#cb95-6"></a>  data &lt;-<span class="st"> </span><span class="kw">mutate</span>(data, <span class="dt">Sex =</span> <span class="kw">ifelse</span>(Sex<span class="op">==</span><span class="st">&quot;Male&quot;</span>, <span class="fl">-0.5</span>, <span class="fl">0.5</span>))</span>
+<span id="cb95-7"><a href="latent-variable-models.html#cb95-7"></a>  </span>
+<span id="cb95-8"><a href="latent-variable-models.html#cb95-8"></a>  <span class="co"># Drop rows with missing predictor</span></span>
+<span id="cb95-9"><a href="latent-variable-models.html#cb95-9"></a>  data &lt;-<span class="st"> </span><span class="kw">drop_na</span>(data, <span class="kw">all_of</span>(x))</span>
+<span id="cb95-10"><a href="latent-variable-models.html#cb95-10"></a>  </span>
+<span id="cb95-11"><a href="latent-variable-models.html#cb95-11"></a>  <span class="co"># Drop rows where all outcome items are missing</span></span>
+<span id="cb95-12"><a href="latent-variable-models.html#cb95-12"></a>  data &lt;-<span class="st"> </span><span class="kw">drop_na</span>(data, <span class="kw">all_of</span>(y))</span>
+<span id="cb95-13"><a href="latent-variable-models.html#cb95-13"></a>  </span>
+<span id="cb95-14"><a href="latent-variable-models.html#cb95-14"></a>  <span class="co"># Mean-center predictors</span></span>
+<span id="cb95-15"><a href="latent-variable-models.html#cb95-15"></a>  data &lt;-<span class="st"> </span>data <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb95-16"><a href="latent-variable-models.html#cb95-16"></a><span class="st">    </span><span class="kw">mutate</span>(</span>
+<span id="cb95-17"><a href="latent-variable-models.html#cb95-17"></a>      <span class="kw">across</span>(</span>
+<span id="cb95-18"><a href="latent-variable-models.html#cb95-18"></a>        <span class="kw">all_of</span>(x), </span>
+<span id="cb95-19"><a href="latent-variable-models.html#cb95-19"></a>        <span class="op">~</span><span class="kw">as.numeric</span>(<span class="kw">scale</span>(., <span class="dt">center =</span> <span class="ot">TRUE</span>, <span class="dt">scale =</span> <span class="ot">FALSE</span>))</span>
+<span id="cb95-20"><a href="latent-variable-models.html#cb95-20"></a>      )</span>
+<span id="cb95-21"><a href="latent-variable-models.html#cb95-21"></a>    )</span>
+<span id="cb95-22"><a href="latent-variable-models.html#cb95-22"></a>  </span>
+<span id="cb95-23"><a href="latent-variable-models.html#cb95-23"></a>  <span class="co"># Ordered?</span></span>
+<span id="cb95-24"><a href="latent-variable-models.html#cb95-24"></a>  <span class="cf">if</span> (name<span class="op">==</span><span class="st">&quot;YRBS&quot;</span>) {</span>
+<span id="cb95-25"><a href="latent-variable-models.html#cb95-25"></a>    data &lt;-<span class="st"> </span><span class="kw">mutate</span>(data, <span class="kw">across</span>(sad_lonely<span class="op">:</span>suicide_<span class="dv">3</span>, ordered))</span>
+<span id="cb95-26"><a href="latent-variable-models.html#cb95-26"></a>    missing =<span class="st"> &quot;listwise&quot;</span></span>
+<span id="cb95-27"><a href="latent-variable-models.html#cb95-27"></a>  }</span>
+<span id="cb95-28"><a href="latent-variable-models.html#cb95-28"></a>  </span>
+<span id="cb95-29"><a href="latent-variable-models.html#cb95-29"></a>  <span class="co"># Create interaction terms because lavaan doesn&#39;t know how to</span></span>
+<span id="cb95-30"><a href="latent-variable-models.html#cb95-30"></a>  newdata &lt;-<span class="st"> </span><span class="kw">model.matrix</span>(</span>
+<span id="cb95-31"><a href="latent-variable-models.html#cb95-31"></a>    <span class="kw">as.formula</span>(<span class="kw">str_glue</span>(<span class="st">&quot;{y} ~ Sex * Year * {x}&quot;</span>)), </span>
+<span id="cb95-32"><a href="latent-variable-models.html#cb95-32"></a>    <span class="dt">data =</span> data</span>
+<span id="cb95-33"><a href="latent-variable-models.html#cb95-33"></a>  )[,<span class="op">-</span><span class="dv">1</span>] <span class="op">%&gt;%</span><span class="st">  </span><span class="co"># Take out the intercept column because it causes lavaan to break</span></span>
+<span id="cb95-34"><a href="latent-variable-models.html#cb95-34"></a><span class="st">    </span><span class="kw">as.data.frame</span>()</span>
+<span id="cb95-35"><a href="latent-variable-models.html#cb95-35"></a>  <span class="co"># Interaction term breaks lavaan so change to dot</span></span>
+<span id="cb95-36"><a href="latent-variable-models.html#cb95-36"></a>  <span class="kw">names</span>(newdata) &lt;-<span class="st"> </span><span class="kw">str_replace_all</span>(<span class="kw">names</span>(newdata), <span class="st">&quot;:&quot;</span>, <span class="st">&quot;.&quot;</span>)</span>
+<span id="cb95-37"><a href="latent-variable-models.html#cb95-37"></a>  <span class="co"># return(newdata)</span></span>
+<span id="cb95-38"><a href="latent-variable-models.html#cb95-38"></a>  newdata &lt;-<span class="st"> </span><span class="kw">cbind</span>(data[,items], newdata)</span>
+<span id="cb95-39"><a href="latent-variable-models.html#cb95-39"></a>  <span class="co"># Combine names of items to a string for lavaan model</span></span>
+<span id="cb95-40"><a href="latent-variable-models.html#cb95-40"></a>  items_all &lt;-<span class="st"> </span><span class="kw">paste0</span>(items, <span class="dt">collapse =</span> <span class="st">&quot; + &quot;</span>)</span>
+<span id="cb95-41"><a href="latent-variable-models.html#cb95-41"></a>  </span>
+<span id="cb95-42"><a href="latent-variable-models.html#cb95-42"></a>  <span class="co"># Model strings</span></span>
+<span id="cb95-43"><a href="latent-variable-models.html#cb95-43"></a>  sem0 &lt;-<span class="st"> </span><span class="kw">str_glue</span>(<span class="st">&quot;{y} =~ {items_all}</span><span class="ch">\n</span><span class="st">{y} ~ Sex + Year + Sex.Year&quot;</span>)</span>
+<span id="cb95-44"><a href="latent-variable-models.html#cb95-44"></a>  sem1 &lt;-<span class="st"> </span><span class="kw">str_glue</span>(<span class="st">&quot;{y} =~ {items_all}</span><span class="ch">\n</span><span class="st">{y} ~ Sex + Year + {x} + Sex.Year + Sex.{x} + Year.{x} + Sex.Year.{x}&quot;</span>)</span>
+<span id="cb95-45"><a href="latent-variable-models.html#cb95-45"></a>  </span>
+<span id="cb95-46"><a href="latent-variable-models.html#cb95-46"></a>  ml0 &lt;-<span class="st"> </span><span class="kw">sem</span>(sem0, <span class="dt">data =</span> newdata, <span class="dt">missing =</span> missing)</span>
+<span id="cb95-47"><a href="latent-variable-models.html#cb95-47"></a>  ml1 &lt;-<span class="st"> </span><span class="kw">sem</span>(sem1, <span class="dt">data =</span> newdata, <span class="dt">missing =</span> missing)</span>
+<span id="cb95-48"><a href="latent-variable-models.html#cb95-48"></a>  </span>
+<span id="cb95-49"><a href="latent-variable-models.html#cb95-49"></a>  <span class="kw">tibble</span>(</span>
+<span id="cb95-50"><a href="latent-variable-models.html#cb95-50"></a>    <span class="dt">data =</span> name,</span>
+<span id="cb95-51"><a href="latent-variable-models.html#cb95-51"></a>    <span class="dt">Technology =</span> x,</span>
+<span id="cb95-52"><a href="latent-variable-models.html#cb95-52"></a>    <span class="dt">Outcome =</span> y,</span>
+<span id="cb95-53"><a href="latent-variable-models.html#cb95-53"></a>    <span class="dt">ml0 =</span> <span class="kw">list</span>(ml0),</span>
+<span id="cb95-54"><a href="latent-variable-models.html#cb95-54"></a>    <span class="dt">ml1 =</span> <span class="kw">list</span>(ml1)</span>
+<span id="cb95-55"><a href="latent-variable-models.html#cb95-55"></a>  )</span>
+<span id="cb95-56"><a href="latent-variable-models.html#cb95-56"></a>  </span>
+<span id="cb95-57"><a href="latent-variable-models.html#cb95-57"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb96-1"><a href="latent-variable-models.html#cb96-1"></a>x1 <span class="op">%&lt;-%</span><span class="st"> </span><span class="kw">fit</span>(yrbs, <span class="kw">c</span>(<span class="st">&quot;sad_lonely&quot;</span>, <span class="kw">paste0</span>(<span class="st">&quot;suicide_&quot;</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">3</span>)), <span class="st">&quot;TV&quot;</span>, <span class="st">&quot;Suicide&quot;</span>, <span class="st">&quot;YRBS&quot;</span>)</span>
+<span id="cb96-2"><a href="latent-variable-models.html#cb96-2"></a>x2 <span class="op">%&lt;-%</span><span class="st"> </span><span class="kw">fit</span>(yrbs, <span class="kw">c</span>(<span class="st">&quot;sad_lonely&quot;</span>, <span class="kw">paste0</span>(<span class="st">&quot;suicide_&quot;</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">3</span>)), <span class="st">&quot;DV&quot;</span>, <span class="st">&quot;Suicide&quot;</span>, <span class="st">&quot;YRBS&quot;</span>)</span>
+<span id="cb96-3"><a href="latent-variable-models.html#cb96-3"></a>x3 <span class="op">%&lt;-%</span><span class="st"> </span><span class="kw">fit</span>(mtf, <span class="kw">paste0</span>(<span class="st">&quot;D_B_&quot;</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">6</span>), <span class="st">&quot;TV&quot;</span>, <span class="st">&quot;Depression&quot;</span>, <span class="st">&quot;MTF&quot;</span>)</span>
+<span id="cb96-4"><a href="latent-variable-models.html#cb96-4"></a>x4 <span class="op">%&lt;-%</span><span class="st"> </span><span class="kw">fit</span>(mtf, <span class="kw">paste0</span>(<span class="st">&quot;D_B_&quot;</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">6</span>), <span class="st">&quot;SM&quot;</span>, <span class="st">&quot;Depression&quot;</span>, <span class="st">&quot;MTF&quot;</span>)</span>
+<span id="cb96-5"><a href="latent-variable-models.html#cb96-5"></a></span>
+<span id="cb96-6"><a href="latent-variable-models.html#cb96-6"></a>sdq_con &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;sdqe&quot;</span>, <span class="st">&quot;sdqg&quot;</span>, <span class="st">&quot;sdql&quot;</span>, <span class="st">&quot;sdqr&quot;</span>, <span class="st">&quot;sdqv&quot;</span>)</span>
+<span id="cb96-7"><a href="latent-variable-models.html#cb96-7"></a>sdq_emo &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;sdqc&quot;</span>, <span class="st">&quot;sdqh&quot;</span>, <span class="st">&quot;sdqm&quot;</span>, <span class="st">&quot;sdqp&quot;</span>, <span class="st">&quot;sdqx&quot;</span>)</span>
+<span id="cb96-8"><a href="latent-variable-models.html#cb96-8"></a></span>
+<span id="cb96-9"><a href="latent-variable-models.html#cb96-9"></a>x5 <span class="op">%&lt;-%</span><span class="st"> </span><span class="kw">fit</span>(us, sdq_con, <span class="st">&quot;TV&quot;</span>, <span class="st">&quot;Conduct&quot;</span>, <span class="st">&quot;US&quot;</span>)</span>
+<span id="cb96-10"><a href="latent-variable-models.html#cb96-10"></a>x6 <span class="op">%&lt;-%</span><span class="st"> </span><span class="kw">fit</span>(us, sdq_con, <span class="st">&quot;SM&quot;</span>, <span class="st">&quot;Conduct&quot;</span>, <span class="st">&quot;US&quot;</span>)</span>
+<span id="cb96-11"><a href="latent-variable-models.html#cb96-11"></a>x7 <span class="op">%&lt;-%</span><span class="st"> </span><span class="kw">fit</span>(us, sdq_emo, <span class="st">&quot;TV&quot;</span>, <span class="st">&quot;Emotion&quot;</span>, <span class="st">&quot;US&quot;</span>)</span>
+<span id="cb96-12"><a href="latent-variable-models.html#cb96-12"></a>x8 <span class="op">%&lt;-%</span><span class="st"> </span><span class="kw">fit</span>(us, sdq_emo, <span class="st">&quot;SM&quot;</span>, <span class="st">&quot;Emotion&quot;</span>, <span class="st">&quot;US&quot;</span>)</span>
+<span id="cb96-13"><a href="latent-variable-models.html#cb96-13"></a></span>
+<span id="cb96-14"><a href="latent-variable-models.html#cb96-14"></a><span class="co"># Rename variables</span></span>
+<span id="cb96-15"><a href="latent-variable-models.html#cb96-15"></a>fits &lt;-<span class="st"> </span><span class="kw">bind_rows</span>(x1,x2,x3,x4,x5,x6,x7,x8)</span>
+<span id="cb96-16"><a href="latent-variable-models.html#cb96-16"></a>fits &lt;-<span class="st"> </span>fits <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb96-17"><a href="latent-variable-models.html#cb96-17"></a><span class="st">  </span><span class="kw">mutate</span>(</span>
+<span id="cb96-18"><a href="latent-variable-models.html#cb96-18"></a>    <span class="dt">Technology =</span> <span class="kw">ifelse</span>(</span>
+<span id="cb96-19"><a href="latent-variable-models.html#cb96-19"></a>      Technology <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;SM&quot;</span>, <span class="st">&quot;DV&quot;</span>), </span>
+<span id="cb96-20"><a href="latent-variable-models.html#cb96-20"></a>      <span class="st">&quot;Social media / device&quot;</span>, </span>
+<span id="cb96-21"><a href="latent-variable-models.html#cb96-21"></a>      <span class="st">&quot;Television&quot;</span></span>
+<span id="cb96-22"><a href="latent-variable-models.html#cb96-22"></a>    )</span>
+<span id="cb96-23"><a href="latent-variable-models.html#cb96-23"></a>  ) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb96-24"><a href="latent-variable-models.html#cb96-24"></a><span class="st">  </span><span class="kw">arrange</span>(Outcome, Technology)</span></code></pre></div>
+</div>
+<div id="results" class="section level2">
+<h2><span class="header-section-number">8.3</span> Results</h2>
+<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="latent-variable-models.html#cb97-1"></a>coefs &lt;-<span class="st"> </span>fits <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb97-2"><a href="latent-variable-models.html#cb97-2"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">p =</span> <span class="kw">map</span>(ml1, <span class="op">~</span><span class="kw">tidy</span>(., <span class="dt">conf.int =</span> <span class="ot">TRUE</span>))) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb97-3"><a href="latent-variable-models.html#cb97-3"></a><span class="st">  </span><span class="kw">unnest</span>(p) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb97-4"><a href="latent-variable-models.html#cb97-4"></a><span class="st">  </span><span class="kw">filter</span>(op <span class="op">==</span><span class="st"> &quot;~&quot;</span>) <span class="op">%&gt;%</span></span>
+<span id="cb97-5"><a href="latent-variable-models.html#cb97-5"></a><span class="st">  </span><span class="kw">separate</span>(term, <span class="kw">c</span>(<span class="st">&quot;lhs&quot;</span>, <span class="st">&quot;rhs&quot;</span>), <span class="dt">sep =</span> <span class="st">&quot; ~ &quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb97-6"><a href="latent-variable-models.html#cb97-6"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">N =</span> <span class="kw">map_dbl</span>(ml1, nobs)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb97-7"><a href="latent-variable-models.html#cb97-7"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">N =</span> scales<span class="op">::</span><span class="kw">comma</span>(N, <span class="dt">accuracy =</span> <span class="dv">1</span>))</span>
+<span id="cb97-8"><a href="latent-variable-models.html#cb97-8"></a>coefs <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb97-9"><a href="latent-variable-models.html#cb97-9"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Parameter =</span> <span class="kw">str_replace</span>(rhs, <span class="st">&quot;SM|DV|TV&quot;</span>, <span class="st">&quot;Technology&quot;</span>)) <span class="op">%&gt;%</span></span>
+<span id="cb97-10"><a href="latent-variable-models.html#cb97-10"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Parameter =</span> <span class="kw">str_replace_all</span>(Parameter, <span class="st">&quot;</span><span class="ch">\\</span><span class="st">.&quot;</span>, <span class="st">&quot;:&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb97-11"><a href="latent-variable-models.html#cb97-11"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Parameter =</span> <span class="kw">fct_inorder</span>(Parameter)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb97-12"><a href="latent-variable-models.html#cb97-12"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Outcome =</span> <span class="kw">fct_rev</span>(Outcome)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb97-13"><a href="latent-variable-models.html#cb97-13"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(estimate, Outcome, <span class="dt">shape =</span> Technology, <span class="dt">fill =</span> p.value <span class="op">&lt;</span><span class="st"> </span><span class="fl">0.05</span>)) <span class="op">+</span></span>
+<span id="cb97-14"><a href="latent-variable-models.html#cb97-14"></a><span class="st">  </span><span class="kw">scale_shape_manual</span>(<span class="dt">values =</span> <span class="kw">c</span>(<span class="dv">21</span>, <span class="dv">22</span>)) <span class="op">+</span></span>
+<span id="cb97-15"><a href="latent-variable-models.html#cb97-15"></a><span class="st">  </span><span class="kw">scale_fill_manual</span>(<span class="dt">values =</span> <span class="kw">c</span>(<span class="st">&quot;white&quot;</span>, <span class="st">&quot;black&quot;</span>), <span class="dt">guide =</span> <span class="ot">FALSE</span>) <span class="op">+</span></span>
+<span id="cb97-16"><a href="latent-variable-models.html#cb97-16"></a><span class="st">  </span><span class="kw">scale_x_continuous</span>(</span>
+<span id="cb97-17"><a href="latent-variable-models.html#cb97-17"></a>    <span class="st">&quot;Parameter estimate&quot;</span>,</span>
+<span id="cb97-18"><a href="latent-variable-models.html#cb97-18"></a>    <span class="dt">breaks =</span> scales<span class="op">::</span><span class="kw">pretty_breaks</span>(), </span>
+<span id="cb97-19"><a href="latent-variable-models.html#cb97-19"></a>    <span class="dt">expand =</span> <span class="kw">expansion</span>(.<span class="dv">25</span>)</span>
+<span id="cb97-20"><a href="latent-variable-models.html#cb97-20"></a>  ) <span class="op">+</span></span>
+<span id="cb97-21"><a href="latent-variable-models.html#cb97-21"></a><span class="st">  </span><span class="kw">geom_vline</span>(<span class="dt">xintercept =</span> <span class="dv">0</span>, <span class="dt">lty =</span> <span class="dv">2</span>, <span class="dt">size =</span> <span class="fl">.25</span>) <span class="op">+</span></span>
+<span id="cb97-22"><a href="latent-variable-models.html#cb97-22"></a><span class="st">  </span><span class="kw">geom_linerangeh</span>(</span>
+<span id="cb97-23"><a href="latent-variable-models.html#cb97-23"></a>    <span class="kw">aes</span>(<span class="dt">xmin =</span> conf.low, <span class="dt">xmax =</span> conf.high), <span class="dt">size =</span> <span class="fl">.25</span>,</span>
+<span id="cb97-24"><a href="latent-variable-models.html#cb97-24"></a>    <span class="dt">position =</span> <span class="kw">position_dodge2v</span>(.<span class="dv">4</span>), <span class="dt">show.legend =</span> <span class="ot">FALSE</span></span>
+<span id="cb97-25"><a href="latent-variable-models.html#cb97-25"></a>  ) <span class="op">+</span></span>
+<span id="cb97-26"><a href="latent-variable-models.html#cb97-26"></a><span class="st">  </span><span class="kw">geom_point</span>(</span>
+<span id="cb97-27"><a href="latent-variable-models.html#cb97-27"></a>    <span class="dt">size =</span> <span class="dv">2</span>, <span class="dt">position =</span> <span class="kw">position_dodge2v</span>(.<span class="dv">4</span>),</span>
+<span id="cb97-28"><a href="latent-variable-models.html#cb97-28"></a>  ) <span class="op">+</span></span>
+<span id="cb97-29"><a href="latent-variable-models.html#cb97-29"></a><span class="st">  </span><span class="co"># geom_text(</span></span>
+<span id="cb97-30"><a href="latent-variable-models.html#cb97-30"></a><span class="st">  </span><span class="co">#   aes(label = N), size = 2, vjust = 2,</span></span>
+<span id="cb97-31"><a href="latent-variable-models.html#cb97-31"></a><span class="st">  </span><span class="co">#   position = position_dodge2v(.4)</span></span>
+<span id="cb97-32"><a href="latent-variable-models.html#cb97-32"></a><span class="st">  </span><span class="co"># ) +</span></span>
+<span id="cb97-33"><a href="latent-variable-models.html#cb97-33"></a><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="st">&quot;Parameter&quot;</span>, <span class="dt">scales =</span> <span class="st">&quot;free_x&quot;</span>, <span class="dt">nrow =</span> <span class="dv">2</span>) <span class="op">+</span></span>
+<span id="cb97-34"><a href="latent-variable-models.html#cb97-34"></a><span class="st">  </span><span class="kw">theme</span>(</span>
+<span id="cb97-35"><a href="latent-variable-models.html#cb97-35"></a>    <span class="dt">legend.position =</span> <span class="kw">c</span>(.<span class="dv">875</span>, <span class="fl">.25</span>),</span>
+<span id="cb97-36"><a href="latent-variable-models.html#cb97-36"></a>    <span class="dt">axis.title.y =</span> <span class="kw">element_blank</span>(), </span>
+<span id="cb97-37"><a href="latent-variable-models.html#cb97-37"></a>    <span class="dt">panel.spacing.x =</span> <span class="kw">unit</span>(<span class="dv">12</span>, <span class="st">&quot;pt&quot;</span>)</span>
+<span id="cb97-38"><a href="latent-variable-models.html#cb97-38"></a>  )</span></code></pre></div>
+<p><img src="05-SEM_files/figure-html/unnamed-chunk-2-1.png" width="768" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb98-1"><a href="latent-variable-models.html#cb98-1"></a><span class="co"># Numbers</span></span>
+<span id="cb98-2"><a href="latent-variable-models.html#cb98-2"></a>coefs <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb98-3"><a href="latent-variable-models.html#cb98-3"></a><span class="st">  </span><span class="kw">filter</span>(Outcome <span class="op">==</span><span class="st"> &quot;Suicide&quot;</span>, rhs <span class="op">==</span><span class="st"> &quot;TV&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb98-4"><a href="latent-variable-models.html#cb98-4"></a><span class="st">  </span><span class="kw">select</span>(data<span class="op">:</span>Outcome, estimate<span class="op">:</span>conf.high)</span></code></pre></div>
+<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="latent-variable-models.html#cb99-1"></a>coefs <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb99-2"><a href="latent-variable-models.html#cb99-2"></a><span class="st">  </span><span class="kw">distinct</span>(data, Technology, Outcome, N)</span></code></pre></div>
+<pre><code>## # A tibble: 8 x 4
+##   data  Technology            Outcome    N      
+##   &lt;chr&gt; &lt;chr&gt;                 &lt;chr&gt;      &lt;chr&gt;  
+## 1 US    Social media / device Conduct    18,815 
+## 2 US    Television            Conduct    19,079 
+## 3 MTF   Social media / device Depression 78,357 
+## 4 MTF   Television            Depression 367,444
+## 5 US    Social media / device Emotion    18,811 
+## 6 US    Television            Emotion    19,074 
+## 7 YRBS  Social media / device Suicide    24,584 
+## 8 YRBS  Television            Suicide    24,593</code></pre>
+<p>Just time</p>
+<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="latent-variable-models.html#cb101-1"></a>fits <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb101-2"><a href="latent-variable-models.html#cb101-2"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">p =</span> <span class="kw">map</span>(ml0, <span class="op">~</span><span class="kw">tidy</span>(., <span class="dt">conf.int =</span> <span class="ot">TRUE</span>))) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb101-3"><a href="latent-variable-models.html#cb101-3"></a><span class="st">  </span><span class="kw">unnest</span>(p) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb101-4"><a href="latent-variable-models.html#cb101-4"></a><span class="st">  </span><span class="kw">filter</span>(op <span class="op">==</span><span class="st"> &quot;~&quot;</span>) <span class="op">%&gt;%</span></span>
+<span id="cb101-5"><a href="latent-variable-models.html#cb101-5"></a><span class="st">  </span><span class="kw">separate</span>(term, <span class="kw">c</span>(<span class="st">&quot;lhs&quot;</span>, <span class="st">&quot;rhs&quot;</span>), <span class="dt">sep =</span> <span class="st">&quot; ~ &quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb101-6"><a href="latent-variable-models.html#cb101-6"></a><span class="st">  </span><span class="co"># mutate(</span></span>
+<span id="cb101-7"><a href="latent-variable-models.html#cb101-7"></a><span class="st">  </span><span class="co">#   Parameter = factor(rhs, levels = c(&quot;Year&quot;, &quot;Technology&quot;, &quot;Year x Technology&quot;))</span></span>
+<span id="cb101-8"><a href="latent-variable-models.html#cb101-8"></a><span class="st">  </span><span class="co"># ) %&gt;% </span></span>
+<span id="cb101-9"><a href="latent-variable-models.html#cb101-9"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Outcome =</span> <span class="kw">fct_rev</span>(Outcome)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb101-10"><a href="latent-variable-models.html#cb101-10"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(estimate, Outcome, <span class="dt">shape =</span> Technology, <span class="dt">fill =</span> p.value <span class="op">&lt;</span><span class="st"> </span><span class="fl">0.05</span>)) <span class="op">+</span></span>
+<span id="cb101-11"><a href="latent-variable-models.html#cb101-11"></a><span class="st">  </span><span class="kw">scale_shape_manual</span>(<span class="dt">values =</span> <span class="kw">c</span>(<span class="dv">21</span>, <span class="dv">22</span>)) <span class="op">+</span></span>
+<span id="cb101-12"><a href="latent-variable-models.html#cb101-12"></a><span class="st">  </span><span class="kw">scale_fill_manual</span>(<span class="dt">values =</span> <span class="kw">c</span>(<span class="st">&quot;white&quot;</span>, <span class="st">&quot;black&quot;</span>), <span class="dt">guide =</span> <span class="ot">FALSE</span>) <span class="op">+</span></span>
+<span id="cb101-13"><a href="latent-variable-models.html#cb101-13"></a><span class="st">  </span><span class="kw">scale_x_continuous</span>(</span>
+<span id="cb101-14"><a href="latent-variable-models.html#cb101-14"></a>    <span class="st">&quot;Parameter estimate&quot;</span>,</span>
+<span id="cb101-15"><a href="latent-variable-models.html#cb101-15"></a>    <span class="dt">breaks =</span> scales<span class="op">::</span><span class="kw">pretty_breaks</span>(), </span>
+<span id="cb101-16"><a href="latent-variable-models.html#cb101-16"></a>    <span class="dt">expand =</span> <span class="kw">expansion</span>(.<span class="dv">25</span>)</span>
+<span id="cb101-17"><a href="latent-variable-models.html#cb101-17"></a>  ) <span class="op">+</span></span>
+<span id="cb101-18"><a href="latent-variable-models.html#cb101-18"></a><span class="st">  </span><span class="kw">geom_vline</span>(<span class="dt">xintercept =</span> <span class="dv">0</span>, <span class="dt">lty =</span> <span class="dv">2</span>, <span class="dt">size =</span> <span class="fl">.25</span>) <span class="op">+</span></span>
+<span id="cb101-19"><a href="latent-variable-models.html#cb101-19"></a><span class="st">  </span><span class="kw">geom_linerangeh</span>(</span>
+<span id="cb101-20"><a href="latent-variable-models.html#cb101-20"></a>    <span class="kw">aes</span>(<span class="dt">xmin =</span> conf.low, <span class="dt">xmax =</span> conf.high), <span class="dt">size =</span> <span class="fl">.25</span>,</span>
+<span id="cb101-21"><a href="latent-variable-models.html#cb101-21"></a>    <span class="dt">position =</span> <span class="kw">position_dodge2v</span>(.<span class="dv">4</span>), <span class="dt">show.legend =</span> <span class="ot">FALSE</span></span>
+<span id="cb101-22"><a href="latent-variable-models.html#cb101-22"></a>  ) <span class="op">+</span></span>
+<span id="cb101-23"><a href="latent-variable-models.html#cb101-23"></a><span class="st">  </span><span class="kw">geom_point</span>(</span>
+<span id="cb101-24"><a href="latent-variable-models.html#cb101-24"></a>    <span class="dt">size =</span> <span class="dv">2</span>, <span class="dt">position =</span> <span class="kw">position_dodge2v</span>(.<span class="dv">4</span>),</span>
+<span id="cb101-25"><a href="latent-variable-models.html#cb101-25"></a>  ) <span class="op">+</span></span>
+<span id="cb101-26"><a href="latent-variable-models.html#cb101-26"></a><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="st">&quot;rhs&quot;</span>, <span class="dt">scales =</span> <span class="st">&quot;free_x&quot;</span>, <span class="dt">nrow =</span> <span class="dv">1</span>) <span class="op">+</span></span>
+<span id="cb101-27"><a href="latent-variable-models.html#cb101-27"></a><span class="st">  </span><span class="kw">theme</span>(</span>
+<span id="cb101-28"><a href="latent-variable-models.html#cb101-28"></a>    <span class="dt">legend.position =</span> <span class="st">&quot;bottom&quot;</span>,</span>
+<span id="cb101-29"><a href="latent-variable-models.html#cb101-29"></a>    <span class="dt">axis.title.y =</span> <span class="kw">element_blank</span>(), </span>
+<span id="cb101-30"><a href="latent-variable-models.html#cb101-30"></a>    <span class="dt">panel.spacing.x =</span> <span class="kw">unit</span>(<span class="dv">12</span>, <span class="st">&quot;pt&quot;</span>)</span>
+<span id="cb101-31"><a href="latent-variable-models.html#cb101-31"></a>  )</span></code></pre></div>
+<p><img src="05-SEM_files/figure-html/unnamed-chunk-5-1.png" width="768" style="display: block; margin: auto;" /></p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="bayesian-generalized-linear-mixed-model.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/digital-wellbeing/timetrends/edit/master/05-SEM.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": "https://github.com/digital-wellbeing/timetrends/blob/master/05-SEM.Rmd",
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "section"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

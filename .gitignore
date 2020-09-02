@@ -15,6 +15,5 @@ data-raw/
 data/
 
 # Outputs
-**/*.html
 **/*.pdf
 **/*.rds
