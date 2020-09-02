@@ -3,7 +3,9 @@
 Authors:
 
 - Matti Vuorre (matti.vuorre@oii.ox.ac.uk)
+- Amy Orben
 - Augustin Mutak (augustin@psihometar.hr)
+- Andrew Przybylski
 
 We study the timecourse of technology effects on adolescent wellbeing in three large representative datasets.
 
@@ -23,8 +25,6 @@ The datasets' Terms of Use prevent us for sharing the data files here, so you mu
 	- http://doi.org/10.5255/UKDA-SN-6614-13
 	- Download the SPSS format data into `data-raw/us/`
 	- Unzip the file so that you end up with `data-raw/us/UKDA-6614-spss/`
-	
-The Understanding Society dataset is an annual longitudinal study of 40,000 UK households. The data collection takes place over a 24 month period, so the waves overlap. The study is run by the Institute for Social and Economic Research at the University of Essex; it began in 2009 and has been going ever since. It might be of interest to some that it is the successor to the British Household Panel Survey. We dont work with the whole dataset but with a special subsample of 10-15 year olds, which are a member of a household interviewed as part of Understanding Society. Adolescent members of the households are interviewed and re-interviewed every year till they graduate into the adult questionnaire. We also merge this adolescent data with data from young adults in the adult sample (16-21 year olds). This allows us to track adolescent development over a longer period of time. In total we load 9 waves of the data as released in April 2020.
 	
 - Youth Risk Behavior Survey
 	- The combined National YRBS data 
