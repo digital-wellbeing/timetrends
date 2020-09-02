@@ -1,0 +1,160 @@
+# Data descriptives
+
+```{r setup, include=FALSE}
+pacman::p_load(
+  knitr, 
+  scales,
+  broom, 
+  ggstance,
+  tidyverse
+)
+opts_chunk$set(
+  cache = FALSE,
+  echo = TRUE,
+  message = FALSE,
+  warning = FALSE,
+  fig.retina = 2, 
+  fig.width = 8,
+  fig.align = 'center'
+)
+theme_set(
+  theme_linedraw() +
+    theme(
+      panel.grid = element_blank()
+    )
+)
+```
+
+## Data
+
+```{r data-read}
+mtf <- read_rds("data/mtf.rds")
+us <- read_rds("data/us.rds")
+yrbs <- read_rds("data/yrbs.rds")
+```
+
+### Sample sizes and years
+
+Sample sizes per dataset are the number of rows that include the outcome variable (there are two for US). The total sample size *in the entire manuscript* is the sum without US-emotion (including both US outcomes would duplicate its N).
+
+```{r}
+tibble(
+  mtf = drop_na(mtf, Depression) %>% nrow,
+  us_conduct = drop_na(us, Conduct) %>% nrow,
+  us_emotion = drop_na(us, Emotion) %>% nrow,
+  yrbs = drop_na(yrbs, Suicide) %>% nrow
+) %>% 
+  mutate(total = mtf + us_conduct + yrbs) %>% 
+  mutate(across(.fns = ~comma(.))) %>% 
+  kable()
+```
+
+Actual sample sizes used in analyses are the intersections of non-missing values for the two variables (outcome, technology) used in each model.
+
+```{r}
+doit <- function(data, name, x, y) {
+  data <- data %>% 
+    drop_na(all_of(x), all_of(y))
+  data %>% 
+    count(Sex) %>% 
+    pivot_wider(names_from = Sex, values_from = n) %>% 
+    mutate(Total = Female + Male) %>%
+    mutate(
+      across(
+        c(Female, Male), 
+        ~str_glue("{comma(.)} ({percent(./Total)})")
+      )
+    ) %>% 
+    mutate(across(where(is.numeric), ~comma(.))) %>% 
+    mutate(Years = paste(range(data$Year), collapse = " - ")) %>% 
+    mutate(Dataset = name, Technology = x, Outcome = y) %>% 
+    select(Dataset, Technology, Outcome, Years, Total, Female, Male)
+}
+bind_rows(
+  doit(mtf, "MTF", "TV", "Depression"),
+  doit(mtf, "MTF", "SM", "Depression"),
+  doit(us, "US", "TV", "Emotion"),
+  doit(us, "US", "SM", "Emotion"),
+  doit(us, "US", "TV", "Conduct"),
+  doit(us, "US", "SM", "Conduct"),
+  doit(yrbs, "YRBS", "TV", "Suicide"),
+  doit(yrbs, "YRBS", "DV", "Suicide")
+) %>% 
+  arrange(Dataset, Technology, Outcome) %>% 
+  kable()
+```
+
+### Outcomes
+
+```{r}
+mtf %>% 
+  select(starts_with("D_B_")) %>% 
+  psych::alpha() %>% 
+  summary
+cor(
+  select(mtf, starts_with("D_B_")), 
+  use = "pairwise.complete.obs"
+) %>% 
+  round(2)
+```
+
+```{r}
+sdq_con <- c("sdqe", "sdqg", "sdql", "sdqr", "sdqv")
+sdq_emo <- c("sdqc", "sdqh", "sdqm", "sdqp", "sdqx")
+us %>% 
+  select(all_of(sdq_con)) %>% 
+  psych::alpha() %>% 
+  summary
+us %>% 
+  select(all_of(sdq_emo)) %>% 
+  psych::alpha() %>% 
+  summary
+cor(
+  select(us, all_of(sdq_con)), 
+  use = "pairwise.complete.obs"
+) %>% 
+  round(2)
+cor(
+  select(us, all_of(sdq_emo)), 
+  use = "pairwise.complete.obs"
+) %>% 
+  round(2)
+```
+
+## Figures
+
+```{r mtf-data-fig, cache = TRUE}
+mtf %>% 
+  pivot_longer(c(TV, SM, Depression)) %>% 
+  drop_na(value) %>% 
+  add_count(name) %>% 
+  mutate(name = str_glue("{name} (N = {comma(n)})")) %>% 
+  ggplot(aes(Year, value)) +
+  geom_blank() +
+  stat_summary(fun=mean, geom="line") +
+  facet_wrap("name", scales = "free_y")
+```
+
+```{r us-data-fig, cache = TRUE}
+us %>% 
+  pivot_longer(c(SM, TV, Emotion, Conduct)) %>% 
+  drop_na(value) %>% 
+  add_count(name) %>% 
+  mutate(name = str_glue("{name} (N = {comma(n, accuracy = 1)})")) %>%
+  ggplot(aes(Year, value)) +
+  geom_blank() +
+  stat_summary(fun=mean, geom="line") +
+  facet_wrap("name", scales = "free_y")
+```
+
+```{r yrbs-data-fig, cache = TRUE}
+yrbs %>% 
+  pivot_longer(c(TV, DV, sad_lonely:suicide_3)) %>% 
+  drop_na(value) %>% 
+  add_count(name) %>% 
+  mutate(name = str_glue("{name} (N = {comma(n)})")) %>%
+  ggplot(aes(Year, value)) +
+  geom_blank() +
+  stat_summary(fun=mean, geom="line") +
+  facet_wrap("name", scales = "free_y")
+```

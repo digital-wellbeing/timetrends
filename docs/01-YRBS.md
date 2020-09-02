@@ -1,55 +1,60 @@
----
-title: "Preprocess YRBSS data"
-author: "Amy & Matti"
-date: "`r Sys.Date()`"
-output:
-  html_document:
-    toc: true
-    toc_depth: 2
-    toc_float: true
----
+# YRBS preprocessing
 
-```{r setup, include = FALSE}
-library(tidyverse)
-library(haven)
-```
 
-```{r}
+
+
+
+
+```r
 # Load data without dichotomized and supplemental items
 data <- read_spss(
   "data-raw/yrbs/sadc_2017_national.sav",
   col_select = c(
-    year, age, sex, grade, race7,
+    year, age, sex,
     q25:q29, q80, q81,
   )
 )
 ```
 
-```{r}
-# Convert SPSS labels to factor labels and remove other SPSS attributes
-data <- as_factor(data)
+
+```r
+# Drop cases where age or sex are unknown
+data <- drop_na(data, age, sex)
 ```
 
-```{r}
+
+```r
 # Choose appropriate years: 2007-2015
 data <- data %>% filter(year > 2006)
 ```
 
-Recode Variables
+
+```r
+# Convert SPSS labels to factor labels and remove other SPSS attributes
+data <- as_factor(data)
+```
+
+## Recode Variables
+
 Read about the variables at
 https://www.cdc.gov/healthyyouth/data/yrbs/pdf/2017/2017_yrbs_sadc_documentation.pdf
 
-```{r}
+
+```r
 # Sad/Lonely and Dichotomous suicide variables to numeric (0 = no, 1 = yes)
 data <- mutate_at(data, vars(q25, q26, q27), ~1 - (as.numeric(.) - 1))
 ```
 
-```{r}
+
+```r
 # During the past 12 months, how many times did you actually attempt suicide?
 data <- mutate(data, q28 = as.numeric(q28) - 1)
+# This is dichotomized
+data <- mutate(data, q28 = ifelse(q28==0, 0, 1))
 ```
 
-```{r}
+
+```r
 # If you attempted suicide during the past 12 months, did any attempt result in an injury, poisoning, or overdose that had to be treated by a doctor or nurse?
 data <- mutate(
   data,
@@ -58,33 +63,59 @@ data <- mutate(
 )
 ```
 
-```{r}
+Aggregate
+
+
+```r
+data <- data %>% 
+  mutate(
+    Suicide = rowMeans(select(., q25:q28), na.rm=T)
+  ) 
+```
+
+## Age
+
+
+```r
 # Recode age as continuous with correct values
 # Note: 12 and 18 include younger/older individuals
 data <- mutate(data, age = as.numeric(age) + 11)
 ```
 
-```{r}
-# Rename race variable
-data <- rename(data, race = race7)
+
+```r
+# Focus on individuals 15 years old or younger
+data <- filter(data, age <= 15)
+data <- select(data, -age)
 ```
 
-```{r}
+## Tech variables
+
+
+```r
 # Convert tech variable to numeric
 data <- mutate_at(data, vars(q80, q81), ~as.numeric(.))
 ```
 
-```{r}
-# Drop cases where grade, age, or sex are unknown
-data <- drop_na(data, grade, age, sex)
+## Sex
+
+
+```r
+contrasts(data$sex) <- matrix(c(.5, -.5))
 ```
 
-```{r}
+
+## Rename and save
+
+
+```r
 # Rename
 data <- data %>%
   rename(
-    tv = q80,
-    device = q81,
+    Year = year,
+    Sex = sex,
+    TV = q80,
+    DV = q81,
     sad_lonely = q25,
     suicide_1 = q26,
     suicide_2 = q27,
@@ -93,13 +124,9 @@ data <- data %>%
   )
 ```
 
-```{r}
-# Focus on individuals 15 years old or younger
-data <- filter(data, age <= 15)
-data <- data %>% select(-grade)
-```
 
-```{r}
+```r
+data
 # Save data to disk
 saveRDS(data, "data/yrbs.rds")
 ```

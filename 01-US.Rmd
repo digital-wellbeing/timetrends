@@ -1,0 +1,175 @@
+# US preprocessing
+
+```{r include = FALSE}
+# If clean data exists already, skip this file
+do_knit <- !file.exists("data/us.rds")
+knitr::opts_chunk$set(eval = do_knit)
+```
+
+```{r setup, include = FALSE}
+library(tidyverse)
+library(haven)
+```
+
+```{r}
+# Function to read adolescents' data from one file
+read_adolescent_data <- function(filename){
+  # Select relevant variables, define NAs (any negative numbers), remove "yp" from the beginning of variable names
+  dataset <- read_spss(filename)
+  dataset <- dataset %>%
+    select(-ends_with("_sex")) %>%
+    rename_all(~str_replace(., "yp", "")) %>%
+    select(
+      contains("pidp"), # Participant ID
+      ends_with("age_dv"), # Participant age
+      ends_with("socweb"), # Do you have social media profile?
+      ends_with("netcht"),  # Hours using social media on weekdays
+      ends_with("tvvidhrs"),  # TV on weekdays (all waves)
+      contains("sdq"),  # Strengths and difficulties
+      -ends_with("_orig"),
+      -ends_with("sdqes_dv"),
+      -ends_with("sdqcp_dv"),
+      -ends_with("sdqha_dv"),
+      -ends_with("sdqpp_dv"),
+      -ends_with("sdqps_dv"),
+      -ends_with("sdqtd_dv")
+    )
+  is.na(dataset[, ]) <- dataset[, ] < 0 #define NAs
+  # Remove dataset indicator letter from variable names so that datasets can be merged
+  names(dataset) <- str_remove(names(dataset), "[a-z]_")
+  # Get rid of number labels
+  dataset <- zap_labels(dataset)
+  return(dataset)
+}
+```
+
+```{r}
+# Load the adolescent data from the folders downloaded from the UK data service.
+files_adolescent <- list.files("data-raw/us/", pattern = "_youth.sav", recursive = TRUE, full.names = TRUE)
+files_adolescent <- files_adolescent[str_detect(files_adolescent, "ukhls")]
+data <- map(files_adolescent, read_adolescent_data)
+# Combine adolescent data from different waves (files) into long format
+# Removes SPSS labels from variables & values
+data <- bind_rows(data, .id = "wave")
+```
+
+```{r}
+# Exclude any teenagers from the adolescent data that are under 10 or over 15
+data <- data %>% 
+  filter(between(age_dv, 10, 15)) %>% 
+  select(-age_dv)
+```
+
+```{r}
+# Get sex from "stable characteristics" file
+# In Understanding Society that have a specific file "ukhls_wx/xwavedat.sav" which indicates stable characteristics of participants in the survey. We prefer to use this for sex because it is derived from multiple interviews and checked for consistency.
+data_stable <- list.files(
+  "data-raw/us/", 
+  pattern = "xwavedat.sav", recursive = TRUE, full.names = TRUE
+) %>%
+  read_spss(col_select = c("pidp", "sex_dv"))
+is.na(data_stable[, ]) <- data_stable[, ] < 0 # define NAs as anything under 0
+data_stable$sex_dv <- as_factor(data_stable$sex_dv) %>% fct_drop()
+data_stable <- zap_labels(data_stable)
+
+data <- left_join(data, data_stable, by = "pidp")
+data <- rename(data, Sex = sex_dv)
+```
+
+Sex: Take out (10) inconsistent responses
+
+```{r}
+table(data$Sex)
+data <- filter(data, Sex != "inconsistent")
+data <- data %>% 
+  mutate(Sex = factor(Sex, levels = c("Female", "Male")))
+table(data$Sex, useNA = "always")
+
+# Contrast code sex
+contrasts(data$Sex) <- matrix(c(.5, -.5))
+```
+
+```{r}
+# Rename variables
+data <- data %>%
+  rename(
+    socialmedia = socweb,
+    socialmediaamount = netcht,
+    TV = tvvidhrs
+  )
+```
+
+We first clean and recode the social media use variable. This variable is complicated as there was a mistake on the side of Understanding Society, who were inconsistent in how they directed children and adults through the study in different years. Sometimes those who said they dont use social media on "netcht" were automatically coded as none on "socweb" and sometimes this wasnt the case. There is no easy solution for this, so we went with a recoding solution detailed below. If a participant said they do not own a social media account or they dont use social media to interact with friends we coded them as 1, for the rest of the participants we took their netcht score. This creates the following scale, which is ordinal in nature: 1 = None, 2 = Less than an hour, 3 = 1-3 hours, 4 = 4-6 hours, 5 = 7 or more hours
+
+```{r}
+# set 9 to NA to revert coding error
+is.na(data[, c("socialmediaamount", "socialmedia")]) <- data[, c("socialmediaamount", "socialmedia")] == 9
+data$socialmedia <- ifelse((data$socialmedia == 2 | data$socialmediaamount == 1), 1,
+                           ifelse(data$socialmediaamount == 2, 2,
+                                  ifelse(data$socialmediaamount == 3, 3,
+                                         ifelse(data$socialmediaamount == 4, 4,
+                                                ifelse(data$socialmediaamount == 5, 5, NA)))))
+data <- data %>% select(-socialmediaamount)
+data <- rename(data, SM = socialmedia)
+```
+
+## Year
+
+```{r}
+# Convert wave to year
+# Waves 1-9 to years 2009 ->
+data <- rename(data, Year = "wave")
+data$Year <- as.numeric(data$Year) + 2008
+```
+
+## Strengths and difficulties
+
+Our main outcome. It is only recorded every second year so we take out the years where it was not recorded.
+
+```{r}
+data <- data %>% 
+  # SDQ only measured in these waves
+  filter(Year %in% c(2009, 2011, 2013, 2015, 2017))
+```
+
+Recode: Greater values indicate greater difficulties
+
+```{r}
+data <- data %>%
+  mutate_at(
+    paste0("sdq", c("a", "d", "g", "i", "k", "n", "q", "t", "u", "y")),
+    function(x) 4 - x
+  )
+```
+
+SDQ subscales: <http://sdqinfo.org/c9.html>
+
+```{r}
+sdq_emo <- c("sdqc", "sdqh", "sdqm", "sdqp", "sdqx")
+sdq_con <- c("sdqe", "sdqg", "sdql", "sdqr", "sdqv")
+# Compute means of two subscales
+data <- data %>% 
+  mutate(
+    Emotion = rowMeans(select(., all_of(sdq_emo)), na.rm=T),
+    Conduct = rowMeans(select(., all_of(sdq_con)), na.rm=T)
+  ) 
+# Remove all but these two subscales from SDQ variables
+sdq <- select(data, starts_with("sdq"))
+data <- select(data, !starts_with("sdq"))
+data <- bind_cols(
+  data,
+  sdq %>% select(all_of(sdq_emo), all_of(sdq_con))
+)
+rm(sdq)
+```
+
+## Save file
+
+```{r}
+data <- data %>%
+  # Drop all rows where sex or year is missing
+  drop_na(Sex, Year)
+
+# Save file to disk
+saveRDS(data, "data/us.rds")
+```

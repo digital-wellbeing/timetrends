@@ -1,0 +1,125 @@
+# YRBS preprocessing
+
+```{r include = FALSE}
+# If clean data exists already, skip this file
+do_knit <- !file.exists("data/yrbs.rds")
+knitr::opts_chunk$set(eval = do_knit)
+```
+
+```{r setup, include = FALSE}
+library(tidyverse)
+library(haven)
+```
+
+```{r}
+# Load data without dichotomized and supplemental items
+data <- read_spss(
+  "data-raw/yrbs/sadc_2017_national.sav",
+  col_select = c(
+    year, age, sex,
+    q25:q29, q80, q81,
+  )
+)
+```
+
+```{r}
+# Drop cases where age or sex are unknown
+data <- drop_na(data, age, sex)
+```
+
+```{r}
+# Choose appropriate years: 2007-2015
+data <- data %>% filter(year > 2006)
+```
+
+```{r}
+# Convert SPSS labels to factor labels and remove other SPSS attributes
+data <- as_factor(data)
+```
+
+## Recode Variables
+
+Read about the variables at
+https://www.cdc.gov/healthyyouth/data/yrbs/pdf/2017/2017_yrbs_sadc_documentation.pdf
+
+```{r}
+# Sad/Lonely and Dichotomous suicide variables to numeric (0 = no, 1 = yes)
+data <- mutate_at(data, vars(q25, q26, q27), ~1 - (as.numeric(.) - 1))
+```
+
+```{r}
+# During the past 12 months, how many times did you actually attempt suicide?
+data <- mutate(data, q28 = as.numeric(q28) - 1)
+# This is dichotomized
+data <- mutate(data, q28 = ifelse(q28==0, 0, 1))
+```
+
+```{r}
+# If you attempted suicide during the past 12 months, did any attempt result in an injury, poisoning, or overdose that had to be treated by a doctor or nurse?
+data <- mutate(
+  data,
+  q29 = factor(q29, levels = c("Did not attempt suicide", "No", "Yes")),
+  q29 = as.numeric(q29)-1
+)
+```
+
+Aggregate
+
+```{r}
+data <- data %>% 
+  mutate(
+    Suicide = rowMeans(select(., q25:q28), na.rm=T)
+  ) 
+```
+
+## Age
+
+```{r}
+# Recode age as continuous with correct values
+# Note: 12 and 18 include younger/older individuals
+data <- mutate(data, age = as.numeric(age) + 11)
+```
+
+```{r}
+# Focus on individuals 15 years old or younger
+data <- filter(data, age <= 15)
+data <- select(data, -age)
+```
+
+## Tech variables
+
+```{r}
+# Convert tech variable to numeric
+data <- mutate_at(data, vars(q80, q81), ~as.numeric(.))
+```
+
+## Sex
+
+```{r}
+contrasts(data$sex) <- matrix(c(.5, -.5))
+```
+
+
+## Rename and save
+
+```{r}
+# Rename
+data <- data %>%
+  rename(
+    Year = year,
+    Sex = sex,
+    TV = q80,
+    DV = q81,
+    sad_lonely = q25,
+    suicide_1 = q26,
+    suicide_2 = q27,
+    suicide_3 = q28,
+    suicide_4 = q29,
+  )
+```
+
+```{r}
+data
+# Save data to disk
+saveRDS(data, "data/yrbs.rds")
+```

@@ -1,0 +1,277 @@
+# Bayesian Generalized Linear Mixed Model
+
+
+
+For each dataset and outcome, we fit a GLMM using brms, in order to do full bayesian inference. These models take a while to run. 
+
+## Data
+
+
+```r
+mtf <- read_rds("data/mtf.rds")
+us <- read_rds("data/us.rds")
+yrbs <- read_rds("data/yrbs.rds")
+```
+
+For US, we also isolate between- and within-person variables.
+
+
+```r
+# Within-person center variables (Vuorre & Bolger, 2017)
+us <- bmlm::isolate(us, "pidp", "TV", which = "both", z = TRUE)
+us <- bmlm::isolate(us, "pidp", "SM", which = "both", z = TRUE)
+us <- us %>% select(-TV, -SM)
+# We focus on between-person relations so rename those back
+us <- us %>% rename(TV = TV_cb, SM = SM_cb)
+```
+
+YRBS is in long format wrt items
+
+
+```r
+yrbs <- yrbs %>% 
+  select(-suicide_4, -Suicide) %>% 
+  pivot_longer(
+    sad_lonely:suicide_3, 
+    names_to = "item", values_to = "Suicide"
+  )
+```
+
+## Models
+
+### Estimate
+
+MTF: Single level model
+US: Random intercepts for participants. 85% of participants have only 1 or 2 observations, so random slopes without strong priors are not a good idea.
+YRBS: Full item-specific random effects.
+
+
+```r
+fit <- function(data, name, x, y, iter = 1000, chains = 12, cores = 12) {
+  data <- drop_na(data, all_of(x), all_of(y))
+  data <- mutate(data, Year = Year - 2017)
+  if (name=="YRBS") {
+    data <- data %>% 
+      mutate(across(all_of(x), ~as.numeric(scale(.))))
+    ml1 <- brm(
+      str_glue("{y} ~ Sex * Year * {x} + (Sex * Year * {x} | item)"), 
+      family = bernoulli("probit_approx"),
+      control = list(adapt_delta = .98),
+      prior = prior(student_t(9, 0, 1), class = "sd") +
+        prior(normal(0, 1), class = "b"),
+      inits = "0",
+      data = data, chains = chains, iter = iter, cores = cores,
+      file = str_glue("models/brm-{name}-{x}-{y}-ml1-probit")
+    )
+  } else if (name=="MTF") {
+    data <- data %>% 
+      mutate(across(c(all_of(x), all_of(y)), ~as.numeric(scale(.))))
+    ml1 <- brm(
+      str_glue("{y} ~ Sex * Year * {x}"), 
+      control = list(adapt_delta = .9),
+      data = data, chains = chains, iter = iter, cores = cores,
+      file = str_glue("models/brm-{name}-{x}-{y}-ml1")
+    )
+  } else if (name=="US") {
+    data <- data %>% 
+      mutate(across(c(all_of(x), all_of(y)), ~as.numeric(scale(.))))
+    ml1 <- brm(
+      str_glue("{y} ~ Sex * Year * {x} + (1 | pidp)"), 
+      control = list(adapt_delta = .9),
+      data = data, chains = chains, iter = iter, cores = cores,
+      file = str_glue("models/brm-{name}-{x}-{y}-ml1")
+    )
+  }
+  tibble(
+    data = name,
+    Technology = x,
+    Outcome = y,
+    ml1 = list(ml1)
+  )
+}
+```
+
+
+```r
+x1 <- fit(yrbs, "YRBS", "TV", "Suicide")
+x2 <- fit(yrbs, "YRBS", "DV", "Suicide")
+x3 <- fit(mtf, "MTF", "TV", "Depression")
+x4 <- fit(mtf, "MTF", "SM", "Depression")
+x5 <- fit(us, "US", "SM", "Emotion")
+x6 <- fit(us, "US", "SM", "Conduct")
+x7 <- fit(us, "US", "TV", "Emotion")
+x8 <- fit(us, "US", "TV", "Conduct")
+```
+
+
+```r
+# Rename variables
+fits <- bind_rows(x1,x2,x3,x4,x5,x6,x7,x8)
+fits <- fits %>% 
+  mutate(
+    Technology = ifelse(
+      Technology %in% c("SM", "DV"), 
+      "Social media / device", 
+      "Television"
+    )
+  )
+```
+
+### Year and tech
+
+
+```r
+probs <- c(.025, .1, .9, .975)
+pars <- fits %>% 
+  mutate(
+    p = map(
+      ml1, ~posterior_summary(., pars = "^b_", probs = probs) %>%
+        as.data.frame() %>% 
+        rownames_to_column("Parameter") %>% 
+        tibble()
+    )
+  ) %>%
+  unnest(p) %>% 
+  select(-ml1)
+b_Year <- pars %>% 
+  filter(Parameter == "b_Year") %>% 
+  mutate(Parameter = "Year")
+b_Tech <- pars %>% 
+  filter(Parameter %in% c("b_TV", "b_DV", "b_SM")) %>% 
+  mutate(Parameter = "Technology")
+b_Interaction <- pars %>% 
+  filter(Parameter %in% c("b_Year:TV", "b_Year:DV", "b_Year:SM")) %>% 
+  mutate(Parameter = "Year x Technology")
+p1 <- bind_rows(b_Year, b_Tech, b_Interaction) %>% 
+  mutate(Outcome = fct_rev(Outcome)) %>% 
+  # Fill points based on if 95%CI includes zero
+  mutate(
+    Zero = ifelse(
+      sign(Q2.5) == sign(Estimate) & sign(Estimate) == sign(Q97.5), 
+      "*", ""
+    )
+  ) %>% 
+  mutate(
+    Parameter = factor(Parameter, levels = c("Year", "Technology", "Year x Technology"))
+  ) %>% 
+  ggplot(aes(Estimate, Outcome, shape = Technology, fill = Zero)) +
+  scale_shape_manual(values = c(21, 22)) +
+  scale_fill_manual(values = c("white", "black"), guide = FALSE) +
+  scale_x_continuous(
+    "Parameter estimate",
+    breaks = scales::pretty_breaks(), 
+    expand = expansion(.15)
+  ) +
+  geom_vline(xintercept = 0, lty = 2, size = .25) +
+  geom_linerangeh(
+    aes(xmin = Q2.5, xmax = Q97.5), size = .25,
+    position = position_dodge2v(.5), show.legend = FALSE
+  ) +
+  geom_linerangeh(
+    aes(xmin = Q10, xmax = Q90), size = .75,
+    position = position_dodge2v(.5), show.legend = FALSE
+  ) +
+  geom_point(
+    size = 2, position = position_dodge2v(.5),
+  ) +
+  facet_wrap("Parameter", scales = "free_x", nrow = 1) +
+  theme(
+    legend.position = "right",
+    axis.title.y = element_blank(), 
+    panel.spacing.x = unit(12, "pt")
+  )
+
+((p1 %+% 
+    filter(p1$data, Parameter %in% c("Year", "Technology")) +
+    theme(axis.title.x = element_blank())) /
+  p1 %+% filter(p1$data, Parameter == "Year x Technology")) +
+  plot_layout(guides = "collect") &
+  theme(legend.position = "right")
+```
+
+<img src="04-BGLMM_files/figure-html/Parameter-figure-1.png" width="768" style="display: block; margin: auto;" />
+
+```r
+ggsave("Figure2.png", width = 6, height = 4)
+```
+
+
+
+```r
+# Get YRBS item-specific effects
+tmp1 <- slice(fits, 1:2) %>% 
+  mutate(
+    o = map(ml1, ~rownames_to_column(as.data.frame(coef(.)$item[,,7])))
+  ) %>% 
+  unnest(o)
+
+tmp <- fits %>% 
+  mutate(
+    p = map(
+      ml1, ~posterior_summary(., pars = "b_Year:[TV|SM|DV]") %>%
+        as.data.frame() %>% 
+        rownames_to_column() %>% 
+        tibble()
+    )
+  ) %>%
+  unnest(p)
+tmp %>%   
+  ggplot(aes(Estimate, Outcome, col = Outcome)) +
+  scale_color_brewer(palette = "Set1") +
+  scale_x_continuous(
+    "Linear interaction estimate (±95%CI)",
+    breaks = scales::pretty_breaks(), 
+    expand = expansion(.2)
+  ) +
+  geom_vline(xintercept = 0, size = .25, lty = 2) +
+  ggstance::geom_pointrangeh(
+    shape = 21, fill = "white", fatten = 3,
+    aes(xmin=Q2.5, xmax=Q97.5)
+  ) +
+  # ggstance::geom_pointrangeh(
+  #   data = tmp1, aes(xmin = Q2.5, xmax = Q97.5),
+  #   size = .25, fatten = 1,
+  #   position = ggstance::position_dodge2v(.25)
+  # ) +
+  facet_wrap("Technology") +
+  theme(
+    axis.title.y = element_blank(),
+    legend.position = "none",
+    legend.text = element_text(size = 8)
+  )
+```
+
+
+```r
+# Sex
+pars %>% 
+  filter(str_detect(Parameter, "Sex1:Year:")) %>% 
+  mutate(Parameter = "Sex x Year x Tech") %>% 
+  ggplot(aes(Estimate, Outcome, shape = Technology)) +
+  scale_color_brewer(palette = "Set1") +
+  scale_x_continuous(
+    "Estimated parameter",
+    breaks = scales::pretty_breaks(), 
+    expand = expansion(.25)
+  ) +
+  geom_vline(xintercept = 0, lty = 2, size = .25) +
+  geom_linerangeh(
+    aes(xmin = Q2.5, xmax = Q97.5), size = .25,
+    position = position_dodge2v(.4), show.legend = FALSE
+  ) +
+  geom_linerangeh(
+    aes(xmin = Q10, xmax = Q90), size = .75,
+    position = position_dodge2v(.4), show.legend = FALSE
+  ) +
+  geom_point(
+    size = 2, position = position_dodge2v(.4)
+  ) +
+  facet_wrap("Parameter", scales = "free_x", nrow = 1) +
+  theme(
+    legend.position = "bottom",
+    axis.title.y = element_blank(), 
+    panel.spacing.x = unit(12, "pt")
+  )
+```
+
+<img src="04-BGLMM_files/figure-html/unnamed-chunk-4-1.png" width="768" style="display: block; margin: auto;" />

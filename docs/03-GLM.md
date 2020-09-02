@@ -1,0 +1,245 @@
+# Generalized Linear Model
+
+This is a first pass. We model the means of the items of each dataset with OLS regression.
+
+
+
+## Data 
+
+
+```r
+mtf <- read_rds("data/mtf.rds")
+us <- read_rds("data/us.rds")
+yrbs <- read_rds("data/yrbs.rds")
+```
+
+For US, we also isolate between- and within-person variables.
+
+
+```r
+us <- bmlm::isolate(us, "pidp", "TV", which = "both", z = TRUE)
+us <- bmlm::isolate(us, "pidp", "SM", which = "both", z = TRUE)
+us <- us %>% select(-TV, -SM)
+# We focus on between-person relations so rename those back
+us <- us %>% rename(TV = TV_cb, SM = SM_cb)
+```
+
+## Yearly correlations figure
+
+
+```r
+fit_year <- function(data, x, y, name) {
+  data <- data[,c("Year", x, y, "Sex")]
+  names(data) <- c("Year", "x", "y", "Sex")
+  data %>% 
+    drop_na(x, y) %>% 
+    group_by(Year) %>% 
+    mutate(
+      x = as.numeric(scale(x)), 
+      y = as.numeric(scale(y))
+    ) %>% 
+    group_modify(~broom::tidy(lm(y ~ x*Sex, data = .), conf.int = TRUE)) %>% 
+    filter(term=="x") %>% 
+    mutate(Technology = x, Outcome = y, data = name)
+}
+x1 <- fit_year(mtf, "TV", "Depression", "MTF")
+x2 <- fit_year(mtf, "SM", "Depression", "MTF")
+x3 <- fit_year(yrbs, "TV", "Suicide", "YRBS")
+x4 <- fit_year(yrbs, "DV", "Suicide", "YRBS")
+x5 <- fit_year(us, "TV", "Emotion", "US")
+x6 <- fit_year(us, "TV", "Conduct", "US")
+x7 <- fit_year(us, "SM", "Emotion", "US")
+x8 <- fit_year(us, "SM", "Conduct", "US")
+fits_year <- bind_rows(x1,x2,x3,x4,x5,x6,x7,x8)
+# Rename device and social media to a similar construct
+fits_year <- fits_year %>% 
+  mutate(
+    Technology = ifelse(
+      Technology %in% c("SM", "DV"), 
+      "Social media / device", 
+      "Television"
+    )
+  )
+fits_year %>%   
+  ggplot(
+    aes(Year, estimate, shape = Outcome)
+  ) +
+  geom_hline(yintercept = 0, lty = 2, size = .25) +
+  scale_shape_manual(values = c(15, 16, 21, 22)) +
+  scale_x_continuous(
+    "Year",
+    breaks = scales::pretty_breaks()
+  ) +
+  scale_y_continuous(
+    "Estimate (±95%CI)",
+    breaks = scales::pretty_breaks()
+  ) +
+  geom_line(
+    position = position_dodge(.33),
+    size = .25, 
+  ) +
+  geom_linerange(
+    position = position_dodge(.33),
+    show.legend = FALSE,
+    aes(ymin = conf.high, ymax = conf.low)
+  ) +
+  geom_point(
+    position = position_dodge(.33),
+    fill = "white", stroke = 0.75
+  ) +
+  facet_wrap("Technology", scales = "fixed", ncol = 1) +
+  theme(
+    legend.position = c(0.1,0.77), 
+    legend.background = element_rect(fill = NA), 
+    legend.key = element_rect(fill = NA),
+    legend.text = element_text(size = 8), 
+    legend.box.spacing = unit(0, "cm")
+  )
+```
+
+<img src="03-GLM_files/figure-html/yearly-correlations-figure-1.png" width="768" style="display: block; margin: auto;" />
+
+```r
+ggsave("Figure1.png", width = 6, height = 4)
+```
+
+
+## Models
+
+
+```r
+fit <- function(data, name, x, y) {
+  data <- drop_na(data, all_of(x), all_of(y))
+  # Standardize X and Y
+  data <- mutate(data, across(c(all_of(x), all_of(y)), ~as.numeric(scale(.))))
+  data <- mutate(data, Year = Year - 2017)
+  ml1 <- lm(
+    str_glue("{y} ~ Sex * Year * {x}"),
+    data = data
+  )
+  tibble(
+    data = name,
+    Technology = x,
+    Outcome = y,
+    ml1 = list(ml1)
+  )
+}
+x1 <- fit(yrbs, "YRBS", "TV", "Suicide")
+x2 <- fit(yrbs, "YRBS", "DV", "Suicide")
+x3 <- fit(mtf, "MTF", "TV", "Depression")
+x4 <- fit(mtf, "MTF", "SM", "Depression")
+x5 <- fit(us, "US", "SM", "Emotion")
+x6 <- fit(us, "US", "SM", "Conduct")
+x7 <- fit(us, "US", "TV", "Emotion")
+x8 <- fit(us, "US", "TV", "Conduct")
+```
+
+
+```r
+fits <- bind_rows(x1,x2,x3,x4,x5,x6,x7,x8)
+# Labels for plots
+fits <- fits %>% 
+  mutate(
+    Technology = ifelse(
+      Technology %in% c("SM", "DV"), 
+      "Social media / device", 
+      "Television"
+    )
+  )
+```
+
+## Results
+
+
+```r
+fits %>%
+  mutate(Outcome = fct_rev(Outcome)) %>% 
+  mutate(linear = map(ml1, ~tidy(., conf.int=TRUE))) %>% 
+  unnest(linear) %>% 
+  mutate(Parameter = case_when(
+    term == "Year" ~ "Year",
+    term %in% c("TV", "SM", "DV") ~ "Technology",
+    term %in% c("Year:TV", "Year:SM", "Year:DV") ~ "Year x Technology"
+  )) %>% 
+  drop_na(Parameter) %>% 
+  mutate(
+    Parameter = factor(Parameter, levels = c("Year", "Technology", "Year x Technology"))
+  ) %>% 
+  ggplot(aes(estimate, Outcome, shape = Technology, fill = p.value < .05)) +
+  scale_shape_manual(values = c(21, 22)) +
+  scale_fill_manual(values = c("white", "black"), guide = FALSE) +
+  scale_x_continuous(
+    "Parameter estimate",
+    breaks = scales::pretty_breaks(), 
+    expand = expansion(.1)
+  ) +
+  geom_vline(xintercept = 0, lty = 2, size = .25) +
+  geom_linerangeh(
+    position = position_dodge2v(.4),
+    aes(xmin = conf.low, xmax = conf.high)
+  ) +
+  geom_point(
+    size = 2, position = position_dodge2v(.4),
+  ) +
+  facet_wrap("Parameter", scales = "free_x") +
+  theme(
+    legend.position = "bottom",
+    axis.title.y = element_blank(), 
+    panel.spacing.x = unit(12, "pt")
+  )
+```
+
+<img src="03-GLM_files/figure-html/ols-parameters-figure-1.png" width="768" style="display: block; margin: auto;" />
+
+YRBS with separate logistic regressions for each outcome
+
+
+```r
+tmp <- yrbs %>% pivot_longer(sad_lonely:suicide_3)
+tmp_tv <- tmp %>% 
+  group_by(name) %>% 
+  mutate(TV = as.numeric(scale(TV)), Year = Year-2017) %>% 
+  group_modify(~tidy(glm(value ~ Year*TV, family = binomial, data = .), conf.int = TRUE)) %>% 
+  filter(term != "(Intercept)")
+tmp_dv <- tmp %>% 
+  group_by(name) %>% 
+  mutate(DV = as.numeric(scale(DV)), Year = Year-2017) %>% 
+  group_modify(~tidy(glm(value ~ Year*DV, family = binomial, data = .), conf.int = TRUE)) %>% 
+  filter(term != "(Intercept)")
+bind_rows(tmp_dv, tmp_tv, .id = "Technology") %>% 
+  mutate(Technology = factor(Technology, labels = c("DV", "TV"))) %>% 
+  mutate(Parameter = case_when(
+    term == "Year" ~ "Year",
+    term %in% c("TV", "DV") ~ "Technology",
+    term %in% c("Year:TV", "Year:DV") ~ "Year x Technology"
+  )) %>%
+  drop_na(Parameter) %>%
+  mutate(
+    Parameter = factor(Parameter, levels = c("Year", "Technology", "Year x Technology"))
+  ) %>% 
+  ggplot(aes(estimate, name, fill = p.value < .05, shape = Technology)) +
+  scale_fill_manual(values = c("white", "black"), guide = FALSE) +
+  scale_shape_manual(values = c(21, 22)) +
+  scale_x_continuous(
+    "Parameter estimate",
+    breaks = scales::pretty_breaks(), 
+    expand = expansion(.1)
+  ) +
+  geom_vline(xintercept = 0, lty = 2, size = .25) +
+  geom_linerangeh(
+    position = position_dodge2v(.4),
+    aes(xmin = conf.low, xmax = conf.high)
+  ) +
+  geom_point(
+    size = 2, position = position_dodge2v(.4),
+  ) +
+  facet_wrap("Parameter", scales = "free_x") +
+  theme(
+    legend.position = "bottom",
+    axis.title.y = element_blank(), 
+    panel.spacing.x = unit(12, "pt")
+  )
+```
+
+<img src="03-GLM_files/figure-html/yrbs-logistic-1.png" width="768" style="display: block; margin: auto;" />
+

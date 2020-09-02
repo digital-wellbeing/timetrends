@@ -1,0 +1,225 @@
+# Latent Variable Models
+
+
+
+
+```r
+# Parallel processing settings
+plan(multisession(workers = parallel::detectCores(logical = FALSE)))
+```
+
+## Data
+
+
+```r
+mtf <- read_rds("data/mtf.rds")
+us <- read_rds("data/us.rds")
+yrbs <- read_rds("data/yrbs.rds")
+```
+
+## Models
+
+
+```r
+fit <- function(data, items, x, y, name, missing = "ml") {
+  # Center year
+  data <- mutate(data, Year = Year - 2017)
+  
+  # Contrast code sex
+  data <- mutate(data, Sex = ifelse(Sex=="Male", -0.5, 0.5))
+  
+  # Drop rows with missing predictor
+  data <- drop_na(data, all_of(x))
+  
+  # Drop rows where all outcome items are missing
+  data <- drop_na(data, all_of(y))
+  
+  # Mean-center predictors
+  data <- data %>% 
+    mutate(
+      across(
+        all_of(x), 
+        ~as.numeric(scale(., center = TRUE, scale = FALSE))
+      )
+    )
+  
+  # Ordered?
+  if (name=="YRBS") {
+    data <- mutate(data, across(sad_lonely:suicide_3, ordered))
+    missing = "listwise"
+  }
+  
+  # Create interaction terms because lavaan doesn't know how to
+  newdata <- model.matrix(
+    as.formula(str_glue("{y} ~ Sex * Year * {x}")), 
+    data = data
+  )[,-1] %>%  # Take out the intercept column because it causes lavaan to break
+    as.data.frame()
+  # Interaction term breaks lavaan so change to dot
+  names(newdata) <- str_replace_all(names(newdata), ":", ".")
+  # return(newdata)
+  newdata <- cbind(data[,items], newdata)
+  # Combine names of items to a string for lavaan model
+  items_all <- paste0(items, collapse = " + ")
+  
+  # Model strings
+  sem0 <- str_glue("{y} =~ {items_all}\n{y} ~ Sex + Year + Sex.Year")
+  sem1 <- str_glue("{y} =~ {items_all}\n{y} ~ Sex + Year + {x} + Sex.Year + Sex.{x} + Year.{x} + Sex.Year.{x}")
+  
+  ml0 <- sem(sem0, data = newdata, missing = missing)
+  ml1 <- sem(sem1, data = newdata, missing = missing)
+  
+  tibble(
+    data = name,
+    Technology = x,
+    Outcome = y,
+    ml0 = list(ml0),
+    ml1 = list(ml1)
+  )
+  
+}
+```
+
+
+```r
+x1 %<-% fit(yrbs, c("sad_lonely", paste0("suicide_", 1:3)), "TV", "Suicide", "YRBS")
+x2 %<-% fit(yrbs, c("sad_lonely", paste0("suicide_", 1:3)), "DV", "Suicide", "YRBS")
+x3 %<-% fit(mtf, paste0("D_B_", 1:6), "TV", "Depression", "MTF")
+x4 %<-% fit(mtf, paste0("D_B_", 1:6), "SM", "Depression", "MTF")
+
+sdq_con <- c("sdqe", "sdqg", "sdql", "sdqr", "sdqv")
+sdq_emo <- c("sdqc", "sdqh", "sdqm", "sdqp", "sdqx")
+
+x5 %<-% fit(us, sdq_con, "TV", "Conduct", "US")
+x6 %<-% fit(us, sdq_con, "SM", "Conduct", "US")
+x7 %<-% fit(us, sdq_emo, "TV", "Emotion", "US")
+x8 %<-% fit(us, sdq_emo, "SM", "Emotion", "US")
+
+# Rename variables
+fits <- bind_rows(x1,x2,x3,x4,x5,x6,x7,x8)
+fits <- fits %>% 
+  mutate(
+    Technology = ifelse(
+      Technology %in% c("SM", "DV"), 
+      "Social media / device", 
+      "Television"
+    )
+  ) %>% 
+  arrange(Outcome, Technology)
+```
+
+## Results
+
+
+```r
+coefs <- fits %>% 
+  mutate(p = map(ml1, ~tidy(., conf.int = TRUE))) %>% 
+  unnest(p) %>% 
+  filter(op == "~") %>%
+  separate(term, c("lhs", "rhs"), sep = " ~ ") %>% 
+  mutate(N = map_dbl(ml1, nobs)) %>% 
+  mutate(N = scales::comma(N, accuracy = 1))
+coefs %>% 
+  mutate(Parameter = str_replace(rhs, "SM|DV|TV", "Technology")) %>%
+  mutate(Parameter = str_replace_all(Parameter, "\\.", ":")) %>% 
+  mutate(Parameter = fct_inorder(Parameter)) %>% 
+  mutate(Outcome = fct_rev(Outcome)) %>% 
+  ggplot(aes(estimate, Outcome, shape = Technology, fill = p.value < 0.05)) +
+  scale_shape_manual(values = c(21, 22)) +
+  scale_fill_manual(values = c("white", "black"), guide = FALSE) +
+  scale_x_continuous(
+    "Parameter estimate",
+    breaks = scales::pretty_breaks(), 
+    expand = expansion(.25)
+  ) +
+  geom_vline(xintercept = 0, lty = 2, size = .25) +
+  geom_linerangeh(
+    aes(xmin = conf.low, xmax = conf.high), size = .25,
+    position = position_dodge2v(.4), show.legend = FALSE
+  ) +
+  geom_point(
+    size = 2, position = position_dodge2v(.4),
+  ) +
+  # geom_text(
+  #   aes(label = N), size = 2, vjust = 2,
+  #   position = position_dodge2v(.4)
+  # ) +
+  facet_wrap("Parameter", scales = "free_x", nrow = 2) +
+  theme(
+    legend.position = c(.875, .25),
+    axis.title.y = element_blank(), 
+    panel.spacing.x = unit(12, "pt")
+  )
+```
+
+<img src="05-SEM_files/figure-html/unnamed-chunk-2-1.png" width="768" style="display: block; margin: auto;" />
+
+
+```r
+# Numbers
+coefs %>% 
+  filter(Outcome == "Suicide", rhs == "TV") %>% 
+  select(data:Outcome, estimate:conf.high)
+```
+
+
+
+```r
+coefs %>% 
+  distinct(data, Technology, Outcome, N)
+```
+
+```
+## # A tibble: 8 x 4
+##   data  Technology            Outcome    N      
+##   <chr> <chr>                 <chr>      <chr>  
+## 1 US    Social media / device Conduct    18,815 
+## 2 US    Television            Conduct    19,079 
+## 3 MTF   Social media / device Depression 78,357 
+## 4 MTF   Television            Depression 367,444
+## 5 US    Social media / device Emotion    18,811 
+## 6 US    Television            Emotion    19,074 
+## 7 YRBS  Social media / device Suicide    24,584 
+## 8 YRBS  Television            Suicide    24,593
+```
+
+
+Just time
+
+
+```r
+fits %>% 
+  mutate(p = map(ml0, ~tidy(., conf.int = TRUE))) %>% 
+  unnest(p) %>% 
+  filter(op == "~") %>%
+  separate(term, c("lhs", "rhs"), sep = " ~ ") %>% 
+  # mutate(
+  #   Parameter = factor(rhs, levels = c("Year", "Technology", "Year x Technology"))
+  # ) %>% 
+  mutate(Outcome = fct_rev(Outcome)) %>% 
+  ggplot(aes(estimate, Outcome, shape = Technology, fill = p.value < 0.05)) +
+  scale_shape_manual(values = c(21, 22)) +
+  scale_fill_manual(values = c("white", "black"), guide = FALSE) +
+  scale_x_continuous(
+    "Parameter estimate",
+    breaks = scales::pretty_breaks(), 
+    expand = expansion(.25)
+  ) +
+  geom_vline(xintercept = 0, lty = 2, size = .25) +
+  geom_linerangeh(
+    aes(xmin = conf.low, xmax = conf.high), size = .25,
+    position = position_dodge2v(.4), show.legend = FALSE
+  ) +
+  geom_point(
+    size = 2, position = position_dodge2v(.4),
+  ) +
+  facet_wrap("rhs", scales = "free_x", nrow = 1) +
+  theme(
+    legend.position = "bottom",
+    axis.title.y = element_blank(), 
+    panel.spacing.x = unit(12, "pt")
+  )
+```
+
+<img src="05-SEM_files/figure-html/unnamed-chunk-5-1.png" width="768" style="display: block; margin: auto;" />
+

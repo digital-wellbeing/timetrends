@@ -1,25 +1,13 @@
----
-title: "Preprocess MTF data"
-author: "Augustin & Matti"
-date: "`r Sys.Date()`"
-output:
-  html_document:
-    toc: true
-    toc_depth: 2
-    toc_float: true
----
+# MTF preprocessing
 
-```{r setup, include = FALSE}
-library(tidyverse)
-library(haven)
-library(labelled)
-library(car)
-library(janitor)
-```
+
+
+
 
 Get list of individual data files' names
 
-```{r}
+
+```r
 MTFfiles <- list.files(
   path = "data-raw/mtf/",
   pattern = "\\.dta$",
@@ -30,7 +18,8 @@ MTFfiles <- list.files(
 
 After this, we have to list all the variables we want to examine in our study. We should do this by using labels of variables which can be found in the codebooks. The reason we're doing this is because label naming of the MTF dataset remained more or less consistent throughout the years, while variable naming isn't consistent. Therefore, we can merge the data from different years by using labels, but not by using variable names themselves. For now, let's go with the following variables:
 
-```{r}
+
+```r
 vars <- c("YEAR OF", "S SEX", "s SEX", "WHAT GRADE LEVL", "VRY HPY THS DAY", "SATISFD W MYSELF", "LIFE MEANINGLESS", "I ENJOY LIFE", "HOPELESS", "GOOD TO BE ALIVE", "FUTR R LIFE WRSE", "AM PRSN OF WORTH", "DO WELL AS OTHRS", "MUCH TO B PROUD", "I AM NO GOOD", "I DO WRONG THING", "MY LIFE NT USEFL", "POS ATT TWD SELF", "OFTN FEEL LONELY", "ALWYS SM1 HELP", "OFTN FL LEFT OUT", "USLY SM1 TALK TO", "OFT WSH MOR FRND", "USLY FRDS BE WTH", "SAT LIFE AS WHL", "CMP SATFD", "PUTR SC", "PUTR OT", "PUTR JO", "DAY HRS WATCH", "END HRS WATCH", "W GAMING", "W INTERNET", "TV/DAY", "TV/WKEND", "WEB FACEBK", "HRS MUSIC")
 ```
 
@@ -38,39 +27,45 @@ Before proceeding with the merge, we have to create:
 
 * An empty dataframe that will contain the merged data after the process is complete, which has the same number of columns as the number of our variables of interest and the columns are named accordingly;
 
-```{r}
+
+```r
 MTF <- data.frame(matrix(ncol = length(vars)))
 colnames(MTF) <- vars
 ```
 
 * A list which will contain the data of interest from separate datafiles before it's merged;
 
-```{r}
+
+```r
 intermediate <- list()
 ```
 
 * A list which will contain the labels of separate datafiles
 
-```{r}
+
+```r
 labels <- list()
 ```
 
 * A vector which will contain column numbers of our variables of interest;
 
-```{r}
+
+```r
 indices <- vector("numeric")
 ```
 
 * A vector which will contain column names of our variables of interest;
 * A vector which will contain column numbers of columns that are unlabelled and should be removed.
 
-```{r}
+
+```r
 names <- vector("character")
 ```
 
 
 Now we can go ahead with the merge. Please see inline comments for detailed descriptions!
-```{r}
+
+```r
 for (i in 1:length(MTFfiles)) {
   # Importing the file and adding it to the intermediate list
   intermediate[[i]] <- read_dta(MTFfiles[i])
@@ -108,7 +103,8 @@ MTF <- plyr::rbind.fill(intermediate)
 After merging the files, there are some leftover things we still have to do
 * Variables with the labels 'SAT LIFE AS WHL' and 'CMP SATFD' are actually the same variable and they should be merged;
 
-```{r}
+
+```r
 MTF$`SAT LIFE AS WHL` <- rowSums(MTF[, c("SAT LIFE AS WHL", "CMP SATFD")], na.rm = T)
 MTF <- subset(MTF, select = -`CMP SATFD`)
 vars <- vars[-26]
@@ -116,7 +112,8 @@ vars <- vars[-26]
 
 * The above also applies to variables with the labels 'S SEX' and 's SEX';
 
-```{r}
+
+```r
 MTF$`S SEX` <- rowSums(MTF[, c("S SEX", "s SEX")], na.rm = T)
 MTF <- subset(MTF, select = -`s SEX`)
 vars <- vars[-3]
@@ -124,7 +121,8 @@ vars <- vars[-3]
 
 * Numerical values which indicate various types of missing data have to be removed (i.e., coded as NA);
 
-```{r}
+
+```r
 MTF[MTF == 0] <- NA
 MTF[MTF == 8] <- NA
 MTF[MTF == 9] <- NA
@@ -134,87 +132,101 @@ MTF[MTF == -8] <- NA
 
 * Cases which contain data only for 3 variables (year of administration, gender and grade) have to be removed;
 
-```{r}
+
+```r
 MTF <- MTF[!rowSums(is.na(MTF[, c(4:length(vars))])) == (length(vars) - 3), ]
 ```
 
 * Cases which have unidentified labels for the Sex variable (3, 4, 5, 6 and 7) will be dropped;
 
-```{r}
+
+```r
 MTF <- subset(MTF, `S SEX` == 1 | `S SEX` == 2)
 ```
 
 * Cases which have unidentified labels for the Grade variable (3, 5, 6 and 7) will be dropped;
 
-```{r}
+
+```r
 MTF <- subset(MTF, `WHAT GRADE LEVL` == 2 | `WHAT GRADE LEVL` == 4 | `WHAT GRADE LEVL` == 12)
 ```
 
 * Cases which have missing values in the Year variable should be dropped;
 
-```{r}
+
+```r
 MTF <- drop_na(MTF, `YEAR OF`)
 ```
 
 * Initial row numbers should be dropped -- convert to tibble takes care of this
 
-```{r}
+
+```r
 MTF <- as_tibble(MTF)
 ```
 
 * Values of years which were coded using only last two digits (e.g. 92 instead of 1992) have to be corrected;
 
-```{r}
+
+```r
 MTF$`YEAR OF` <- recode(MTF$`YEAR OF`, "76=1976;77=1977;78=1978;79=1979;80=1980;81=1981;82=1982;83=1983;84=1984;85=1985;86=1986;87=1987;88=1988;89=1989;90=1990;91=1991;92=1992;93=1993;94=1994;95=1995;96=1996;97=1997;98=1998")
 ```
 
 * Sex variable has to be recoded from 1 and 2 to Male and Female, respectively;
 
-```{r}
+
+```r
 MTF$`S SEX`[MTF$`S SEX` == 1] <- "Male"
 MTF$`S SEX`[MTF$`S SEX` == 2] <- "Female"
 ```
 
 * In the Grade variable, values of 2 and 4 have to ve recoded to 8 and 10, respectively;
 
-```{r}
+
+```r
 MTF$`WHAT GRADE LEVL` <- recode(MTF$`WHAT GRADE LEVL`, "2=8;4=10")
 ```
 
 * Labels have to be removed from the data (we'll add new, more meaningful ones later);
 * All unnecessary variables which were used in the merging process have to be removed to save memory and space;
 
-```{r}
+
+```r
 rm(i, indices, j, labels, MTFfiles, vars, names, intermediate)
 ```
 
 * Sex will be turned to factor;
 
-```{r}
+
+```r
 MTF$`S SEX` <- as.factor(MTF$`S SEX`)
 ```
 
 * Convert grade to approximate age (age = grade + 5)
 
-```{r}
+
+```r
 MTF$`WHAT GRADE LEVL` <- MTF$`WHAT GRADE LEVL` + 5
 ```
 
 * We will sort the data by year of administration.
 
-```{r}
+
+```r
 MTF <- arrange(MTF, `YEAR OF`)
 ```
 
 * Rename variables
 
-```{r}
-colnames(MTF) <- c("Year", "Sex", "age", "H", "S", "SE_R_1", "SE_R_7", "SE_R_4", "SE_R_5", "SE_R_2", "D_B_1", "D_B_2", "SE_R_10", "F", "TV/WEEKDAY", "L_MTF_1", "L_MTF_2", "L_MTF_3", "L_MTF_4", "L_MTF_5", "L_MTF_6", "D_B_3", "D_B_4", "D_B_5", "D_B_6", "TV/WEEKEND", "COMPUTER/SCHOOL", "COMPUTER/OTHER", "COMPUTER JOB", "INTERNET/WEEK", "GAMING/WEEK", "social_media", "music", "SCREENTIME/WEEKDAY", "SCREENTIME/WEEKEND")
+
+```r
+colnames(MTF) <- c("Year", "Sex", "Age", "H", "S", "SE_R_1", "SE_R_7", "SE_R_4", "SE_R_5", "SE_R_2", "D_B_1", "D_B_2", "SE_R_10", "F", "TV", "L_MTF_1", "L_MTF_2", "L_MTF_3", "L_MTF_4", "L_MTF_5", "L_MTF_6", "D_B_3", "D_B_4", "D_B_5", "D_B_6", "TV/WEEKEND", "COMPUTER/SCHOOL", "COMPUTER/OTHER", "COMPUTER JOB", "INTERNET/WEEK", "GAMING/WEEK", "SM", "music", "SCREENTIME/WEEKDAY", "SCREENTIME/WEEKEND")
 ```
 
 Let's also recode the items, so that all the responses indicate higher development of the construct - higher self-esteem, higher loneliness, more depressive symptoms. We'll also assign labels to those variables.
 
-```{r}
+
+```r
 MTF$SE_R_5 <- recode(MTF$SE_R_5, "1=5;2=4;4=2;5=1")
 MTF$SE_R_2 <- recode(MTF$SE_R_2, "1=5;2=4;4=2;5=1")
 MTF$L_MTF_2 <- recode(MTF$L_MTF_2, "1=5;2=4;4=2;5=1")
@@ -224,38 +236,45 @@ MTF$D_B_4 <- recode(MTF$D_B_4, "1=5;2=4;4=2;5=1")
 MTF$D_B_6 <- recode(MTF$D_B_6, "1=5;2=4;4=2;5=1")
 ```
 
-Standardize variable names
-
-```{r}
-MTF <- clean_names(MTF)
-```
-
 Remove data before 1991 because it only includes 12th graders (and thus if you include it, any change over time in the aggregate may just reflect a change from 12th graders to mean(8th grade, 10th grade, 12th grade)...)
 
-```{r}
-MTF <- filter(MTF, year > 1990)
+
+```r
+MTF <- filter(MTF, Year > 1990)
 ```
 
 Focus on individuals 15 years old or younger
 
-```{r}
-MTF <- filter(MTF, age <= 15)
+
+```r
+MTF <- filter(MTF, Age <= 15)
 ```
 
 Aggregate, rename, recode
 
-```{r}
+
+```r
 MTF <- MTF %>%
-  rename(tv = tv_weekday) %>% 
   # Select variables
   select(
-    year, sex, age, tv, social_media,
-    contains("d_b_"), contains("se_"), contains("l_mtf_")
-  )
+    Year, Sex, TV, SM, contains("D_B_")
+  ) %>% 
+  mutate(
+    Depression = rowMeans(select(., starts_with("D_B_")), na.rm = TRUE)
+  ) 
+contrasts(MTF$Sex) <- matrix(c(.5, -.5))
 ```
 
-# Save to disk
+We're not going to do anything with rows where all D_B_ items were missing, so we drop those from the data
 
-```{r}
+
+```r
+MTF <- drop_na(MTF, Depression)
+```
+
+## Save to disk
+
+
+```r
 saveRDS(MTF, "data/mtf.rds")
 ```
