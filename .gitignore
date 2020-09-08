@@ -3,7 +3,7 @@
 .RData
 .Rproj.user
 **/*.Rout
-*_files/
+_bookdown_files/
 *_cache/
 
 # System files and logs
