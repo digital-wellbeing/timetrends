@@ -23,6 +23,7 @@ data <- read_spss(
 ```
 
 ```{r}
+prop.table(table(data$sex, useNA = "always"))
 # Drop cases where age or sex are unknown
 data <- drop_na(data, age, sex)
 ```

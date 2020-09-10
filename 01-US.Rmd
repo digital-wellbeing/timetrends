@@ -79,7 +79,7 @@ data <- rename(data, Sex = sex_dv)
 Sex: Take out (10) inconsistent responses
 
 ```{r}
-table(data$Sex)
+prop.table(table(data$Sex, useNA = "always"))
 data <- filter(data, Sex != "inconsistent")
 data <- data %>% 
   mutate(Sex = factor(Sex, levels = c("Female", "Male")))

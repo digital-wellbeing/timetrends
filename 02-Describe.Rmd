@@ -84,6 +84,15 @@ bind_rows(
   kable()
 ```
 
+### Missingness
+
+```{r}
+mtf_db_na <- rowSums(is.na(select(mtf, starts_with("D_B_")))) 
+kable(prop.table(table(mtf_db_na)), digits = 3)
+us_sdq_na <- rowSums(is.na(select(us, starts_with("sdq")))) 
+kable(prop.table(table(us_sdq_na)), digits = 3)
+```
+
 ### Outcomes
 
 ```{r}

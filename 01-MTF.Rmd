@@ -135,12 +135,6 @@ MTF[MTF == -8] <- NA
 MTF <- MTF[!rowSums(is.na(MTF[, c(4:length(vars))])) == (length(vars) - 3), ]
 ```
 
-* Cases which have unidentified labels for the Sex variable (3, 4, 5, 6 and 7) will be dropped;
-
-```{r}
-MTF <- subset(MTF, `S SEX` == 1 | `S SEX` == 2)
-```
-
 * Cases which have unidentified labels for the Grade variable (3, 5, 6 and 7) will be dropped;
 
 ```{r}
@@ -151,6 +145,13 @@ MTF <- subset(MTF, `WHAT GRADE LEVL` == 2 | `WHAT GRADE LEVL` == 4 | `WHAT GRADE
 
 ```{r}
 MTF <- drop_na(MTF, `YEAR OF`)
+```
+
+* Cases which have unidentified labels for the Sex variable (3, 4, 5, 6 and 7) will be dropped;
+
+```{r}
+prop.table(table(MTF$`S SEX`, useNA = "always"))
+MTF <- subset(MTF, `S SEX` == 1 | `S SEX` == 2)
 ```
 
 * Initial row numbers should be dropped -- convert to tibble takes care of this
