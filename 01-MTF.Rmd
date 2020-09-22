@@ -28,7 +28,7 @@ MTFfiles <- list.files(
 After this, we have to list all the variables we want to examine in our study. We should do this by using labels of variables which can be found in the codebooks. The reason we're doing this is because label naming of the MTF dataset remained more or less consistent throughout the years, while variable naming isn't consistent. Therefore, we can merge the data from different years by using labels, but not by using variable names themselves. For now, let's go with the following variables:
 
 ```{r}
-vars <- c("YEAR OF", "S SEX", "s SEX", "WHAT GRADE LEVL", "VRY HPY THS DAY", "SATISFD W MYSELF", "LIFE MEANINGLESS", "I ENJOY LIFE", "HOPELESS", "GOOD TO BE ALIVE", "FUTR R LIFE WRSE", "AM PRSN OF WORTH", "DO WELL AS OTHRS", "MUCH TO B PROUD", "I AM NO GOOD", "I DO WRONG THING", "MY LIFE NT USEFL", "POS ATT TWD SELF", "OFTN FEEL LONELY", "ALWYS SM1 HELP", "OFTN FL LEFT OUT", "USLY SM1 TALK TO", "OFT WSH MOR FRND", "USLY FRDS BE WTH", "SAT LIFE AS WHL", "CMP SATFD", "PUTR SC", "PUTR OT", "PUTR JO", "DAY HRS WATCH", "END HRS WATCH", "W GAMING", "W INTERNET", "TV/DAY", "TV/WKEND", "WEB FACEBK", "HRS MUSIC")
+vars <- c("YEAR OF", "S SEX", "s SEX", "WHAT GRADE LEVL", "VRY HPY THS DAY", "SATISFD W MYSELF", "LIFE MEANINGLESS", "I ENJOY LIFE", "HOPELESS", "GOOD TO BE ALIVE", "FUTR R LIFE WRSE", "AM PRSN OF WORTH", "DO WELL AS OTHRS", "MUCH TO B PROUD", "I AM NO GOOD", "I DO WRONG THING", "MY LIFE NT USEFL", "POS ATT TWD SELF", "OFTN FEEL LONELY", "ALWYS SM1 HELP", "OFTN FL LEFT OUT", "USLY SM1 TALK TO", "OFT WSH MOR FRND", "USLY FRDS BE WTH", "SAT LIFE AS WHL", "CMP SATFD", "PUTR SC", "PUTR OT", "PUTR JO", "DAY HRS WATCH", "END HRS WATCH", "W GAMING", "W INTERNET", "TV/DAY", "TV/WKEND", "WEB FACEBK", "MYSPC",  "HRS MUSIC")
 ```
 
 Before proceeding with the merge, we have to create:
@@ -104,6 +104,7 @@ MTF <- plyr::rbind.fill(intermediate)
 
 After merging the files, there are some leftover things we still have to do
 * Variables with the labels 'SAT LIFE AS WHL' and 'CMP SATFD' are actually the same variable and they should be merged;
+* The same goes for variables named 'WEB FACEBK' and 'MYSPC';
 
 ```{r}
 MTF$`SAT LIFE AS WHL` <- rowSums(MTF[, c("SAT LIFE AS WHL", "CMP SATFD")], na.rm = T)
@@ -117,6 +118,14 @@ vars <- vars[-26]
 MTF$`S SEX` <- rowSums(MTF[, c("S SEX", "s SEX")], na.rm = T)
 MTF <- subset(MTF, select = -`s SEX`)
 vars <- vars[-3]
+```
+
+* And the variables 'WEB FACEBK' and 'MYSPC'
+
+```{r}
+MTF$`WEB FACEBK` <- rowSums(MTF[, c("WEB FACEBK", "MYSPC")], na.rm = T)
+MTF <- subset(MTF, select = -MYSPC)
+vars <- vars[-35]
 ```
 
 * Numerical values which indicate various types of missing data have to be removed (i.e., coded as NA);
