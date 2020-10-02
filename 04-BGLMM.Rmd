@@ -159,7 +159,7 @@ b_Tech <- pars %>%
   mutate(Parameter = "Technology")
 b_Interaction <- pars %>% 
   filter(Parameter %in% c("b_Year:TV", "b_Year:DV", "b_Year:SM")) %>% 
-  mutate(Parameter = "Year x Technology")
+  mutate(Parameter = "Year by Technology Interaction")
 p1 <- bind_rows(b_Year, b_Tech, b_Interaction) %>% 
   mutate(Outcome = fct_rev(Outcome)) %>% 
   # Fill points based on if 95%CI includes zero
@@ -170,7 +170,7 @@ p1 <- bind_rows(b_Year, b_Tech, b_Interaction) %>%
     )
   ) %>% 
   mutate(
-    Parameter = factor(Parameter, levels = c("Year", "Technology", "Year x Technology"))
+    Parameter = factor(Parameter, levels = c("Year", "Technology", "Year by Technology Interaction"))
   ) %>% 
   ggplot(aes(Estimate, Outcome, shape = Technology, fill = Zero)) +
   scale_shape_manual(values = c(21, 22)) +
@@ -200,9 +200,9 @@ p1 <- bind_rows(b_Year, b_Tech, b_Interaction) %>%
   )
 
 ((p1 %+% 
-    filter(p1$data, Parameter %in% c("Year", "Technology")) +
+    filter(p1$data, Parameter %in% c("Technology")) +
     theme(axis.title.x = element_blank())) /
-  p1 %+% filter(p1$data, Parameter == "Year x Technology")) +
+  p1 %+% filter(p1$data, Parameter == "Year by Technology Interaction")) +
   plot_layout(guides = "collect") &
   theme(legend.position = "right")
 
