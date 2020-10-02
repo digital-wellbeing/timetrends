@@ -20,7 +20,7 @@ After this, we have to list all the variables we want to examine in our study. W
 
 
 ```r
-vars <- c("YEAR OF", "S SEX", "s SEX", "WHAT GRADE LEVL", "VRY HPY THS DAY", "SATISFD W MYSELF", "LIFE MEANINGLESS", "I ENJOY LIFE", "HOPELESS", "GOOD TO BE ALIVE", "FUTR R LIFE WRSE", "AM PRSN OF WORTH", "DO WELL AS OTHRS", "MUCH TO B PROUD", "I AM NO GOOD", "I DO WRONG THING", "MY LIFE NT USEFL", "POS ATT TWD SELF", "OFTN FEEL LONELY", "ALWYS SM1 HELP", "OFTN FL LEFT OUT", "USLY SM1 TALK TO", "OFT WSH MOR FRND", "USLY FRDS BE WTH", "SAT LIFE AS WHL", "CMP SATFD", "PUTR SC", "PUTR OT", "PUTR JO", "DAY HRS WATCH", "END HRS WATCH", "W GAMING", "W INTERNET", "TV/DAY", "TV/WKEND", "WEB FACEBK", "HRS MUSIC")
+vars <- c("YEAR OF", "S SEX", "s SEX", "WHAT GRADE LEVL", "VRY HPY THS DAY", "SATISFD W MYSELF", "LIFE MEANINGLESS", "I ENJOY LIFE", "HOPELESS", "GOOD TO BE ALIVE", "FUTR R LIFE WRSE", "AM PRSN OF WORTH", "DO WELL AS OTHRS", "MUCH TO B PROUD", "I AM NO GOOD", "I DO WRONG THING", "MY LIFE NT USEFL", "POS ATT TWD SELF", "OFTN FEEL LONELY", "ALWYS SM1 HELP", "OFTN FL LEFT OUT", "USLY SM1 TALK TO", "OFT WSH MOR FRND", "USLY FRDS BE WTH", "SAT LIFE AS WHL", "CMP SATFD", "PUTR SC", "PUTR OT", "PUTR JO", "DAY HRS WATCH", "END HRS WATCH", "W GAMING", "W INTERNET", "TV/DAY", "TV/WKEND", "WEB FACEBK", "MYSPC",  "HRS MUSIC")
 ```
 
 Before proceeding with the merge, we have to create:
@@ -102,6 +102,7 @@ MTF <- plyr::rbind.fill(intermediate)
 
 After merging the files, there are some leftover things we still have to do
 * Variables with the labels 'SAT LIFE AS WHL' and 'CMP SATFD' are actually the same variable and they should be merged;
+* The same goes for variables named 'WEB FACEBK' and 'MYSPC';
 
 
 ```r
@@ -117,6 +118,15 @@ vars <- vars[-26]
 MTF$`S SEX` <- rowSums(MTF[, c("S SEX", "s SEX")], na.rm = T)
 MTF <- subset(MTF, select = -`s SEX`)
 vars <- vars[-3]
+```
+
+* And the variables 'WEB FACEBK' and 'MYSPC'
+
+
+```r
+MTF$`WEB FACEBK` <- rowSums(MTF[, c("WEB FACEBK", "MYSPC")], na.rm = T)
+MTF <- subset(MTF, select = -MYSPC)
+vars <- vars[-35]
 ```
 
 * Numerical values which indicate various types of missing data have to be removed (i.e., coded as NA);
@@ -137,13 +147,6 @@ MTF[MTF == -8] <- NA
 MTF <- MTF[!rowSums(is.na(MTF[, c(4:length(vars))])) == (length(vars) - 3), ]
 ```
 
-* Cases which have unidentified labels for the Sex variable (3, 4, 5, 6 and 7) will be dropped;
-
-
-```r
-MTF <- subset(MTF, `S SEX` == 1 | `S SEX` == 2)
-```
-
 * Cases which have unidentified labels for the Grade variable (3, 5, 6 and 7) will be dropped;
 
 
@@ -156,6 +159,14 @@ MTF <- subset(MTF, `WHAT GRADE LEVL` == 2 | `WHAT GRADE LEVL` == 4 | `WHAT GRADE
 
 ```r
 MTF <- drop_na(MTF, `YEAR OF`)
+```
+
+* Cases which have unidentified labels for the Sex variable (3, 4, 5, 6 and 7) will be dropped;
+
+
+```r
+prop.table(table(MTF$`S SEX`, useNA = "always"))
+MTF <- subset(MTF, `S SEX` == 1 | `S SEX` == 2)
 ```
 
 * Initial row numbers should be dropped -- convert to tibble takes care of this
@@ -277,4 +288,48 @@ MTF <- drop_na(MTF, Depression)
 
 ```r
 saveRDS(MTF, "data/mtf.rds")
+```
+
+
+```r
+library(sessioninfo)
+session_info()
+```
+
+```
+## ─ Session info ───────────────────────────────────────────────────────────────
+##  setting  value                       
+##  version  R version 4.0.2 (2020-06-22)
+##  os       macOS Catalina 10.15.7      
+##  system   x86_64, darwin17.0          
+##  ui       X11                         
+##  language (EN)                        
+##  collate  en_GB.UTF-8                 
+##  ctype    en_GB.UTF-8                 
+##  tz       Europe/London               
+##  date     2020-10-02                  
+## 
+## ─ Packages ───────────────────────────────────────────────────────────────────
+##  package     * version date       lib source                              
+##  assertthat    0.2.1   2019-03-21 [1] CRAN (R 4.0.0)                      
+##  bookdown      0.20    2020-06-23 [1] CRAN (R 4.0.2)                      
+##  cli           2.0.2   2020-02-28 [1] CRAN (R 4.0.0)                      
+##  crayon        1.3.4   2017-09-16 [1] CRAN (R 4.0.0)                      
+##  digest        0.6.25  2020-02-23 [1] CRAN (R 4.0.0)                      
+##  evaluate      0.14    2019-05-28 [1] CRAN (R 4.0.0)                      
+##  fansi         0.4.1   2020-01-08 [1] CRAN (R 4.0.0)                      
+##  glue          1.4.2   2020-08-27 [1] CRAN (R 4.0.2)                      
+##  htmltools     0.5.0   2020-06-16 [1] CRAN (R 4.0.1)                      
+##  knitr         1.30    2020-09-22 [1] CRAN (R 4.0.2)                      
+##  magrittr      1.5     2014-11-22 [1] CRAN (R 4.0.0)                      
+##  rlang         0.4.7   2020-07-09 [1] CRAN (R 4.0.2)                      
+##  rmarkdown     2.4.0   2020-09-11 [1] Github (cpsievert/rmarkdown@b79fb4d)
+##  sessioninfo * 1.1.1   2018-11-05 [1] CRAN (R 4.0.0)                      
+##  stringi       1.5.3   2020-09-09 [1] CRAN (R 4.0.2)                      
+##  stringr       1.4.0   2019-02-10 [1] CRAN (R 4.0.0)                      
+##  withr         2.3.0   2020-09-22 [1] CRAN (R 4.0.2)                      
+##  xfun          0.18    2020-09-29 [1] CRAN (R 4.0.2)                      
+##  yaml          2.2.1   2020-02-01 [1] CRAN (R 4.0.0)                      
+## 
+## [1] /Library/Frameworks/R.framework/Versions/4.0/Resources/library
 ```

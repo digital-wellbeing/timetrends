@@ -24,7 +24,7 @@
 <meta name="author" content="Matti Vuorre" />
 
 
-<meta name="date" content="2020-09-02" />
+<meta name="date" content="2020-10-02" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,6 +33,7 @@
   
 <link rel="prev" href="yrbs-preprocessing.html"/>
 <link rel="next" href="generalized-linear-model.html"/>
+<script src="libs/header-attrs-2.4.0/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -54,18 +55,17 @@
 
 
 <style type="text/css">
-code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
-code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -85,7 +85,7 @@ pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-le
 div.sourceCode
   {   }
 @media screen {
-code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -134,46 +134,58 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="./">Technology effect timecourses</a></li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Preface</a><ul>
-<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#analyses-and-reproducibility"><i class="fa fa-check"></i><b>1.1</b> Analyses and reproducibility</a></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Preface</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#analyses"><i class="fa fa-check"></i><b>1.1</b> Analyses</a></li>
 <li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#raw-data"><i class="fa fa-check"></i><b>1.2</b> Raw data</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#reproducibility"><i class="fa fa-check"></i><b>1.3</b> Reproducibility</a></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="mtf-preprocessing.html"><a href="mtf-preprocessing.html"><i class="fa fa-check"></i><b>2</b> MTF preprocessing</a><ul>
+<li class="chapter" data-level="2" data-path="mtf-preprocessing.html"><a href="mtf-preprocessing.html"><i class="fa fa-check"></i><b>2</b> MTF preprocessing</a>
+<ul>
 <li class="chapter" data-level="2.1" data-path="mtf-preprocessing.html"><a href="mtf-preprocessing.html#save-to-disk"><i class="fa fa-check"></i><b>2.1</b> Save to disk</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="us-preprocessing.html"><a href="us-preprocessing.html"><i class="fa fa-check"></i><b>3</b> US preprocessing</a><ul>
+<li class="chapter" data-level="3" data-path="us-preprocessing.html"><a href="us-preprocessing.html"><i class="fa fa-check"></i><b>3</b> US preprocessing</a>
+<ul>
 <li class="chapter" data-level="3.1" data-path="us-preprocessing.html"><a href="us-preprocessing.html#year"><i class="fa fa-check"></i><b>3.1</b> Year</a></li>
 <li class="chapter" data-level="3.2" data-path="us-preprocessing.html"><a href="us-preprocessing.html#strengths-and-difficulties"><i class="fa fa-check"></i><b>3.2</b> Strengths and difficulties</a></li>
 <li class="chapter" data-level="3.3" data-path="us-preprocessing.html"><a href="us-preprocessing.html#save-file"><i class="fa fa-check"></i><b>3.3</b> Save file</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="yrbs-preprocessing.html"><a href="yrbs-preprocessing.html"><i class="fa fa-check"></i><b>4</b> YRBS preprocessing</a><ul>
+<li class="chapter" data-level="4" data-path="yrbs-preprocessing.html"><a href="yrbs-preprocessing.html"><i class="fa fa-check"></i><b>4</b> YRBS preprocessing</a>
+<ul>
 <li class="chapter" data-level="4.1" data-path="yrbs-preprocessing.html"><a href="yrbs-preprocessing.html#recode-variables"><i class="fa fa-check"></i><b>4.1</b> Recode Variables</a></li>
 <li class="chapter" data-level="4.2" data-path="yrbs-preprocessing.html"><a href="yrbs-preprocessing.html#age"><i class="fa fa-check"></i><b>4.2</b> Age</a></li>
 <li class="chapter" data-level="4.3" data-path="yrbs-preprocessing.html"><a href="yrbs-preprocessing.html#tech-variables"><i class="fa fa-check"></i><b>4.3</b> Tech variables</a></li>
 <li class="chapter" data-level="4.4" data-path="yrbs-preprocessing.html"><a href="yrbs-preprocessing.html#sex"><i class="fa fa-check"></i><b>4.4</b> Sex</a></li>
 <li class="chapter" data-level="4.5" data-path="yrbs-preprocessing.html"><a href="yrbs-preprocessing.html#rename-and-save"><i class="fa fa-check"></i><b>4.5</b> Rename and save</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="data-descriptives.html"><a href="data-descriptives.html"><i class="fa fa-check"></i><b>5</b> Data descriptives</a><ul>
-<li class="chapter" data-level="5.1" data-path="data-descriptives.html"><a href="data-descriptives.html#data"><i class="fa fa-check"></i><b>5.1</b> Data</a><ul>
+<li class="chapter" data-level="5" data-path="data-descriptives.html"><a href="data-descriptives.html"><i class="fa fa-check"></i><b>5</b> Data descriptives</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="data-descriptives.html"><a href="data-descriptives.html#data"><i class="fa fa-check"></i><b>5.1</b> Data</a>
+<ul>
 <li class="chapter" data-level="5.1.1" data-path="data-descriptives.html"><a href="data-descriptives.html#sample-sizes-and-years"><i class="fa fa-check"></i><b>5.1.1</b> Sample sizes and years</a></li>
-<li class="chapter" data-level="5.1.2" data-path="data-descriptives.html"><a href="data-descriptives.html#outcomes"><i class="fa fa-check"></i><b>5.1.2</b> Outcomes</a></li>
+<li class="chapter" data-level="5.1.2" data-path="data-descriptives.html"><a href="data-descriptives.html#missingness"><i class="fa fa-check"></i><b>5.1.2</b> Missingness</a></li>
+<li class="chapter" data-level="5.1.3" data-path="data-descriptives.html"><a href="data-descriptives.html#outcomes"><i class="fa fa-check"></i><b>5.1.3</b> Outcomes</a></li>
 </ul></li>
 <li class="chapter" data-level="5.2" data-path="data-descriptives.html"><a href="data-descriptives.html#figures"><i class="fa fa-check"></i><b>5.2</b> Figures</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="generalized-linear-model.html"><a href="generalized-linear-model.html"><i class="fa fa-check"></i><b>6</b> Generalized Linear Model</a><ul>
+<li class="chapter" data-level="6" data-path="generalized-linear-model.html"><a href="generalized-linear-model.html"><i class="fa fa-check"></i><b>6</b> Generalized Linear Model</a>
+<ul>
 <li class="chapter" data-level="6.1" data-path="data-descriptives.html"><a href="data-descriptives.html#data"><i class="fa fa-check"></i><b>6.1</b> Data</a></li>
 <li class="chapter" data-level="6.2" data-path="generalized-linear-model.html"><a href="generalized-linear-model.html#yearly-correlations-figure"><i class="fa fa-check"></i><b>6.2</b> Yearly correlations figure</a></li>
 <li class="chapter" data-level="6.3" data-path="generalized-linear-model.html"><a href="generalized-linear-model.html#models"><i class="fa fa-check"></i><b>6.3</b> Models</a></li>
 <li class="chapter" data-level="6.4" data-path="generalized-linear-model.html"><a href="generalized-linear-model.html#results"><i class="fa fa-check"></i><b>6.4</b> Results</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="bayesian-generalized-linear-mixed-model.html"><a href="bayesian-generalized-linear-mixed-model.html"><i class="fa fa-check"></i><b>7</b> Bayesian Generalized Linear Mixed Model</a><ul>
+<li class="chapter" data-level="7" data-path="bayesian-generalized-linear-mixed-model.html"><a href="bayesian-generalized-linear-mixed-model.html"><i class="fa fa-check"></i><b>7</b> Bayesian Generalized Linear Mixed Model</a>
+<ul>
 <li class="chapter" data-level="7.1" data-path="data-descriptives.html"><a href="data-descriptives.html#data"><i class="fa fa-check"></i><b>7.1</b> Data</a></li>
-<li class="chapter" data-level="7.2" data-path="generalized-linear-model.html"><a href="generalized-linear-model.html#models"><i class="fa fa-check"></i><b>7.2</b> Models</a><ul>
+<li class="chapter" data-level="7.2" data-path="generalized-linear-model.html"><a href="generalized-linear-model.html#models"><i class="fa fa-check"></i><b>7.2</b> Models</a>
+<ul>
 <li class="chapter" data-level="7.2.1" data-path="bayesian-generalized-linear-mixed-model.html"><a href="bayesian-generalized-linear-mixed-model.html#estimate"><i class="fa fa-check"></i><b>7.2.1</b> Estimate</a></li>
-<li class="chapter" data-level="7.2.2" data-path="bayesian-generalized-linear-mixed-model.html"><a href="bayesian-generalized-linear-mixed-model.html#year-and-tech"><i class="fa fa-check"></i><b>7.2.2</b> Year and tech</a></li>
+<li class="chapter" data-level="7.2.2" data-path="generalized-linear-model.html"><a href="generalized-linear-model.html#results"><i class="fa fa-check"></i><b>7.2.2</b> Results</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="latent-variable-models.html"><a href="latent-variable-models.html"><i class="fa fa-check"></i><b>8</b> Latent Variable Models</a><ul>
+<li class="chapter" data-level="8" data-path="latent-variable-models.html"><a href="latent-variable-models.html"><i class="fa fa-check"></i><b>8</b> Latent Variable Models</a>
+<ul>
 <li class="chapter" data-level="8.1" data-path="data-descriptives.html"><a href="data-descriptives.html#data"><i class="fa fa-check"></i><b>8.1</b> Data</a></li>
 <li class="chapter" data-level="8.2" data-path="generalized-linear-model.html"><a href="generalized-linear-model.html#models"><i class="fa fa-check"></i><b>8.2</b> Models</a></li>
 <li class="chapter" data-level="8.3" data-path="generalized-linear-model.html"><a href="generalized-linear-model.html#results"><i class="fa fa-check"></i><b>8.3</b> Results</a></li>
@@ -195,25 +207,25 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="data-descriptives" class="section level1">
+<div id="data-descriptives" class="section level1" number="5">
 <h1><span class="header-section-number">Chapter 5</span> Data descriptives</h1>
-<div id="data" class="section level2">
+<div id="data" class="section level2" number="5.1">
 <h2><span class="header-section-number">5.1</span> Data</h2>
-<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="data-descriptives.html#cb57-1"></a>mtf &lt;-<span class="st"> </span><span class="kw">read_rds</span>(<span class="st">&quot;data/mtf.rds&quot;</span>)</span>
-<span id="cb57-2"><a href="data-descriptives.html#cb57-2"></a>us &lt;-<span class="st"> </span><span class="kw">read_rds</span>(<span class="st">&quot;data/us.rds&quot;</span>)</span>
-<span id="cb57-3"><a href="data-descriptives.html#cb57-3"></a>yrbs &lt;-<span class="st"> </span><span class="kw">read_rds</span>(<span class="st">&quot;data/yrbs.rds&quot;</span>)</span></code></pre></div>
-<div id="sample-sizes-and-years" class="section level3">
+<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="data-descriptives.html#cb66-1"></a>mtf &lt;-<span class="st"> </span><span class="kw">read_rds</span>(<span class="st">&quot;data/mtf.rds&quot;</span>)</span>
+<span id="cb66-2"><a href="data-descriptives.html#cb66-2"></a>us &lt;-<span class="st"> </span><span class="kw">read_rds</span>(<span class="st">&quot;data/us.rds&quot;</span>)</span>
+<span id="cb66-3"><a href="data-descriptives.html#cb66-3"></a>yrbs &lt;-<span class="st"> </span><span class="kw">read_rds</span>(<span class="st">&quot;data/yrbs.rds&quot;</span>)</span></code></pre></div>
+<div id="sample-sizes-and-years" class="section level3" number="5.1.1">
 <h3><span class="header-section-number">5.1.1</span> Sample sizes and years</h3>
 <p>Sample sizes per dataset are the number of rows that include the outcome variable (there are two for US). The total sample size <em>in the entire manuscript</em> is the sum without US-emotion (including both US outcomes would duplicate its N).</p>
-<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="data-descriptives.html#cb58-1"></a><span class="kw">tibble</span>(</span>
-<span id="cb58-2"><a href="data-descriptives.html#cb58-2"></a>  <span class="dt">mtf =</span> <span class="kw">drop_na</span>(mtf, Depression) <span class="op">%&gt;%</span><span class="st"> </span>nrow,</span>
-<span id="cb58-3"><a href="data-descriptives.html#cb58-3"></a>  <span class="dt">us_conduct =</span> <span class="kw">drop_na</span>(us, Conduct) <span class="op">%&gt;%</span><span class="st"> </span>nrow,</span>
-<span id="cb58-4"><a href="data-descriptives.html#cb58-4"></a>  <span class="dt">us_emotion =</span> <span class="kw">drop_na</span>(us, Emotion) <span class="op">%&gt;%</span><span class="st"> </span>nrow,</span>
-<span id="cb58-5"><a href="data-descriptives.html#cb58-5"></a>  <span class="dt">yrbs =</span> <span class="kw">drop_na</span>(yrbs, Suicide) <span class="op">%&gt;%</span><span class="st"> </span>nrow</span>
-<span id="cb58-6"><a href="data-descriptives.html#cb58-6"></a>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb58-7"><a href="data-descriptives.html#cb58-7"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">total =</span> mtf <span class="op">+</span><span class="st"> </span>us_conduct <span class="op">+</span><span class="st"> </span>yrbs) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb58-8"><a href="data-descriptives.html#cb58-8"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="kw">across</span>(<span class="dt">.fns =</span> <span class="op">~</span><span class="kw">comma</span>(.))) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb58-9"><a href="data-descriptives.html#cb58-9"></a><span class="st">  </span><span class="kw">kable</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="data-descriptives.html#cb67-1"></a><span class="kw">tibble</span>(</span>
+<span id="cb67-2"><a href="data-descriptives.html#cb67-2"></a>  <span class="dt">mtf =</span> <span class="kw">drop_na</span>(mtf, Depression) <span class="op">%&gt;%</span><span class="st"> </span>nrow,</span>
+<span id="cb67-3"><a href="data-descriptives.html#cb67-3"></a>  <span class="dt">us_conduct =</span> <span class="kw">drop_na</span>(us, Conduct) <span class="op">%&gt;%</span><span class="st"> </span>nrow,</span>
+<span id="cb67-4"><a href="data-descriptives.html#cb67-4"></a>  <span class="dt">us_emotion =</span> <span class="kw">drop_na</span>(us, Emotion) <span class="op">%&gt;%</span><span class="st"> </span>nrow,</span>
+<span id="cb67-5"><a href="data-descriptives.html#cb67-5"></a>  <span class="dt">yrbs =</span> <span class="kw">drop_na</span>(yrbs, Suicide) <span class="op">%&gt;%</span><span class="st"> </span>nrow</span>
+<span id="cb67-6"><a href="data-descriptives.html#cb67-6"></a>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb67-7"><a href="data-descriptives.html#cb67-7"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">total =</span> mtf <span class="op">+</span><span class="st"> </span>us_conduct <span class="op">+</span><span class="st"> </span>yrbs) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb67-8"><a href="data-descriptives.html#cb67-8"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="kw">across</span>(<span class="dt">.fns =</span> <span class="op">~</span><span class="kw">comma</span>(.))) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb67-9"><a href="data-descriptives.html#cb67-9"></a><span class="st">  </span><span class="kw">kable</span>()</span></code></pre></div>
 <table>
 <thead>
 <tr class="header">
@@ -235,36 +247,36 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tbody>
 </table>
 <p>Actual sample sizes used in analyses are the intersections of non-missing values for the two variables (outcome, technology) used in each model.</p>
-<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="data-descriptives.html#cb59-1"></a>doit &lt;-<span class="st"> </span><span class="cf">function</span>(data, name, x, y) {</span>
-<span id="cb59-2"><a href="data-descriptives.html#cb59-2"></a>  data &lt;-<span class="st"> </span>data <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb59-3"><a href="data-descriptives.html#cb59-3"></a><span class="st">    </span><span class="kw">drop_na</span>(<span class="kw">all_of</span>(x), <span class="kw">all_of</span>(y))</span>
-<span id="cb59-4"><a href="data-descriptives.html#cb59-4"></a>  data <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb59-5"><a href="data-descriptives.html#cb59-5"></a><span class="st">    </span><span class="kw">count</span>(Sex) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb59-6"><a href="data-descriptives.html#cb59-6"></a><span class="st">    </span><span class="kw">pivot_wider</span>(<span class="dt">names_from =</span> Sex, <span class="dt">values_from =</span> n) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb59-7"><a href="data-descriptives.html#cb59-7"></a><span class="st">    </span><span class="kw">mutate</span>(<span class="dt">Total =</span> Female <span class="op">+</span><span class="st"> </span>Male) <span class="op">%&gt;%</span></span>
-<span id="cb59-8"><a href="data-descriptives.html#cb59-8"></a><span class="st">    </span><span class="kw">mutate</span>(</span>
-<span id="cb59-9"><a href="data-descriptives.html#cb59-9"></a>      <span class="kw">across</span>(</span>
-<span id="cb59-10"><a href="data-descriptives.html#cb59-10"></a>        <span class="kw">c</span>(Female, Male), </span>
-<span id="cb59-11"><a href="data-descriptives.html#cb59-11"></a>        <span class="op">~</span><span class="kw">str_glue</span>(<span class="st">&quot;{comma(.)} ({percent(./Total)})&quot;</span>)</span>
-<span id="cb59-12"><a href="data-descriptives.html#cb59-12"></a>      )</span>
-<span id="cb59-13"><a href="data-descriptives.html#cb59-13"></a>    ) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb59-14"><a href="data-descriptives.html#cb59-14"></a><span class="st">    </span><span class="kw">mutate</span>(<span class="kw">across</span>(<span class="kw">where</span>(is.numeric), <span class="op">~</span><span class="kw">comma</span>(.))) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb59-15"><a href="data-descriptives.html#cb59-15"></a><span class="st">    </span><span class="kw">mutate</span>(<span class="dt">Years =</span> <span class="kw">paste</span>(<span class="kw">range</span>(data<span class="op">$</span>Year), <span class="dt">collapse =</span> <span class="st">&quot; - &quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb59-16"><a href="data-descriptives.html#cb59-16"></a><span class="st">    </span><span class="kw">mutate</span>(<span class="dt">Dataset =</span> name, <span class="dt">Technology =</span> x, <span class="dt">Outcome =</span> y) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb59-17"><a href="data-descriptives.html#cb59-17"></a><span class="st">    </span><span class="kw">select</span>(Dataset, Technology, Outcome, Years, Total, Female, Male)</span>
-<span id="cb59-18"><a href="data-descriptives.html#cb59-18"></a>}</span>
-<span id="cb59-19"><a href="data-descriptives.html#cb59-19"></a><span class="kw">bind_rows</span>(</span>
-<span id="cb59-20"><a href="data-descriptives.html#cb59-20"></a>  <span class="kw">doit</span>(mtf, <span class="st">&quot;MTF&quot;</span>, <span class="st">&quot;TV&quot;</span>, <span class="st">&quot;Depression&quot;</span>),</span>
-<span id="cb59-21"><a href="data-descriptives.html#cb59-21"></a>  <span class="kw">doit</span>(mtf, <span class="st">&quot;MTF&quot;</span>, <span class="st">&quot;SM&quot;</span>, <span class="st">&quot;Depression&quot;</span>),</span>
-<span id="cb59-22"><a href="data-descriptives.html#cb59-22"></a>  <span class="kw">doit</span>(us, <span class="st">&quot;US&quot;</span>, <span class="st">&quot;TV&quot;</span>, <span class="st">&quot;Emotion&quot;</span>),</span>
-<span id="cb59-23"><a href="data-descriptives.html#cb59-23"></a>  <span class="kw">doit</span>(us, <span class="st">&quot;US&quot;</span>, <span class="st">&quot;SM&quot;</span>, <span class="st">&quot;Emotion&quot;</span>),</span>
-<span id="cb59-24"><a href="data-descriptives.html#cb59-24"></a>  <span class="kw">doit</span>(us, <span class="st">&quot;US&quot;</span>, <span class="st">&quot;TV&quot;</span>, <span class="st">&quot;Conduct&quot;</span>),</span>
-<span id="cb59-25"><a href="data-descriptives.html#cb59-25"></a>  <span class="kw">doit</span>(us, <span class="st">&quot;US&quot;</span>, <span class="st">&quot;SM&quot;</span>, <span class="st">&quot;Conduct&quot;</span>),</span>
-<span id="cb59-26"><a href="data-descriptives.html#cb59-26"></a>  <span class="kw">doit</span>(yrbs, <span class="st">&quot;YRBS&quot;</span>, <span class="st">&quot;TV&quot;</span>, <span class="st">&quot;Suicide&quot;</span>),</span>
-<span id="cb59-27"><a href="data-descriptives.html#cb59-27"></a>  <span class="kw">doit</span>(yrbs, <span class="st">&quot;YRBS&quot;</span>, <span class="st">&quot;DV&quot;</span>, <span class="st">&quot;Suicide&quot;</span>)</span>
-<span id="cb59-28"><a href="data-descriptives.html#cb59-28"></a>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb59-29"><a href="data-descriptives.html#cb59-29"></a><span class="st">  </span><span class="kw">arrange</span>(Dataset, Technology, Outcome) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb59-30"><a href="data-descriptives.html#cb59-30"></a><span class="st">  </span><span class="kw">kable</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="data-descriptives.html#cb68-1"></a>doit &lt;-<span class="st"> </span><span class="cf">function</span>(data, name, x, y) {</span>
+<span id="cb68-2"><a href="data-descriptives.html#cb68-2"></a>  data &lt;-<span class="st"> </span>data <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb68-3"><a href="data-descriptives.html#cb68-3"></a><span class="st">    </span><span class="kw">drop_na</span>(<span class="kw">all_of</span>(x), <span class="kw">all_of</span>(y))</span>
+<span id="cb68-4"><a href="data-descriptives.html#cb68-4"></a>  data <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb68-5"><a href="data-descriptives.html#cb68-5"></a><span class="st">    </span><span class="kw">count</span>(Sex) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb68-6"><a href="data-descriptives.html#cb68-6"></a><span class="st">    </span><span class="kw">pivot_wider</span>(<span class="dt">names_from =</span> Sex, <span class="dt">values_from =</span> n) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb68-7"><a href="data-descriptives.html#cb68-7"></a><span class="st">    </span><span class="kw">mutate</span>(<span class="dt">Total =</span> Female <span class="op">+</span><span class="st"> </span>Male) <span class="op">%&gt;%</span></span>
+<span id="cb68-8"><a href="data-descriptives.html#cb68-8"></a><span class="st">    </span><span class="kw">mutate</span>(</span>
+<span id="cb68-9"><a href="data-descriptives.html#cb68-9"></a>      <span class="kw">across</span>(</span>
+<span id="cb68-10"><a href="data-descriptives.html#cb68-10"></a>        <span class="kw">c</span>(Female, Male), </span>
+<span id="cb68-11"><a href="data-descriptives.html#cb68-11"></a>        <span class="op">~</span><span class="kw">str_glue</span>(<span class="st">&quot;{comma(.)} ({percent(./Total)})&quot;</span>)</span>
+<span id="cb68-12"><a href="data-descriptives.html#cb68-12"></a>      )</span>
+<span id="cb68-13"><a href="data-descriptives.html#cb68-13"></a>    ) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb68-14"><a href="data-descriptives.html#cb68-14"></a><span class="st">    </span><span class="kw">mutate</span>(<span class="kw">across</span>(<span class="kw">where</span>(is.numeric), <span class="op">~</span><span class="kw">comma</span>(.))) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb68-15"><a href="data-descriptives.html#cb68-15"></a><span class="st">    </span><span class="kw">mutate</span>(<span class="dt">Years =</span> <span class="kw">paste</span>(<span class="kw">range</span>(data<span class="op">$</span>Year), <span class="dt">collapse =</span> <span class="st">&quot; - &quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb68-16"><a href="data-descriptives.html#cb68-16"></a><span class="st">    </span><span class="kw">mutate</span>(<span class="dt">Dataset =</span> name, <span class="dt">Technology =</span> x, <span class="dt">Outcome =</span> y) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb68-17"><a href="data-descriptives.html#cb68-17"></a><span class="st">    </span><span class="kw">select</span>(Dataset, Technology, Outcome, Years, Total, Female, Male)</span>
+<span id="cb68-18"><a href="data-descriptives.html#cb68-18"></a>}</span>
+<span id="cb68-19"><a href="data-descriptives.html#cb68-19"></a><span class="kw">bind_rows</span>(</span>
+<span id="cb68-20"><a href="data-descriptives.html#cb68-20"></a>  <span class="kw">doit</span>(mtf, <span class="st">&quot;MTF&quot;</span>, <span class="st">&quot;TV&quot;</span>, <span class="st">&quot;Depression&quot;</span>),</span>
+<span id="cb68-21"><a href="data-descriptives.html#cb68-21"></a>  <span class="kw">doit</span>(mtf, <span class="st">&quot;MTF&quot;</span>, <span class="st">&quot;SM&quot;</span>, <span class="st">&quot;Depression&quot;</span>),</span>
+<span id="cb68-22"><a href="data-descriptives.html#cb68-22"></a>  <span class="kw">doit</span>(us, <span class="st">&quot;US&quot;</span>, <span class="st">&quot;TV&quot;</span>, <span class="st">&quot;Emotion&quot;</span>),</span>
+<span id="cb68-23"><a href="data-descriptives.html#cb68-23"></a>  <span class="kw">doit</span>(us, <span class="st">&quot;US&quot;</span>, <span class="st">&quot;SM&quot;</span>, <span class="st">&quot;Emotion&quot;</span>),</span>
+<span id="cb68-24"><a href="data-descriptives.html#cb68-24"></a>  <span class="kw">doit</span>(us, <span class="st">&quot;US&quot;</span>, <span class="st">&quot;TV&quot;</span>, <span class="st">&quot;Conduct&quot;</span>),</span>
+<span id="cb68-25"><a href="data-descriptives.html#cb68-25"></a>  <span class="kw">doit</span>(us, <span class="st">&quot;US&quot;</span>, <span class="st">&quot;SM&quot;</span>, <span class="st">&quot;Conduct&quot;</span>),</span>
+<span id="cb68-26"><a href="data-descriptives.html#cb68-26"></a>  <span class="kw">doit</span>(yrbs, <span class="st">&quot;YRBS&quot;</span>, <span class="st">&quot;TV&quot;</span>, <span class="st">&quot;Suicide&quot;</span>),</span>
+<span id="cb68-27"><a href="data-descriptives.html#cb68-27"></a>  <span class="kw">doit</span>(yrbs, <span class="st">&quot;YRBS&quot;</span>, <span class="st">&quot;DV&quot;</span>, <span class="st">&quot;Suicide&quot;</span>)</span>
+<span id="cb68-28"><a href="data-descriptives.html#cb68-28"></a>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb68-29"><a href="data-descriptives.html#cb68-29"></a><span class="st">  </span><span class="kw">arrange</span>(Dataset, Technology, Outcome) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb68-30"><a href="data-descriptives.html#cb68-30"></a><span class="st">  </span><span class="kw">kable</span>()</span></code></pre></div>
 <table>
 <thead>
 <tr class="header">
@@ -282,10 +294,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <td align="left">MTF</td>
 <td align="left">SM</td>
 <td align="left">Depression</td>
-<td align="left">2012 - 2017</td>
-<td align="left">78,357</td>
-<td align="left">40,172 (51%)</td>
-<td align="left">38,185 (49%)</td>
+<td align="left">2009 - 2017</td>
+<td align="left">120,265</td>
+<td align="left">61,792 (51%)</td>
+<td align="left">58,473 (49%)</td>
 </tr>
 <tr class="even">
 <td align="left">MTF</td>
@@ -353,21 +365,116 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tbody>
 </table>
 </div>
-<div id="outcomes" class="section level3">
-<h3><span class="header-section-number">5.1.2</span> Outcomes</h3>
-<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="data-descriptives.html#cb60-1"></a>mtf <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb60-2"><a href="data-descriptives.html#cb60-2"></a><span class="st">  </span><span class="kw">select</span>(<span class="kw">starts_with</span>(<span class="st">&quot;D_B_&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb60-3"><a href="data-descriptives.html#cb60-3"></a><span class="st">  </span>psych<span class="op">::</span><span class="kw">alpha</span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb60-4"><a href="data-descriptives.html#cb60-4"></a><span class="st">  </span>summary</span></code></pre></div>
+<div id="missingness" class="section level3" number="5.1.2">
+<h3><span class="header-section-number">5.1.2</span> Missingness</h3>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="data-descriptives.html#cb69-1"></a>mtf_db_na &lt;-<span class="st"> </span><span class="kw">rowSums</span>(<span class="kw">is.na</span>(<span class="kw">select</span>(mtf, <span class="kw">starts_with</span>(<span class="st">&quot;D_B_&quot;</span>)))) </span>
+<span id="cb69-2"><a href="data-descriptives.html#cb69-2"></a><span class="kw">kable</span>(<span class="kw">prop.table</span>(<span class="kw">table</span>(mtf_db_na)), <span class="dt">digits =</span> <span class="dv">3</span>)</span></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="left">mtf_db_na</th>
+<th align="right">Freq</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">0</td>
+<td align="right">0.949</td>
+</tr>
+<tr class="even">
+<td align="left">1</td>
+<td align="right">0.027</td>
+</tr>
+<tr class="odd">
+<td align="left">2</td>
+<td align="right">0.006</td>
+</tr>
+<tr class="even">
+<td align="left">3</td>
+<td align="right">0.005</td>
+</tr>
+<tr class="odd">
+<td align="left">4</td>
+<td align="right">0.007</td>
+</tr>
+<tr class="even">
+<td align="left">5</td>
+<td align="right">0.007</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="data-descriptives.html#cb70-1"></a>us_sdq_na &lt;-<span class="st"> </span><span class="kw">rowSums</span>(<span class="kw">is.na</span>(<span class="kw">select</span>(us, <span class="kw">starts_with</span>(<span class="st">&quot;sdq&quot;</span>)))) </span>
+<span id="cb70-2"><a href="data-descriptives.html#cb70-2"></a><span class="kw">kable</span>(<span class="kw">prop.table</span>(<span class="kw">table</span>(us_sdq_na)), <span class="dt">digits =</span> <span class="dv">3</span>)</span></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="left">us_sdq_na</th>
+<th align="right">Freq</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">0</td>
+<td align="right">0.958</td>
+</tr>
+<tr class="even">
+<td align="left">1</td>
+<td align="right">0.025</td>
+</tr>
+<tr class="odd">
+<td align="left">2</td>
+<td align="right">0.004</td>
+</tr>
+<tr class="even">
+<td align="left">3</td>
+<td align="right">0.001</td>
+</tr>
+<tr class="odd">
+<td align="left">4</td>
+<td align="right">0.001</td>
+</tr>
+<tr class="even">
+<td align="left">5</td>
+<td align="right">0.000</td>
+</tr>
+<tr class="odd">
+<td align="left">6</td>
+<td align="right">0.001</td>
+</tr>
+<tr class="even">
+<td align="left">7</td>
+<td align="right">0.000</td>
+</tr>
+<tr class="odd">
+<td align="left">8</td>
+<td align="right">0.000</td>
+</tr>
+<tr class="even">
+<td align="left">9</td>
+<td align="right">0.000</td>
+</tr>
+<tr class="odd">
+<td align="left">10</td>
+<td align="right">0.010</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="outcomes" class="section level3" number="5.1.3">
+<h3><span class="header-section-number">5.1.3</span> Outcomes</h3>
+<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="data-descriptives.html#cb71-1"></a>mtf <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb71-2"><a href="data-descriptives.html#cb71-2"></a><span class="st">  </span><span class="kw">select</span>(<span class="kw">starts_with</span>(<span class="st">&quot;D_B_&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb71-3"><a href="data-descriptives.html#cb71-3"></a><span class="st">  </span>psych<span class="op">::</span><span class="kw">alpha</span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb71-4"><a href="data-descriptives.html#cb71-4"></a><span class="st">  </span>summary</span></code></pre></div>
 <pre><code>## 
 ## Reliability analysis   
 ##  raw_alpha std.alpha G6(smc) average_r S/N     ase mean   sd median_r
 ##       0.85      0.85    0.84      0.48 5.5 0.00039    2 0.95     0.44</code></pre>
-<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="data-descriptives.html#cb62-1"></a><span class="kw">cor</span>(</span>
-<span id="cb62-2"><a href="data-descriptives.html#cb62-2"></a>  <span class="kw">select</span>(mtf, <span class="kw">starts_with</span>(<span class="st">&quot;D_B_&quot;</span>)), </span>
-<span id="cb62-3"><a href="data-descriptives.html#cb62-3"></a>  <span class="dt">use =</span> <span class="st">&quot;pairwise.complete.obs&quot;</span></span>
-<span id="cb62-4"><a href="data-descriptives.html#cb62-4"></a>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb62-5"><a href="data-descriptives.html#cb62-5"></a><span class="st">  </span><span class="kw">round</span>(<span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="data-descriptives.html#cb73-1"></a><span class="kw">cor</span>(</span>
+<span id="cb73-2"><a href="data-descriptives.html#cb73-2"></a>  <span class="kw">select</span>(mtf, <span class="kw">starts_with</span>(<span class="st">&quot;D_B_&quot;</span>)), </span>
+<span id="cb73-3"><a href="data-descriptives.html#cb73-3"></a>  <span class="dt">use =</span> <span class="st">&quot;pairwise.complete.obs&quot;</span></span>
+<span id="cb73-4"><a href="data-descriptives.html#cb73-4"></a>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb73-5"><a href="data-descriptives.html#cb73-5"></a><span class="st">  </span><span class="kw">round</span>(<span class="dv">2</span>)</span></code></pre></div>
 <pre><code>##       D_B_1 D_B_2 D_B_3 D_B_4 D_B_5 D_B_6
 ## D_B_1  1.00  0.60  0.48  0.34  0.56  0.34
 ## D_B_2  0.60  1.00  0.57  0.43  0.63  0.45
@@ -375,40 +482,40 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## D_B_4  0.34  0.43  0.39  1.00  0.38  0.64
 ## D_B_5  0.56  0.63  0.59  0.38  1.00  0.40
 ## D_B_6  0.34  0.45  0.39  0.64  0.40  1.00</code></pre>
-<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="data-descriptives.html#cb64-1"></a>sdq_con &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;sdqe&quot;</span>, <span class="st">&quot;sdqg&quot;</span>, <span class="st">&quot;sdql&quot;</span>, <span class="st">&quot;sdqr&quot;</span>, <span class="st">&quot;sdqv&quot;</span>)</span>
-<span id="cb64-2"><a href="data-descriptives.html#cb64-2"></a>sdq_emo &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;sdqc&quot;</span>, <span class="st">&quot;sdqh&quot;</span>, <span class="st">&quot;sdqm&quot;</span>, <span class="st">&quot;sdqp&quot;</span>, <span class="st">&quot;sdqx&quot;</span>)</span>
-<span id="cb64-3"><a href="data-descriptives.html#cb64-3"></a>us <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb64-4"><a href="data-descriptives.html#cb64-4"></a><span class="st">  </span><span class="kw">select</span>(<span class="kw">all_of</span>(sdq_con)) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb64-5"><a href="data-descriptives.html#cb64-5"></a><span class="st">  </span>psych<span class="op">::</span><span class="kw">alpha</span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb64-6"><a href="data-descriptives.html#cb64-6"></a><span class="st">  </span>summary</span></code></pre></div>
+<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="data-descriptives.html#cb75-1"></a>sdq_con &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;sdqe&quot;</span>, <span class="st">&quot;sdqg&quot;</span>, <span class="st">&quot;sdql&quot;</span>, <span class="st">&quot;sdqr&quot;</span>, <span class="st">&quot;sdqv&quot;</span>)</span>
+<span id="cb75-2"><a href="data-descriptives.html#cb75-2"></a>sdq_emo &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;sdqc&quot;</span>, <span class="st">&quot;sdqh&quot;</span>, <span class="st">&quot;sdqm&quot;</span>, <span class="st">&quot;sdqp&quot;</span>, <span class="st">&quot;sdqx&quot;</span>)</span>
+<span id="cb75-3"><a href="data-descriptives.html#cb75-3"></a>us <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb75-4"><a href="data-descriptives.html#cb75-4"></a><span class="st">  </span><span class="kw">select</span>(<span class="kw">all_of</span>(sdq_con)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb75-5"><a href="data-descriptives.html#cb75-5"></a><span class="st">  </span>psych<span class="op">::</span><span class="kw">alpha</span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb75-6"><a href="data-descriptives.html#cb75-6"></a><span class="st">  </span>summary</span></code></pre></div>
 <pre><code>## 
 ## Reliability analysis   
 ##  raw_alpha std.alpha G6(smc) average_r S/N    ase mean   sd median_r
 ##       0.62      0.62    0.58      0.25 1.6 0.0041  1.4 0.36     0.24</code></pre>
-<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="data-descriptives.html#cb66-1"></a>us <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb66-2"><a href="data-descriptives.html#cb66-2"></a><span class="st">  </span><span class="kw">select</span>(<span class="kw">all_of</span>(sdq_emo)) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb66-3"><a href="data-descriptives.html#cb66-3"></a><span class="st">  </span>psych<span class="op">::</span><span class="kw">alpha</span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb66-4"><a href="data-descriptives.html#cb66-4"></a><span class="st">  </span>summary</span></code></pre></div>
+<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="data-descriptives.html#cb77-1"></a>us <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb77-2"><a href="data-descriptives.html#cb77-2"></a><span class="st">  </span><span class="kw">select</span>(<span class="kw">all_of</span>(sdq_emo)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb77-3"><a href="data-descriptives.html#cb77-3"></a><span class="st">  </span>psych<span class="op">::</span><span class="kw">alpha</span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb77-4"><a href="data-descriptives.html#cb77-4"></a><span class="st">  </span>summary</span></code></pre></div>
 <pre><code>## 
 ## Reliability analysis   
 ##  raw_alpha std.alpha G6(smc) average_r S/N    ase mean   sd median_r
 ##       0.69      0.69    0.65      0.31 2.2 0.0035  1.6 0.45     0.29</code></pre>
-<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="data-descriptives.html#cb68-1"></a><span class="kw">cor</span>(</span>
-<span id="cb68-2"><a href="data-descriptives.html#cb68-2"></a>  <span class="kw">select</span>(us, <span class="kw">all_of</span>(sdq_con)), </span>
-<span id="cb68-3"><a href="data-descriptives.html#cb68-3"></a>  <span class="dt">use =</span> <span class="st">&quot;pairwise.complete.obs&quot;</span></span>
-<span id="cb68-4"><a href="data-descriptives.html#cb68-4"></a>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb68-5"><a href="data-descriptives.html#cb68-5"></a><span class="st">  </span><span class="kw">round</span>(<span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb79-1"><a href="data-descriptives.html#cb79-1"></a><span class="kw">cor</span>(</span>
+<span id="cb79-2"><a href="data-descriptives.html#cb79-2"></a>  <span class="kw">select</span>(us, <span class="kw">all_of</span>(sdq_con)), </span>
+<span id="cb79-3"><a href="data-descriptives.html#cb79-3"></a>  <span class="dt">use =</span> <span class="st">&quot;pairwise.complete.obs&quot;</span></span>
+<span id="cb79-4"><a href="data-descriptives.html#cb79-4"></a>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb79-5"><a href="data-descriptives.html#cb79-5"></a><span class="st">  </span><span class="kw">round</span>(<span class="dv">2</span>)</span></code></pre></div>
 <pre><code>##      sdqe sdqg sdql sdqr sdqv
 ## sdqe 1.00 0.30 0.34 0.34 0.16
 ## sdqg 0.30 1.00 0.23 0.24 0.15
 ## sdql 0.34 0.23 1.00 0.28 0.21
 ## sdqr 0.34 0.24 0.28 1.00 0.23
 ## sdqv 0.16 0.15 0.21 0.23 1.00</code></pre>
-<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="data-descriptives.html#cb70-1"></a><span class="kw">cor</span>(</span>
-<span id="cb70-2"><a href="data-descriptives.html#cb70-2"></a>  <span class="kw">select</span>(us, <span class="kw">all_of</span>(sdq_emo)), </span>
-<span id="cb70-3"><a href="data-descriptives.html#cb70-3"></a>  <span class="dt">use =</span> <span class="st">&quot;pairwise.complete.obs&quot;</span></span>
-<span id="cb70-4"><a href="data-descriptives.html#cb70-4"></a>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb70-5"><a href="data-descriptives.html#cb70-5"></a><span class="st">  </span><span class="kw">round</span>(<span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb81-1"><a href="data-descriptives.html#cb81-1"></a><span class="kw">cor</span>(</span>
+<span id="cb81-2"><a href="data-descriptives.html#cb81-2"></a>  <span class="kw">select</span>(us, <span class="kw">all_of</span>(sdq_emo)), </span>
+<span id="cb81-3"><a href="data-descriptives.html#cb81-3"></a>  <span class="dt">use =</span> <span class="st">&quot;pairwise.complete.obs&quot;</span></span>
+<span id="cb81-4"><a href="data-descriptives.html#cb81-4"></a>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb81-5"><a href="data-descriptives.html#cb81-5"></a><span class="st">  </span><span class="kw">round</span>(<span class="dv">2</span>)</span></code></pre></div>
 <pre><code>##      sdqc sdqh sdqm sdqp sdqx
 ## sdqc 1.00 0.26 0.28 0.19 0.21
 ## sdqh 0.26 1.00 0.42 0.39 0.39
@@ -417,38 +524,122 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## sdqx 0.21 0.39 0.30 0.37 1.00</code></pre>
 </div>
 </div>
-<div id="figures" class="section level2">
+<div id="figures" class="section level2" number="5.2">
 <h2><span class="header-section-number">5.2</span> Figures</h2>
-<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb72-1"><a href="data-descriptives.html#cb72-1"></a>mtf <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb72-2"><a href="data-descriptives.html#cb72-2"></a><span class="st">  </span><span class="kw">pivot_longer</span>(<span class="kw">c</span>(TV, SM, Depression)) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb72-3"><a href="data-descriptives.html#cb72-3"></a><span class="st">  </span><span class="kw">drop_na</span>(value) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb72-4"><a href="data-descriptives.html#cb72-4"></a><span class="st">  </span><span class="kw">add_count</span>(name) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb72-5"><a href="data-descriptives.html#cb72-5"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">name =</span> <span class="kw">str_glue</span>(<span class="st">&quot;{name} (N = {comma(n)})&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb72-6"><a href="data-descriptives.html#cb72-6"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(Year, value)) <span class="op">+</span></span>
-<span id="cb72-7"><a href="data-descriptives.html#cb72-7"></a><span class="st">  </span><span class="kw">geom_blank</span>() <span class="op">+</span></span>
-<span id="cb72-8"><a href="data-descriptives.html#cb72-8"></a><span class="st">  </span><span class="kw">stat_summary</span>(<span class="dt">fun=</span>mean, <span class="dt">geom=</span><span class="st">&quot;line&quot;</span>) <span class="op">+</span></span>
-<span id="cb72-9"><a href="data-descriptives.html#cb72-9"></a><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="st">&quot;name&quot;</span>, <span class="dt">scales =</span> <span class="st">&quot;free_y&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb83-1"><a href="data-descriptives.html#cb83-1"></a>mtf <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb83-2"><a href="data-descriptives.html#cb83-2"></a><span class="st">  </span><span class="kw">pivot_longer</span>(<span class="kw">c</span>(TV, SM, Depression)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb83-3"><a href="data-descriptives.html#cb83-3"></a><span class="st">  </span><span class="kw">drop_na</span>(value) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb83-4"><a href="data-descriptives.html#cb83-4"></a><span class="st">  </span><span class="kw">add_count</span>(name) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb83-5"><a href="data-descriptives.html#cb83-5"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">name =</span> <span class="kw">str_glue</span>(<span class="st">&quot;{name} (N = {comma(n)})&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb83-6"><a href="data-descriptives.html#cb83-6"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(Year, value)) <span class="op">+</span></span>
+<span id="cb83-7"><a href="data-descriptives.html#cb83-7"></a><span class="st">  </span><span class="kw">geom_blank</span>() <span class="op">+</span></span>
+<span id="cb83-8"><a href="data-descriptives.html#cb83-8"></a><span class="st">  </span><span class="kw">stat_summary</span>(<span class="dt">fun=</span>mean, <span class="dt">geom=</span><span class="st">&quot;line&quot;</span>) <span class="op">+</span></span>
+<span id="cb83-9"><a href="data-descriptives.html#cb83-9"></a><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="st">&quot;name&quot;</span>, <span class="dt">scales =</span> <span class="st">&quot;free_y&quot;</span>)</span></code></pre></div>
 <p><img src="02-Describe_files/figure-html/mtf-data-fig-1.png" width="768" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="data-descriptives.html#cb73-1"></a>us <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb73-2"><a href="data-descriptives.html#cb73-2"></a><span class="st">  </span><span class="kw">pivot_longer</span>(<span class="kw">c</span>(SM, TV, Emotion, Conduct)) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb73-3"><a href="data-descriptives.html#cb73-3"></a><span class="st">  </span><span class="kw">drop_na</span>(value) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb73-4"><a href="data-descriptives.html#cb73-4"></a><span class="st">  </span><span class="kw">add_count</span>(name) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb73-5"><a href="data-descriptives.html#cb73-5"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">name =</span> <span class="kw">str_glue</span>(<span class="st">&quot;{name} (N = {comma(n, accuracy = 1)})&quot;</span>)) <span class="op">%&gt;%</span></span>
-<span id="cb73-6"><a href="data-descriptives.html#cb73-6"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(Year, value)) <span class="op">+</span></span>
-<span id="cb73-7"><a href="data-descriptives.html#cb73-7"></a><span class="st">  </span><span class="kw">geom_blank</span>() <span class="op">+</span></span>
-<span id="cb73-8"><a href="data-descriptives.html#cb73-8"></a><span class="st">  </span><span class="kw">stat_summary</span>(<span class="dt">fun=</span>mean, <span class="dt">geom=</span><span class="st">&quot;line&quot;</span>) <span class="op">+</span></span>
-<span id="cb73-9"><a href="data-descriptives.html#cb73-9"></a><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="st">&quot;name&quot;</span>, <span class="dt">scales =</span> <span class="st">&quot;free_y&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb84-1"><a href="data-descriptives.html#cb84-1"></a>us <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb84-2"><a href="data-descriptives.html#cb84-2"></a><span class="st">  </span><span class="kw">pivot_longer</span>(<span class="kw">c</span>(SM, TV, Emotion, Conduct)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb84-3"><a href="data-descriptives.html#cb84-3"></a><span class="st">  </span><span class="kw">drop_na</span>(value) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb84-4"><a href="data-descriptives.html#cb84-4"></a><span class="st">  </span><span class="kw">add_count</span>(name) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb84-5"><a href="data-descriptives.html#cb84-5"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">name =</span> <span class="kw">str_glue</span>(<span class="st">&quot;{name} (N = {comma(n, accuracy = 1)})&quot;</span>)) <span class="op">%&gt;%</span></span>
+<span id="cb84-6"><a href="data-descriptives.html#cb84-6"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(Year, value)) <span class="op">+</span></span>
+<span id="cb84-7"><a href="data-descriptives.html#cb84-7"></a><span class="st">  </span><span class="kw">geom_blank</span>() <span class="op">+</span></span>
+<span id="cb84-8"><a href="data-descriptives.html#cb84-8"></a><span class="st">  </span><span class="kw">stat_summary</span>(<span class="dt">fun=</span>mean, <span class="dt">geom=</span><span class="st">&quot;line&quot;</span>) <span class="op">+</span></span>
+<span id="cb84-9"><a href="data-descriptives.html#cb84-9"></a><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="st">&quot;name&quot;</span>, <span class="dt">scales =</span> <span class="st">&quot;free_y&quot;</span>)</span></code></pre></div>
 <p><img src="02-Describe_files/figure-html/us-data-fig-1.png" width="768" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb74-1"><a href="data-descriptives.html#cb74-1"></a>yrbs <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb74-2"><a href="data-descriptives.html#cb74-2"></a><span class="st">  </span><span class="kw">pivot_longer</span>(<span class="kw">c</span>(TV, DV, sad_lonely<span class="op">:</span>suicide_<span class="dv">3</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb74-3"><a href="data-descriptives.html#cb74-3"></a><span class="st">  </span><span class="kw">drop_na</span>(value) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb74-4"><a href="data-descriptives.html#cb74-4"></a><span class="st">  </span><span class="kw">add_count</span>(name) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb74-5"><a href="data-descriptives.html#cb74-5"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">name =</span> <span class="kw">str_glue</span>(<span class="st">&quot;{name} (N = {comma(n)})&quot;</span>)) <span class="op">%&gt;%</span></span>
-<span id="cb74-6"><a href="data-descriptives.html#cb74-6"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(Year, value)) <span class="op">+</span></span>
-<span id="cb74-7"><a href="data-descriptives.html#cb74-7"></a><span class="st">  </span><span class="kw">geom_blank</span>() <span class="op">+</span></span>
-<span id="cb74-8"><a href="data-descriptives.html#cb74-8"></a><span class="st">  </span><span class="kw">stat_summary</span>(<span class="dt">fun=</span>mean, <span class="dt">geom=</span><span class="st">&quot;line&quot;</span>) <span class="op">+</span></span>
-<span id="cb74-9"><a href="data-descriptives.html#cb74-9"></a><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="st">&quot;name&quot;</span>, <span class="dt">scales =</span> <span class="st">&quot;free_y&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb85-1"><a href="data-descriptives.html#cb85-1"></a>yrbs <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb85-2"><a href="data-descriptives.html#cb85-2"></a><span class="st">  </span><span class="kw">pivot_longer</span>(<span class="kw">c</span>(TV, DV, sad_lonely<span class="op">:</span>suicide_<span class="dv">3</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb85-3"><a href="data-descriptives.html#cb85-3"></a><span class="st">  </span><span class="kw">drop_na</span>(value) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb85-4"><a href="data-descriptives.html#cb85-4"></a><span class="st">  </span><span class="kw">add_count</span>(name) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb85-5"><a href="data-descriptives.html#cb85-5"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">name =</span> <span class="kw">str_glue</span>(<span class="st">&quot;{name} (N = {comma(n)})&quot;</span>)) <span class="op">%&gt;%</span></span>
+<span id="cb85-6"><a href="data-descriptives.html#cb85-6"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(Year, value)) <span class="op">+</span></span>
+<span id="cb85-7"><a href="data-descriptives.html#cb85-7"></a><span class="st">  </span><span class="kw">geom_blank</span>() <span class="op">+</span></span>
+<span id="cb85-8"><a href="data-descriptives.html#cb85-8"></a><span class="st">  </span><span class="kw">stat_summary</span>(<span class="dt">fun=</span>mean, <span class="dt">geom=</span><span class="st">&quot;line&quot;</span>) <span class="op">+</span></span>
+<span id="cb85-9"><a href="data-descriptives.html#cb85-9"></a><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="st">&quot;name&quot;</span>, <span class="dt">scales =</span> <span class="st">&quot;free_y&quot;</span>)</span></code></pre></div>
 <p><img src="02-Describe_files/figure-html/yrbs-data-fig-1.png" width="768" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb86-1"><a href="data-descriptives.html#cb86-1"></a><span class="kw">library</span>(sessioninfo)</span>
+<span id="cb86-2"><a href="data-descriptives.html#cb86-2"></a><span class="kw">session_info</span>()</span></code></pre></div>
+<pre><code>## ─ Session info ───────────────────────────────────────────────────────────────
+##  setting  value                       
+##  version  R version 4.0.2 (2020-06-22)
+##  os       macOS Catalina 10.15.7      
+##  system   x86_64, darwin17.0          
+##  ui       X11                         
+##  language (EN)                        
+##  collate  en_GB.UTF-8                 
+##  ctype    en_GB.UTF-8                 
+##  tz       Europe/London               
+##  date     2020-10-02                  
+## 
+## ─ Packages ───────────────────────────────────────────────────────────────────
+##  package     * version    date       lib source                              
+##  assertthat    0.2.1      2019-03-21 [1] CRAN (R 4.0.0)                      
+##  backports     1.1.10     2020-09-15 [1] CRAN (R 4.0.2)                      
+##  blob          1.2.1      2020-01-20 [1] CRAN (R 4.0.0)                      
+##  bookdown      0.20       2020-06-23 [1] CRAN (R 4.0.2)                      
+##  broom       * 0.7.0.9001 2020-07-23 [1] Github (tidymodels/broom@7db1139)   
+##  cellranger    1.1.0      2016-07-27 [1] CRAN (R 4.0.0)                      
+##  cli           2.0.2      2020-02-28 [1] CRAN (R 4.0.0)                      
+##  colorspace    1.4-1      2019-03-18 [1] CRAN (R 4.0.0)                      
+##  crayon        1.3.4      2017-09-16 [1] CRAN (R 4.0.0)                      
+##  DBI           1.1.0      2019-12-15 [1] CRAN (R 4.0.0)                      
+##  dbplyr        1.4.4      2020-05-27 [1] CRAN (R 4.0.0)                      
+##  digest        0.6.25     2020-02-23 [1] CRAN (R 4.0.0)                      
+##  dplyr       * 1.0.2      2020-08-18 [1] CRAN (R 4.0.2)                      
+##  ellipsis      0.3.1      2020-05-15 [1] CRAN (R 4.0.0)                      
+##  evaluate      0.14       2019-05-28 [1] CRAN (R 4.0.0)                      
+##  fansi         0.4.1      2020-01-08 [1] CRAN (R 4.0.0)                      
+##  forcats     * 0.5.0      2020-03-01 [1] CRAN (R 4.0.0)                      
+##  fs            1.5.0      2020-07-31 [1] CRAN (R 4.0.2)                      
+##  generics      0.0.2      2018-11-29 [1] CRAN (R 4.0.0)                      
+##  ggplot2     * 3.3.2      2020-06-19 [1] CRAN (R 4.0.1)                      
+##  ggstance    * 0.3.4      2020-04-02 [1] CRAN (R 4.0.0)                      
+##  glue          1.4.2      2020-08-27 [1] CRAN (R 4.0.2)                      
+##  gtable        0.3.0      2019-03-25 [1] CRAN (R 4.0.0)                      
+##  haven         2.3.1      2020-06-01 [1] CRAN (R 4.0.0)                      
+##  highr         0.8        2019-03-20 [1] CRAN (R 4.0.0)                      
+##  hms           0.5.3      2020-01-08 [1] CRAN (R 4.0.0)                      
+##  htmltools     0.5.0      2020-06-16 [1] CRAN (R 4.0.1)                      
+##  httr          1.4.2      2020-07-20 [1] CRAN (R 4.0.2)                      
+##  jsonlite      1.7.1      2020-09-07 [1] CRAN (R 4.0.2)                      
+##  knitr       * 1.30       2020-09-22 [1] CRAN (R 4.0.2)                      
+##  lattice       0.20-41    2020-04-02 [1] CRAN (R 4.0.2)                      
+##  lifecycle     0.2.0      2020-03-06 [1] CRAN (R 4.0.0)                      
+##  lubridate     1.7.9      2020-06-08 [1] CRAN (R 4.0.1)                      
+##  magrittr      1.5        2014-11-22 [1] CRAN (R 4.0.0)                      
+##  mnormt        2.0.2      2020-09-01 [1] CRAN (R 4.0.2)                      
+##  modelr        0.1.8      2020-05-19 [1] CRAN (R 4.0.0)                      
+##  munsell       0.5.0      2018-06-12 [1] CRAN (R 4.0.0)                      
+##  nlme          3.1-149    2020-08-23 [1] CRAN (R 4.0.2)                      
+##  pacman        0.5.1      2019-03-11 [1] CRAN (R 4.0.0)                      
+##  pillar        1.4.6      2020-07-10 [1] CRAN (R 4.0.2)                      
+##  pkgconfig     2.0.3      2019-09-22 [1] CRAN (R 4.0.0)                      
+##  psych         2.0.8      2020-09-04 [1] CRAN (R 4.0.2)                      
+##  purrr       * 0.3.4      2020-04-17 [1] CRAN (R 4.0.0)                      
+##  R6            2.4.1      2019-11-12 [1] CRAN (R 4.0.0)                      
+##  Rcpp          1.0.5      2020-07-06 [1] CRAN (R 4.0.2)                      
+##  readr       * 1.3.1      2018-12-21 [1] CRAN (R 4.0.0)                      
+##  readxl        1.3.1      2019-03-13 [1] CRAN (R 4.0.0)                      
+##  reprex        0.3.0      2019-05-16 [1] CRAN (R 4.0.0)                      
+##  rlang         0.4.7      2020-07-09 [1] CRAN (R 4.0.2)                      
+##  rmarkdown     2.4.0      2020-09-11 [1] Github (cpsievert/rmarkdown@b79fb4d)
+##  rstudioapi    0.11       2020-02-07 [1] CRAN (R 4.0.0)                      
+##  rvest         0.3.6      2020-07-25 [1] CRAN (R 4.0.2)                      
+##  scales      * 1.1.1      2020-05-11 [1] CRAN (R 4.0.0)                      
+##  sessioninfo * 1.1.1      2018-11-05 [1] CRAN (R 4.0.0)                      
+##  stringi       1.5.3      2020-09-09 [1] CRAN (R 4.0.2)                      
+##  stringr     * 1.4.0      2019-02-10 [1] CRAN (R 4.0.0)                      
+##  tibble      * 3.0.3      2020-07-10 [1] CRAN (R 4.0.2)                      
+##  tidyr       * 1.1.2      2020-08-27 [1] CRAN (R 4.0.2)                      
+##  tidyselect    1.1.0      2020-05-11 [1] CRAN (R 4.0.0)                      
+##  tidyverse   * 1.3.0      2019-11-21 [1] CRAN (R 4.0.0)                      
+##  tmvnsim       1.0-2      2016-12-15 [1] CRAN (R 4.0.0)                      
+##  vctrs         0.3.4      2020-08-29 [1] CRAN (R 4.0.2)                      
+##  withr         2.3.0      2020-09-22 [1] CRAN (R 4.0.2)                      
+##  xfun          0.18       2020-09-29 [1] CRAN (R 4.0.2)                      
+##  xml2          1.3.2      2020-04-23 [1] CRAN (R 4.0.0)                      
+##  yaml          2.2.1      2020-02-01 [1] CRAN (R 4.0.0)                      
+## 
+## [1] /Library/Frameworks/R.framework/Versions/4.0/Resources/library</code></pre>
 
 </div>
 </div>

@@ -24,7 +24,7 @@
 <meta name="author" content="Matti Vuorre" />
 
 
-<meta name="date" content="2020-09-02" />
+<meta name="date" content="2020-10-02" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,6 +33,7 @@
   
 <link rel="prev" href="mtf-preprocessing.html"/>
 <link rel="next" href="yrbs-preprocessing.html"/>
+<script src="libs/header-attrs-2.4.0/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -54,18 +55,17 @@
 
 
 <style type="text/css">
-code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
-code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -85,7 +85,7 @@ pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-le
 div.sourceCode
   {   }
 @media screen {
-code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -134,46 +134,58 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="./">Technology effect timecourses</a></li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Preface</a><ul>
-<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#analyses-and-reproducibility"><i class="fa fa-check"></i><b>1.1</b> Analyses and reproducibility</a></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Preface</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#analyses"><i class="fa fa-check"></i><b>1.1</b> Analyses</a></li>
 <li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#raw-data"><i class="fa fa-check"></i><b>1.2</b> Raw data</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#reproducibility"><i class="fa fa-check"></i><b>1.3</b> Reproducibility</a></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="mtf-preprocessing.html"><a href="mtf-preprocessing.html"><i class="fa fa-check"></i><b>2</b> MTF preprocessing</a><ul>
+<li class="chapter" data-level="2" data-path="mtf-preprocessing.html"><a href="mtf-preprocessing.html"><i class="fa fa-check"></i><b>2</b> MTF preprocessing</a>
+<ul>
 <li class="chapter" data-level="2.1" data-path="mtf-preprocessing.html"><a href="mtf-preprocessing.html#save-to-disk"><i class="fa fa-check"></i><b>2.1</b> Save to disk</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="us-preprocessing.html"><a href="us-preprocessing.html"><i class="fa fa-check"></i><b>3</b> US preprocessing</a><ul>
+<li class="chapter" data-level="3" data-path="us-preprocessing.html"><a href="us-preprocessing.html"><i class="fa fa-check"></i><b>3</b> US preprocessing</a>
+<ul>
 <li class="chapter" data-level="3.1" data-path="us-preprocessing.html"><a href="us-preprocessing.html#year"><i class="fa fa-check"></i><b>3.1</b> Year</a></li>
 <li class="chapter" data-level="3.2" data-path="us-preprocessing.html"><a href="us-preprocessing.html#strengths-and-difficulties"><i class="fa fa-check"></i><b>3.2</b> Strengths and difficulties</a></li>
 <li class="chapter" data-level="3.3" data-path="us-preprocessing.html"><a href="us-preprocessing.html#save-file"><i class="fa fa-check"></i><b>3.3</b> Save file</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="yrbs-preprocessing.html"><a href="yrbs-preprocessing.html"><i class="fa fa-check"></i><b>4</b> YRBS preprocessing</a><ul>
+<li class="chapter" data-level="4" data-path="yrbs-preprocessing.html"><a href="yrbs-preprocessing.html"><i class="fa fa-check"></i><b>4</b> YRBS preprocessing</a>
+<ul>
 <li class="chapter" data-level="4.1" data-path="yrbs-preprocessing.html"><a href="yrbs-preprocessing.html#recode-variables"><i class="fa fa-check"></i><b>4.1</b> Recode Variables</a></li>
 <li class="chapter" data-level="4.2" data-path="yrbs-preprocessing.html"><a href="yrbs-preprocessing.html#age"><i class="fa fa-check"></i><b>4.2</b> Age</a></li>
 <li class="chapter" data-level="4.3" data-path="yrbs-preprocessing.html"><a href="yrbs-preprocessing.html#tech-variables"><i class="fa fa-check"></i><b>4.3</b> Tech variables</a></li>
 <li class="chapter" data-level="4.4" data-path="yrbs-preprocessing.html"><a href="yrbs-preprocessing.html#sex"><i class="fa fa-check"></i><b>4.4</b> Sex</a></li>
 <li class="chapter" data-level="4.5" data-path="yrbs-preprocessing.html"><a href="yrbs-preprocessing.html#rename-and-save"><i class="fa fa-check"></i><b>4.5</b> Rename and save</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="data-descriptives.html"><a href="data-descriptives.html"><i class="fa fa-check"></i><b>5</b> Data descriptives</a><ul>
-<li class="chapter" data-level="5.1" data-path="data-descriptives.html"><a href="data-descriptives.html#data"><i class="fa fa-check"></i><b>5.1</b> Data</a><ul>
+<li class="chapter" data-level="5" data-path="data-descriptives.html"><a href="data-descriptives.html"><i class="fa fa-check"></i><b>5</b> Data descriptives</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="data-descriptives.html"><a href="data-descriptives.html#data"><i class="fa fa-check"></i><b>5.1</b> Data</a>
+<ul>
 <li class="chapter" data-level="5.1.1" data-path="data-descriptives.html"><a href="data-descriptives.html#sample-sizes-and-years"><i class="fa fa-check"></i><b>5.1.1</b> Sample sizes and years</a></li>
-<li class="chapter" data-level="5.1.2" data-path="data-descriptives.html"><a href="data-descriptives.html#outcomes"><i class="fa fa-check"></i><b>5.1.2</b> Outcomes</a></li>
+<li class="chapter" data-level="5.1.2" data-path="data-descriptives.html"><a href="data-descriptives.html#missingness"><i class="fa fa-check"></i><b>5.1.2</b> Missingness</a></li>
+<li class="chapter" data-level="5.1.3" data-path="data-descriptives.html"><a href="data-descriptives.html#outcomes"><i class="fa fa-check"></i><b>5.1.3</b> Outcomes</a></li>
 </ul></li>
 <li class="chapter" data-level="5.2" data-path="data-descriptives.html"><a href="data-descriptives.html#figures"><i class="fa fa-check"></i><b>5.2</b> Figures</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="generalized-linear-model.html"><a href="generalized-linear-model.html"><i class="fa fa-check"></i><b>6</b> Generalized Linear Model</a><ul>
+<li class="chapter" data-level="6" data-path="generalized-linear-model.html"><a href="generalized-linear-model.html"><i class="fa fa-check"></i><b>6</b> Generalized Linear Model</a>
+<ul>
 <li class="chapter" data-level="6.1" data-path="data-descriptives.html"><a href="data-descriptives.html#data"><i class="fa fa-check"></i><b>6.1</b> Data</a></li>
 <li class="chapter" data-level="6.2" data-path="generalized-linear-model.html"><a href="generalized-linear-model.html#yearly-correlations-figure"><i class="fa fa-check"></i><b>6.2</b> Yearly correlations figure</a></li>
 <li class="chapter" data-level="6.3" data-path="generalized-linear-model.html"><a href="generalized-linear-model.html#models"><i class="fa fa-check"></i><b>6.3</b> Models</a></li>
 <li class="chapter" data-level="6.4" data-path="generalized-linear-model.html"><a href="generalized-linear-model.html#results"><i class="fa fa-check"></i><b>6.4</b> Results</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="bayesian-generalized-linear-mixed-model.html"><a href="bayesian-generalized-linear-mixed-model.html"><i class="fa fa-check"></i><b>7</b> Bayesian Generalized Linear Mixed Model</a><ul>
+<li class="chapter" data-level="7" data-path="bayesian-generalized-linear-mixed-model.html"><a href="bayesian-generalized-linear-mixed-model.html"><i class="fa fa-check"></i><b>7</b> Bayesian Generalized Linear Mixed Model</a>
+<ul>
 <li class="chapter" data-level="7.1" data-path="data-descriptives.html"><a href="data-descriptives.html#data"><i class="fa fa-check"></i><b>7.1</b> Data</a></li>
-<li class="chapter" data-level="7.2" data-path="generalized-linear-model.html"><a href="generalized-linear-model.html#models"><i class="fa fa-check"></i><b>7.2</b> Models</a><ul>
+<li class="chapter" data-level="7.2" data-path="generalized-linear-model.html"><a href="generalized-linear-model.html#models"><i class="fa fa-check"></i><b>7.2</b> Models</a>
+<ul>
 <li class="chapter" data-level="7.2.1" data-path="bayesian-generalized-linear-mixed-model.html"><a href="bayesian-generalized-linear-mixed-model.html#estimate"><i class="fa fa-check"></i><b>7.2.1</b> Estimate</a></li>
-<li class="chapter" data-level="7.2.2" data-path="bayesian-generalized-linear-mixed-model.html"><a href="bayesian-generalized-linear-mixed-model.html#year-and-tech"><i class="fa fa-check"></i><b>7.2.2</b> Year and tech</a></li>
+<li class="chapter" data-level="7.2.2" data-path="generalized-linear-model.html"><a href="generalized-linear-model.html#results"><i class="fa fa-check"></i><b>7.2.2</b> Results</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="latent-variable-models.html"><a href="latent-variable-models.html"><i class="fa fa-check"></i><b>8</b> Latent Variable Models</a><ul>
+<li class="chapter" data-level="8" data-path="latent-variable-models.html"><a href="latent-variable-models.html"><i class="fa fa-check"></i><b>8</b> Latent Variable Models</a>
+<ul>
 <li class="chapter" data-level="8.1" data-path="data-descriptives.html"><a href="data-descriptives.html#data"><i class="fa fa-check"></i><b>8.1</b> Data</a></li>
 <li class="chapter" data-level="8.2" data-path="generalized-linear-model.html"><a href="generalized-linear-model.html#models"><i class="fa fa-check"></i><b>8.2</b> Models</a></li>
 <li class="chapter" data-level="8.3" data-path="generalized-linear-model.html"><a href="generalized-linear-model.html#results"><i class="fa fa-check"></i><b>8.3</b> Results</a></li>
@@ -195,132 +207,169 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="us-preprocessing" class="section level1">
+<div id="us-preprocessing" class="section level1" number="3">
 <h1><span class="header-section-number">Chapter 3</span> US preprocessing</h1>
-<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="us-preprocessing.html#cb31-1"></a><span class="co"># Function to read adolescents&#39; data from one file</span></span>
-<span id="cb31-2"><a href="us-preprocessing.html#cb31-2"></a>read_adolescent_data &lt;-<span class="st"> </span><span class="cf">function</span>(filename){</span>
-<span id="cb31-3"><a href="us-preprocessing.html#cb31-3"></a>  <span class="co"># Select relevant variables, define NAs (any negative numbers), remove &quot;yp&quot; from the beginning of variable names</span></span>
-<span id="cb31-4"><a href="us-preprocessing.html#cb31-4"></a>  dataset &lt;-<span class="st"> </span><span class="kw">read_spss</span>(filename)</span>
-<span id="cb31-5"><a href="us-preprocessing.html#cb31-5"></a>  dataset &lt;-<span class="st"> </span>dataset <span class="op">%&gt;%</span></span>
-<span id="cb31-6"><a href="us-preprocessing.html#cb31-6"></a><span class="st">    </span><span class="kw">select</span>(<span class="op">-</span><span class="kw">ends_with</span>(<span class="st">&quot;_sex&quot;</span>)) <span class="op">%&gt;%</span></span>
-<span id="cb31-7"><a href="us-preprocessing.html#cb31-7"></a><span class="st">    </span><span class="kw">rename_all</span>(<span class="op">~</span><span class="kw">str_replace</span>(., <span class="st">&quot;yp&quot;</span>, <span class="st">&quot;&quot;</span>)) <span class="op">%&gt;%</span></span>
-<span id="cb31-8"><a href="us-preprocessing.html#cb31-8"></a><span class="st">    </span><span class="kw">select</span>(</span>
-<span id="cb31-9"><a href="us-preprocessing.html#cb31-9"></a>      <span class="kw">contains</span>(<span class="st">&quot;pidp&quot;</span>), <span class="co"># Participant ID</span></span>
-<span id="cb31-10"><a href="us-preprocessing.html#cb31-10"></a>      <span class="kw">ends_with</span>(<span class="st">&quot;age_dv&quot;</span>), <span class="co"># Participant age</span></span>
-<span id="cb31-11"><a href="us-preprocessing.html#cb31-11"></a>      <span class="kw">ends_with</span>(<span class="st">&quot;socweb&quot;</span>), <span class="co"># Do you have social media profile?</span></span>
-<span id="cb31-12"><a href="us-preprocessing.html#cb31-12"></a>      <span class="kw">ends_with</span>(<span class="st">&quot;netcht&quot;</span>),  <span class="co"># Hours using social media on weekdays</span></span>
-<span id="cb31-13"><a href="us-preprocessing.html#cb31-13"></a>      <span class="kw">ends_with</span>(<span class="st">&quot;tvvidhrs&quot;</span>),  <span class="co"># TV on weekdays (all waves)</span></span>
-<span id="cb31-14"><a href="us-preprocessing.html#cb31-14"></a>      <span class="kw">contains</span>(<span class="st">&quot;sdq&quot;</span>),  <span class="co"># Strengths and difficulties</span></span>
-<span id="cb31-15"><a href="us-preprocessing.html#cb31-15"></a>      <span class="op">-</span><span class="kw">ends_with</span>(<span class="st">&quot;_orig&quot;</span>),</span>
-<span id="cb31-16"><a href="us-preprocessing.html#cb31-16"></a>      <span class="op">-</span><span class="kw">ends_with</span>(<span class="st">&quot;sdqes_dv&quot;</span>),</span>
-<span id="cb31-17"><a href="us-preprocessing.html#cb31-17"></a>      <span class="op">-</span><span class="kw">ends_with</span>(<span class="st">&quot;sdqcp_dv&quot;</span>),</span>
-<span id="cb31-18"><a href="us-preprocessing.html#cb31-18"></a>      <span class="op">-</span><span class="kw">ends_with</span>(<span class="st">&quot;sdqha_dv&quot;</span>),</span>
-<span id="cb31-19"><a href="us-preprocessing.html#cb31-19"></a>      <span class="op">-</span><span class="kw">ends_with</span>(<span class="st">&quot;sdqpp_dv&quot;</span>),</span>
-<span id="cb31-20"><a href="us-preprocessing.html#cb31-20"></a>      <span class="op">-</span><span class="kw">ends_with</span>(<span class="st">&quot;sdqps_dv&quot;</span>),</span>
-<span id="cb31-21"><a href="us-preprocessing.html#cb31-21"></a>      <span class="op">-</span><span class="kw">ends_with</span>(<span class="st">&quot;sdqtd_dv&quot;</span>)</span>
-<span id="cb31-22"><a href="us-preprocessing.html#cb31-22"></a>    )</span>
-<span id="cb31-23"><a href="us-preprocessing.html#cb31-23"></a>  <span class="kw">is.na</span>(dataset[, ]) &lt;-<span class="st"> </span>dataset[, ] <span class="op">&lt;</span><span class="st"> </span><span class="dv">0</span> <span class="co">#define NAs</span></span>
-<span id="cb31-24"><a href="us-preprocessing.html#cb31-24"></a>  <span class="co"># Remove dataset indicator letter from variable names so that datasets can be merged</span></span>
-<span id="cb31-25"><a href="us-preprocessing.html#cb31-25"></a>  <span class="kw">names</span>(dataset) &lt;-<span class="st"> </span><span class="kw">str_remove</span>(<span class="kw">names</span>(dataset), <span class="st">&quot;[a-z]_&quot;</span>)</span>
-<span id="cb31-26"><a href="us-preprocessing.html#cb31-26"></a>  <span class="co"># Get rid of number labels</span></span>
-<span id="cb31-27"><a href="us-preprocessing.html#cb31-27"></a>  dataset &lt;-<span class="st"> </span><span class="kw">zap_labels</span>(dataset)</span>
-<span id="cb31-28"><a href="us-preprocessing.html#cb31-28"></a>  <span class="kw">return</span>(dataset)</span>
-<span id="cb31-29"><a href="us-preprocessing.html#cb31-29"></a>}</span></code></pre></div>
-<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="us-preprocessing.html#cb32-1"></a><span class="co"># Load the adolescent data from the folders downloaded from the UK data service.</span></span>
-<span id="cb32-2"><a href="us-preprocessing.html#cb32-2"></a>files_adolescent &lt;-<span class="st"> </span><span class="kw">list.files</span>(<span class="st">&quot;data-raw/us/&quot;</span>, <span class="dt">pattern =</span> <span class="st">&quot;_youth.sav&quot;</span>, <span class="dt">recursive =</span> <span class="ot">TRUE</span>, <span class="dt">full.names =</span> <span class="ot">TRUE</span>)</span>
-<span id="cb32-3"><a href="us-preprocessing.html#cb32-3"></a>files_adolescent &lt;-<span class="st"> </span>files_adolescent[<span class="kw">str_detect</span>(files_adolescent, <span class="st">&quot;ukhls&quot;</span>)]</span>
-<span id="cb32-4"><a href="us-preprocessing.html#cb32-4"></a>data &lt;-<span class="st"> </span><span class="kw">map</span>(files_adolescent, read_adolescent_data)</span>
-<span id="cb32-5"><a href="us-preprocessing.html#cb32-5"></a><span class="co"># Combine adolescent data from different waves (files) into long format</span></span>
-<span id="cb32-6"><a href="us-preprocessing.html#cb32-6"></a><span class="co"># Removes SPSS labels from variables &amp; values</span></span>
-<span id="cb32-7"><a href="us-preprocessing.html#cb32-7"></a>data &lt;-<span class="st"> </span><span class="kw">bind_rows</span>(data, <span class="dt">.id =</span> <span class="st">&quot;wave&quot;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="us-preprocessing.html#cb33-1"></a><span class="co"># Exclude any teenagers from the adolescent data that are under 10 or over 15</span></span>
-<span id="cb33-2"><a href="us-preprocessing.html#cb33-2"></a>data &lt;-<span class="st"> </span>data <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb33-3"><a href="us-preprocessing.html#cb33-3"></a><span class="st">  </span><span class="kw">filter</span>(<span class="kw">between</span>(age_dv, <span class="dv">10</span>, <span class="dv">15</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb33-4"><a href="us-preprocessing.html#cb33-4"></a><span class="st">  </span><span class="kw">select</span>(<span class="op">-</span>age_dv)</span></code></pre></div>
-<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="us-preprocessing.html#cb34-1"></a><span class="co"># Get sex from &quot;stable characteristics&quot; file</span></span>
-<span id="cb34-2"><a href="us-preprocessing.html#cb34-2"></a><span class="co"># In Understanding Society that have a specific file &quot;ukhls_wx/xwavedat.sav&quot; which indicates stable characteristics of participants in the survey. We prefer to use this for sex because it is derived from multiple interviews and checked for consistency.</span></span>
-<span id="cb34-3"><a href="us-preprocessing.html#cb34-3"></a>data_stable &lt;-<span class="st"> </span><span class="kw">list.files</span>(</span>
-<span id="cb34-4"><a href="us-preprocessing.html#cb34-4"></a>  <span class="st">&quot;data-raw/us/&quot;</span>, </span>
-<span id="cb34-5"><a href="us-preprocessing.html#cb34-5"></a>  <span class="dt">pattern =</span> <span class="st">&quot;xwavedat.sav&quot;</span>, <span class="dt">recursive =</span> <span class="ot">TRUE</span>, <span class="dt">full.names =</span> <span class="ot">TRUE</span></span>
-<span id="cb34-6"><a href="us-preprocessing.html#cb34-6"></a>) <span class="op">%&gt;%</span></span>
-<span id="cb34-7"><a href="us-preprocessing.html#cb34-7"></a><span class="st">  </span><span class="kw">read_spss</span>(<span class="dt">col_select =</span> <span class="kw">c</span>(<span class="st">&quot;pidp&quot;</span>, <span class="st">&quot;sex_dv&quot;</span>))</span>
-<span id="cb34-8"><a href="us-preprocessing.html#cb34-8"></a><span class="kw">is.na</span>(data_stable[, ]) &lt;-<span class="st"> </span>data_stable[, ] <span class="op">&lt;</span><span class="st"> </span><span class="dv">0</span> <span class="co"># define NAs as anything under 0</span></span>
-<span id="cb34-9"><a href="us-preprocessing.html#cb34-9"></a>data_stable<span class="op">$</span>sex_dv &lt;-<span class="st"> </span><span class="kw">as_factor</span>(data_stable<span class="op">$</span>sex_dv) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">fct_drop</span>()</span>
-<span id="cb34-10"><a href="us-preprocessing.html#cb34-10"></a>data_stable &lt;-<span class="st"> </span><span class="kw">zap_labels</span>(data_stable)</span>
-<span id="cb34-11"><a href="us-preprocessing.html#cb34-11"></a></span>
-<span id="cb34-12"><a href="us-preprocessing.html#cb34-12"></a>data &lt;-<span class="st"> </span><span class="kw">left_join</span>(data, data_stable, <span class="dt">by =</span> <span class="st">&quot;pidp&quot;</span>)</span>
-<span id="cb34-13"><a href="us-preprocessing.html#cb34-13"></a>data &lt;-<span class="st"> </span><span class="kw">rename</span>(data, <span class="dt">Sex =</span> sex_dv)</span></code></pre></div>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="us-preprocessing.html#cb36-1"></a><span class="co"># Function to read adolescents&#39; data from one file</span></span>
+<span id="cb36-2"><a href="us-preprocessing.html#cb36-2"></a>read_adolescent_data &lt;-<span class="st"> </span><span class="cf">function</span>(filename){</span>
+<span id="cb36-3"><a href="us-preprocessing.html#cb36-3"></a>  <span class="co"># Select relevant variables, define NAs (any negative numbers), remove &quot;yp&quot; from the beginning of variable names</span></span>
+<span id="cb36-4"><a href="us-preprocessing.html#cb36-4"></a>  dataset &lt;-<span class="st"> </span><span class="kw">read_spss</span>(filename)</span>
+<span id="cb36-5"><a href="us-preprocessing.html#cb36-5"></a>  dataset &lt;-<span class="st"> </span>dataset <span class="op">%&gt;%</span></span>
+<span id="cb36-6"><a href="us-preprocessing.html#cb36-6"></a><span class="st">    </span><span class="kw">select</span>(<span class="op">-</span><span class="kw">ends_with</span>(<span class="st">&quot;_sex&quot;</span>)) <span class="op">%&gt;%</span></span>
+<span id="cb36-7"><a href="us-preprocessing.html#cb36-7"></a><span class="st">    </span><span class="kw">rename_all</span>(<span class="op">~</span><span class="kw">str_replace</span>(., <span class="st">&quot;yp&quot;</span>, <span class="st">&quot;&quot;</span>)) <span class="op">%&gt;%</span></span>
+<span id="cb36-8"><a href="us-preprocessing.html#cb36-8"></a><span class="st">    </span><span class="kw">select</span>(</span>
+<span id="cb36-9"><a href="us-preprocessing.html#cb36-9"></a>      <span class="kw">contains</span>(<span class="st">&quot;pidp&quot;</span>), <span class="co"># Participant ID</span></span>
+<span id="cb36-10"><a href="us-preprocessing.html#cb36-10"></a>      <span class="kw">ends_with</span>(<span class="st">&quot;age_dv&quot;</span>), <span class="co"># Participant age</span></span>
+<span id="cb36-11"><a href="us-preprocessing.html#cb36-11"></a>      <span class="kw">ends_with</span>(<span class="st">&quot;socweb&quot;</span>), <span class="co"># Do you have social media profile?</span></span>
+<span id="cb36-12"><a href="us-preprocessing.html#cb36-12"></a>      <span class="kw">ends_with</span>(<span class="st">&quot;netcht&quot;</span>),  <span class="co"># Hours using social media on weekdays</span></span>
+<span id="cb36-13"><a href="us-preprocessing.html#cb36-13"></a>      <span class="kw">ends_with</span>(<span class="st">&quot;tvvidhrs&quot;</span>),  <span class="co"># TV on weekdays (all waves)</span></span>
+<span id="cb36-14"><a href="us-preprocessing.html#cb36-14"></a>      <span class="kw">contains</span>(<span class="st">&quot;sdq&quot;</span>),  <span class="co"># Strengths and difficulties</span></span>
+<span id="cb36-15"><a href="us-preprocessing.html#cb36-15"></a>      <span class="op">-</span><span class="kw">ends_with</span>(<span class="st">&quot;_orig&quot;</span>),</span>
+<span id="cb36-16"><a href="us-preprocessing.html#cb36-16"></a>      <span class="op">-</span><span class="kw">ends_with</span>(<span class="st">&quot;sdqes_dv&quot;</span>),</span>
+<span id="cb36-17"><a href="us-preprocessing.html#cb36-17"></a>      <span class="op">-</span><span class="kw">ends_with</span>(<span class="st">&quot;sdqcp_dv&quot;</span>),</span>
+<span id="cb36-18"><a href="us-preprocessing.html#cb36-18"></a>      <span class="op">-</span><span class="kw">ends_with</span>(<span class="st">&quot;sdqha_dv&quot;</span>),</span>
+<span id="cb36-19"><a href="us-preprocessing.html#cb36-19"></a>      <span class="op">-</span><span class="kw">ends_with</span>(<span class="st">&quot;sdqpp_dv&quot;</span>),</span>
+<span id="cb36-20"><a href="us-preprocessing.html#cb36-20"></a>      <span class="op">-</span><span class="kw">ends_with</span>(<span class="st">&quot;sdqps_dv&quot;</span>),</span>
+<span id="cb36-21"><a href="us-preprocessing.html#cb36-21"></a>      <span class="op">-</span><span class="kw">ends_with</span>(<span class="st">&quot;sdqtd_dv&quot;</span>)</span>
+<span id="cb36-22"><a href="us-preprocessing.html#cb36-22"></a>    )</span>
+<span id="cb36-23"><a href="us-preprocessing.html#cb36-23"></a>  <span class="kw">is.na</span>(dataset[, ]) &lt;-<span class="st"> </span>dataset[, ] <span class="op">&lt;</span><span class="st"> </span><span class="dv">0</span> <span class="co">#define NAs</span></span>
+<span id="cb36-24"><a href="us-preprocessing.html#cb36-24"></a>  <span class="co"># Remove dataset indicator letter from variable names so that datasets can be merged</span></span>
+<span id="cb36-25"><a href="us-preprocessing.html#cb36-25"></a>  <span class="kw">names</span>(dataset) &lt;-<span class="st"> </span><span class="kw">str_remove</span>(<span class="kw">names</span>(dataset), <span class="st">&quot;[a-z]_&quot;</span>)</span>
+<span id="cb36-26"><a href="us-preprocessing.html#cb36-26"></a>  <span class="co"># Get rid of number labels</span></span>
+<span id="cb36-27"><a href="us-preprocessing.html#cb36-27"></a>  dataset &lt;-<span class="st"> </span><span class="kw">zap_labels</span>(dataset)</span>
+<span id="cb36-28"><a href="us-preprocessing.html#cb36-28"></a>  <span class="kw">return</span>(dataset)</span>
+<span id="cb36-29"><a href="us-preprocessing.html#cb36-29"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="us-preprocessing.html#cb37-1"></a><span class="co"># Load the adolescent data from the folders downloaded from the UK data service.</span></span>
+<span id="cb37-2"><a href="us-preprocessing.html#cb37-2"></a>files_adolescent &lt;-<span class="st"> </span><span class="kw">list.files</span>(<span class="st">&quot;data-raw/us/&quot;</span>, <span class="dt">pattern =</span> <span class="st">&quot;_youth.sav&quot;</span>, <span class="dt">recursive =</span> <span class="ot">TRUE</span>, <span class="dt">full.names =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb37-3"><a href="us-preprocessing.html#cb37-3"></a>files_adolescent &lt;-<span class="st"> </span>files_adolescent[<span class="kw">str_detect</span>(files_adolescent, <span class="st">&quot;ukhls&quot;</span>)]</span>
+<span id="cb37-4"><a href="us-preprocessing.html#cb37-4"></a>data &lt;-<span class="st"> </span><span class="kw">map</span>(files_adolescent, read_adolescent_data)</span>
+<span id="cb37-5"><a href="us-preprocessing.html#cb37-5"></a><span class="co"># Combine adolescent data from different waves (files) into long format</span></span>
+<span id="cb37-6"><a href="us-preprocessing.html#cb37-6"></a><span class="co"># Removes SPSS labels from variables &amp; values</span></span>
+<span id="cb37-7"><a href="us-preprocessing.html#cb37-7"></a>data &lt;-<span class="st"> </span><span class="kw">bind_rows</span>(data, <span class="dt">.id =</span> <span class="st">&quot;wave&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="us-preprocessing.html#cb38-1"></a><span class="co"># Exclude any teenagers from the adolescent data that are under 10 or over 15</span></span>
+<span id="cb38-2"><a href="us-preprocessing.html#cb38-2"></a>data &lt;-<span class="st"> </span>data <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb38-3"><a href="us-preprocessing.html#cb38-3"></a><span class="st">  </span><span class="kw">filter</span>(<span class="kw">between</span>(age_dv, <span class="dv">10</span>, <span class="dv">15</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb38-4"><a href="us-preprocessing.html#cb38-4"></a><span class="st">  </span><span class="kw">select</span>(<span class="op">-</span>age_dv)</span></code></pre></div>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="us-preprocessing.html#cb39-1"></a><span class="co"># Get sex from &quot;stable characteristics&quot; file</span></span>
+<span id="cb39-2"><a href="us-preprocessing.html#cb39-2"></a><span class="co"># In Understanding Society that have a specific file &quot;ukhls_wx/xwavedat.sav&quot; which indicates stable characteristics of participants in the survey. We prefer to use this for sex because it is derived from multiple interviews and checked for consistency.</span></span>
+<span id="cb39-3"><a href="us-preprocessing.html#cb39-3"></a>data_stable &lt;-<span class="st"> </span><span class="kw">list.files</span>(</span>
+<span id="cb39-4"><a href="us-preprocessing.html#cb39-4"></a>  <span class="st">&quot;data-raw/us/&quot;</span>, </span>
+<span id="cb39-5"><a href="us-preprocessing.html#cb39-5"></a>  <span class="dt">pattern =</span> <span class="st">&quot;xwavedat.sav&quot;</span>, <span class="dt">recursive =</span> <span class="ot">TRUE</span>, <span class="dt">full.names =</span> <span class="ot">TRUE</span></span>
+<span id="cb39-6"><a href="us-preprocessing.html#cb39-6"></a>) <span class="op">%&gt;%</span></span>
+<span id="cb39-7"><a href="us-preprocessing.html#cb39-7"></a><span class="st">  </span><span class="kw">read_spss</span>(<span class="dt">col_select =</span> <span class="kw">c</span>(<span class="st">&quot;pidp&quot;</span>, <span class="st">&quot;sex_dv&quot;</span>))</span>
+<span id="cb39-8"><a href="us-preprocessing.html#cb39-8"></a><span class="kw">is.na</span>(data_stable[, ]) &lt;-<span class="st"> </span>data_stable[, ] <span class="op">&lt;</span><span class="st"> </span><span class="dv">0</span> <span class="co"># define NAs as anything under 0</span></span>
+<span id="cb39-9"><a href="us-preprocessing.html#cb39-9"></a>data_stable<span class="op">$</span>sex_dv &lt;-<span class="st"> </span><span class="kw">as_factor</span>(data_stable<span class="op">$</span>sex_dv) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">fct_drop</span>()</span>
+<span id="cb39-10"><a href="us-preprocessing.html#cb39-10"></a>data_stable &lt;-<span class="st"> </span><span class="kw">zap_labels</span>(data_stable)</span>
+<span id="cb39-11"><a href="us-preprocessing.html#cb39-11"></a></span>
+<span id="cb39-12"><a href="us-preprocessing.html#cb39-12"></a>data &lt;-<span class="st"> </span><span class="kw">left_join</span>(data, data_stable, <span class="dt">by =</span> <span class="st">&quot;pidp&quot;</span>)</span>
+<span id="cb39-13"><a href="us-preprocessing.html#cb39-13"></a>data &lt;-<span class="st"> </span><span class="kw">rename</span>(data, <span class="dt">Sex =</span> sex_dv)</span></code></pre></div>
 <p>Sex: Take out (10) inconsistent responses</p>
-<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="us-preprocessing.html#cb35-1"></a><span class="kw">table</span>(data<span class="op">$</span>Sex)</span>
-<span id="cb35-2"><a href="us-preprocessing.html#cb35-2"></a>data &lt;-<span class="st"> </span><span class="kw">filter</span>(data, Sex <span class="op">!=</span><span class="st"> &quot;inconsistent&quot;</span>)</span>
-<span id="cb35-3"><a href="us-preprocessing.html#cb35-3"></a>data &lt;-<span class="st"> </span>data <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb35-4"><a href="us-preprocessing.html#cb35-4"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Sex =</span> <span class="kw">factor</span>(Sex, <span class="dt">levels =</span> <span class="kw">c</span>(<span class="st">&quot;Female&quot;</span>, <span class="st">&quot;Male&quot;</span>)))</span>
-<span id="cb35-5"><a href="us-preprocessing.html#cb35-5"></a><span class="kw">table</span>(data<span class="op">$</span>Sex, <span class="dt">useNA =</span> <span class="st">&quot;always&quot;</span>)</span>
-<span id="cb35-6"><a href="us-preprocessing.html#cb35-6"></a></span>
-<span id="cb35-7"><a href="us-preprocessing.html#cb35-7"></a><span class="co"># Contrast code sex</span></span>
-<span id="cb35-8"><a href="us-preprocessing.html#cb35-8"></a><span class="kw">contrasts</span>(data<span class="op">$</span>Sex) &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(.<span class="dv">5</span>, <span class="fl">-.5</span>))</span></code></pre></div>
-<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="us-preprocessing.html#cb36-1"></a><span class="co"># Rename variables</span></span>
-<span id="cb36-2"><a href="us-preprocessing.html#cb36-2"></a>data &lt;-<span class="st"> </span>data <span class="op">%&gt;%</span></span>
-<span id="cb36-3"><a href="us-preprocessing.html#cb36-3"></a><span class="st">  </span><span class="kw">rename</span>(</span>
-<span id="cb36-4"><a href="us-preprocessing.html#cb36-4"></a>    <span class="dt">socialmedia =</span> socweb,</span>
-<span id="cb36-5"><a href="us-preprocessing.html#cb36-5"></a>    <span class="dt">socialmediaamount =</span> netcht,</span>
-<span id="cb36-6"><a href="us-preprocessing.html#cb36-6"></a>    <span class="dt">TV =</span> tvvidhrs</span>
-<span id="cb36-7"><a href="us-preprocessing.html#cb36-7"></a>  )</span></code></pre></div>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="us-preprocessing.html#cb40-1"></a><span class="kw">prop.table</span>(<span class="kw">table</span>(data<span class="op">$</span>Sex, <span class="dt">useNA =</span> <span class="st">&quot;always&quot;</span>))</span>
+<span id="cb40-2"><a href="us-preprocessing.html#cb40-2"></a>data &lt;-<span class="st"> </span><span class="kw">filter</span>(data, Sex <span class="op">!=</span><span class="st"> &quot;inconsistent&quot;</span>)</span>
+<span id="cb40-3"><a href="us-preprocessing.html#cb40-3"></a>data &lt;-<span class="st"> </span>data <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb40-4"><a href="us-preprocessing.html#cb40-4"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Sex =</span> <span class="kw">factor</span>(Sex, <span class="dt">levels =</span> <span class="kw">c</span>(<span class="st">&quot;Female&quot;</span>, <span class="st">&quot;Male&quot;</span>)))</span>
+<span id="cb40-5"><a href="us-preprocessing.html#cb40-5"></a><span class="kw">table</span>(data<span class="op">$</span>Sex, <span class="dt">useNA =</span> <span class="st">&quot;always&quot;</span>)</span>
+<span id="cb40-6"><a href="us-preprocessing.html#cb40-6"></a></span>
+<span id="cb40-7"><a href="us-preprocessing.html#cb40-7"></a><span class="co"># Contrast code sex</span></span>
+<span id="cb40-8"><a href="us-preprocessing.html#cb40-8"></a><span class="kw">contrasts</span>(data<span class="op">$</span>Sex) &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(.<span class="dv">5</span>, <span class="fl">-.5</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="us-preprocessing.html#cb41-1"></a><span class="co"># Rename variables</span></span>
+<span id="cb41-2"><a href="us-preprocessing.html#cb41-2"></a>data &lt;-<span class="st"> </span>data <span class="op">%&gt;%</span></span>
+<span id="cb41-3"><a href="us-preprocessing.html#cb41-3"></a><span class="st">  </span><span class="kw">rename</span>(</span>
+<span id="cb41-4"><a href="us-preprocessing.html#cb41-4"></a>    <span class="dt">socialmedia =</span> socweb,</span>
+<span id="cb41-5"><a href="us-preprocessing.html#cb41-5"></a>    <span class="dt">socialmediaamount =</span> netcht,</span>
+<span id="cb41-6"><a href="us-preprocessing.html#cb41-6"></a>    <span class="dt">TV =</span> tvvidhrs</span>
+<span id="cb41-7"><a href="us-preprocessing.html#cb41-7"></a>  )</span></code></pre></div>
 <p>We first clean and recode the social media use variable. This variable is complicated as there was a mistake on the side of Understanding Society, who were inconsistent in how they directed children and adults through the study in different years. Sometimes those who said they dont use social media on “netcht” were automatically coded as none on “socweb” and sometimes this wasnt the case. There is no easy solution for this, so we went with a recoding solution detailed below. If a participant said they do not own a social media account or they dont use social media to interact with friends we coded them as 1, for the rest of the participants we took their netcht score. This creates the following scale, which is ordinal in nature: 1 = None, 2 = Less than an hour, 3 = 1-3 hours, 4 = 4-6 hours, 5 = 7 or more hours</p>
-<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="us-preprocessing.html#cb37-1"></a><span class="co"># set 9 to NA to revert coding error</span></span>
-<span id="cb37-2"><a href="us-preprocessing.html#cb37-2"></a><span class="kw">is.na</span>(data[, <span class="kw">c</span>(<span class="st">&quot;socialmediaamount&quot;</span>, <span class="st">&quot;socialmedia&quot;</span>)]) &lt;-<span class="st"> </span>data[, <span class="kw">c</span>(<span class="st">&quot;socialmediaamount&quot;</span>, <span class="st">&quot;socialmedia&quot;</span>)] <span class="op">==</span><span class="st"> </span><span class="dv">9</span></span>
-<span id="cb37-3"><a href="us-preprocessing.html#cb37-3"></a>data<span class="op">$</span>socialmedia &lt;-<span class="st"> </span><span class="kw">ifelse</span>((data<span class="op">$</span>socialmedia <span class="op">==</span><span class="st"> </span><span class="dv">2</span> <span class="op">|</span><span class="st"> </span>data<span class="op">$</span>socialmediaamount <span class="op">==</span><span class="st"> </span><span class="dv">1</span>), <span class="dv">1</span>,</span>
-<span id="cb37-4"><a href="us-preprocessing.html#cb37-4"></a>                           <span class="kw">ifelse</span>(data<span class="op">$</span>socialmediaamount <span class="op">==</span><span class="st"> </span><span class="dv">2</span>, <span class="dv">2</span>,</span>
-<span id="cb37-5"><a href="us-preprocessing.html#cb37-5"></a>                                  <span class="kw">ifelse</span>(data<span class="op">$</span>socialmediaamount <span class="op">==</span><span class="st"> </span><span class="dv">3</span>, <span class="dv">3</span>,</span>
-<span id="cb37-6"><a href="us-preprocessing.html#cb37-6"></a>                                         <span class="kw">ifelse</span>(data<span class="op">$</span>socialmediaamount <span class="op">==</span><span class="st"> </span><span class="dv">4</span>, <span class="dv">4</span>,</span>
-<span id="cb37-7"><a href="us-preprocessing.html#cb37-7"></a>                                                <span class="kw">ifelse</span>(data<span class="op">$</span>socialmediaamount <span class="op">==</span><span class="st"> </span><span class="dv">5</span>, <span class="dv">5</span>, <span class="ot">NA</span>)))))</span>
-<span id="cb37-8"><a href="us-preprocessing.html#cb37-8"></a>data &lt;-<span class="st"> </span>data <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(<span class="op">-</span>socialmediaamount)</span>
-<span id="cb37-9"><a href="us-preprocessing.html#cb37-9"></a>data &lt;-<span class="st"> </span><span class="kw">rename</span>(data, <span class="dt">SM =</span> socialmedia)</span></code></pre></div>
-<div id="year" class="section level2">
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="us-preprocessing.html#cb42-1"></a><span class="co"># set 9 to NA to revert coding error</span></span>
+<span id="cb42-2"><a href="us-preprocessing.html#cb42-2"></a><span class="kw">is.na</span>(data[, <span class="kw">c</span>(<span class="st">&quot;socialmediaamount&quot;</span>, <span class="st">&quot;socialmedia&quot;</span>)]) &lt;-<span class="st"> </span>data[, <span class="kw">c</span>(<span class="st">&quot;socialmediaamount&quot;</span>, <span class="st">&quot;socialmedia&quot;</span>)] <span class="op">==</span><span class="st"> </span><span class="dv">9</span></span>
+<span id="cb42-3"><a href="us-preprocessing.html#cb42-3"></a>data<span class="op">$</span>socialmedia &lt;-<span class="st"> </span><span class="kw">ifelse</span>((data<span class="op">$</span>socialmedia <span class="op">==</span><span class="st"> </span><span class="dv">2</span> <span class="op">|</span><span class="st"> </span>data<span class="op">$</span>socialmediaamount <span class="op">==</span><span class="st"> </span><span class="dv">1</span>), <span class="dv">1</span>,</span>
+<span id="cb42-4"><a href="us-preprocessing.html#cb42-4"></a>                           <span class="kw">ifelse</span>(data<span class="op">$</span>socialmediaamount <span class="op">==</span><span class="st"> </span><span class="dv">2</span>, <span class="dv">2</span>,</span>
+<span id="cb42-5"><a href="us-preprocessing.html#cb42-5"></a>                                  <span class="kw">ifelse</span>(data<span class="op">$</span>socialmediaamount <span class="op">==</span><span class="st"> </span><span class="dv">3</span>, <span class="dv">3</span>,</span>
+<span id="cb42-6"><a href="us-preprocessing.html#cb42-6"></a>                                         <span class="kw">ifelse</span>(data<span class="op">$</span>socialmediaamount <span class="op">==</span><span class="st"> </span><span class="dv">4</span>, <span class="dv">4</span>,</span>
+<span id="cb42-7"><a href="us-preprocessing.html#cb42-7"></a>                                                <span class="kw">ifelse</span>(data<span class="op">$</span>socialmediaamount <span class="op">==</span><span class="st"> </span><span class="dv">5</span>, <span class="dv">5</span>, <span class="ot">NA</span>)))))</span>
+<span id="cb42-8"><a href="us-preprocessing.html#cb42-8"></a>data &lt;-<span class="st"> </span>data <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(<span class="op">-</span>socialmediaamount)</span>
+<span id="cb42-9"><a href="us-preprocessing.html#cb42-9"></a>data &lt;-<span class="st"> </span><span class="kw">rename</span>(data, <span class="dt">SM =</span> socialmedia)</span></code></pre></div>
+<div id="year" class="section level2" number="3.1">
 <h2><span class="header-section-number">3.1</span> Year</h2>
-<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="us-preprocessing.html#cb38-1"></a><span class="co"># Convert wave to year</span></span>
-<span id="cb38-2"><a href="us-preprocessing.html#cb38-2"></a><span class="co"># Waves 1-9 to years 2009 -&gt;</span></span>
-<span id="cb38-3"><a href="us-preprocessing.html#cb38-3"></a>data &lt;-<span class="st"> </span><span class="kw">rename</span>(data, <span class="dt">Year =</span> <span class="st">&quot;wave&quot;</span>)</span>
-<span id="cb38-4"><a href="us-preprocessing.html#cb38-4"></a>data<span class="op">$</span>Year &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(data<span class="op">$</span>Year) <span class="op">+</span><span class="st"> </span><span class="dv">2008</span></span></code></pre></div>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="us-preprocessing.html#cb43-1"></a><span class="co"># Convert wave to year</span></span>
+<span id="cb43-2"><a href="us-preprocessing.html#cb43-2"></a><span class="co"># Waves 1-9 to years 2009 -&gt;</span></span>
+<span id="cb43-3"><a href="us-preprocessing.html#cb43-3"></a>data &lt;-<span class="st"> </span><span class="kw">rename</span>(data, <span class="dt">Year =</span> <span class="st">&quot;wave&quot;</span>)</span>
+<span id="cb43-4"><a href="us-preprocessing.html#cb43-4"></a>data<span class="op">$</span>Year &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(data<span class="op">$</span>Year) <span class="op">+</span><span class="st"> </span><span class="dv">2008</span></span></code></pre></div>
 </div>
-<div id="strengths-and-difficulties" class="section level2">
+<div id="strengths-and-difficulties" class="section level2" number="3.2">
 <h2><span class="header-section-number">3.2</span> Strengths and difficulties</h2>
 <p>Our main outcome. It is only recorded every second year so we take out the years where it was not recorded.</p>
-<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="us-preprocessing.html#cb39-1"></a>data &lt;-<span class="st"> </span>data <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb39-2"><a href="us-preprocessing.html#cb39-2"></a><span class="st">  </span><span class="co"># SDQ only measured in these waves</span></span>
-<span id="cb39-3"><a href="us-preprocessing.html#cb39-3"></a><span class="st">  </span><span class="kw">filter</span>(Year <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">2009</span>, <span class="dv">2011</span>, <span class="dv">2013</span>, <span class="dv">2015</span>, <span class="dv">2017</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="us-preprocessing.html#cb44-1"></a>data &lt;-<span class="st"> </span>data <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb44-2"><a href="us-preprocessing.html#cb44-2"></a><span class="st">  </span><span class="co"># SDQ only measured in these waves</span></span>
+<span id="cb44-3"><a href="us-preprocessing.html#cb44-3"></a><span class="st">  </span><span class="kw">filter</span>(Year <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">2009</span>, <span class="dv">2011</span>, <span class="dv">2013</span>, <span class="dv">2015</span>, <span class="dv">2017</span>))</span></code></pre></div>
 <p>Recode: Greater values indicate greater difficulties</p>
-<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="us-preprocessing.html#cb40-1"></a>data &lt;-<span class="st"> </span>data <span class="op">%&gt;%</span></span>
-<span id="cb40-2"><a href="us-preprocessing.html#cb40-2"></a><span class="st">  </span><span class="kw">mutate_at</span>(</span>
-<span id="cb40-3"><a href="us-preprocessing.html#cb40-3"></a>    <span class="kw">paste0</span>(<span class="st">&quot;sdq&quot;</span>, <span class="kw">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;d&quot;</span>, <span class="st">&quot;g&quot;</span>, <span class="st">&quot;i&quot;</span>, <span class="st">&quot;k&quot;</span>, <span class="st">&quot;n&quot;</span>, <span class="st">&quot;q&quot;</span>, <span class="st">&quot;t&quot;</span>, <span class="st">&quot;u&quot;</span>, <span class="st">&quot;y&quot;</span>)),</span>
-<span id="cb40-4"><a href="us-preprocessing.html#cb40-4"></a>    <span class="cf">function</span>(x) <span class="dv">4</span> <span class="op">-</span><span class="st"> </span>x</span>
-<span id="cb40-5"><a href="us-preprocessing.html#cb40-5"></a>  )</span></code></pre></div>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="us-preprocessing.html#cb45-1"></a>data &lt;-<span class="st"> </span>data <span class="op">%&gt;%</span></span>
+<span id="cb45-2"><a href="us-preprocessing.html#cb45-2"></a><span class="st">  </span><span class="kw">mutate_at</span>(</span>
+<span id="cb45-3"><a href="us-preprocessing.html#cb45-3"></a>    <span class="kw">paste0</span>(<span class="st">&quot;sdq&quot;</span>, <span class="kw">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;d&quot;</span>, <span class="st">&quot;g&quot;</span>, <span class="st">&quot;i&quot;</span>, <span class="st">&quot;k&quot;</span>, <span class="st">&quot;n&quot;</span>, <span class="st">&quot;q&quot;</span>, <span class="st">&quot;t&quot;</span>, <span class="st">&quot;u&quot;</span>, <span class="st">&quot;y&quot;</span>)),</span>
+<span id="cb45-4"><a href="us-preprocessing.html#cb45-4"></a>    <span class="cf">function</span>(x) <span class="dv">4</span> <span class="op">-</span><span class="st"> </span>x</span>
+<span id="cb45-5"><a href="us-preprocessing.html#cb45-5"></a>  )</span></code></pre></div>
 <p>SDQ subscales: <a href="http://sdqinfo.org/c9.html" class="uri">http://sdqinfo.org/c9.html</a></p>
-<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="us-preprocessing.html#cb41-1"></a>sdq_emo &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;sdqc&quot;</span>, <span class="st">&quot;sdqh&quot;</span>, <span class="st">&quot;sdqm&quot;</span>, <span class="st">&quot;sdqp&quot;</span>, <span class="st">&quot;sdqx&quot;</span>)</span>
-<span id="cb41-2"><a href="us-preprocessing.html#cb41-2"></a>sdq_con &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;sdqe&quot;</span>, <span class="st">&quot;sdqg&quot;</span>, <span class="st">&quot;sdql&quot;</span>, <span class="st">&quot;sdqr&quot;</span>, <span class="st">&quot;sdqv&quot;</span>)</span>
-<span id="cb41-3"><a href="us-preprocessing.html#cb41-3"></a><span class="co"># Compute means of two subscales</span></span>
-<span id="cb41-4"><a href="us-preprocessing.html#cb41-4"></a>data &lt;-<span class="st"> </span>data <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb41-5"><a href="us-preprocessing.html#cb41-5"></a><span class="st">  </span><span class="kw">mutate</span>(</span>
-<span id="cb41-6"><a href="us-preprocessing.html#cb41-6"></a>    <span class="dt">Emotion =</span> <span class="kw">rowMeans</span>(<span class="kw">select</span>(., <span class="kw">all_of</span>(sdq_emo)), <span class="dt">na.rm=</span>T),</span>
-<span id="cb41-7"><a href="us-preprocessing.html#cb41-7"></a>    <span class="dt">Conduct =</span> <span class="kw">rowMeans</span>(<span class="kw">select</span>(., <span class="kw">all_of</span>(sdq_con)), <span class="dt">na.rm=</span>T)</span>
-<span id="cb41-8"><a href="us-preprocessing.html#cb41-8"></a>  ) </span>
-<span id="cb41-9"><a href="us-preprocessing.html#cb41-9"></a><span class="co"># Remove all but these two subscales from SDQ variables</span></span>
-<span id="cb41-10"><a href="us-preprocessing.html#cb41-10"></a>sdq &lt;-<span class="st"> </span><span class="kw">select</span>(data, <span class="kw">starts_with</span>(<span class="st">&quot;sdq&quot;</span>))</span>
-<span id="cb41-11"><a href="us-preprocessing.html#cb41-11"></a>data &lt;-<span class="st"> </span><span class="kw">select</span>(data, <span class="op">!</span><span class="kw">starts_with</span>(<span class="st">&quot;sdq&quot;</span>))</span>
-<span id="cb41-12"><a href="us-preprocessing.html#cb41-12"></a>data &lt;-<span class="st"> </span><span class="kw">bind_cols</span>(</span>
-<span id="cb41-13"><a href="us-preprocessing.html#cb41-13"></a>  data,</span>
-<span id="cb41-14"><a href="us-preprocessing.html#cb41-14"></a>  sdq <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(<span class="kw">all_of</span>(sdq_emo), <span class="kw">all_of</span>(sdq_con))</span>
-<span id="cb41-15"><a href="us-preprocessing.html#cb41-15"></a>)</span>
-<span id="cb41-16"><a href="us-preprocessing.html#cb41-16"></a><span class="kw">rm</span>(sdq)</span></code></pre></div>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="us-preprocessing.html#cb46-1"></a>sdq_emo &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;sdqc&quot;</span>, <span class="st">&quot;sdqh&quot;</span>, <span class="st">&quot;sdqm&quot;</span>, <span class="st">&quot;sdqp&quot;</span>, <span class="st">&quot;sdqx&quot;</span>)</span>
+<span id="cb46-2"><a href="us-preprocessing.html#cb46-2"></a>sdq_con &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;sdqe&quot;</span>, <span class="st">&quot;sdqg&quot;</span>, <span class="st">&quot;sdql&quot;</span>, <span class="st">&quot;sdqr&quot;</span>, <span class="st">&quot;sdqv&quot;</span>)</span>
+<span id="cb46-3"><a href="us-preprocessing.html#cb46-3"></a><span class="co"># Compute means of two subscales</span></span>
+<span id="cb46-4"><a href="us-preprocessing.html#cb46-4"></a>data &lt;-<span class="st"> </span>data <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb46-5"><a href="us-preprocessing.html#cb46-5"></a><span class="st">  </span><span class="kw">mutate</span>(</span>
+<span id="cb46-6"><a href="us-preprocessing.html#cb46-6"></a>    <span class="dt">Emotion =</span> <span class="kw">rowMeans</span>(<span class="kw">select</span>(., <span class="kw">all_of</span>(sdq_emo)), <span class="dt">na.rm=</span>T),</span>
+<span id="cb46-7"><a href="us-preprocessing.html#cb46-7"></a>    <span class="dt">Conduct =</span> <span class="kw">rowMeans</span>(<span class="kw">select</span>(., <span class="kw">all_of</span>(sdq_con)), <span class="dt">na.rm=</span>T)</span>
+<span id="cb46-8"><a href="us-preprocessing.html#cb46-8"></a>  ) </span>
+<span id="cb46-9"><a href="us-preprocessing.html#cb46-9"></a><span class="co"># Remove all but these two subscales from SDQ variables</span></span>
+<span id="cb46-10"><a href="us-preprocessing.html#cb46-10"></a>sdq &lt;-<span class="st"> </span><span class="kw">select</span>(data, <span class="kw">starts_with</span>(<span class="st">&quot;sdq&quot;</span>))</span>
+<span id="cb46-11"><a href="us-preprocessing.html#cb46-11"></a>data &lt;-<span class="st"> </span><span class="kw">select</span>(data, <span class="op">!</span><span class="kw">starts_with</span>(<span class="st">&quot;sdq&quot;</span>))</span>
+<span id="cb46-12"><a href="us-preprocessing.html#cb46-12"></a>data &lt;-<span class="st"> </span><span class="kw">bind_cols</span>(</span>
+<span id="cb46-13"><a href="us-preprocessing.html#cb46-13"></a>  data,</span>
+<span id="cb46-14"><a href="us-preprocessing.html#cb46-14"></a>  sdq <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(<span class="kw">all_of</span>(sdq_emo), <span class="kw">all_of</span>(sdq_con))</span>
+<span id="cb46-15"><a href="us-preprocessing.html#cb46-15"></a>)</span>
+<span id="cb46-16"><a href="us-preprocessing.html#cb46-16"></a><span class="kw">rm</span>(sdq)</span></code></pre></div>
 </div>
-<div id="save-file" class="section level2">
+<div id="save-file" class="section level2" number="3.3">
 <h2><span class="header-section-number">3.3</span> Save file</h2>
-<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="us-preprocessing.html#cb42-1"></a>data &lt;-<span class="st"> </span>data <span class="op">%&gt;%</span></span>
-<span id="cb42-2"><a href="us-preprocessing.html#cb42-2"></a><span class="st">  </span><span class="co"># Drop all rows where sex or year is missing</span></span>
-<span id="cb42-3"><a href="us-preprocessing.html#cb42-3"></a><span class="st">  </span><span class="kw">drop_na</span>(Sex, Year)</span>
-<span id="cb42-4"><a href="us-preprocessing.html#cb42-4"></a></span>
-<span id="cb42-5"><a href="us-preprocessing.html#cb42-5"></a><span class="co"># Save file to disk</span></span>
-<span id="cb42-6"><a href="us-preprocessing.html#cb42-6"></a><span class="kw">saveRDS</span>(data, <span class="st">&quot;data/us.rds&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="us-preprocessing.html#cb47-1"></a>data &lt;-<span class="st"> </span>data <span class="op">%&gt;%</span></span>
+<span id="cb47-2"><a href="us-preprocessing.html#cb47-2"></a><span class="st">  </span><span class="co"># Drop all rows where sex or year is missing</span></span>
+<span id="cb47-3"><a href="us-preprocessing.html#cb47-3"></a><span class="st">  </span><span class="kw">drop_na</span>(Sex, Year)</span>
+<span id="cb47-4"><a href="us-preprocessing.html#cb47-4"></a></span>
+<span id="cb47-5"><a href="us-preprocessing.html#cb47-5"></a><span class="co"># Save file to disk</span></span>
+<span id="cb47-6"><a href="us-preprocessing.html#cb47-6"></a><span class="kw">saveRDS</span>(data, <span class="st">&quot;data/us.rds&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="us-preprocessing.html#cb48-1"></a><span class="kw">library</span>(sessioninfo)</span>
+<span id="cb48-2"><a href="us-preprocessing.html#cb48-2"></a><span class="kw">session_info</span>()</span></code></pre></div>
+<pre><code>## ─ Session info ───────────────────────────────────────────────────────────────
+##  setting  value                       
+##  version  R version 4.0.2 (2020-06-22)
+##  os       macOS Catalina 10.15.7      
+##  system   x86_64, darwin17.0          
+##  ui       X11                         
+##  language (EN)                        
+##  collate  en_GB.UTF-8                 
+##  ctype    en_GB.UTF-8                 
+##  tz       Europe/London               
+##  date     2020-10-02                  
+## 
+## ─ Packages ───────────────────────────────────────────────────────────────────
+##  package     * version date       lib source                              
+##  assertthat    0.2.1   2019-03-21 [1] CRAN (R 4.0.0)                      
+##  bookdown      0.20    2020-06-23 [1] CRAN (R 4.0.2)                      
+##  cli           2.0.2   2020-02-28 [1] CRAN (R 4.0.0)                      
+##  crayon        1.3.4   2017-09-16 [1] CRAN (R 4.0.0)                      
+##  digest        0.6.25  2020-02-23 [1] CRAN (R 4.0.0)                      
+##  evaluate      0.14    2019-05-28 [1] CRAN (R 4.0.0)                      
+##  fansi         0.4.1   2020-01-08 [1] CRAN (R 4.0.0)                      
+##  glue          1.4.2   2020-08-27 [1] CRAN (R 4.0.2)                      
+##  htmltools     0.5.0   2020-06-16 [1] CRAN (R 4.0.1)                      
+##  knitr         1.30    2020-09-22 [1] CRAN (R 4.0.2)                      
+##  magrittr      1.5     2014-11-22 [1] CRAN (R 4.0.0)                      
+##  rlang         0.4.7   2020-07-09 [1] CRAN (R 4.0.2)                      
+##  rmarkdown     2.4.0   2020-09-11 [1] Github (cpsievert/rmarkdown@b79fb4d)
+##  sessioninfo * 1.1.1   2018-11-05 [1] CRAN (R 4.0.0)                      
+##  stringi       1.5.3   2020-09-09 [1] CRAN (R 4.0.2)                      
+##  stringr       1.4.0   2019-02-10 [1] CRAN (R 4.0.0)                      
+##  withr         2.3.0   2020-09-22 [1] CRAN (R 4.0.2)                      
+##  xfun          0.18    2020-09-29 [1] CRAN (R 4.0.2)                      
+##  yaml          2.2.1   2020-02-01 [1] CRAN (R 4.0.0)                      
+## 
+## [1] /Library/Frameworks/R.framework/Versions/4.0/Resources/library</code></pre>
 
 </div>
 </div>

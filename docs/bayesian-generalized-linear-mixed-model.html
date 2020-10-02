@@ -24,7 +24,7 @@
 <meta name="author" content="Matti Vuorre" />
 
 
-<meta name="date" content="2020-09-02" />
+<meta name="date" content="2020-10-02" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,6 +33,7 @@
   
 <link rel="prev" href="generalized-linear-model.html"/>
 <link rel="next" href="latent-variable-models.html"/>
+<script src="libs/header-attrs-2.4.0/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -54,18 +55,17 @@
 
 
 <style type="text/css">
-code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
-code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -85,7 +85,7 @@ pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-le
 div.sourceCode
   {   }
 @media screen {
-code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -134,46 +134,58 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="./">Technology effect timecourses</a></li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Preface</a><ul>
-<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#analyses-and-reproducibility"><i class="fa fa-check"></i><b>1.1</b> Analyses and reproducibility</a></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Preface</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#analyses"><i class="fa fa-check"></i><b>1.1</b> Analyses</a></li>
 <li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#raw-data"><i class="fa fa-check"></i><b>1.2</b> Raw data</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#reproducibility"><i class="fa fa-check"></i><b>1.3</b> Reproducibility</a></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="mtf-preprocessing.html"><a href="mtf-preprocessing.html"><i class="fa fa-check"></i><b>2</b> MTF preprocessing</a><ul>
+<li class="chapter" data-level="2" data-path="mtf-preprocessing.html"><a href="mtf-preprocessing.html"><i class="fa fa-check"></i><b>2</b> MTF preprocessing</a>
+<ul>
 <li class="chapter" data-level="2.1" data-path="mtf-preprocessing.html"><a href="mtf-preprocessing.html#save-to-disk"><i class="fa fa-check"></i><b>2.1</b> Save to disk</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="us-preprocessing.html"><a href="us-preprocessing.html"><i class="fa fa-check"></i><b>3</b> US preprocessing</a><ul>
+<li class="chapter" data-level="3" data-path="us-preprocessing.html"><a href="us-preprocessing.html"><i class="fa fa-check"></i><b>3</b> US preprocessing</a>
+<ul>
 <li class="chapter" data-level="3.1" data-path="us-preprocessing.html"><a href="us-preprocessing.html#year"><i class="fa fa-check"></i><b>3.1</b> Year</a></li>
 <li class="chapter" data-level="3.2" data-path="us-preprocessing.html"><a href="us-preprocessing.html#strengths-and-difficulties"><i class="fa fa-check"></i><b>3.2</b> Strengths and difficulties</a></li>
 <li class="chapter" data-level="3.3" data-path="us-preprocessing.html"><a href="us-preprocessing.html#save-file"><i class="fa fa-check"></i><b>3.3</b> Save file</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="yrbs-preprocessing.html"><a href="yrbs-preprocessing.html"><i class="fa fa-check"></i><b>4</b> YRBS preprocessing</a><ul>
+<li class="chapter" data-level="4" data-path="yrbs-preprocessing.html"><a href="yrbs-preprocessing.html"><i class="fa fa-check"></i><b>4</b> YRBS preprocessing</a>
+<ul>
 <li class="chapter" data-level="4.1" data-path="yrbs-preprocessing.html"><a href="yrbs-preprocessing.html#recode-variables"><i class="fa fa-check"></i><b>4.1</b> Recode Variables</a></li>
 <li class="chapter" data-level="4.2" data-path="yrbs-preprocessing.html"><a href="yrbs-preprocessing.html#age"><i class="fa fa-check"></i><b>4.2</b> Age</a></li>
 <li class="chapter" data-level="4.3" data-path="yrbs-preprocessing.html"><a href="yrbs-preprocessing.html#tech-variables"><i class="fa fa-check"></i><b>4.3</b> Tech variables</a></li>
 <li class="chapter" data-level="4.4" data-path="yrbs-preprocessing.html"><a href="yrbs-preprocessing.html#sex"><i class="fa fa-check"></i><b>4.4</b> Sex</a></li>
 <li class="chapter" data-level="4.5" data-path="yrbs-preprocessing.html"><a href="yrbs-preprocessing.html#rename-and-save"><i class="fa fa-check"></i><b>4.5</b> Rename and save</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="data-descriptives.html"><a href="data-descriptives.html"><i class="fa fa-check"></i><b>5</b> Data descriptives</a><ul>
-<li class="chapter" data-level="5.1" data-path="data-descriptives.html"><a href="data-descriptives.html#data"><i class="fa fa-check"></i><b>5.1</b> Data</a><ul>
+<li class="chapter" data-level="5" data-path="data-descriptives.html"><a href="data-descriptives.html"><i class="fa fa-check"></i><b>5</b> Data descriptives</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="data-descriptives.html"><a href="data-descriptives.html#data"><i class="fa fa-check"></i><b>5.1</b> Data</a>
+<ul>
 <li class="chapter" data-level="5.1.1" data-path="data-descriptives.html"><a href="data-descriptives.html#sample-sizes-and-years"><i class="fa fa-check"></i><b>5.1.1</b> Sample sizes and years</a></li>
-<li class="chapter" data-level="5.1.2" data-path="data-descriptives.html"><a href="data-descriptives.html#outcomes"><i class="fa fa-check"></i><b>5.1.2</b> Outcomes</a></li>
+<li class="chapter" data-level="5.1.2" data-path="data-descriptives.html"><a href="data-descriptives.html#missingness"><i class="fa fa-check"></i><b>5.1.2</b> Missingness</a></li>
+<li class="chapter" data-level="5.1.3" data-path="data-descriptives.html"><a href="data-descriptives.html#outcomes"><i class="fa fa-check"></i><b>5.1.3</b> Outcomes</a></li>
 </ul></li>
 <li class="chapter" data-level="5.2" data-path="data-descriptives.html"><a href="data-descriptives.html#figures"><i class="fa fa-check"></i><b>5.2</b> Figures</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="generalized-linear-model.html"><a href="generalized-linear-model.html"><i class="fa fa-check"></i><b>6</b> Generalized Linear Model</a><ul>
+<li class="chapter" data-level="6" data-path="generalized-linear-model.html"><a href="generalized-linear-model.html"><i class="fa fa-check"></i><b>6</b> Generalized Linear Model</a>
+<ul>
 <li class="chapter" data-level="6.1" data-path="data-descriptives.html"><a href="data-descriptives.html#data"><i class="fa fa-check"></i><b>6.1</b> Data</a></li>
 <li class="chapter" data-level="6.2" data-path="generalized-linear-model.html"><a href="generalized-linear-model.html#yearly-correlations-figure"><i class="fa fa-check"></i><b>6.2</b> Yearly correlations figure</a></li>
 <li class="chapter" data-level="6.3" data-path="generalized-linear-model.html"><a href="generalized-linear-model.html#models"><i class="fa fa-check"></i><b>6.3</b> Models</a></li>
 <li class="chapter" data-level="6.4" data-path="generalized-linear-model.html"><a href="generalized-linear-model.html#results"><i class="fa fa-check"></i><b>6.4</b> Results</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="bayesian-generalized-linear-mixed-model.html"><a href="bayesian-generalized-linear-mixed-model.html"><i class="fa fa-check"></i><b>7</b> Bayesian Generalized Linear Mixed Model</a><ul>
+<li class="chapter" data-level="7" data-path="bayesian-generalized-linear-mixed-model.html"><a href="bayesian-generalized-linear-mixed-model.html"><i class="fa fa-check"></i><b>7</b> Bayesian Generalized Linear Mixed Model</a>
+<ul>
 <li class="chapter" data-level="7.1" data-path="data-descriptives.html"><a href="data-descriptives.html#data"><i class="fa fa-check"></i><b>7.1</b> Data</a></li>
-<li class="chapter" data-level="7.2" data-path="generalized-linear-model.html"><a href="generalized-linear-model.html#models"><i class="fa fa-check"></i><b>7.2</b> Models</a><ul>
+<li class="chapter" data-level="7.2" data-path="generalized-linear-model.html"><a href="generalized-linear-model.html#models"><i class="fa fa-check"></i><b>7.2</b> Models</a>
+<ul>
 <li class="chapter" data-level="7.2.1" data-path="bayesian-generalized-linear-mixed-model.html"><a href="bayesian-generalized-linear-mixed-model.html#estimate"><i class="fa fa-check"></i><b>7.2.1</b> Estimate</a></li>
-<li class="chapter" data-level="7.2.2" data-path="bayesian-generalized-linear-mixed-model.html"><a href="bayesian-generalized-linear-mixed-model.html#year-and-tech"><i class="fa fa-check"></i><b>7.2.2</b> Year and tech</a></li>
+<li class="chapter" data-level="7.2.2" data-path="generalized-linear-model.html"><a href="generalized-linear-model.html#results"><i class="fa fa-check"></i><b>7.2.2</b> Results</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="latent-variable-models.html"><a href="latent-variable-models.html"><i class="fa fa-check"></i><b>8</b> Latent Variable Models</a><ul>
+<li class="chapter" data-level="8" data-path="latent-variable-models.html"><a href="latent-variable-models.html"><i class="fa fa-check"></i><b>8</b> Latent Variable Models</a>
+<ul>
 <li class="chapter" data-level="8.1" data-path="data-descriptives.html"><a href="data-descriptives.html#data"><i class="fa fa-check"></i><b>8.1</b> Data</a></li>
 <li class="chapter" data-level="8.2" data-path="generalized-linear-model.html"><a href="generalized-linear-model.html#models"><i class="fa fa-check"></i><b>8.2</b> Models</a></li>
 <li class="chapter" data-level="8.3" data-path="generalized-linear-model.html"><a href="generalized-linear-model.html#results"><i class="fa fa-check"></i><b>8.3</b> Results</a></li>
@@ -195,238 +207,509 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="bayesian-generalized-linear-mixed-model" class="section level1">
+<div id="bayesian-generalized-linear-mixed-model" class="section level1" number="7">
 <h1><span class="header-section-number">Chapter 7</span> Bayesian Generalized Linear Mixed Model</h1>
 <p>For each dataset and outcome, we fit a GLMM using brms, in order to do full bayesian inference. These models take a while to run.</p>
-<div id="data" class="section level2">
+<div id="data" class="section level2" number="7.1">
 <h2><span class="header-section-number">7.1</span> Data</h2>
-<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb83-1"><a href="bayesian-generalized-linear-mixed-model.html#cb83-1"></a>mtf &lt;-<span class="st"> </span><span class="kw">read_rds</span>(<span class="st">&quot;data/mtf.rds&quot;</span>)</span>
-<span id="cb83-2"><a href="bayesian-generalized-linear-mixed-model.html#cb83-2"></a>us &lt;-<span class="st"> </span><span class="kw">read_rds</span>(<span class="st">&quot;data/us.rds&quot;</span>)</span>
-<span id="cb83-3"><a href="bayesian-generalized-linear-mixed-model.html#cb83-3"></a>yrbs &lt;-<span class="st"> </span><span class="kw">read_rds</span>(<span class="st">&quot;data/yrbs.rds&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb98-1"><a href="bayesian-generalized-linear-mixed-model.html#cb98-1"></a>mtf &lt;-<span class="st"> </span><span class="kw">read_rds</span>(<span class="st">&quot;data/mtf.rds&quot;</span>)</span>
+<span id="cb98-2"><a href="bayesian-generalized-linear-mixed-model.html#cb98-2"></a>us &lt;-<span class="st"> </span><span class="kw">read_rds</span>(<span class="st">&quot;data/us.rds&quot;</span>)</span>
+<span id="cb98-3"><a href="bayesian-generalized-linear-mixed-model.html#cb98-3"></a>yrbs &lt;-<span class="st"> </span><span class="kw">read_rds</span>(<span class="st">&quot;data/yrbs.rds&quot;</span>)</span></code></pre></div>
 <p>For US, we also isolate between- and within-person variables.</p>
-<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb84-1"><a href="bayesian-generalized-linear-mixed-model.html#cb84-1"></a><span class="co"># Within-person center variables (Vuorre &amp; Bolger, 2017)</span></span>
-<span id="cb84-2"><a href="bayesian-generalized-linear-mixed-model.html#cb84-2"></a>us &lt;-<span class="st"> </span>bmlm<span class="op">::</span><span class="kw">isolate</span>(us, <span class="st">&quot;pidp&quot;</span>, <span class="st">&quot;TV&quot;</span>, <span class="dt">which =</span> <span class="st">&quot;both&quot;</span>, <span class="dt">z =</span> <span class="ot">TRUE</span>)</span>
-<span id="cb84-3"><a href="bayesian-generalized-linear-mixed-model.html#cb84-3"></a>us &lt;-<span class="st"> </span>bmlm<span class="op">::</span><span class="kw">isolate</span>(us, <span class="st">&quot;pidp&quot;</span>, <span class="st">&quot;SM&quot;</span>, <span class="dt">which =</span> <span class="st">&quot;both&quot;</span>, <span class="dt">z =</span> <span class="ot">TRUE</span>)</span>
-<span id="cb84-4"><a href="bayesian-generalized-linear-mixed-model.html#cb84-4"></a>us &lt;-<span class="st"> </span>us <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(<span class="op">-</span>TV, <span class="op">-</span>SM)</span>
-<span id="cb84-5"><a href="bayesian-generalized-linear-mixed-model.html#cb84-5"></a><span class="co"># We focus on between-person relations so rename those back</span></span>
-<span id="cb84-6"><a href="bayesian-generalized-linear-mixed-model.html#cb84-6"></a>us &lt;-<span class="st"> </span>us <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">rename</span>(<span class="dt">TV =</span> TV_cb, <span class="dt">SM =</span> SM_cb)</span></code></pre></div>
+<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="bayesian-generalized-linear-mixed-model.html#cb99-1"></a><span class="co"># Within-person center variables (Vuorre &amp; Bolger, 2017)</span></span>
+<span id="cb99-2"><a href="bayesian-generalized-linear-mixed-model.html#cb99-2"></a>us &lt;-<span class="st"> </span>bmlm<span class="op">::</span><span class="kw">isolate</span>(us, <span class="st">&quot;pidp&quot;</span>, <span class="st">&quot;TV&quot;</span>, <span class="dt">which =</span> <span class="st">&quot;both&quot;</span>, <span class="dt">z =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb99-3"><a href="bayesian-generalized-linear-mixed-model.html#cb99-3"></a>us &lt;-<span class="st"> </span>bmlm<span class="op">::</span><span class="kw">isolate</span>(us, <span class="st">&quot;pidp&quot;</span>, <span class="st">&quot;SM&quot;</span>, <span class="dt">which =</span> <span class="st">&quot;both&quot;</span>, <span class="dt">z =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb99-4"><a href="bayesian-generalized-linear-mixed-model.html#cb99-4"></a>us &lt;-<span class="st"> </span>us <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(<span class="op">-</span>TV, <span class="op">-</span>SM)</span>
+<span id="cb99-5"><a href="bayesian-generalized-linear-mixed-model.html#cb99-5"></a><span class="co"># We focus on between-person relations so rename those back</span></span>
+<span id="cb99-6"><a href="bayesian-generalized-linear-mixed-model.html#cb99-6"></a>us &lt;-<span class="st"> </span>us <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">rename</span>(<span class="dt">TV =</span> TV_cb, <span class="dt">SM =</span> SM_cb)</span></code></pre></div>
 <p>YRBS is in long format wrt items</p>
-<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb85-1"><a href="bayesian-generalized-linear-mixed-model.html#cb85-1"></a>yrbs &lt;-<span class="st"> </span>yrbs <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb85-2"><a href="bayesian-generalized-linear-mixed-model.html#cb85-2"></a><span class="st">  </span><span class="kw">select</span>(<span class="op">-</span>suicide_<span class="dv">4</span>, <span class="op">-</span>Suicide) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb85-3"><a href="bayesian-generalized-linear-mixed-model.html#cb85-3"></a><span class="st">  </span><span class="kw">pivot_longer</span>(</span>
-<span id="cb85-4"><a href="bayesian-generalized-linear-mixed-model.html#cb85-4"></a>    sad_lonely<span class="op">:</span>suicide_<span class="dv">3</span>, </span>
-<span id="cb85-5"><a href="bayesian-generalized-linear-mixed-model.html#cb85-5"></a>    <span class="dt">names_to =</span> <span class="st">&quot;item&quot;</span>, <span class="dt">values_to =</span> <span class="st">&quot;Suicide&quot;</span></span>
-<span id="cb85-6"><a href="bayesian-generalized-linear-mixed-model.html#cb85-6"></a>  )</span></code></pre></div>
+<div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb100-1"><a href="bayesian-generalized-linear-mixed-model.html#cb100-1"></a>yrbs &lt;-<span class="st"> </span>yrbs <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb100-2"><a href="bayesian-generalized-linear-mixed-model.html#cb100-2"></a><span class="st">  </span><span class="kw">select</span>(<span class="op">-</span>suicide_<span class="dv">4</span>, <span class="op">-</span>Suicide) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb100-3"><a href="bayesian-generalized-linear-mixed-model.html#cb100-3"></a><span class="st">  </span><span class="kw">pivot_longer</span>(</span>
+<span id="cb100-4"><a href="bayesian-generalized-linear-mixed-model.html#cb100-4"></a>    sad_lonely<span class="op">:</span>suicide_<span class="dv">3</span>, </span>
+<span id="cb100-5"><a href="bayesian-generalized-linear-mixed-model.html#cb100-5"></a>    <span class="dt">names_to =</span> <span class="st">&quot;item&quot;</span>, <span class="dt">values_to =</span> <span class="st">&quot;Suicide&quot;</span></span>
+<span id="cb100-6"><a href="bayesian-generalized-linear-mixed-model.html#cb100-6"></a>  )</span></code></pre></div>
 </div>
-<div id="models" class="section level2">
+<div id="models" class="section level2" number="7.2">
 <h2><span class="header-section-number">7.2</span> Models</h2>
-<div id="estimate" class="section level3">
+<div id="estimate" class="section level3" number="7.2.1">
 <h3><span class="header-section-number">7.2.1</span> Estimate</h3>
 <p>MTF: Single level model
 US: Random intercepts for participants. 85% of participants have only 1 or 2 observations, so random slopes without strong priors are not a good idea.
 YRBS: Full item-specific random effects.</p>
-<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb86-1"><a href="bayesian-generalized-linear-mixed-model.html#cb86-1"></a>fit &lt;-<span class="st"> </span><span class="cf">function</span>(data, name, x, y, <span class="dt">iter =</span> <span class="dv">1000</span>, <span class="dt">chains =</span> <span class="dv">12</span>, <span class="dt">cores =</span> <span class="dv">12</span>) {</span>
-<span id="cb86-2"><a href="bayesian-generalized-linear-mixed-model.html#cb86-2"></a>  data &lt;-<span class="st"> </span><span class="kw">drop_na</span>(data, <span class="kw">all_of</span>(x), <span class="kw">all_of</span>(y))</span>
-<span id="cb86-3"><a href="bayesian-generalized-linear-mixed-model.html#cb86-3"></a>  data &lt;-<span class="st"> </span><span class="kw">mutate</span>(data, <span class="dt">Year =</span> Year <span class="op">-</span><span class="st"> </span><span class="dv">2017</span>)</span>
-<span id="cb86-4"><a href="bayesian-generalized-linear-mixed-model.html#cb86-4"></a>  <span class="cf">if</span> (name<span class="op">==</span><span class="st">&quot;YRBS&quot;</span>) {</span>
-<span id="cb86-5"><a href="bayesian-generalized-linear-mixed-model.html#cb86-5"></a>    data &lt;-<span class="st"> </span>data <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb86-6"><a href="bayesian-generalized-linear-mixed-model.html#cb86-6"></a><span class="st">      </span><span class="kw">mutate</span>(<span class="kw">across</span>(<span class="kw">all_of</span>(x), <span class="op">~</span><span class="kw">as.numeric</span>(<span class="kw">scale</span>(.))))</span>
-<span id="cb86-7"><a href="bayesian-generalized-linear-mixed-model.html#cb86-7"></a>    ml1 &lt;-<span class="st"> </span><span class="kw">brm</span>(</span>
-<span id="cb86-8"><a href="bayesian-generalized-linear-mixed-model.html#cb86-8"></a>      <span class="kw">str_glue</span>(<span class="st">&quot;{y} ~ Sex * Year * {x} + (Sex * Year * {x} | item)&quot;</span>), </span>
-<span id="cb86-9"><a href="bayesian-generalized-linear-mixed-model.html#cb86-9"></a>      <span class="dt">family =</span> <span class="kw">bernoulli</span>(<span class="st">&quot;probit_approx&quot;</span>),</span>
-<span id="cb86-10"><a href="bayesian-generalized-linear-mixed-model.html#cb86-10"></a>      <span class="dt">control =</span> <span class="kw">list</span>(<span class="dt">adapt_delta =</span> <span class="fl">.98</span>),</span>
-<span id="cb86-11"><a href="bayesian-generalized-linear-mixed-model.html#cb86-11"></a>      <span class="dt">prior =</span> <span class="kw">prior</span>(<span class="kw">student_t</span>(<span class="dv">9</span>, <span class="dv">0</span>, <span class="dv">1</span>), <span class="dt">class =</span> <span class="st">&quot;sd&quot;</span>) <span class="op">+</span></span>
-<span id="cb86-12"><a href="bayesian-generalized-linear-mixed-model.html#cb86-12"></a><span class="st">        </span><span class="kw">prior</span>(<span class="kw">normal</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="dt">class =</span> <span class="st">&quot;b&quot;</span>),</span>
-<span id="cb86-13"><a href="bayesian-generalized-linear-mixed-model.html#cb86-13"></a>      <span class="dt">inits =</span> <span class="st">&quot;0&quot;</span>,</span>
-<span id="cb86-14"><a href="bayesian-generalized-linear-mixed-model.html#cb86-14"></a>      <span class="dt">data =</span> data, <span class="dt">chains =</span> chains, <span class="dt">iter =</span> iter, <span class="dt">cores =</span> cores,</span>
-<span id="cb86-15"><a href="bayesian-generalized-linear-mixed-model.html#cb86-15"></a>      <span class="dt">file =</span> <span class="kw">str_glue</span>(<span class="st">&quot;models/brm-{name}-{x}-{y}-ml1-probit&quot;</span>)</span>
-<span id="cb86-16"><a href="bayesian-generalized-linear-mixed-model.html#cb86-16"></a>    )</span>
-<span id="cb86-17"><a href="bayesian-generalized-linear-mixed-model.html#cb86-17"></a>  } <span class="cf">else</span> <span class="cf">if</span> (name<span class="op">==</span><span class="st">&quot;MTF&quot;</span>) {</span>
-<span id="cb86-18"><a href="bayesian-generalized-linear-mixed-model.html#cb86-18"></a>    data &lt;-<span class="st"> </span>data <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb86-19"><a href="bayesian-generalized-linear-mixed-model.html#cb86-19"></a><span class="st">      </span><span class="kw">mutate</span>(<span class="kw">across</span>(<span class="kw">c</span>(<span class="kw">all_of</span>(x), <span class="kw">all_of</span>(y)), <span class="op">~</span><span class="kw">as.numeric</span>(<span class="kw">scale</span>(.))))</span>
-<span id="cb86-20"><a href="bayesian-generalized-linear-mixed-model.html#cb86-20"></a>    ml1 &lt;-<span class="st"> </span><span class="kw">brm</span>(</span>
-<span id="cb86-21"><a href="bayesian-generalized-linear-mixed-model.html#cb86-21"></a>      <span class="kw">str_glue</span>(<span class="st">&quot;{y} ~ Sex * Year * {x}&quot;</span>), </span>
-<span id="cb86-22"><a href="bayesian-generalized-linear-mixed-model.html#cb86-22"></a>      <span class="dt">control =</span> <span class="kw">list</span>(<span class="dt">adapt_delta =</span> <span class="fl">.9</span>),</span>
-<span id="cb86-23"><a href="bayesian-generalized-linear-mixed-model.html#cb86-23"></a>      <span class="dt">data =</span> data, <span class="dt">chains =</span> chains, <span class="dt">iter =</span> iter, <span class="dt">cores =</span> cores,</span>
-<span id="cb86-24"><a href="bayesian-generalized-linear-mixed-model.html#cb86-24"></a>      <span class="dt">file =</span> <span class="kw">str_glue</span>(<span class="st">&quot;models/brm-{name}-{x}-{y}-ml1&quot;</span>)</span>
-<span id="cb86-25"><a href="bayesian-generalized-linear-mixed-model.html#cb86-25"></a>    )</span>
-<span id="cb86-26"><a href="bayesian-generalized-linear-mixed-model.html#cb86-26"></a>  } <span class="cf">else</span> <span class="cf">if</span> (name<span class="op">==</span><span class="st">&quot;US&quot;</span>) {</span>
-<span id="cb86-27"><a href="bayesian-generalized-linear-mixed-model.html#cb86-27"></a>    data &lt;-<span class="st"> </span>data <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb86-28"><a href="bayesian-generalized-linear-mixed-model.html#cb86-28"></a><span class="st">      </span><span class="kw">mutate</span>(<span class="kw">across</span>(<span class="kw">c</span>(<span class="kw">all_of</span>(x), <span class="kw">all_of</span>(y)), <span class="op">~</span><span class="kw">as.numeric</span>(<span class="kw">scale</span>(.))))</span>
-<span id="cb86-29"><a href="bayesian-generalized-linear-mixed-model.html#cb86-29"></a>    ml1 &lt;-<span class="st"> </span><span class="kw">brm</span>(</span>
-<span id="cb86-30"><a href="bayesian-generalized-linear-mixed-model.html#cb86-30"></a>      <span class="kw">str_glue</span>(<span class="st">&quot;{y} ~ Sex * Year * {x} + (1 | pidp)&quot;</span>), </span>
-<span id="cb86-31"><a href="bayesian-generalized-linear-mixed-model.html#cb86-31"></a>      <span class="dt">control =</span> <span class="kw">list</span>(<span class="dt">adapt_delta =</span> <span class="fl">.9</span>),</span>
-<span id="cb86-32"><a href="bayesian-generalized-linear-mixed-model.html#cb86-32"></a>      <span class="dt">data =</span> data, <span class="dt">chains =</span> chains, <span class="dt">iter =</span> iter, <span class="dt">cores =</span> cores,</span>
-<span id="cb86-33"><a href="bayesian-generalized-linear-mixed-model.html#cb86-33"></a>      <span class="dt">file =</span> <span class="kw">str_glue</span>(<span class="st">&quot;models/brm-{name}-{x}-{y}-ml1&quot;</span>)</span>
-<span id="cb86-34"><a href="bayesian-generalized-linear-mixed-model.html#cb86-34"></a>    )</span>
-<span id="cb86-35"><a href="bayesian-generalized-linear-mixed-model.html#cb86-35"></a>  }</span>
-<span id="cb86-36"><a href="bayesian-generalized-linear-mixed-model.html#cb86-36"></a>  <span class="kw">tibble</span>(</span>
-<span id="cb86-37"><a href="bayesian-generalized-linear-mixed-model.html#cb86-37"></a>    <span class="dt">data =</span> name,</span>
-<span id="cb86-38"><a href="bayesian-generalized-linear-mixed-model.html#cb86-38"></a>    <span class="dt">Technology =</span> x,</span>
-<span id="cb86-39"><a href="bayesian-generalized-linear-mixed-model.html#cb86-39"></a>    <span class="dt">Outcome =</span> y,</span>
-<span id="cb86-40"><a href="bayesian-generalized-linear-mixed-model.html#cb86-40"></a>    <span class="dt">ml1 =</span> <span class="kw">list</span>(ml1)</span>
-<span id="cb86-41"><a href="bayesian-generalized-linear-mixed-model.html#cb86-41"></a>  )</span>
-<span id="cb86-42"><a href="bayesian-generalized-linear-mixed-model.html#cb86-42"></a>}</span></code></pre></div>
-<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb87-1"><a href="bayesian-generalized-linear-mixed-model.html#cb87-1"></a>x1 &lt;-<span class="st"> </span><span class="kw">fit</span>(yrbs, <span class="st">&quot;YRBS&quot;</span>, <span class="st">&quot;TV&quot;</span>, <span class="st">&quot;Suicide&quot;</span>)</span>
-<span id="cb87-2"><a href="bayesian-generalized-linear-mixed-model.html#cb87-2"></a>x2 &lt;-<span class="st"> </span><span class="kw">fit</span>(yrbs, <span class="st">&quot;YRBS&quot;</span>, <span class="st">&quot;DV&quot;</span>, <span class="st">&quot;Suicide&quot;</span>)</span>
-<span id="cb87-3"><a href="bayesian-generalized-linear-mixed-model.html#cb87-3"></a>x3 &lt;-<span class="st"> </span><span class="kw">fit</span>(mtf, <span class="st">&quot;MTF&quot;</span>, <span class="st">&quot;TV&quot;</span>, <span class="st">&quot;Depression&quot;</span>)</span>
-<span id="cb87-4"><a href="bayesian-generalized-linear-mixed-model.html#cb87-4"></a>x4 &lt;-<span class="st"> </span><span class="kw">fit</span>(mtf, <span class="st">&quot;MTF&quot;</span>, <span class="st">&quot;SM&quot;</span>, <span class="st">&quot;Depression&quot;</span>)</span>
-<span id="cb87-5"><a href="bayesian-generalized-linear-mixed-model.html#cb87-5"></a>x5 &lt;-<span class="st"> </span><span class="kw">fit</span>(us, <span class="st">&quot;US&quot;</span>, <span class="st">&quot;SM&quot;</span>, <span class="st">&quot;Emotion&quot;</span>)</span>
-<span id="cb87-6"><a href="bayesian-generalized-linear-mixed-model.html#cb87-6"></a>x6 &lt;-<span class="st"> </span><span class="kw">fit</span>(us, <span class="st">&quot;US&quot;</span>, <span class="st">&quot;SM&quot;</span>, <span class="st">&quot;Conduct&quot;</span>)</span>
-<span id="cb87-7"><a href="bayesian-generalized-linear-mixed-model.html#cb87-7"></a>x7 &lt;-<span class="st"> </span><span class="kw">fit</span>(us, <span class="st">&quot;US&quot;</span>, <span class="st">&quot;TV&quot;</span>, <span class="st">&quot;Emotion&quot;</span>)</span>
-<span id="cb87-8"><a href="bayesian-generalized-linear-mixed-model.html#cb87-8"></a>x8 &lt;-<span class="st"> </span><span class="kw">fit</span>(us, <span class="st">&quot;US&quot;</span>, <span class="st">&quot;TV&quot;</span>, <span class="st">&quot;Conduct&quot;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="bayesian-generalized-linear-mixed-model.html#cb88-1"></a><span class="co"># Rename variables</span></span>
-<span id="cb88-2"><a href="bayesian-generalized-linear-mixed-model.html#cb88-2"></a>fits &lt;-<span class="st"> </span><span class="kw">bind_rows</span>(x1,x2,x3,x4,x5,x6,x7,x8)</span>
-<span id="cb88-3"><a href="bayesian-generalized-linear-mixed-model.html#cb88-3"></a>fits &lt;-<span class="st"> </span>fits <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb88-4"><a href="bayesian-generalized-linear-mixed-model.html#cb88-4"></a><span class="st">  </span><span class="kw">mutate</span>(</span>
-<span id="cb88-5"><a href="bayesian-generalized-linear-mixed-model.html#cb88-5"></a>    <span class="dt">Technology =</span> <span class="kw">ifelse</span>(</span>
-<span id="cb88-6"><a href="bayesian-generalized-linear-mixed-model.html#cb88-6"></a>      Technology <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;SM&quot;</span>, <span class="st">&quot;DV&quot;</span>), </span>
-<span id="cb88-7"><a href="bayesian-generalized-linear-mixed-model.html#cb88-7"></a>      <span class="st">&quot;Social media / device&quot;</span>, </span>
-<span id="cb88-8"><a href="bayesian-generalized-linear-mixed-model.html#cb88-8"></a>      <span class="st">&quot;Television&quot;</span></span>
-<span id="cb88-9"><a href="bayesian-generalized-linear-mixed-model.html#cb88-9"></a>    )</span>
-<span id="cb88-10"><a href="bayesian-generalized-linear-mixed-model.html#cb88-10"></a>  )</span></code></pre></div>
+<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="bayesian-generalized-linear-mixed-model.html#cb101-1"></a>fit &lt;-<span class="st"> </span><span class="cf">function</span>(data, name, x, y, <span class="dt">iter =</span> <span class="dv">1000</span>, <span class="dt">chains =</span> <span class="dv">12</span>, <span class="dt">cores =</span> <span class="dv">12</span>) {</span>
+<span id="cb101-2"><a href="bayesian-generalized-linear-mixed-model.html#cb101-2"></a>  data &lt;-<span class="st"> </span><span class="kw">drop_na</span>(data, <span class="kw">all_of</span>(x), <span class="kw">all_of</span>(y))</span>
+<span id="cb101-3"><a href="bayesian-generalized-linear-mixed-model.html#cb101-3"></a>  data &lt;-<span class="st"> </span><span class="kw">mutate</span>(data, <span class="dt">Year =</span> Year <span class="op">-</span><span class="st"> </span><span class="dv">2017</span>)</span>
+<span id="cb101-4"><a href="bayesian-generalized-linear-mixed-model.html#cb101-4"></a>  <span class="cf">if</span> (name<span class="op">==</span><span class="st">&quot;YRBS&quot;</span>) {</span>
+<span id="cb101-5"><a href="bayesian-generalized-linear-mixed-model.html#cb101-5"></a>    data &lt;-<span class="st"> </span>data <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb101-6"><a href="bayesian-generalized-linear-mixed-model.html#cb101-6"></a><span class="st">      </span><span class="kw">mutate</span>(<span class="kw">across</span>(<span class="kw">all_of</span>(x), <span class="op">~</span><span class="kw">as.numeric</span>(<span class="kw">scale</span>(.))))</span>
+<span id="cb101-7"><a href="bayesian-generalized-linear-mixed-model.html#cb101-7"></a>    ml1 &lt;-<span class="st"> </span><span class="kw">brm</span>(</span>
+<span id="cb101-8"><a href="bayesian-generalized-linear-mixed-model.html#cb101-8"></a>      <span class="kw">str_glue</span>(<span class="st">&quot;{y} ~ Sex * Year * {x} + (Sex * Year * {x} | item)&quot;</span>), </span>
+<span id="cb101-9"><a href="bayesian-generalized-linear-mixed-model.html#cb101-9"></a>      <span class="dt">family =</span> <span class="kw">bernoulli</span>(<span class="st">&quot;probit_approx&quot;</span>),</span>
+<span id="cb101-10"><a href="bayesian-generalized-linear-mixed-model.html#cb101-10"></a>      <span class="dt">control =</span> <span class="kw">list</span>(<span class="dt">adapt_delta =</span> <span class="fl">.98</span>),</span>
+<span id="cb101-11"><a href="bayesian-generalized-linear-mixed-model.html#cb101-11"></a>      <span class="dt">prior =</span> <span class="kw">prior</span>(<span class="kw">student_t</span>(<span class="dv">9</span>, <span class="dv">0</span>, <span class="dv">1</span>), <span class="dt">class =</span> <span class="st">&quot;sd&quot;</span>) <span class="op">+</span></span>
+<span id="cb101-12"><a href="bayesian-generalized-linear-mixed-model.html#cb101-12"></a><span class="st">        </span><span class="kw">prior</span>(<span class="kw">normal</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="dt">class =</span> <span class="st">&quot;b&quot;</span>),</span>
+<span id="cb101-13"><a href="bayesian-generalized-linear-mixed-model.html#cb101-13"></a>      <span class="dt">inits =</span> <span class="st">&quot;0&quot;</span>,</span>
+<span id="cb101-14"><a href="bayesian-generalized-linear-mixed-model.html#cb101-14"></a>      <span class="dt">data =</span> data, <span class="dt">chains =</span> chains, <span class="dt">iter =</span> iter, <span class="dt">cores =</span> cores,</span>
+<span id="cb101-15"><a href="bayesian-generalized-linear-mixed-model.html#cb101-15"></a>      <span class="dt">file =</span> <span class="kw">str_glue</span>(<span class="st">&quot;models/brm-{name}-{x}-{y}-ml1-probit&quot;</span>)</span>
+<span id="cb101-16"><a href="bayesian-generalized-linear-mixed-model.html#cb101-16"></a>    )</span>
+<span id="cb101-17"><a href="bayesian-generalized-linear-mixed-model.html#cb101-17"></a>  } <span class="cf">else</span> <span class="cf">if</span> (name<span class="op">==</span><span class="st">&quot;MTF&quot;</span>) {</span>
+<span id="cb101-18"><a href="bayesian-generalized-linear-mixed-model.html#cb101-18"></a>    data &lt;-<span class="st"> </span>data <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb101-19"><a href="bayesian-generalized-linear-mixed-model.html#cb101-19"></a><span class="st">      </span><span class="kw">mutate</span>(<span class="kw">across</span>(<span class="kw">c</span>(<span class="kw">all_of</span>(x), <span class="kw">all_of</span>(y)), <span class="op">~</span><span class="kw">as.numeric</span>(<span class="kw">scale</span>(.))))</span>
+<span id="cb101-20"><a href="bayesian-generalized-linear-mixed-model.html#cb101-20"></a>    ml1 &lt;-<span class="st"> </span><span class="kw">brm</span>(</span>
+<span id="cb101-21"><a href="bayesian-generalized-linear-mixed-model.html#cb101-21"></a>      <span class="kw">str_glue</span>(<span class="st">&quot;{y} ~ Sex * Year * {x}&quot;</span>), </span>
+<span id="cb101-22"><a href="bayesian-generalized-linear-mixed-model.html#cb101-22"></a>      <span class="dt">control =</span> <span class="kw">list</span>(<span class="dt">adapt_delta =</span> <span class="fl">.9</span>),</span>
+<span id="cb101-23"><a href="bayesian-generalized-linear-mixed-model.html#cb101-23"></a>      <span class="dt">data =</span> data, <span class="dt">chains =</span> chains, <span class="dt">iter =</span> iter, <span class="dt">cores =</span> cores,</span>
+<span id="cb101-24"><a href="bayesian-generalized-linear-mixed-model.html#cb101-24"></a>      <span class="dt">file =</span> <span class="kw">str_glue</span>(<span class="st">&quot;models/brm-{name}-{x}-{y}-ml1&quot;</span>)</span>
+<span id="cb101-25"><a href="bayesian-generalized-linear-mixed-model.html#cb101-25"></a>    )</span>
+<span id="cb101-26"><a href="bayesian-generalized-linear-mixed-model.html#cb101-26"></a>  } <span class="cf">else</span> <span class="cf">if</span> (name<span class="op">==</span><span class="st">&quot;US&quot;</span>) {</span>
+<span id="cb101-27"><a href="bayesian-generalized-linear-mixed-model.html#cb101-27"></a>    data &lt;-<span class="st"> </span>data <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb101-28"><a href="bayesian-generalized-linear-mixed-model.html#cb101-28"></a><span class="st">      </span><span class="kw">mutate</span>(<span class="kw">across</span>(<span class="kw">c</span>(<span class="kw">all_of</span>(x), <span class="kw">all_of</span>(y)), <span class="op">~</span><span class="kw">as.numeric</span>(<span class="kw">scale</span>(.))))</span>
+<span id="cb101-29"><a href="bayesian-generalized-linear-mixed-model.html#cb101-29"></a>    ml1 &lt;-<span class="st"> </span><span class="kw">brm</span>(</span>
+<span id="cb101-30"><a href="bayesian-generalized-linear-mixed-model.html#cb101-30"></a>      <span class="kw">str_glue</span>(<span class="st">&quot;{y} ~ Sex * Year * {x} + (1 | pidp)&quot;</span>), </span>
+<span id="cb101-31"><a href="bayesian-generalized-linear-mixed-model.html#cb101-31"></a>      <span class="dt">control =</span> <span class="kw">list</span>(<span class="dt">adapt_delta =</span> <span class="fl">.9</span>),</span>
+<span id="cb101-32"><a href="bayesian-generalized-linear-mixed-model.html#cb101-32"></a>      <span class="dt">data =</span> data, <span class="dt">chains =</span> chains, <span class="dt">iter =</span> iter, <span class="dt">cores =</span> cores,</span>
+<span id="cb101-33"><a href="bayesian-generalized-linear-mixed-model.html#cb101-33"></a>      <span class="dt">file =</span> <span class="kw">str_glue</span>(<span class="st">&quot;models/brm-{name}-{x}-{y}-ml1&quot;</span>)</span>
+<span id="cb101-34"><a href="bayesian-generalized-linear-mixed-model.html#cb101-34"></a>    )</span>
+<span id="cb101-35"><a href="bayesian-generalized-linear-mixed-model.html#cb101-35"></a>  }</span>
+<span id="cb101-36"><a href="bayesian-generalized-linear-mixed-model.html#cb101-36"></a>  <span class="kw">tibble</span>(</span>
+<span id="cb101-37"><a href="bayesian-generalized-linear-mixed-model.html#cb101-37"></a>    <span class="dt">data =</span> name,</span>
+<span id="cb101-38"><a href="bayesian-generalized-linear-mixed-model.html#cb101-38"></a>    <span class="dt">Technology =</span> x,</span>
+<span id="cb101-39"><a href="bayesian-generalized-linear-mixed-model.html#cb101-39"></a>    <span class="dt">Outcome =</span> y,</span>
+<span id="cb101-40"><a href="bayesian-generalized-linear-mixed-model.html#cb101-40"></a>    <span class="dt">ml1 =</span> <span class="kw">list</span>(ml1)</span>
+<span id="cb101-41"><a href="bayesian-generalized-linear-mixed-model.html#cb101-41"></a>  )</span>
+<span id="cb101-42"><a href="bayesian-generalized-linear-mixed-model.html#cb101-42"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="bayesian-generalized-linear-mixed-model.html#cb102-1"></a>x1 &lt;-<span class="st"> </span><span class="kw">fit</span>(yrbs, <span class="st">&quot;YRBS&quot;</span>, <span class="st">&quot;TV&quot;</span>, <span class="st">&quot;Suicide&quot;</span>)</span>
+<span id="cb102-2"><a href="bayesian-generalized-linear-mixed-model.html#cb102-2"></a>x2 &lt;-<span class="st"> </span><span class="kw">fit</span>(yrbs, <span class="st">&quot;YRBS&quot;</span>, <span class="st">&quot;DV&quot;</span>, <span class="st">&quot;Suicide&quot;</span>)</span>
+<span id="cb102-3"><a href="bayesian-generalized-linear-mixed-model.html#cb102-3"></a>x3 &lt;-<span class="st"> </span><span class="kw">fit</span>(mtf, <span class="st">&quot;MTF&quot;</span>, <span class="st">&quot;TV&quot;</span>, <span class="st">&quot;Depression&quot;</span>)</span>
+<span id="cb102-4"><a href="bayesian-generalized-linear-mixed-model.html#cb102-4"></a>x4 &lt;-<span class="st"> </span><span class="kw">fit</span>(mtf, <span class="st">&quot;MTF&quot;</span>, <span class="st">&quot;SM&quot;</span>, <span class="st">&quot;Depression&quot;</span>)</span>
+<span id="cb102-5"><a href="bayesian-generalized-linear-mixed-model.html#cb102-5"></a>x5 &lt;-<span class="st"> </span><span class="kw">fit</span>(us, <span class="st">&quot;US&quot;</span>, <span class="st">&quot;SM&quot;</span>, <span class="st">&quot;Emotion&quot;</span>)</span>
+<span id="cb102-6"><a href="bayesian-generalized-linear-mixed-model.html#cb102-6"></a>x6 &lt;-<span class="st"> </span><span class="kw">fit</span>(us, <span class="st">&quot;US&quot;</span>, <span class="st">&quot;SM&quot;</span>, <span class="st">&quot;Conduct&quot;</span>)</span>
+<span id="cb102-7"><a href="bayesian-generalized-linear-mixed-model.html#cb102-7"></a>x7 &lt;-<span class="st"> </span><span class="kw">fit</span>(us, <span class="st">&quot;US&quot;</span>, <span class="st">&quot;TV&quot;</span>, <span class="st">&quot;Emotion&quot;</span>)</span>
+<span id="cb102-8"><a href="bayesian-generalized-linear-mixed-model.html#cb102-8"></a>x8 &lt;-<span class="st"> </span><span class="kw">fit</span>(us, <span class="st">&quot;US&quot;</span>, <span class="st">&quot;TV&quot;</span>, <span class="st">&quot;Conduct&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb103-1"><a href="bayesian-generalized-linear-mixed-model.html#cb103-1"></a><span class="co"># Rename variables</span></span>
+<span id="cb103-2"><a href="bayesian-generalized-linear-mixed-model.html#cb103-2"></a>fits &lt;-<span class="st"> </span><span class="kw">bind_rows</span>(x1,x2,x3,x4,x5,x6,x7,x8)</span>
+<span id="cb103-3"><a href="bayesian-generalized-linear-mixed-model.html#cb103-3"></a>fits &lt;-<span class="st"> </span>fits <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb103-4"><a href="bayesian-generalized-linear-mixed-model.html#cb103-4"></a><span class="st">  </span><span class="kw">mutate</span>(</span>
+<span id="cb103-5"><a href="bayesian-generalized-linear-mixed-model.html#cb103-5"></a>    <span class="dt">Technology =</span> <span class="kw">ifelse</span>(</span>
+<span id="cb103-6"><a href="bayesian-generalized-linear-mixed-model.html#cb103-6"></a>      Technology <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;SM&quot;</span>, <span class="st">&quot;DV&quot;</span>), </span>
+<span id="cb103-7"><a href="bayesian-generalized-linear-mixed-model.html#cb103-7"></a>      <span class="st">&quot;Social media / device&quot;</span>, </span>
+<span id="cb103-8"><a href="bayesian-generalized-linear-mixed-model.html#cb103-8"></a>      <span class="st">&quot;Television&quot;</span></span>
+<span id="cb103-9"><a href="bayesian-generalized-linear-mixed-model.html#cb103-9"></a>    )</span>
+<span id="cb103-10"><a href="bayesian-generalized-linear-mixed-model.html#cb103-10"></a>  )</span></code></pre></div>
 </div>
-<div id="year-and-tech" class="section level3">
-<h3><span class="header-section-number">7.2.2</span> Year and tech</h3>
-<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="bayesian-generalized-linear-mixed-model.html#cb89-1"></a>probs &lt;-<span class="st"> </span><span class="kw">c</span>(.<span class="dv">025</span>, <span class="fl">.1</span>, <span class="fl">.9</span>, <span class="fl">.975</span>)</span>
-<span id="cb89-2"><a href="bayesian-generalized-linear-mixed-model.html#cb89-2"></a>pars &lt;-<span class="st"> </span>fits <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb89-3"><a href="bayesian-generalized-linear-mixed-model.html#cb89-3"></a><span class="st">  </span><span class="kw">mutate</span>(</span>
-<span id="cb89-4"><a href="bayesian-generalized-linear-mixed-model.html#cb89-4"></a>    <span class="dt">p =</span> <span class="kw">map</span>(</span>
-<span id="cb89-5"><a href="bayesian-generalized-linear-mixed-model.html#cb89-5"></a>      ml1, <span class="op">~</span><span class="kw">posterior_summary</span>(., <span class="dt">pars =</span> <span class="st">&quot;^b_&quot;</span>, <span class="dt">probs =</span> probs) <span class="op">%&gt;%</span></span>
-<span id="cb89-6"><a href="bayesian-generalized-linear-mixed-model.html#cb89-6"></a><span class="st">        </span><span class="kw">as.data.frame</span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb89-7"><a href="bayesian-generalized-linear-mixed-model.html#cb89-7"></a><span class="st">        </span><span class="kw">rownames_to_column</span>(<span class="st">&quot;Parameter&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb89-8"><a href="bayesian-generalized-linear-mixed-model.html#cb89-8"></a><span class="st">        </span><span class="kw">tibble</span>()</span>
-<span id="cb89-9"><a href="bayesian-generalized-linear-mixed-model.html#cb89-9"></a>    )</span>
-<span id="cb89-10"><a href="bayesian-generalized-linear-mixed-model.html#cb89-10"></a>  ) <span class="op">%&gt;%</span></span>
-<span id="cb89-11"><a href="bayesian-generalized-linear-mixed-model.html#cb89-11"></a><span class="st">  </span><span class="kw">unnest</span>(p) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb89-12"><a href="bayesian-generalized-linear-mixed-model.html#cb89-12"></a><span class="st">  </span><span class="kw">select</span>(<span class="op">-</span>ml1)</span>
-<span id="cb89-13"><a href="bayesian-generalized-linear-mixed-model.html#cb89-13"></a>b_Year &lt;-<span class="st"> </span>pars <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb89-14"><a href="bayesian-generalized-linear-mixed-model.html#cb89-14"></a><span class="st">  </span><span class="kw">filter</span>(Parameter <span class="op">==</span><span class="st"> &quot;b_Year&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb89-15"><a href="bayesian-generalized-linear-mixed-model.html#cb89-15"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Parameter =</span> <span class="st">&quot;Year&quot;</span>)</span>
-<span id="cb89-16"><a href="bayesian-generalized-linear-mixed-model.html#cb89-16"></a>b_Tech &lt;-<span class="st"> </span>pars <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb89-17"><a href="bayesian-generalized-linear-mixed-model.html#cb89-17"></a><span class="st">  </span><span class="kw">filter</span>(Parameter <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;b_TV&quot;</span>, <span class="st">&quot;b_DV&quot;</span>, <span class="st">&quot;b_SM&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb89-18"><a href="bayesian-generalized-linear-mixed-model.html#cb89-18"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Parameter =</span> <span class="st">&quot;Technology&quot;</span>)</span>
-<span id="cb89-19"><a href="bayesian-generalized-linear-mixed-model.html#cb89-19"></a>b_Interaction &lt;-<span class="st"> </span>pars <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb89-20"><a href="bayesian-generalized-linear-mixed-model.html#cb89-20"></a><span class="st">  </span><span class="kw">filter</span>(Parameter <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;b_Year:TV&quot;</span>, <span class="st">&quot;b_Year:DV&quot;</span>, <span class="st">&quot;b_Year:SM&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb89-21"><a href="bayesian-generalized-linear-mixed-model.html#cb89-21"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Parameter =</span> <span class="st">&quot;Year x Technology&quot;</span>)</span>
-<span id="cb89-22"><a href="bayesian-generalized-linear-mixed-model.html#cb89-22"></a>p1 &lt;-<span class="st"> </span><span class="kw">bind_rows</span>(b_Year, b_Tech, b_Interaction) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb89-23"><a href="bayesian-generalized-linear-mixed-model.html#cb89-23"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Outcome =</span> <span class="kw">fct_rev</span>(Outcome)) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb89-24"><a href="bayesian-generalized-linear-mixed-model.html#cb89-24"></a><span class="st">  </span><span class="co"># Fill points based on if 95%CI includes zero</span></span>
-<span id="cb89-25"><a href="bayesian-generalized-linear-mixed-model.html#cb89-25"></a><span class="st">  </span><span class="kw">mutate</span>(</span>
-<span id="cb89-26"><a href="bayesian-generalized-linear-mixed-model.html#cb89-26"></a>    <span class="dt">Zero =</span> <span class="kw">ifelse</span>(</span>
-<span id="cb89-27"><a href="bayesian-generalized-linear-mixed-model.html#cb89-27"></a>      <span class="kw">sign</span>(Q2<span class="fl">.5</span>) <span class="op">==</span><span class="st"> </span><span class="kw">sign</span>(Estimate) <span class="op">&amp;</span><span class="st"> </span><span class="kw">sign</span>(Estimate) <span class="op">==</span><span class="st"> </span><span class="kw">sign</span>(Q97<span class="fl">.5</span>), </span>
-<span id="cb89-28"><a href="bayesian-generalized-linear-mixed-model.html#cb89-28"></a>      <span class="st">&quot;*&quot;</span>, <span class="st">&quot;&quot;</span></span>
-<span id="cb89-29"><a href="bayesian-generalized-linear-mixed-model.html#cb89-29"></a>    )</span>
-<span id="cb89-30"><a href="bayesian-generalized-linear-mixed-model.html#cb89-30"></a>  ) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb89-31"><a href="bayesian-generalized-linear-mixed-model.html#cb89-31"></a><span class="st">  </span><span class="kw">mutate</span>(</span>
-<span id="cb89-32"><a href="bayesian-generalized-linear-mixed-model.html#cb89-32"></a>    <span class="dt">Parameter =</span> <span class="kw">factor</span>(Parameter, <span class="dt">levels =</span> <span class="kw">c</span>(<span class="st">&quot;Year&quot;</span>, <span class="st">&quot;Technology&quot;</span>, <span class="st">&quot;Year x Technology&quot;</span>))</span>
-<span id="cb89-33"><a href="bayesian-generalized-linear-mixed-model.html#cb89-33"></a>  ) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb89-34"><a href="bayesian-generalized-linear-mixed-model.html#cb89-34"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(Estimate, Outcome, <span class="dt">shape =</span> Technology, <span class="dt">fill =</span> Zero)) <span class="op">+</span></span>
-<span id="cb89-35"><a href="bayesian-generalized-linear-mixed-model.html#cb89-35"></a><span class="st">  </span><span class="kw">scale_shape_manual</span>(<span class="dt">values =</span> <span class="kw">c</span>(<span class="dv">21</span>, <span class="dv">22</span>)) <span class="op">+</span></span>
-<span id="cb89-36"><a href="bayesian-generalized-linear-mixed-model.html#cb89-36"></a><span class="st">  </span><span class="kw">scale_fill_manual</span>(<span class="dt">values =</span> <span class="kw">c</span>(<span class="st">&quot;white&quot;</span>, <span class="st">&quot;black&quot;</span>), <span class="dt">guide =</span> <span class="ot">FALSE</span>) <span class="op">+</span></span>
-<span id="cb89-37"><a href="bayesian-generalized-linear-mixed-model.html#cb89-37"></a><span class="st">  </span><span class="kw">scale_x_continuous</span>(</span>
-<span id="cb89-38"><a href="bayesian-generalized-linear-mixed-model.html#cb89-38"></a>    <span class="st">&quot;Parameter estimate&quot;</span>,</span>
-<span id="cb89-39"><a href="bayesian-generalized-linear-mixed-model.html#cb89-39"></a>    <span class="dt">breaks =</span> scales<span class="op">::</span><span class="kw">pretty_breaks</span>(), </span>
-<span id="cb89-40"><a href="bayesian-generalized-linear-mixed-model.html#cb89-40"></a>    <span class="dt">expand =</span> <span class="kw">expansion</span>(.<span class="dv">15</span>)</span>
-<span id="cb89-41"><a href="bayesian-generalized-linear-mixed-model.html#cb89-41"></a>  ) <span class="op">+</span></span>
-<span id="cb89-42"><a href="bayesian-generalized-linear-mixed-model.html#cb89-42"></a><span class="st">  </span><span class="kw">geom_vline</span>(<span class="dt">xintercept =</span> <span class="dv">0</span>, <span class="dt">lty =</span> <span class="dv">2</span>, <span class="dt">size =</span> <span class="fl">.25</span>) <span class="op">+</span></span>
-<span id="cb89-43"><a href="bayesian-generalized-linear-mixed-model.html#cb89-43"></a><span class="st">  </span><span class="kw">geom_linerangeh</span>(</span>
-<span id="cb89-44"><a href="bayesian-generalized-linear-mixed-model.html#cb89-44"></a>    <span class="kw">aes</span>(<span class="dt">xmin =</span> Q2<span class="fl">.5</span>, <span class="dt">xmax =</span> Q97<span class="fl">.5</span>), <span class="dt">size =</span> <span class="fl">.25</span>,</span>
-<span id="cb89-45"><a href="bayesian-generalized-linear-mixed-model.html#cb89-45"></a>    <span class="dt">position =</span> <span class="kw">position_dodge2v</span>(.<span class="dv">5</span>), <span class="dt">show.legend =</span> <span class="ot">FALSE</span></span>
-<span id="cb89-46"><a href="bayesian-generalized-linear-mixed-model.html#cb89-46"></a>  ) <span class="op">+</span></span>
-<span id="cb89-47"><a href="bayesian-generalized-linear-mixed-model.html#cb89-47"></a><span class="st">  </span><span class="kw">geom_linerangeh</span>(</span>
-<span id="cb89-48"><a href="bayesian-generalized-linear-mixed-model.html#cb89-48"></a>    <span class="kw">aes</span>(<span class="dt">xmin =</span> Q10, <span class="dt">xmax =</span> Q90), <span class="dt">size =</span> <span class="fl">.75</span>,</span>
-<span id="cb89-49"><a href="bayesian-generalized-linear-mixed-model.html#cb89-49"></a>    <span class="dt">position =</span> <span class="kw">position_dodge2v</span>(.<span class="dv">5</span>), <span class="dt">show.legend =</span> <span class="ot">FALSE</span></span>
-<span id="cb89-50"><a href="bayesian-generalized-linear-mixed-model.html#cb89-50"></a>  ) <span class="op">+</span></span>
-<span id="cb89-51"><a href="bayesian-generalized-linear-mixed-model.html#cb89-51"></a><span class="st">  </span><span class="kw">geom_point</span>(</span>
-<span id="cb89-52"><a href="bayesian-generalized-linear-mixed-model.html#cb89-52"></a>    <span class="dt">size =</span> <span class="dv">2</span>, <span class="dt">position =</span> <span class="kw">position_dodge2v</span>(.<span class="dv">5</span>),</span>
-<span id="cb89-53"><a href="bayesian-generalized-linear-mixed-model.html#cb89-53"></a>  ) <span class="op">+</span></span>
-<span id="cb89-54"><a href="bayesian-generalized-linear-mixed-model.html#cb89-54"></a><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="st">&quot;Parameter&quot;</span>, <span class="dt">scales =</span> <span class="st">&quot;free_x&quot;</span>, <span class="dt">nrow =</span> <span class="dv">1</span>) <span class="op">+</span></span>
-<span id="cb89-55"><a href="bayesian-generalized-linear-mixed-model.html#cb89-55"></a><span class="st">  </span><span class="kw">theme</span>(</span>
-<span id="cb89-56"><a href="bayesian-generalized-linear-mixed-model.html#cb89-56"></a>    <span class="dt">legend.position =</span> <span class="st">&quot;right&quot;</span>,</span>
-<span id="cb89-57"><a href="bayesian-generalized-linear-mixed-model.html#cb89-57"></a>    <span class="dt">axis.title.y =</span> <span class="kw">element_blank</span>(), </span>
-<span id="cb89-58"><a href="bayesian-generalized-linear-mixed-model.html#cb89-58"></a>    <span class="dt">panel.spacing.x =</span> <span class="kw">unit</span>(<span class="dv">12</span>, <span class="st">&quot;pt&quot;</span>)</span>
-<span id="cb89-59"><a href="bayesian-generalized-linear-mixed-model.html#cb89-59"></a>  )</span>
-<span id="cb89-60"><a href="bayesian-generalized-linear-mixed-model.html#cb89-60"></a></span>
-<span id="cb89-61"><a href="bayesian-generalized-linear-mixed-model.html#cb89-61"></a>((p1 <span class="op">%+%</span><span class="st"> </span></span>
-<span id="cb89-62"><a href="bayesian-generalized-linear-mixed-model.html#cb89-62"></a><span class="st">    </span><span class="kw">filter</span>(p1<span class="op">$</span>data, Parameter <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Year&quot;</span>, <span class="st">&quot;Technology&quot;</span>)) <span class="op">+</span></span>
-<span id="cb89-63"><a href="bayesian-generalized-linear-mixed-model.html#cb89-63"></a><span class="st">    </span><span class="kw">theme</span>(<span class="dt">axis.title.x =</span> <span class="kw">element_blank</span>())) <span class="op">/</span></span>
-<span id="cb89-64"><a href="bayesian-generalized-linear-mixed-model.html#cb89-64"></a><span class="st">  </span>p1 <span class="op">%+%</span><span class="st"> </span><span class="kw">filter</span>(p1<span class="op">$</span>data, Parameter <span class="op">==</span><span class="st"> &quot;Year x Technology&quot;</span>)) <span class="op">+</span></span>
-<span id="cb89-65"><a href="bayesian-generalized-linear-mixed-model.html#cb89-65"></a><span class="st">  </span><span class="kw">plot_layout</span>(<span class="dt">guides =</span> <span class="st">&quot;collect&quot;</span>) <span class="op">&amp;</span></span>
-<span id="cb89-66"><a href="bayesian-generalized-linear-mixed-model.html#cb89-66"></a><span class="st">  </span><span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="st">&quot;right&quot;</span>)</span></code></pre></div>
+<div id="results" class="section level3" number="7.2.2">
+<h3><span class="header-section-number">7.2.2</span> Results</h3>
+<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="bayesian-generalized-linear-mixed-model.html#cb104-1"></a>probs &lt;-<span class="st"> </span><span class="kw">c</span>(.<span class="dv">025</span>, <span class="fl">.1</span>, <span class="fl">.9</span>, <span class="fl">.975</span>)</span>
+<span id="cb104-2"><a href="bayesian-generalized-linear-mixed-model.html#cb104-2"></a>pars &lt;-<span class="st"> </span>fits <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb104-3"><a href="bayesian-generalized-linear-mixed-model.html#cb104-3"></a><span class="st">  </span><span class="kw">mutate</span>(</span>
+<span id="cb104-4"><a href="bayesian-generalized-linear-mixed-model.html#cb104-4"></a>    <span class="dt">p =</span> <span class="kw">map</span>(</span>
+<span id="cb104-5"><a href="bayesian-generalized-linear-mixed-model.html#cb104-5"></a>      ml1, <span class="op">~</span><span class="kw">posterior_summary</span>(., <span class="dt">pars =</span> <span class="st">&quot;^b_&quot;</span>, <span class="dt">probs =</span> probs) <span class="op">%&gt;%</span></span>
+<span id="cb104-6"><a href="bayesian-generalized-linear-mixed-model.html#cb104-6"></a><span class="st">        </span><span class="kw">as.data.frame</span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb104-7"><a href="bayesian-generalized-linear-mixed-model.html#cb104-7"></a><span class="st">        </span><span class="kw">rownames_to_column</span>(<span class="st">&quot;Parameter&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb104-8"><a href="bayesian-generalized-linear-mixed-model.html#cb104-8"></a><span class="st">        </span><span class="kw">tibble</span>()</span>
+<span id="cb104-9"><a href="bayesian-generalized-linear-mixed-model.html#cb104-9"></a>    )</span>
+<span id="cb104-10"><a href="bayesian-generalized-linear-mixed-model.html#cb104-10"></a>  ) <span class="op">%&gt;%</span></span>
+<span id="cb104-11"><a href="bayesian-generalized-linear-mixed-model.html#cb104-11"></a><span class="st">  </span><span class="kw">unnest</span>(p) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb104-12"><a href="bayesian-generalized-linear-mixed-model.html#cb104-12"></a><span class="st">  </span><span class="kw">select</span>(<span class="op">-</span>ml1)</span>
+<span id="cb104-13"><a href="bayesian-generalized-linear-mixed-model.html#cb104-13"></a>b_Year &lt;-<span class="st"> </span>pars <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb104-14"><a href="bayesian-generalized-linear-mixed-model.html#cb104-14"></a><span class="st">  </span><span class="kw">filter</span>(Parameter <span class="op">==</span><span class="st"> &quot;b_Year&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb104-15"><a href="bayesian-generalized-linear-mixed-model.html#cb104-15"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Parameter =</span> <span class="st">&quot;Year&quot;</span>)</span>
+<span id="cb104-16"><a href="bayesian-generalized-linear-mixed-model.html#cb104-16"></a>b_Tech &lt;-<span class="st"> </span>pars <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb104-17"><a href="bayesian-generalized-linear-mixed-model.html#cb104-17"></a><span class="st">  </span><span class="kw">filter</span>(Parameter <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;b_TV&quot;</span>, <span class="st">&quot;b_DV&quot;</span>, <span class="st">&quot;b_SM&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb104-18"><a href="bayesian-generalized-linear-mixed-model.html#cb104-18"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Parameter =</span> <span class="st">&quot;Technology&quot;</span>)</span>
+<span id="cb104-19"><a href="bayesian-generalized-linear-mixed-model.html#cb104-19"></a>b_Interaction &lt;-<span class="st"> </span>pars <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb104-20"><a href="bayesian-generalized-linear-mixed-model.html#cb104-20"></a><span class="st">  </span><span class="kw">filter</span>(Parameter <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;b_Year:TV&quot;</span>, <span class="st">&quot;b_Year:DV&quot;</span>, <span class="st">&quot;b_Year:SM&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb104-21"><a href="bayesian-generalized-linear-mixed-model.html#cb104-21"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Parameter =</span> <span class="st">&quot;Year by Technology Interaction&quot;</span>)</span>
+<span id="cb104-22"><a href="bayesian-generalized-linear-mixed-model.html#cb104-22"></a>p1 &lt;-<span class="st"> </span><span class="kw">bind_rows</span>(b_Year, b_Tech, b_Interaction) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb104-23"><a href="bayesian-generalized-linear-mixed-model.html#cb104-23"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Outcome =</span> <span class="kw">fct_rev</span>(Outcome)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb104-24"><a href="bayesian-generalized-linear-mixed-model.html#cb104-24"></a><span class="st">  </span><span class="co"># Fill points based on if 95%CI includes zero</span></span>
+<span id="cb104-25"><a href="bayesian-generalized-linear-mixed-model.html#cb104-25"></a><span class="st">  </span><span class="kw">mutate</span>(</span>
+<span id="cb104-26"><a href="bayesian-generalized-linear-mixed-model.html#cb104-26"></a>    <span class="dt">Zero =</span> <span class="kw">ifelse</span>(</span>
+<span id="cb104-27"><a href="bayesian-generalized-linear-mixed-model.html#cb104-27"></a>      <span class="kw">sign</span>(Q2<span class="fl">.5</span>) <span class="op">==</span><span class="st"> </span><span class="kw">sign</span>(Estimate) <span class="op">&amp;</span><span class="st"> </span><span class="kw">sign</span>(Estimate) <span class="op">==</span><span class="st"> </span><span class="kw">sign</span>(Q97<span class="fl">.5</span>), </span>
+<span id="cb104-28"><a href="bayesian-generalized-linear-mixed-model.html#cb104-28"></a>      <span class="st">&quot;*&quot;</span>, <span class="st">&quot;&quot;</span></span>
+<span id="cb104-29"><a href="bayesian-generalized-linear-mixed-model.html#cb104-29"></a>    )</span>
+<span id="cb104-30"><a href="bayesian-generalized-linear-mixed-model.html#cb104-30"></a>  ) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb104-31"><a href="bayesian-generalized-linear-mixed-model.html#cb104-31"></a><span class="st">  </span><span class="kw">mutate</span>(</span>
+<span id="cb104-32"><a href="bayesian-generalized-linear-mixed-model.html#cb104-32"></a>    <span class="dt">Parameter =</span> <span class="kw">factor</span>(Parameter, <span class="dt">levels =</span> <span class="kw">c</span>(<span class="st">&quot;Year&quot;</span>, <span class="st">&quot;Technology&quot;</span>, <span class="st">&quot;Year by Technology Interaction&quot;</span>))</span>
+<span id="cb104-33"><a href="bayesian-generalized-linear-mixed-model.html#cb104-33"></a>  ) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb104-34"><a href="bayesian-generalized-linear-mixed-model.html#cb104-34"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(Estimate, Outcome, <span class="dt">shape =</span> Technology, <span class="dt">fill =</span> Zero)) <span class="op">+</span></span>
+<span id="cb104-35"><a href="bayesian-generalized-linear-mixed-model.html#cb104-35"></a><span class="st">  </span><span class="kw">scale_shape_manual</span>(<span class="dt">values =</span> <span class="kw">c</span>(<span class="dv">21</span>, <span class="dv">22</span>)) <span class="op">+</span></span>
+<span id="cb104-36"><a href="bayesian-generalized-linear-mixed-model.html#cb104-36"></a><span class="st">  </span><span class="kw">scale_fill_manual</span>(<span class="dt">values =</span> <span class="kw">c</span>(<span class="st">&quot;white&quot;</span>, <span class="st">&quot;black&quot;</span>), <span class="dt">guide =</span> <span class="ot">FALSE</span>) <span class="op">+</span></span>
+<span id="cb104-37"><a href="bayesian-generalized-linear-mixed-model.html#cb104-37"></a><span class="st">  </span><span class="kw">scale_x_continuous</span>(</span>
+<span id="cb104-38"><a href="bayesian-generalized-linear-mixed-model.html#cb104-38"></a>    <span class="st">&quot;Parameter estimate&quot;</span>,</span>
+<span id="cb104-39"><a href="bayesian-generalized-linear-mixed-model.html#cb104-39"></a>    <span class="dt">breaks =</span> scales<span class="op">::</span><span class="kw">pretty_breaks</span>(), </span>
+<span id="cb104-40"><a href="bayesian-generalized-linear-mixed-model.html#cb104-40"></a>    <span class="dt">expand =</span> <span class="kw">expansion</span>(.<span class="dv">15</span>)</span>
+<span id="cb104-41"><a href="bayesian-generalized-linear-mixed-model.html#cb104-41"></a>  ) <span class="op">+</span></span>
+<span id="cb104-42"><a href="bayesian-generalized-linear-mixed-model.html#cb104-42"></a><span class="st">  </span><span class="kw">geom_vline</span>(<span class="dt">xintercept =</span> <span class="dv">0</span>, <span class="dt">lty =</span> <span class="dv">2</span>, <span class="dt">size =</span> <span class="fl">.25</span>) <span class="op">+</span></span>
+<span id="cb104-43"><a href="bayesian-generalized-linear-mixed-model.html#cb104-43"></a><span class="st">  </span><span class="kw">geom_linerangeh</span>(</span>
+<span id="cb104-44"><a href="bayesian-generalized-linear-mixed-model.html#cb104-44"></a>    <span class="kw">aes</span>(<span class="dt">xmin =</span> Q2<span class="fl">.5</span>, <span class="dt">xmax =</span> Q97<span class="fl">.5</span>), <span class="dt">size =</span> <span class="fl">.25</span>,</span>
+<span id="cb104-45"><a href="bayesian-generalized-linear-mixed-model.html#cb104-45"></a>    <span class="dt">position =</span> <span class="kw">position_dodge2v</span>(.<span class="dv">5</span>), <span class="dt">show.legend =</span> <span class="ot">FALSE</span></span>
+<span id="cb104-46"><a href="bayesian-generalized-linear-mixed-model.html#cb104-46"></a>  ) <span class="op">+</span></span>
+<span id="cb104-47"><a href="bayesian-generalized-linear-mixed-model.html#cb104-47"></a><span class="st">  </span><span class="kw">geom_linerangeh</span>(</span>
+<span id="cb104-48"><a href="bayesian-generalized-linear-mixed-model.html#cb104-48"></a>    <span class="kw">aes</span>(<span class="dt">xmin =</span> Q10, <span class="dt">xmax =</span> Q90), <span class="dt">size =</span> <span class="fl">.75</span>,</span>
+<span id="cb104-49"><a href="bayesian-generalized-linear-mixed-model.html#cb104-49"></a>    <span class="dt">position =</span> <span class="kw">position_dodge2v</span>(.<span class="dv">5</span>), <span class="dt">show.legend =</span> <span class="ot">FALSE</span></span>
+<span id="cb104-50"><a href="bayesian-generalized-linear-mixed-model.html#cb104-50"></a>  ) <span class="op">+</span></span>
+<span id="cb104-51"><a href="bayesian-generalized-linear-mixed-model.html#cb104-51"></a><span class="st">  </span><span class="kw">geom_point</span>(</span>
+<span id="cb104-52"><a href="bayesian-generalized-linear-mixed-model.html#cb104-52"></a>    <span class="dt">size =</span> <span class="dv">2</span>, <span class="dt">position =</span> <span class="kw">position_dodge2v</span>(.<span class="dv">5</span>),</span>
+<span id="cb104-53"><a href="bayesian-generalized-linear-mixed-model.html#cb104-53"></a>  ) <span class="op">+</span></span>
+<span id="cb104-54"><a href="bayesian-generalized-linear-mixed-model.html#cb104-54"></a><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="st">&quot;Parameter&quot;</span>, <span class="dt">scales =</span> <span class="st">&quot;free_x&quot;</span>, <span class="dt">nrow =</span> <span class="dv">1</span>) <span class="op">+</span></span>
+<span id="cb104-55"><a href="bayesian-generalized-linear-mixed-model.html#cb104-55"></a><span class="st">  </span><span class="kw">theme</span>(</span>
+<span id="cb104-56"><a href="bayesian-generalized-linear-mixed-model.html#cb104-56"></a>    <span class="dt">legend.position =</span> <span class="st">&quot;right&quot;</span>,</span>
+<span id="cb104-57"><a href="bayesian-generalized-linear-mixed-model.html#cb104-57"></a>    <span class="dt">axis.title.y =</span> <span class="kw">element_blank</span>(), </span>
+<span id="cb104-58"><a href="bayesian-generalized-linear-mixed-model.html#cb104-58"></a>    <span class="dt">panel.spacing.x =</span> <span class="kw">unit</span>(<span class="dv">12</span>, <span class="st">&quot;pt&quot;</span>)</span>
+<span id="cb104-59"><a href="bayesian-generalized-linear-mixed-model.html#cb104-59"></a>  )</span>
+<span id="cb104-60"><a href="bayesian-generalized-linear-mixed-model.html#cb104-60"></a></span>
+<span id="cb104-61"><a href="bayesian-generalized-linear-mixed-model.html#cb104-61"></a>((p1 <span class="op">%+%</span><span class="st"> </span></span>
+<span id="cb104-62"><a href="bayesian-generalized-linear-mixed-model.html#cb104-62"></a><span class="st">    </span><span class="kw">filter</span>(p1<span class="op">$</span>data, Parameter <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Technology&quot;</span>)) <span class="op">+</span></span>
+<span id="cb104-63"><a href="bayesian-generalized-linear-mixed-model.html#cb104-63"></a><span class="st">    </span><span class="kw">theme</span>(<span class="dt">axis.title.x =</span> <span class="kw">element_blank</span>())) <span class="op">/</span></span>
+<span id="cb104-64"><a href="bayesian-generalized-linear-mixed-model.html#cb104-64"></a><span class="st">  </span>p1 <span class="op">%+%</span><span class="st"> </span><span class="kw">filter</span>(p1<span class="op">$</span>data, Parameter <span class="op">==</span><span class="st"> &quot;Year by Technology Interaction&quot;</span>)) <span class="op">+</span></span>
+<span id="cb104-65"><a href="bayesian-generalized-linear-mixed-model.html#cb104-65"></a><span class="st">  </span><span class="kw">plot_layout</span>(<span class="dt">guides =</span> <span class="st">&quot;collect&quot;</span>) <span class="op">&amp;</span></span>
+<span id="cb104-66"><a href="bayesian-generalized-linear-mixed-model.html#cb104-66"></a><span class="st">  </span><span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="st">&quot;right&quot;</span>)</span></code></pre></div>
 <p><img src="04-BGLMM_files/figure-html/Parameter-figure-1.png" width="768" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="bayesian-generalized-linear-mixed-model.html#cb90-1"></a><span class="kw">ggsave</span>(<span class="st">&quot;Figure2.png&quot;</span>, <span class="dt">width =</span> <span class="dv">6</span>, <span class="dt">height =</span> <span class="dv">4</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="bayesian-generalized-linear-mixed-model.html#cb91-1"></a><span class="co"># Get YRBS item-specific effects</span></span>
-<span id="cb91-2"><a href="bayesian-generalized-linear-mixed-model.html#cb91-2"></a>tmp1 &lt;-<span class="st"> </span><span class="kw">slice</span>(fits, <span class="dv">1</span><span class="op">:</span><span class="dv">2</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb91-3"><a href="bayesian-generalized-linear-mixed-model.html#cb91-3"></a><span class="st">  </span><span class="kw">mutate</span>(</span>
-<span id="cb91-4"><a href="bayesian-generalized-linear-mixed-model.html#cb91-4"></a>    <span class="dt">o =</span> <span class="kw">map</span>(ml1, <span class="op">~</span><span class="kw">rownames_to_column</span>(<span class="kw">as.data.frame</span>(<span class="kw">coef</span>(.)<span class="op">$</span>item[,,<span class="dv">7</span>])))</span>
-<span id="cb91-5"><a href="bayesian-generalized-linear-mixed-model.html#cb91-5"></a>  ) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb91-6"><a href="bayesian-generalized-linear-mixed-model.html#cb91-6"></a><span class="st">  </span><span class="kw">unnest</span>(o)</span>
-<span id="cb91-7"><a href="bayesian-generalized-linear-mixed-model.html#cb91-7"></a></span>
-<span id="cb91-8"><a href="bayesian-generalized-linear-mixed-model.html#cb91-8"></a>tmp &lt;-<span class="st"> </span>fits <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb91-9"><a href="bayesian-generalized-linear-mixed-model.html#cb91-9"></a><span class="st">  </span><span class="kw">mutate</span>(</span>
-<span id="cb91-10"><a href="bayesian-generalized-linear-mixed-model.html#cb91-10"></a>    <span class="dt">p =</span> <span class="kw">map</span>(</span>
-<span id="cb91-11"><a href="bayesian-generalized-linear-mixed-model.html#cb91-11"></a>      ml1, <span class="op">~</span><span class="kw">posterior_summary</span>(., <span class="dt">pars =</span> <span class="st">&quot;b_Year:[TV|SM|DV]&quot;</span>) <span class="op">%&gt;%</span></span>
-<span id="cb91-12"><a href="bayesian-generalized-linear-mixed-model.html#cb91-12"></a><span class="st">        </span><span class="kw">as.data.frame</span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb91-13"><a href="bayesian-generalized-linear-mixed-model.html#cb91-13"></a><span class="st">        </span><span class="kw">rownames_to_column</span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb91-14"><a href="bayesian-generalized-linear-mixed-model.html#cb91-14"></a><span class="st">        </span><span class="kw">tibble</span>()</span>
-<span id="cb91-15"><a href="bayesian-generalized-linear-mixed-model.html#cb91-15"></a>    )</span>
-<span id="cb91-16"><a href="bayesian-generalized-linear-mixed-model.html#cb91-16"></a>  ) <span class="op">%&gt;%</span></span>
-<span id="cb91-17"><a href="bayesian-generalized-linear-mixed-model.html#cb91-17"></a><span class="st">  </span><span class="kw">unnest</span>(p)</span>
-<span id="cb91-18"><a href="bayesian-generalized-linear-mixed-model.html#cb91-18"></a>tmp <span class="op">%&gt;%</span><span class="st">   </span></span>
-<span id="cb91-19"><a href="bayesian-generalized-linear-mixed-model.html#cb91-19"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(Estimate, Outcome, <span class="dt">col =</span> Outcome)) <span class="op">+</span></span>
-<span id="cb91-20"><a href="bayesian-generalized-linear-mixed-model.html#cb91-20"></a><span class="st">  </span><span class="kw">scale_color_brewer</span>(<span class="dt">palette =</span> <span class="st">&quot;Set1&quot;</span>) <span class="op">+</span></span>
-<span id="cb91-21"><a href="bayesian-generalized-linear-mixed-model.html#cb91-21"></a><span class="st">  </span><span class="kw">scale_x_continuous</span>(</span>
-<span id="cb91-22"><a href="bayesian-generalized-linear-mixed-model.html#cb91-22"></a>    <span class="st">&quot;Linear interaction estimate (±95%CI)&quot;</span>,</span>
-<span id="cb91-23"><a href="bayesian-generalized-linear-mixed-model.html#cb91-23"></a>    <span class="dt">breaks =</span> scales<span class="op">::</span><span class="kw">pretty_breaks</span>(), </span>
-<span id="cb91-24"><a href="bayesian-generalized-linear-mixed-model.html#cb91-24"></a>    <span class="dt">expand =</span> <span class="kw">expansion</span>(.<span class="dv">2</span>)</span>
-<span id="cb91-25"><a href="bayesian-generalized-linear-mixed-model.html#cb91-25"></a>  ) <span class="op">+</span></span>
-<span id="cb91-26"><a href="bayesian-generalized-linear-mixed-model.html#cb91-26"></a><span class="st">  </span><span class="kw">geom_vline</span>(<span class="dt">xintercept =</span> <span class="dv">0</span>, <span class="dt">size =</span> <span class="fl">.25</span>, <span class="dt">lty =</span> <span class="dv">2</span>) <span class="op">+</span></span>
-<span id="cb91-27"><a href="bayesian-generalized-linear-mixed-model.html#cb91-27"></a><span class="st">  </span>ggstance<span class="op">::</span><span class="kw">geom_pointrangeh</span>(</span>
-<span id="cb91-28"><a href="bayesian-generalized-linear-mixed-model.html#cb91-28"></a>    <span class="dt">shape =</span> <span class="dv">21</span>, <span class="dt">fill =</span> <span class="st">&quot;white&quot;</span>, <span class="dt">fatten =</span> <span class="dv">3</span>,</span>
-<span id="cb91-29"><a href="bayesian-generalized-linear-mixed-model.html#cb91-29"></a>    <span class="kw">aes</span>(<span class="dt">xmin=</span>Q2<span class="fl">.5</span>, <span class="dt">xmax=</span>Q97<span class="fl">.5</span>)</span>
-<span id="cb91-30"><a href="bayesian-generalized-linear-mixed-model.html#cb91-30"></a>  ) <span class="op">+</span></span>
-<span id="cb91-31"><a href="bayesian-generalized-linear-mixed-model.html#cb91-31"></a><span class="st">  </span><span class="co"># ggstance::geom_pointrangeh(</span></span>
-<span id="cb91-32"><a href="bayesian-generalized-linear-mixed-model.html#cb91-32"></a><span class="st">  </span><span class="co">#   data = tmp1, aes(xmin = Q2.5, xmax = Q97.5),</span></span>
-<span id="cb91-33"><a href="bayesian-generalized-linear-mixed-model.html#cb91-33"></a><span class="st">  </span><span class="co">#   size = .25, fatten = 1,</span></span>
-<span id="cb91-34"><a href="bayesian-generalized-linear-mixed-model.html#cb91-34"></a><span class="st">  </span><span class="co">#   position = ggstance::position_dodge2v(.25)</span></span>
-<span id="cb91-35"><a href="bayesian-generalized-linear-mixed-model.html#cb91-35"></a><span class="st">  </span><span class="co"># ) +</span></span>
-<span id="cb91-36"><a href="bayesian-generalized-linear-mixed-model.html#cb91-36"></a><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="st">&quot;Technology&quot;</span>) <span class="op">+</span></span>
-<span id="cb91-37"><a href="bayesian-generalized-linear-mixed-model.html#cb91-37"></a><span class="st">  </span><span class="kw">theme</span>(</span>
-<span id="cb91-38"><a href="bayesian-generalized-linear-mixed-model.html#cb91-38"></a>    <span class="dt">axis.title.y =</span> <span class="kw">element_blank</span>(),</span>
-<span id="cb91-39"><a href="bayesian-generalized-linear-mixed-model.html#cb91-39"></a>    <span class="dt">legend.position =</span> <span class="st">&quot;none&quot;</span>,</span>
-<span id="cb91-40"><a href="bayesian-generalized-linear-mixed-model.html#cb91-40"></a>    <span class="dt">legend.text =</span> <span class="kw">element_text</span>(<span class="dt">size =</span> <span class="dv">8</span>)</span>
-<span id="cb91-41"><a href="bayesian-generalized-linear-mixed-model.html#cb91-41"></a>  )</span></code></pre></div>
-<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="bayesian-generalized-linear-mixed-model.html#cb92-1"></a><span class="co"># Sex</span></span>
-<span id="cb92-2"><a href="bayesian-generalized-linear-mixed-model.html#cb92-2"></a>pars <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb92-3"><a href="bayesian-generalized-linear-mixed-model.html#cb92-3"></a><span class="st">  </span><span class="kw">filter</span>(<span class="kw">str_detect</span>(Parameter, <span class="st">&quot;Sex1:Year:&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb92-4"><a href="bayesian-generalized-linear-mixed-model.html#cb92-4"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Parameter =</span> <span class="st">&quot;Sex x Year x Tech&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb92-5"><a href="bayesian-generalized-linear-mixed-model.html#cb92-5"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(Estimate, Outcome, <span class="dt">shape =</span> Technology)) <span class="op">+</span></span>
-<span id="cb92-6"><a href="bayesian-generalized-linear-mixed-model.html#cb92-6"></a><span class="st">  </span><span class="kw">scale_color_brewer</span>(<span class="dt">palette =</span> <span class="st">&quot;Set1&quot;</span>) <span class="op">+</span></span>
-<span id="cb92-7"><a href="bayesian-generalized-linear-mixed-model.html#cb92-7"></a><span class="st">  </span><span class="kw">scale_x_continuous</span>(</span>
-<span id="cb92-8"><a href="bayesian-generalized-linear-mixed-model.html#cb92-8"></a>    <span class="st">&quot;Estimated parameter&quot;</span>,</span>
-<span id="cb92-9"><a href="bayesian-generalized-linear-mixed-model.html#cb92-9"></a>    <span class="dt">breaks =</span> scales<span class="op">::</span><span class="kw">pretty_breaks</span>(), </span>
-<span id="cb92-10"><a href="bayesian-generalized-linear-mixed-model.html#cb92-10"></a>    <span class="dt">expand =</span> <span class="kw">expansion</span>(.<span class="dv">25</span>)</span>
-<span id="cb92-11"><a href="bayesian-generalized-linear-mixed-model.html#cb92-11"></a>  ) <span class="op">+</span></span>
-<span id="cb92-12"><a href="bayesian-generalized-linear-mixed-model.html#cb92-12"></a><span class="st">  </span><span class="kw">geom_vline</span>(<span class="dt">xintercept =</span> <span class="dv">0</span>, <span class="dt">lty =</span> <span class="dv">2</span>, <span class="dt">size =</span> <span class="fl">.25</span>) <span class="op">+</span></span>
-<span id="cb92-13"><a href="bayesian-generalized-linear-mixed-model.html#cb92-13"></a><span class="st">  </span><span class="kw">geom_linerangeh</span>(</span>
-<span id="cb92-14"><a href="bayesian-generalized-linear-mixed-model.html#cb92-14"></a>    <span class="kw">aes</span>(<span class="dt">xmin =</span> Q2<span class="fl">.5</span>, <span class="dt">xmax =</span> Q97<span class="fl">.5</span>), <span class="dt">size =</span> <span class="fl">.25</span>,</span>
-<span id="cb92-15"><a href="bayesian-generalized-linear-mixed-model.html#cb92-15"></a>    <span class="dt">position =</span> <span class="kw">position_dodge2v</span>(.<span class="dv">4</span>), <span class="dt">show.legend =</span> <span class="ot">FALSE</span></span>
-<span id="cb92-16"><a href="bayesian-generalized-linear-mixed-model.html#cb92-16"></a>  ) <span class="op">+</span></span>
-<span id="cb92-17"><a href="bayesian-generalized-linear-mixed-model.html#cb92-17"></a><span class="st">  </span><span class="kw">geom_linerangeh</span>(</span>
-<span id="cb92-18"><a href="bayesian-generalized-linear-mixed-model.html#cb92-18"></a>    <span class="kw">aes</span>(<span class="dt">xmin =</span> Q10, <span class="dt">xmax =</span> Q90), <span class="dt">size =</span> <span class="fl">.75</span>,</span>
-<span id="cb92-19"><a href="bayesian-generalized-linear-mixed-model.html#cb92-19"></a>    <span class="dt">position =</span> <span class="kw">position_dodge2v</span>(.<span class="dv">4</span>), <span class="dt">show.legend =</span> <span class="ot">FALSE</span></span>
-<span id="cb92-20"><a href="bayesian-generalized-linear-mixed-model.html#cb92-20"></a>  ) <span class="op">+</span></span>
-<span id="cb92-21"><a href="bayesian-generalized-linear-mixed-model.html#cb92-21"></a><span class="st">  </span><span class="kw">geom_point</span>(</span>
-<span id="cb92-22"><a href="bayesian-generalized-linear-mixed-model.html#cb92-22"></a>    <span class="dt">size =</span> <span class="dv">2</span>, <span class="dt">position =</span> <span class="kw">position_dodge2v</span>(.<span class="dv">4</span>)</span>
-<span id="cb92-23"><a href="bayesian-generalized-linear-mixed-model.html#cb92-23"></a>  ) <span class="op">+</span></span>
-<span id="cb92-24"><a href="bayesian-generalized-linear-mixed-model.html#cb92-24"></a><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="st">&quot;Parameter&quot;</span>, <span class="dt">scales =</span> <span class="st">&quot;free_x&quot;</span>, <span class="dt">nrow =</span> <span class="dv">1</span>) <span class="op">+</span></span>
-<span id="cb92-25"><a href="bayesian-generalized-linear-mixed-model.html#cb92-25"></a><span class="st">  </span><span class="kw">theme</span>(</span>
-<span id="cb92-26"><a href="bayesian-generalized-linear-mixed-model.html#cb92-26"></a>    <span class="dt">legend.position =</span> <span class="st">&quot;bottom&quot;</span>,</span>
-<span id="cb92-27"><a href="bayesian-generalized-linear-mixed-model.html#cb92-27"></a>    <span class="dt">axis.title.y =</span> <span class="kw">element_blank</span>(), </span>
-<span id="cb92-28"><a href="bayesian-generalized-linear-mixed-model.html#cb92-28"></a>    <span class="dt">panel.spacing.x =</span> <span class="kw">unit</span>(<span class="dv">12</span>, <span class="st">&quot;pt&quot;</span>)</span>
-<span id="cb92-29"><a href="bayesian-generalized-linear-mixed-model.html#cb92-29"></a>  )</span></code></pre></div>
+<div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb105-1"><a href="bayesian-generalized-linear-mixed-model.html#cb105-1"></a><span class="kw">ggsave</span>(<span class="st">&quot;Figure2.png&quot;</span>, <span class="dt">width =</span> <span class="dv">6</span>, <span class="dt">height =</span> <span class="dv">4</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="bayesian-generalized-linear-mixed-model.html#cb106-1"></a><span class="co"># Get YRBS item-specific effects</span></span>
+<span id="cb106-2"><a href="bayesian-generalized-linear-mixed-model.html#cb106-2"></a>tmp1 &lt;-<span class="st"> </span><span class="kw">slice</span>(fits, <span class="dv">1</span><span class="op">:</span><span class="dv">2</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb106-3"><a href="bayesian-generalized-linear-mixed-model.html#cb106-3"></a><span class="st">  </span><span class="kw">mutate</span>(</span>
+<span id="cb106-4"><a href="bayesian-generalized-linear-mixed-model.html#cb106-4"></a>    <span class="dt">o =</span> <span class="kw">map</span>(ml1, <span class="op">~</span><span class="kw">rownames_to_column</span>(<span class="kw">as.data.frame</span>(<span class="kw">coef</span>(.)<span class="op">$</span>item[,,<span class="dv">7</span>])))</span>
+<span id="cb106-5"><a href="bayesian-generalized-linear-mixed-model.html#cb106-5"></a>  ) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb106-6"><a href="bayesian-generalized-linear-mixed-model.html#cb106-6"></a><span class="st">  </span><span class="kw">unnest</span>(o)</span>
+<span id="cb106-7"><a href="bayesian-generalized-linear-mixed-model.html#cb106-7"></a></span>
+<span id="cb106-8"><a href="bayesian-generalized-linear-mixed-model.html#cb106-8"></a>tmp &lt;-<span class="st"> </span>fits <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb106-9"><a href="bayesian-generalized-linear-mixed-model.html#cb106-9"></a><span class="st">  </span><span class="kw">mutate</span>(</span>
+<span id="cb106-10"><a href="bayesian-generalized-linear-mixed-model.html#cb106-10"></a>    <span class="dt">p =</span> <span class="kw">map</span>(</span>
+<span id="cb106-11"><a href="bayesian-generalized-linear-mixed-model.html#cb106-11"></a>      ml1, <span class="op">~</span><span class="kw">posterior_summary</span>(., <span class="dt">pars =</span> <span class="st">&quot;b_Year:[TV|SM|DV]&quot;</span>) <span class="op">%&gt;%</span></span>
+<span id="cb106-12"><a href="bayesian-generalized-linear-mixed-model.html#cb106-12"></a><span class="st">        </span><span class="kw">as.data.frame</span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb106-13"><a href="bayesian-generalized-linear-mixed-model.html#cb106-13"></a><span class="st">        </span><span class="kw">rownames_to_column</span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb106-14"><a href="bayesian-generalized-linear-mixed-model.html#cb106-14"></a><span class="st">        </span><span class="kw">tibble</span>()</span>
+<span id="cb106-15"><a href="bayesian-generalized-linear-mixed-model.html#cb106-15"></a>    )</span>
+<span id="cb106-16"><a href="bayesian-generalized-linear-mixed-model.html#cb106-16"></a>  ) <span class="op">%&gt;%</span></span>
+<span id="cb106-17"><a href="bayesian-generalized-linear-mixed-model.html#cb106-17"></a><span class="st">  </span><span class="kw">unnest</span>(p)</span>
+<span id="cb106-18"><a href="bayesian-generalized-linear-mixed-model.html#cb106-18"></a>tmp <span class="op">%&gt;%</span><span class="st">   </span></span>
+<span id="cb106-19"><a href="bayesian-generalized-linear-mixed-model.html#cb106-19"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(Estimate, Outcome, <span class="dt">col =</span> Outcome)) <span class="op">+</span></span>
+<span id="cb106-20"><a href="bayesian-generalized-linear-mixed-model.html#cb106-20"></a><span class="st">  </span><span class="kw">scale_color_brewer</span>(<span class="dt">palette =</span> <span class="st">&quot;Set1&quot;</span>) <span class="op">+</span></span>
+<span id="cb106-21"><a href="bayesian-generalized-linear-mixed-model.html#cb106-21"></a><span class="st">  </span><span class="kw">scale_x_continuous</span>(</span>
+<span id="cb106-22"><a href="bayesian-generalized-linear-mixed-model.html#cb106-22"></a>    <span class="st">&quot;Linear interaction estimate (±95%CI)&quot;</span>,</span>
+<span id="cb106-23"><a href="bayesian-generalized-linear-mixed-model.html#cb106-23"></a>    <span class="dt">breaks =</span> scales<span class="op">::</span><span class="kw">pretty_breaks</span>(), </span>
+<span id="cb106-24"><a href="bayesian-generalized-linear-mixed-model.html#cb106-24"></a>    <span class="dt">expand =</span> <span class="kw">expansion</span>(.<span class="dv">2</span>)</span>
+<span id="cb106-25"><a href="bayesian-generalized-linear-mixed-model.html#cb106-25"></a>  ) <span class="op">+</span></span>
+<span id="cb106-26"><a href="bayesian-generalized-linear-mixed-model.html#cb106-26"></a><span class="st">  </span><span class="kw">geom_vline</span>(<span class="dt">xintercept =</span> <span class="dv">0</span>, <span class="dt">size =</span> <span class="fl">.25</span>, <span class="dt">lty =</span> <span class="dv">2</span>) <span class="op">+</span></span>
+<span id="cb106-27"><a href="bayesian-generalized-linear-mixed-model.html#cb106-27"></a><span class="st">  </span>ggstance<span class="op">::</span><span class="kw">geom_pointrangeh</span>(</span>
+<span id="cb106-28"><a href="bayesian-generalized-linear-mixed-model.html#cb106-28"></a>    <span class="dt">shape =</span> <span class="dv">21</span>, <span class="dt">fill =</span> <span class="st">&quot;white&quot;</span>, <span class="dt">fatten =</span> <span class="dv">3</span>,</span>
+<span id="cb106-29"><a href="bayesian-generalized-linear-mixed-model.html#cb106-29"></a>    <span class="kw">aes</span>(<span class="dt">xmin=</span>Q2<span class="fl">.5</span>, <span class="dt">xmax=</span>Q97<span class="fl">.5</span>)</span>
+<span id="cb106-30"><a href="bayesian-generalized-linear-mixed-model.html#cb106-30"></a>  ) <span class="op">+</span></span>
+<span id="cb106-31"><a href="bayesian-generalized-linear-mixed-model.html#cb106-31"></a><span class="st">  </span><span class="co"># ggstance::geom_pointrangeh(</span></span>
+<span id="cb106-32"><a href="bayesian-generalized-linear-mixed-model.html#cb106-32"></a><span class="st">  </span><span class="co">#   data = tmp1, aes(xmin = Q2.5, xmax = Q97.5),</span></span>
+<span id="cb106-33"><a href="bayesian-generalized-linear-mixed-model.html#cb106-33"></a><span class="st">  </span><span class="co">#   size = .25, fatten = 1,</span></span>
+<span id="cb106-34"><a href="bayesian-generalized-linear-mixed-model.html#cb106-34"></a><span class="st">  </span><span class="co">#   position = ggstance::position_dodge2v(.25)</span></span>
+<span id="cb106-35"><a href="bayesian-generalized-linear-mixed-model.html#cb106-35"></a><span class="st">  </span><span class="co"># ) +</span></span>
+<span id="cb106-36"><a href="bayesian-generalized-linear-mixed-model.html#cb106-36"></a><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="st">&quot;Technology&quot;</span>) <span class="op">+</span></span>
+<span id="cb106-37"><a href="bayesian-generalized-linear-mixed-model.html#cb106-37"></a><span class="st">  </span><span class="kw">theme</span>(</span>
+<span id="cb106-38"><a href="bayesian-generalized-linear-mixed-model.html#cb106-38"></a>    <span class="dt">axis.title.y =</span> <span class="kw">element_blank</span>(),</span>
+<span id="cb106-39"><a href="bayesian-generalized-linear-mixed-model.html#cb106-39"></a>    <span class="dt">legend.position =</span> <span class="st">&quot;none&quot;</span>,</span>
+<span id="cb106-40"><a href="bayesian-generalized-linear-mixed-model.html#cb106-40"></a>    <span class="dt">legend.text =</span> <span class="kw">element_text</span>(<span class="dt">size =</span> <span class="dv">8</span>)</span>
+<span id="cb106-41"><a href="bayesian-generalized-linear-mixed-model.html#cb106-41"></a>  )</span></code></pre></div>
+<div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb107-1"><a href="bayesian-generalized-linear-mixed-model.html#cb107-1"></a><span class="co"># Sex</span></span>
+<span id="cb107-2"><a href="bayesian-generalized-linear-mixed-model.html#cb107-2"></a>pars <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb107-3"><a href="bayesian-generalized-linear-mixed-model.html#cb107-3"></a><span class="st">  </span><span class="kw">filter</span>(<span class="kw">str_detect</span>(Parameter, <span class="st">&quot;Sex1:Year:&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb107-4"><a href="bayesian-generalized-linear-mixed-model.html#cb107-4"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Parameter =</span> <span class="st">&quot;Sex x Year x Tech&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb107-5"><a href="bayesian-generalized-linear-mixed-model.html#cb107-5"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(Estimate, Outcome, <span class="dt">shape =</span> Technology)) <span class="op">+</span></span>
+<span id="cb107-6"><a href="bayesian-generalized-linear-mixed-model.html#cb107-6"></a><span class="st">  </span><span class="kw">scale_color_brewer</span>(<span class="dt">palette =</span> <span class="st">&quot;Set1&quot;</span>) <span class="op">+</span></span>
+<span id="cb107-7"><a href="bayesian-generalized-linear-mixed-model.html#cb107-7"></a><span class="st">  </span><span class="kw">scale_x_continuous</span>(</span>
+<span id="cb107-8"><a href="bayesian-generalized-linear-mixed-model.html#cb107-8"></a>    <span class="st">&quot;Estimated parameter&quot;</span>,</span>
+<span id="cb107-9"><a href="bayesian-generalized-linear-mixed-model.html#cb107-9"></a>    <span class="dt">breaks =</span> scales<span class="op">::</span><span class="kw">pretty_breaks</span>(), </span>
+<span id="cb107-10"><a href="bayesian-generalized-linear-mixed-model.html#cb107-10"></a>    <span class="dt">expand =</span> <span class="kw">expansion</span>(.<span class="dv">25</span>)</span>
+<span id="cb107-11"><a href="bayesian-generalized-linear-mixed-model.html#cb107-11"></a>  ) <span class="op">+</span></span>
+<span id="cb107-12"><a href="bayesian-generalized-linear-mixed-model.html#cb107-12"></a><span class="st">  </span><span class="kw">geom_vline</span>(<span class="dt">xintercept =</span> <span class="dv">0</span>, <span class="dt">lty =</span> <span class="dv">2</span>, <span class="dt">size =</span> <span class="fl">.25</span>) <span class="op">+</span></span>
+<span id="cb107-13"><a href="bayesian-generalized-linear-mixed-model.html#cb107-13"></a><span class="st">  </span><span class="kw">geom_linerangeh</span>(</span>
+<span id="cb107-14"><a href="bayesian-generalized-linear-mixed-model.html#cb107-14"></a>    <span class="kw">aes</span>(<span class="dt">xmin =</span> Q2<span class="fl">.5</span>, <span class="dt">xmax =</span> Q97<span class="fl">.5</span>), <span class="dt">size =</span> <span class="fl">.25</span>,</span>
+<span id="cb107-15"><a href="bayesian-generalized-linear-mixed-model.html#cb107-15"></a>    <span class="dt">position =</span> <span class="kw">position_dodge2v</span>(.<span class="dv">4</span>), <span class="dt">show.legend =</span> <span class="ot">FALSE</span></span>
+<span id="cb107-16"><a href="bayesian-generalized-linear-mixed-model.html#cb107-16"></a>  ) <span class="op">+</span></span>
+<span id="cb107-17"><a href="bayesian-generalized-linear-mixed-model.html#cb107-17"></a><span class="st">  </span><span class="kw">geom_linerangeh</span>(</span>
+<span id="cb107-18"><a href="bayesian-generalized-linear-mixed-model.html#cb107-18"></a>    <span class="kw">aes</span>(<span class="dt">xmin =</span> Q10, <span class="dt">xmax =</span> Q90), <span class="dt">size =</span> <span class="fl">.75</span>,</span>
+<span id="cb107-19"><a href="bayesian-generalized-linear-mixed-model.html#cb107-19"></a>    <span class="dt">position =</span> <span class="kw">position_dodge2v</span>(.<span class="dv">4</span>), <span class="dt">show.legend =</span> <span class="ot">FALSE</span></span>
+<span id="cb107-20"><a href="bayesian-generalized-linear-mixed-model.html#cb107-20"></a>  ) <span class="op">+</span></span>
+<span id="cb107-21"><a href="bayesian-generalized-linear-mixed-model.html#cb107-21"></a><span class="st">  </span><span class="kw">geom_point</span>(</span>
+<span id="cb107-22"><a href="bayesian-generalized-linear-mixed-model.html#cb107-22"></a>    <span class="dt">size =</span> <span class="dv">2</span>, <span class="dt">position =</span> <span class="kw">position_dodge2v</span>(.<span class="dv">4</span>)</span>
+<span id="cb107-23"><a href="bayesian-generalized-linear-mixed-model.html#cb107-23"></a>  ) <span class="op">+</span></span>
+<span id="cb107-24"><a href="bayesian-generalized-linear-mixed-model.html#cb107-24"></a><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="st">&quot;Parameter&quot;</span>, <span class="dt">scales =</span> <span class="st">&quot;free_x&quot;</span>, <span class="dt">nrow =</span> <span class="dv">1</span>) <span class="op">+</span></span>
+<span id="cb107-25"><a href="bayesian-generalized-linear-mixed-model.html#cb107-25"></a><span class="st">  </span><span class="kw">theme</span>(</span>
+<span id="cb107-26"><a href="bayesian-generalized-linear-mixed-model.html#cb107-26"></a>    <span class="dt">legend.position =</span> <span class="st">&quot;bottom&quot;</span>,</span>
+<span id="cb107-27"><a href="bayesian-generalized-linear-mixed-model.html#cb107-27"></a>    <span class="dt">axis.title.y =</span> <span class="kw">element_blank</span>(), </span>
+<span id="cb107-28"><a href="bayesian-generalized-linear-mixed-model.html#cb107-28"></a>    <span class="dt">panel.spacing.x =</span> <span class="kw">unit</span>(<span class="dv">12</span>, <span class="st">&quot;pt&quot;</span>)</span>
+<span id="cb107-29"><a href="bayesian-generalized-linear-mixed-model.html#cb107-29"></a>  )</span></code></pre></div>
 <p><img src="04-BGLMM_files/figure-html/unnamed-chunk-4-1.png" width="768" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb108-1"><a href="bayesian-generalized-linear-mixed-model.html#cb108-1"></a><span class="kw">library</span>(sessioninfo)</span>
+<span id="cb108-2"><a href="bayesian-generalized-linear-mixed-model.html#cb108-2"></a><span class="kw">session_info</span>()</span></code></pre></div>
+<pre><code>## ─ Session info ───────────────────────────────────────────────────────────────
+##  setting  value                       
+##  version  R version 4.0.2 (2020-06-22)
+##  os       macOS Catalina 10.15.7      
+##  system   x86_64, darwin17.0          
+##  ui       X11                         
+##  language (EN)                        
+##  collate  en_GB.UTF-8                 
+##  ctype    en_GB.UTF-8                 
+##  tz       Europe/London               
+##  date     2020-10-02                  
+## 
+## ─ Packages ───────────────────────────────────────────────────────────────────
+##  package        * version    date       lib
+##  abind            1.4-5      2016-07-21 [1]
+##  assertthat       0.2.1      2019-03-21 [1]
+##  backports        1.1.10     2020-09-15 [1]
+##  base64enc        0.1-3      2015-07-28 [1]
+##  bayesplot        1.7.2      2020-05-28 [1]
+##  blob             1.2.1      2020-01-20 [1]
+##  bmlm             1.3.11     2019-02-21 [1]
+##  bookdown         0.20       2020-06-23 [1]
+##  bridgesampling   1.0-0      2020-02-26 [1]
+##  brms           * 2.13.10    2020-09-29 [1]
+##  Brobdingnag      1.2-6      2018-08-13 [1]
+##  broom            0.7.0.9001 2020-07-23 [1]
+##  callr            3.4.4      2020-09-07 [1]
+##  cellranger       1.1.0      2016-07-27 [1]
+##  cli              2.0.2      2020-02-28 [1]
+##  coda             0.19-3     2019-07-05 [1]
+##  codetools        0.2-16     2018-12-24 [1]
+##  colorspace       1.4-1      2019-03-18 [1]
+##  colourpicker     1.1.0      2020-09-14 [1]
+##  crayon           1.3.4      2017-09-16 [1]
+##  crosstalk        1.1.0.1    2020-03-13 [1]
+##  curl             4.3        2019-12-02 [1]
+##  DBI              1.1.0      2019-12-15 [1]
+##  dbplyr           1.4.4      2020-05-27 [1]
+##  digest           0.6.25     2020-02-23 [1]
+##  dplyr          * 1.0.2      2020-08-18 [1]
+##  DT               0.15       2020-08-05 [1]
+##  dygraphs         1.1.1.6    2018-07-11 [1]
+##  ellipsis         0.3.1      2020-05-15 [1]
+##  emmeans          1.5.1      2020-09-18 [1]
+##  estimability     1.3        2018-02-11 [1]
+##  evaluate         0.14       2019-05-28 [1]
+##  fansi            0.4.1      2020-01-08 [1]
+##  farver           2.0.3      2020-01-16 [1]
+##  fastmap          1.0.1      2019-10-08 [1]
+##  forcats        * 0.5.0      2020-03-01 [1]
+##  fs               1.5.0      2020-07-31 [1]
+##  future         * 1.19.1     2020-09-22 [1]
+##  generics         0.0.2      2018-11-29 [1]
+##  ggplot2        * 3.3.2      2020-06-19 [1]
+##  ggridges         0.5.2      2020-01-12 [1]
+##  ggstance       * 0.3.4      2020-04-02 [1]
+##  globals          0.13.0     2020-09-17 [1]
+##  glue             1.4.2      2020-08-27 [1]
+##  gridExtra        2.3        2017-09-09 [1]
+##  gtable           0.3.0      2019-03-25 [1]
+##  gtools           3.8.2      2020-03-31 [1]
+##  haven            2.3.1      2020-06-01 [1]
+##  hms              0.5.3      2020-01-08 [1]
+##  htmltools        0.5.0      2020-06-16 [1]
+##  htmlwidgets      1.5.1      2019-10-08 [1]
+##  httpuv           1.5.4      2020-06-06 [1]
+##  httr             1.4.2      2020-07-20 [1]
+##  igraph           1.2.5      2020-03-19 [1]
+##  inline           0.3.16     2020-09-06 [1]
+##  jsonlite         1.7.1      2020-09-07 [1]
+##  knitr          * 1.30       2020-09-22 [1]
+##  later            1.1.0.1    2020-06-05 [1]
+##  lattice          0.20-41    2020-04-02 [1]
+##  lifecycle        0.2.0      2020-03-06 [1]
+##  listenv          0.8.0      2019-12-05 [1]
+##  loo              2.3.1      2020-07-14 [1]
+##  lubridate        1.7.9      2020-06-08 [1]
+##  magrittr         1.5        2014-11-22 [1]
+##  markdown         1.1        2019-08-07 [1]
+##  MASS             7.3-53     2020-09-09 [1]
+##  Matrix           1.2-18     2019-11-27 [1]
+##  matrixStats      0.57.0     2020-09-25 [1]
+##  mime             0.9        2020-02-04 [1]
+##  miniUI           0.1.1.1    2018-05-18 [1]
+##  modelr           0.1.8      2020-05-19 [1]
+##  multcomp         1.4-13     2020-04-08 [1]
+##  munsell          0.5.0      2018-06-12 [1]
+##  mvtnorm          1.1-1      2020-06-09 [1]
+##  nlme             3.1-149    2020-08-23 [1]
+##  pacman           0.5.1      2019-03-11 [1]
+##  patchwork      * 1.0.1      2020-06-22 [1]
+##  pillar           1.4.6      2020-07-10 [1]
+##  pkgbuild         1.1.0      2020-07-13 [1]
+##  pkgconfig        2.0.3      2019-09-22 [1]
+##  plyr             1.8.6      2020-03-03 [1]
+##  prettyunits      1.1.1      2020-01-24 [1]
+##  processx         3.4.4      2020-09-03 [1]
+##  promises         1.1.1      2020-06-09 [1]
+##  ps               1.3.4      2020-08-11 [1]
+##  purrr          * 0.3.4      2020-04-17 [1]
+##  R6               2.4.1      2019-11-12 [1]
+##  Rcpp           * 1.0.5      2020-07-06 [1]
+##  RcppParallel     5.0.2      2020-06-24 [1]
+##  readr          * 1.3.1      2018-12-21 [1]
+##  readxl           1.3.1      2019-03-13 [1]
+##  reprex           0.3.0      2019-05-16 [1]
+##  reshape2         1.4.4      2020-04-09 [1]
+##  rlang            0.4.7      2020-07-09 [1]
+##  rmarkdown        2.4.0      2020-09-11 [1]
+##  rsconnect        0.8.16     2019-12-13 [1]
+##  rstan            2.21.3     2020-09-29 [1]
+##  rstantools       2.1.1      2020-07-06 [1]
+##  rstudioapi       0.11       2020-02-07 [1]
+##  rvest            0.3.6      2020-07-25 [1]
+##  sandwich         2.5-1      2019-04-06 [1]
+##  scales           1.1.1      2020-05-11 [1]
+##  sessioninfo    * 1.1.1      2018-11-05 [1]
+##  shiny            1.5.0      2020-06-23 [1]
+##  shinyjs          2.0.0      2020-09-09 [1]
+##  shinystan        2.5.0      2018-05-01 [1]
+##  shinythemes      1.1.2      2018-11-06 [1]
+##  StanHeaders      2.21.0-6   2020-08-16 [1]
+##  stringi          1.5.3      2020-09-09 [1]
+##  stringr        * 1.4.0      2019-02-10 [1]
+##  survival         3.2-3      2020-06-13 [1]
+##  TH.data          1.0-10     2019-01-21 [1]
+##  threejs          0.3.3      2020-01-21 [1]
+##  tibble         * 3.0.3      2020-07-10 [1]
+##  tidyr          * 1.1.2      2020-08-27 [1]
+##  tidyselect       1.1.0      2020-05-11 [1]
+##  tidyverse      * 1.3.0      2019-11-21 [1]
+##  V8               3.2.0      2020-06-19 [1]
+##  vctrs            0.3.4      2020-08-29 [1]
+##  withr            2.3.0      2020-09-22 [1]
+##  xfun             0.18       2020-09-29 [1]
+##  xml2             1.3.2      2020-04-23 [1]
+##  xtable           1.8-4      2019-04-21 [1]
+##  xts              0.12.1     2020-09-09 [1]
+##  yaml             2.2.1      2020-02-01 [1]
+##  zoo              1.8-8      2020-05-02 [1]
+##  source                              
+##  CRAN (R 4.0.0)                      
+##  CRAN (R 4.0.0)                      
+##  CRAN (R 4.0.2)                      
+##  CRAN (R 4.0.0)                      
+##  CRAN (R 4.0.0)                      
+##  CRAN (R 4.0.0)                      
+##  CRAN (R 4.0.0)                      
+##  CRAN (R 4.0.2)                      
+##  CRAN (R 4.0.0)                      
+##  Github (paul-buerkner/brms@9f75e2d) 
+##  CRAN (R 4.0.0)                      
+##  Github (tidymodels/broom@7db1139)   
+##  CRAN (R 4.0.2)                      
+##  CRAN (R 4.0.0)                      
+##  CRAN (R 4.0.0)                      
+##  CRAN (R 4.0.0)                      
+##  CRAN (R 4.0.2)                      
+##  CRAN (R 4.0.0)                      
+##  CRAN (R 4.0.2)                      
+##  CRAN (R 4.0.0)                      
+##  CRAN (R 4.0.0)                      
+##  CRAN (R 4.0.0)                      
+##  CRAN (R 4.0.0)                      
+##  CRAN (R 4.0.0)                      
+##  CRAN (R 4.0.0)                      
+##  CRAN (R 4.0.2)                      
+##  CRAN (R 4.0.2)                      
+##  CRAN (R 4.0.0)                      
+##  CRAN (R 4.0.0)                      
+##  CRAN (R 4.0.2)                      
+##  CRAN (R 4.0.0)                      
+##  CRAN (R 4.0.0)                      
+##  CRAN (R 4.0.0)                      
+##  CRAN (R 4.0.0)                      
+##  CRAN (R 4.0.0)                      
+##  CRAN (R 4.0.0)                      
+##  CRAN (R 4.0.2)                      
+##  CRAN (R 4.0.2)                      
+##  CRAN (R 4.0.0)                      
+##  CRAN (R 4.0.1)                      
+##  CRAN (R 4.0.0)                      
+##  CRAN (R 4.0.0)                      
+##  CRAN (R 4.0.2)                      
+##  CRAN (R 4.0.2)                      
+##  CRAN (R 4.0.0)                      
+##  CRAN (R 4.0.0)                      
+##  CRAN (R 4.0.0)                      
+##  CRAN (R 4.0.0)                      
+##  CRAN (R 4.0.0)                      
+##  CRAN (R 4.0.1)                      
+##  CRAN (R 4.0.0)                      
+##  CRAN (R 4.0.0)                      
+##  CRAN (R 4.0.2)                      
+##  CRAN (R 4.0.0)                      
+##  CRAN (R 4.0.2)                      
+##  CRAN (R 4.0.2)                      
+##  CRAN (R 4.0.2)                      
+##  CRAN (R 4.0.0)                      
+##  CRAN (R 4.0.2)                      
+##  CRAN (R 4.0.0)                      
+##  CRAN (R 4.0.0)                      
+##  CRAN (R 4.0.2)                      
+##  CRAN (R 4.0.1)                      
+##  CRAN (R 4.0.0)                      
+##  CRAN (R 4.0.0)                      
+##  CRAN (R 4.0.2)                      
+##  CRAN (R 4.0.2)                      
+##  CRAN (R 4.0.2)                      
+##  CRAN (R 4.0.0)                      
+##  CRAN (R 4.0.0)                      
+##  CRAN (R 4.0.0)                      
+##  CRAN (R 4.0.0)                      
+##  CRAN (R 4.0.0)                      
+##  CRAN (R 4.0.0)                      
+##  CRAN (R 4.0.2)                      
+##  CRAN (R 4.0.0)                      
+##  CRAN (R 4.0.2)                      
+##  CRAN (R 4.0.2)                      
+##  CRAN (R 4.0.2)                      
+##  CRAN (R 4.0.0)                      
+##  CRAN (R 4.0.0)                      
+##  CRAN (R 4.0.0)                      
+##  CRAN (R 4.0.2)                      
+##  CRAN (R 4.0.1)                      
+##  CRAN (R 4.0.2)                      
+##  CRAN (R 4.0.0)                      
+##  CRAN (R 4.0.0)                      
+##  CRAN (R 4.0.2)                      
+##  CRAN (R 4.0.0)                      
+##  CRAN (R 4.0.0)                      
+##  CRAN (R 4.0.0)                      
+##  CRAN (R 4.0.0)                      
+##  CRAN (R 4.0.0)                      
+##  CRAN (R 4.0.2)                      
+##  Github (cpsievert/rmarkdown@b79fb4d)
+##  CRAN (R 4.0.0)                      
+##  Github (stan-dev/rstan@ae36e6f)     
+##  CRAN (R 4.0.2)                      
+##  CRAN (R 4.0.0)                      
+##  CRAN (R 4.0.2)                      
+##  CRAN (R 4.0.0)                      
+##  CRAN (R 4.0.0)                      
+##  CRAN (R 4.0.0)                      
+##  CRAN (R 4.0.0)                      
+##  CRAN (R 4.0.2)                      
+##  CRAN (R 4.0.0)                      
+##  CRAN (R 4.0.0)                      
+##  CRAN (R 4.0.2)                      
+##  CRAN (R 4.0.2)                      
+##  CRAN (R 4.0.0)                      
+##  CRAN (R 4.0.2)                      
+##  CRAN (R 4.0.0)                      
+##  CRAN (R 4.0.0)                      
+##  CRAN (R 4.0.2)                      
+##  CRAN (R 4.0.2)                      
+##  CRAN (R 4.0.0)                      
+##  CRAN (R 4.0.0)                      
+##  CRAN (R 4.0.2)                      
+##  CRAN (R 4.0.2)                      
+##  CRAN (R 4.0.2)                      
+##  CRAN (R 4.0.2)                      
+##  CRAN (R 4.0.0)                      
+##  CRAN (R 4.0.0)                      
+##  CRAN (R 4.0.2)                      
+##  CRAN (R 4.0.0)                      
+##  CRAN (R 4.0.0)                      
+## 
+## [1] /Library/Frameworks/R.framework/Versions/4.0/Resources/library</code></pre>
 
 </div>
 </div>

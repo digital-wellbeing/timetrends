@@ -24,7 +24,7 @@
 <meta name="author" content="Matti Vuorre" />
 
 
-<meta name="date" content="2020-09-02" />
+<meta name="date" content="2020-10-02" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,6 +33,7 @@
   
 <link rel="prev" href="index.html"/>
 <link rel="next" href="us-preprocessing.html"/>
+<script src="libs/header-attrs-2.4.0/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -54,18 +55,17 @@
 
 
 <style type="text/css">
-code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
-code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -85,7 +85,7 @@ pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-le
 div.sourceCode
   {   }
 @media screen {
-code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -134,46 +134,58 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="./">Technology effect timecourses</a></li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Preface</a><ul>
-<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#analyses-and-reproducibility"><i class="fa fa-check"></i><b>1.1</b> Analyses and reproducibility</a></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Preface</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#analyses"><i class="fa fa-check"></i><b>1.1</b> Analyses</a></li>
 <li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#raw-data"><i class="fa fa-check"></i><b>1.2</b> Raw data</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#reproducibility"><i class="fa fa-check"></i><b>1.3</b> Reproducibility</a></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="mtf-preprocessing.html"><a href="mtf-preprocessing.html"><i class="fa fa-check"></i><b>2</b> MTF preprocessing</a><ul>
+<li class="chapter" data-level="2" data-path="mtf-preprocessing.html"><a href="mtf-preprocessing.html"><i class="fa fa-check"></i><b>2</b> MTF preprocessing</a>
+<ul>
 <li class="chapter" data-level="2.1" data-path="mtf-preprocessing.html"><a href="mtf-preprocessing.html#save-to-disk"><i class="fa fa-check"></i><b>2.1</b> Save to disk</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="us-preprocessing.html"><a href="us-preprocessing.html"><i class="fa fa-check"></i><b>3</b> US preprocessing</a><ul>
+<li class="chapter" data-level="3" data-path="us-preprocessing.html"><a href="us-preprocessing.html"><i class="fa fa-check"></i><b>3</b> US preprocessing</a>
+<ul>
 <li class="chapter" data-level="3.1" data-path="us-preprocessing.html"><a href="us-preprocessing.html#year"><i class="fa fa-check"></i><b>3.1</b> Year</a></li>
 <li class="chapter" data-level="3.2" data-path="us-preprocessing.html"><a href="us-preprocessing.html#strengths-and-difficulties"><i class="fa fa-check"></i><b>3.2</b> Strengths and difficulties</a></li>
 <li class="chapter" data-level="3.3" data-path="us-preprocessing.html"><a href="us-preprocessing.html#save-file"><i class="fa fa-check"></i><b>3.3</b> Save file</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="yrbs-preprocessing.html"><a href="yrbs-preprocessing.html"><i class="fa fa-check"></i><b>4</b> YRBS preprocessing</a><ul>
+<li class="chapter" data-level="4" data-path="yrbs-preprocessing.html"><a href="yrbs-preprocessing.html"><i class="fa fa-check"></i><b>4</b> YRBS preprocessing</a>
+<ul>
 <li class="chapter" data-level="4.1" data-path="yrbs-preprocessing.html"><a href="yrbs-preprocessing.html#recode-variables"><i class="fa fa-check"></i><b>4.1</b> Recode Variables</a></li>
 <li class="chapter" data-level="4.2" data-path="yrbs-preprocessing.html"><a href="yrbs-preprocessing.html#age"><i class="fa fa-check"></i><b>4.2</b> Age</a></li>
 <li class="chapter" data-level="4.3" data-path="yrbs-preprocessing.html"><a href="yrbs-preprocessing.html#tech-variables"><i class="fa fa-check"></i><b>4.3</b> Tech variables</a></li>
 <li class="chapter" data-level="4.4" data-path="yrbs-preprocessing.html"><a href="yrbs-preprocessing.html#sex"><i class="fa fa-check"></i><b>4.4</b> Sex</a></li>
 <li class="chapter" data-level="4.5" data-path="yrbs-preprocessing.html"><a href="yrbs-preprocessing.html#rename-and-save"><i class="fa fa-check"></i><b>4.5</b> Rename and save</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="data-descriptives.html"><a href="data-descriptives.html"><i class="fa fa-check"></i><b>5</b> Data descriptives</a><ul>
-<li class="chapter" data-level="5.1" data-path="data-descriptives.html"><a href="data-descriptives.html#data"><i class="fa fa-check"></i><b>5.1</b> Data</a><ul>
+<li class="chapter" data-level="5" data-path="data-descriptives.html"><a href="data-descriptives.html"><i class="fa fa-check"></i><b>5</b> Data descriptives</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="data-descriptives.html"><a href="data-descriptives.html#data"><i class="fa fa-check"></i><b>5.1</b> Data</a>
+<ul>
 <li class="chapter" data-level="5.1.1" data-path="data-descriptives.html"><a href="data-descriptives.html#sample-sizes-and-years"><i class="fa fa-check"></i><b>5.1.1</b> Sample sizes and years</a></li>
-<li class="chapter" data-level="5.1.2" data-path="data-descriptives.html"><a href="data-descriptives.html#outcomes"><i class="fa fa-check"></i><b>5.1.2</b> Outcomes</a></li>
+<li class="chapter" data-level="5.1.2" data-path="data-descriptives.html"><a href="data-descriptives.html#missingness"><i class="fa fa-check"></i><b>5.1.2</b> Missingness</a></li>
+<li class="chapter" data-level="5.1.3" data-path="data-descriptives.html"><a href="data-descriptives.html#outcomes"><i class="fa fa-check"></i><b>5.1.3</b> Outcomes</a></li>
 </ul></li>
 <li class="chapter" data-level="5.2" data-path="data-descriptives.html"><a href="data-descriptives.html#figures"><i class="fa fa-check"></i><b>5.2</b> Figures</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="generalized-linear-model.html"><a href="generalized-linear-model.html"><i class="fa fa-check"></i><b>6</b> Generalized Linear Model</a><ul>
+<li class="chapter" data-level="6" data-path="generalized-linear-model.html"><a href="generalized-linear-model.html"><i class="fa fa-check"></i><b>6</b> Generalized Linear Model</a>
+<ul>
 <li class="chapter" data-level="6.1" data-path="data-descriptives.html"><a href="data-descriptives.html#data"><i class="fa fa-check"></i><b>6.1</b> Data</a></li>
 <li class="chapter" data-level="6.2" data-path="generalized-linear-model.html"><a href="generalized-linear-model.html#yearly-correlations-figure"><i class="fa fa-check"></i><b>6.2</b> Yearly correlations figure</a></li>
 <li class="chapter" data-level="6.3" data-path="generalized-linear-model.html"><a href="generalized-linear-model.html#models"><i class="fa fa-check"></i><b>6.3</b> Models</a></li>
 <li class="chapter" data-level="6.4" data-path="generalized-linear-model.html"><a href="generalized-linear-model.html#results"><i class="fa fa-check"></i><b>6.4</b> Results</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="bayesian-generalized-linear-mixed-model.html"><a href="bayesian-generalized-linear-mixed-model.html"><i class="fa fa-check"></i><b>7</b> Bayesian Generalized Linear Mixed Model</a><ul>
+<li class="chapter" data-level="7" data-path="bayesian-generalized-linear-mixed-model.html"><a href="bayesian-generalized-linear-mixed-model.html"><i class="fa fa-check"></i><b>7</b> Bayesian Generalized Linear Mixed Model</a>
+<ul>
 <li class="chapter" data-level="7.1" data-path="data-descriptives.html"><a href="data-descriptives.html#data"><i class="fa fa-check"></i><b>7.1</b> Data</a></li>
-<li class="chapter" data-level="7.2" data-path="generalized-linear-model.html"><a href="generalized-linear-model.html#models"><i class="fa fa-check"></i><b>7.2</b> Models</a><ul>
+<li class="chapter" data-level="7.2" data-path="generalized-linear-model.html"><a href="generalized-linear-model.html#models"><i class="fa fa-check"></i><b>7.2</b> Models</a>
+<ul>
 <li class="chapter" data-level="7.2.1" data-path="bayesian-generalized-linear-mixed-model.html"><a href="bayesian-generalized-linear-mixed-model.html#estimate"><i class="fa fa-check"></i><b>7.2.1</b> Estimate</a></li>
-<li class="chapter" data-level="7.2.2" data-path="bayesian-generalized-linear-mixed-model.html"><a href="bayesian-generalized-linear-mixed-model.html#year-and-tech"><i class="fa fa-check"></i><b>7.2.2</b> Year and tech</a></li>
+<li class="chapter" data-level="7.2.2" data-path="generalized-linear-model.html"><a href="generalized-linear-model.html#results"><i class="fa fa-check"></i><b>7.2.2</b> Results</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="latent-variable-models.html"><a href="latent-variable-models.html"><i class="fa fa-check"></i><b>8</b> Latent Variable Models</a><ul>
+<li class="chapter" data-level="8" data-path="latent-variable-models.html"><a href="latent-variable-models.html"><i class="fa fa-check"></i><b>8</b> Latent Variable Models</a>
+<ul>
 <li class="chapter" data-level="8.1" data-path="data-descriptives.html"><a href="data-descriptives.html#data"><i class="fa fa-check"></i><b>8.1</b> Data</a></li>
 <li class="chapter" data-level="8.2" data-path="generalized-linear-model.html"><a href="generalized-linear-model.html#models"><i class="fa fa-check"></i><b>8.2</b> Models</a></li>
 <li class="chapter" data-level="8.3" data-path="generalized-linear-model.html"><a href="generalized-linear-model.html#results"><i class="fa fa-check"></i><b>8.3</b> Results</a></li>
@@ -195,173 +207,218 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="mtf-preprocessing" class="section level1">
+<div id="mtf-preprocessing" class="section level1" number="2">
 <h1><span class="header-section-number">Chapter 2</span> MTF preprocessing</h1>
 <p>Get list of individual data files’ names</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="mtf-preprocessing.html#cb1-1"></a>MTFfiles &lt;-<span class="st"> </span><span class="kw">list.files</span>(</span>
-<span id="cb1-2"><a href="mtf-preprocessing.html#cb1-2"></a>  <span class="dt">path =</span> <span class="st">&quot;data-raw/mtf/&quot;</span>,</span>
-<span id="cb1-3"><a href="mtf-preprocessing.html#cb1-3"></a>  <span class="dt">pattern =</span> <span class="st">&quot;</span><span class="ch">\\</span><span class="st">.dta$&quot;</span>,</span>
-<span id="cb1-4"><a href="mtf-preprocessing.html#cb1-4"></a>  <span class="dt">recursive =</span> <span class="ot">TRUE</span>,</span>
-<span id="cb1-5"><a href="mtf-preprocessing.html#cb1-5"></a>  <span class="dt">full.names =</span> <span class="ot">TRUE</span></span>
-<span id="cb1-6"><a href="mtf-preprocessing.html#cb1-6"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="mtf-preprocessing.html#cb3-1"></a>MTFfiles &lt;-<span class="st"> </span><span class="kw">list.files</span>(</span>
+<span id="cb3-2"><a href="mtf-preprocessing.html#cb3-2"></a>  <span class="dt">path =</span> <span class="st">&quot;data-raw/mtf/&quot;</span>,</span>
+<span id="cb3-3"><a href="mtf-preprocessing.html#cb3-3"></a>  <span class="dt">pattern =</span> <span class="st">&quot;</span><span class="ch">\\</span><span class="st">.dta$&quot;</span>,</span>
+<span id="cb3-4"><a href="mtf-preprocessing.html#cb3-4"></a>  <span class="dt">recursive =</span> <span class="ot">TRUE</span>,</span>
+<span id="cb3-5"><a href="mtf-preprocessing.html#cb3-5"></a>  <span class="dt">full.names =</span> <span class="ot">TRUE</span></span>
+<span id="cb3-6"><a href="mtf-preprocessing.html#cb3-6"></a>)</span></code></pre></div>
 <p>After this, we have to list all the variables we want to examine in our study. We should do this by using labels of variables which can be found in the codebooks. The reason we’re doing this is because label naming of the MTF dataset remained more or less consistent throughout the years, while variable naming isn’t consistent. Therefore, we can merge the data from different years by using labels, but not by using variable names themselves. For now, let’s go with the following variables:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="mtf-preprocessing.html#cb2-1"></a>vars &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;YEAR OF&quot;</span>, <span class="st">&quot;S SEX&quot;</span>, <span class="st">&quot;s SEX&quot;</span>, <span class="st">&quot;WHAT GRADE LEVL&quot;</span>, <span class="st">&quot;VRY HPY THS DAY&quot;</span>, <span class="st">&quot;SATISFD W MYSELF&quot;</span>, <span class="st">&quot;LIFE MEANINGLESS&quot;</span>, <span class="st">&quot;I ENJOY LIFE&quot;</span>, <span class="st">&quot;HOPELESS&quot;</span>, <span class="st">&quot;GOOD TO BE ALIVE&quot;</span>, <span class="st">&quot;FUTR R LIFE WRSE&quot;</span>, <span class="st">&quot;AM PRSN OF WORTH&quot;</span>, <span class="st">&quot;DO WELL AS OTHRS&quot;</span>, <span class="st">&quot;MUCH TO B PROUD&quot;</span>, <span class="st">&quot;I AM NO GOOD&quot;</span>, <span class="st">&quot;I DO WRONG THING&quot;</span>, <span class="st">&quot;MY LIFE NT USEFL&quot;</span>, <span class="st">&quot;POS ATT TWD SELF&quot;</span>, <span class="st">&quot;OFTN FEEL LONELY&quot;</span>, <span class="st">&quot;ALWYS SM1 HELP&quot;</span>, <span class="st">&quot;OFTN FL LEFT OUT&quot;</span>, <span class="st">&quot;USLY SM1 TALK TO&quot;</span>, <span class="st">&quot;OFT WSH MOR FRND&quot;</span>, <span class="st">&quot;USLY FRDS BE WTH&quot;</span>, <span class="st">&quot;SAT LIFE AS WHL&quot;</span>, <span class="st">&quot;CMP SATFD&quot;</span>, <span class="st">&quot;PUTR SC&quot;</span>, <span class="st">&quot;PUTR OT&quot;</span>, <span class="st">&quot;PUTR JO&quot;</span>, <span class="st">&quot;DAY HRS WATCH&quot;</span>, <span class="st">&quot;END HRS WATCH&quot;</span>, <span class="st">&quot;W GAMING&quot;</span>, <span class="st">&quot;W INTERNET&quot;</span>, <span class="st">&quot;TV/DAY&quot;</span>, <span class="st">&quot;TV/WKEND&quot;</span>, <span class="st">&quot;WEB FACEBK&quot;</span>, <span class="st">&quot;HRS MUSIC&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="mtf-preprocessing.html#cb4-1"></a>vars &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;YEAR OF&quot;</span>, <span class="st">&quot;S SEX&quot;</span>, <span class="st">&quot;s SEX&quot;</span>, <span class="st">&quot;WHAT GRADE LEVL&quot;</span>, <span class="st">&quot;VRY HPY THS DAY&quot;</span>, <span class="st">&quot;SATISFD W MYSELF&quot;</span>, <span class="st">&quot;LIFE MEANINGLESS&quot;</span>, <span class="st">&quot;I ENJOY LIFE&quot;</span>, <span class="st">&quot;HOPELESS&quot;</span>, <span class="st">&quot;GOOD TO BE ALIVE&quot;</span>, <span class="st">&quot;FUTR R LIFE WRSE&quot;</span>, <span class="st">&quot;AM PRSN OF WORTH&quot;</span>, <span class="st">&quot;DO WELL AS OTHRS&quot;</span>, <span class="st">&quot;MUCH TO B PROUD&quot;</span>, <span class="st">&quot;I AM NO GOOD&quot;</span>, <span class="st">&quot;I DO WRONG THING&quot;</span>, <span class="st">&quot;MY LIFE NT USEFL&quot;</span>, <span class="st">&quot;POS ATT TWD SELF&quot;</span>, <span class="st">&quot;OFTN FEEL LONELY&quot;</span>, <span class="st">&quot;ALWYS SM1 HELP&quot;</span>, <span class="st">&quot;OFTN FL LEFT OUT&quot;</span>, <span class="st">&quot;USLY SM1 TALK TO&quot;</span>, <span class="st">&quot;OFT WSH MOR FRND&quot;</span>, <span class="st">&quot;USLY FRDS BE WTH&quot;</span>, <span class="st">&quot;SAT LIFE AS WHL&quot;</span>, <span class="st">&quot;CMP SATFD&quot;</span>, <span class="st">&quot;PUTR SC&quot;</span>, <span class="st">&quot;PUTR OT&quot;</span>, <span class="st">&quot;PUTR JO&quot;</span>, <span class="st">&quot;DAY HRS WATCH&quot;</span>, <span class="st">&quot;END HRS WATCH&quot;</span>, <span class="st">&quot;W GAMING&quot;</span>, <span class="st">&quot;W INTERNET&quot;</span>, <span class="st">&quot;TV/DAY&quot;</span>, <span class="st">&quot;TV/WKEND&quot;</span>, <span class="st">&quot;WEB FACEBK&quot;</span>, <span class="st">&quot;MYSPC&quot;</span>,  <span class="st">&quot;HRS MUSIC&quot;</span>)</span></code></pre></div>
 <p>Before proceeding with the merge, we have to create:</p>
 <ul>
 <li>An empty dataframe that will contain the merged data after the process is complete, which has the same number of columns as the number of our variables of interest and the columns are named accordingly;</li>
 </ul>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="mtf-preprocessing.html#cb3-1"></a>MTF &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="kw">matrix</span>(<span class="dt">ncol =</span> <span class="kw">length</span>(vars)))</span>
-<span id="cb3-2"><a href="mtf-preprocessing.html#cb3-2"></a><span class="kw">colnames</span>(MTF) &lt;-<span class="st"> </span>vars</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="mtf-preprocessing.html#cb5-1"></a>MTF &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="kw">matrix</span>(<span class="dt">ncol =</span> <span class="kw">length</span>(vars)))</span>
+<span id="cb5-2"><a href="mtf-preprocessing.html#cb5-2"></a><span class="kw">colnames</span>(MTF) &lt;-<span class="st"> </span>vars</span></code></pre></div>
 <ul>
 <li>A list which will contain the data of interest from separate datafiles before it’s merged;</li>
 </ul>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="mtf-preprocessing.html#cb4-1"></a>intermediate &lt;-<span class="st"> </span><span class="kw">list</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="mtf-preprocessing.html#cb6-1"></a>intermediate &lt;-<span class="st"> </span><span class="kw">list</span>()</span></code></pre></div>
 <ul>
 <li>A list which will contain the labels of separate datafiles</li>
 </ul>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="mtf-preprocessing.html#cb5-1"></a>labels &lt;-<span class="st"> </span><span class="kw">list</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="mtf-preprocessing.html#cb7-1"></a>labels &lt;-<span class="st"> </span><span class="kw">list</span>()</span></code></pre></div>
 <ul>
 <li>A vector which will contain column numbers of our variables of interest;</li>
 </ul>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="mtf-preprocessing.html#cb6-1"></a>indices &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="st">&quot;numeric&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="mtf-preprocessing.html#cb8-1"></a>indices &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="st">&quot;numeric&quot;</span>)</span></code></pre></div>
 <ul>
 <li>A vector which will contain column names of our variables of interest;</li>
 <li>A vector which will contain column numbers of columns that are unlabelled and should be removed.</li>
 </ul>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="mtf-preprocessing.html#cb7-1"></a>names &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="st">&quot;character&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="mtf-preprocessing.html#cb9-1"></a>names &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="st">&quot;character&quot;</span>)</span></code></pre></div>
 <p>Now we can go ahead with the merge. Please see inline comments for detailed descriptions!</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="mtf-preprocessing.html#cb8-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(MTFfiles)) {</span>
-<span id="cb8-2"><a href="mtf-preprocessing.html#cb8-2"></a>  <span class="co"># Importing the file and adding it to the intermediate list</span></span>
-<span id="cb8-3"><a href="mtf-preprocessing.html#cb8-3"></a>  intermediate[[i]] &lt;-<span class="st"> </span><span class="kw">read_dta</span>(MTFfiles[i])</span>
-<span id="cb8-4"><a href="mtf-preprocessing.html#cb8-4"></a>  <span class="co"># Checking if the Grade variable is present in the file; if not, it&#39;s 12th grade</span></span>
-<span id="cb8-5"><a href="mtf-preprocessing.html#cb8-5"></a>  <span class="cf">if</span> (<span class="kw">any</span>(<span class="kw">grepl</span>(<span class="st">&quot;WHAT GRADE LEVL&quot;</span>, <span class="kw">unlist</span>(<span class="kw">var_label</span>(intermediate[[i]])))) <span class="op">==</span><span class="st"> </span>F) {</span>
-<span id="cb8-6"><a href="mtf-preprocessing.html#cb8-6"></a>    intermediate[[i]][, (<span class="kw">ncol</span>(intermediate[[i]]) <span class="op">+</span><span class="st"> </span><span class="dv">1</span>)] &lt;-<span class="st"> </span><span class="dv">12</span></span>
-<span id="cb8-7"><a href="mtf-preprocessing.html#cb8-7"></a>    <span class="kw">var_label</span>(intermediate[[i]][<span class="kw">ncol</span>(intermediate[[i]])]) &lt;-<span class="st"> &quot;WHAT GRADE LEVL&quot;</span></span>
-<span id="cb8-8"><a href="mtf-preprocessing.html#cb8-8"></a>  }</span>
-<span id="cb8-9"><a href="mtf-preprocessing.html#cb8-9"></a>  <span class="co"># Extracting labels while making sure that unlabelled columns are not dropped from the indexing</span></span>
-<span id="cb8-10"><a href="mtf-preprocessing.html#cb8-10"></a>  labels[[i]] &lt;-<span class="st"> </span><span class="kw">var_label</span>(intermediate[[i]])</span>
-<span id="cb8-11"><a href="mtf-preprocessing.html#cb8-11"></a>  labels[[i]][<span class="kw">sapply</span>(labels[[i]], is.null)] &lt;-<span class="st"> </span><span class="ot">NA</span></span>
-<span id="cb8-12"><a href="mtf-preprocessing.html#cb8-12"></a>  labels[[i]] &lt;-<span class="st"> </span><span class="kw">unlist</span>(labels[[i]])</span>
-<span id="cb8-13"><a href="mtf-preprocessing.html#cb8-13"></a>  <span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(vars)) {</span>
-<span id="cb8-14"><a href="mtf-preprocessing.html#cb8-14"></a>    <span class="co"># Extracting the column numbers of variables of interest</span></span>
-<span id="cb8-15"><a href="mtf-preprocessing.html#cb8-15"></a>    indices &lt;-<span class="st"> </span><span class="kw">c</span>(indices, <span class="kw">grep</span>(vars[j], labels[[i]]))</span>
-<span id="cb8-16"><a href="mtf-preprocessing.html#cb8-16"></a>    <span class="co"># Extracting the column names of variables of interest</span></span>
-<span id="cb8-17"><a href="mtf-preprocessing.html#cb8-17"></a>    names &lt;-<span class="st"> </span><span class="kw">c</span>(names, <span class="kw">regmatches</span>(labels[[i]], <span class="kw">regexpr</span>(vars[j], labels[[i]])))</span>
-<span id="cb8-18"><a href="mtf-preprocessing.html#cb8-18"></a>  }</span>
-<span id="cb8-19"><a href="mtf-preprocessing.html#cb8-19"></a>  <span class="co"># Removing all variables from the file except those we have chosen</span></span>
-<span id="cb8-20"><a href="mtf-preprocessing.html#cb8-20"></a>  intermediate[[i]] &lt;-<span class="st"> </span>intermediate[[i]][, indices]</span>
-<span id="cb8-21"><a href="mtf-preprocessing.html#cb8-21"></a>  <span class="co"># Assigning labels as variable names so data can be merged</span></span>
-<span id="cb8-22"><a href="mtf-preprocessing.html#cb8-22"></a>  <span class="kw">colnames</span>(intermediate[[i]]) &lt;-<span class="st"> </span>names</span>
-<span id="cb8-23"><a href="mtf-preprocessing.html#cb8-23"></a>  <span class="co"># Cleaning the vectors</span></span>
-<span id="cb8-24"><a href="mtf-preprocessing.html#cb8-24"></a>  indices &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="st">&quot;numeric&quot;</span>)</span>
-<span id="cb8-25"><a href="mtf-preprocessing.html#cb8-25"></a>  names &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="st">&quot;character&quot;</span>)</span>
-<span id="cb8-26"><a href="mtf-preprocessing.html#cb8-26"></a>  </span>
-<span id="cb8-27"><a href="mtf-preprocessing.html#cb8-27"></a>  <span class="co"># Remove value labels so can be merged</span></span>
-<span id="cb8-28"><a href="mtf-preprocessing.html#cb8-28"></a>  intermediate[[i]] &lt;-<span class="st"> </span><span class="kw">zap_labels</span>(intermediate[[i]])</span>
-<span id="cb8-29"><a href="mtf-preprocessing.html#cb8-29"></a>}</span>
-<span id="cb8-30"><a href="mtf-preprocessing.html#cb8-30"></a></span>
-<span id="cb8-31"><a href="mtf-preprocessing.html#cb8-31"></a><span class="co"># Merging the data in the main dataframe</span></span>
-<span id="cb8-32"><a href="mtf-preprocessing.html#cb8-32"></a>MTF &lt;-<span class="st"> </span>plyr<span class="op">::</span><span class="kw">rbind.fill</span>(intermediate)</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="mtf-preprocessing.html#cb10-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(MTFfiles)) {</span>
+<span id="cb10-2"><a href="mtf-preprocessing.html#cb10-2"></a>  <span class="co"># Importing the file and adding it to the intermediate list</span></span>
+<span id="cb10-3"><a href="mtf-preprocessing.html#cb10-3"></a>  intermediate[[i]] &lt;-<span class="st"> </span><span class="kw">read_dta</span>(MTFfiles[i])</span>
+<span id="cb10-4"><a href="mtf-preprocessing.html#cb10-4"></a>  <span class="co"># Checking if the Grade variable is present in the file; if not, it&#39;s 12th grade</span></span>
+<span id="cb10-5"><a href="mtf-preprocessing.html#cb10-5"></a>  <span class="cf">if</span> (<span class="kw">any</span>(<span class="kw">grepl</span>(<span class="st">&quot;WHAT GRADE LEVL&quot;</span>, <span class="kw">unlist</span>(<span class="kw">var_label</span>(intermediate[[i]])))) <span class="op">==</span><span class="st"> </span>F) {</span>
+<span id="cb10-6"><a href="mtf-preprocessing.html#cb10-6"></a>    intermediate[[i]][, (<span class="kw">ncol</span>(intermediate[[i]]) <span class="op">+</span><span class="st"> </span><span class="dv">1</span>)] &lt;-<span class="st"> </span><span class="dv">12</span></span>
+<span id="cb10-7"><a href="mtf-preprocessing.html#cb10-7"></a>    <span class="kw">var_label</span>(intermediate[[i]][<span class="kw">ncol</span>(intermediate[[i]])]) &lt;-<span class="st"> &quot;WHAT GRADE LEVL&quot;</span></span>
+<span id="cb10-8"><a href="mtf-preprocessing.html#cb10-8"></a>  }</span>
+<span id="cb10-9"><a href="mtf-preprocessing.html#cb10-9"></a>  <span class="co"># Extracting labels while making sure that unlabelled columns are not dropped from the indexing</span></span>
+<span id="cb10-10"><a href="mtf-preprocessing.html#cb10-10"></a>  labels[[i]] &lt;-<span class="st"> </span><span class="kw">var_label</span>(intermediate[[i]])</span>
+<span id="cb10-11"><a href="mtf-preprocessing.html#cb10-11"></a>  labels[[i]][<span class="kw">sapply</span>(labels[[i]], is.null)] &lt;-<span class="st"> </span><span class="ot">NA</span></span>
+<span id="cb10-12"><a href="mtf-preprocessing.html#cb10-12"></a>  labels[[i]] &lt;-<span class="st"> </span><span class="kw">unlist</span>(labels[[i]])</span>
+<span id="cb10-13"><a href="mtf-preprocessing.html#cb10-13"></a>  <span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(vars)) {</span>
+<span id="cb10-14"><a href="mtf-preprocessing.html#cb10-14"></a>    <span class="co"># Extracting the column numbers of variables of interest</span></span>
+<span id="cb10-15"><a href="mtf-preprocessing.html#cb10-15"></a>    indices &lt;-<span class="st"> </span><span class="kw">c</span>(indices, <span class="kw">grep</span>(vars[j], labels[[i]]))</span>
+<span id="cb10-16"><a href="mtf-preprocessing.html#cb10-16"></a>    <span class="co"># Extracting the column names of variables of interest</span></span>
+<span id="cb10-17"><a href="mtf-preprocessing.html#cb10-17"></a>    names &lt;-<span class="st"> </span><span class="kw">c</span>(names, <span class="kw">regmatches</span>(labels[[i]], <span class="kw">regexpr</span>(vars[j], labels[[i]])))</span>
+<span id="cb10-18"><a href="mtf-preprocessing.html#cb10-18"></a>  }</span>
+<span id="cb10-19"><a href="mtf-preprocessing.html#cb10-19"></a>  <span class="co"># Removing all variables from the file except those we have chosen</span></span>
+<span id="cb10-20"><a href="mtf-preprocessing.html#cb10-20"></a>  intermediate[[i]] &lt;-<span class="st"> </span>intermediate[[i]][, indices]</span>
+<span id="cb10-21"><a href="mtf-preprocessing.html#cb10-21"></a>  <span class="co"># Assigning labels as variable names so data can be merged</span></span>
+<span id="cb10-22"><a href="mtf-preprocessing.html#cb10-22"></a>  <span class="kw">colnames</span>(intermediate[[i]]) &lt;-<span class="st"> </span>names</span>
+<span id="cb10-23"><a href="mtf-preprocessing.html#cb10-23"></a>  <span class="co"># Cleaning the vectors</span></span>
+<span id="cb10-24"><a href="mtf-preprocessing.html#cb10-24"></a>  indices &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="st">&quot;numeric&quot;</span>)</span>
+<span id="cb10-25"><a href="mtf-preprocessing.html#cb10-25"></a>  names &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="st">&quot;character&quot;</span>)</span>
+<span id="cb10-26"><a href="mtf-preprocessing.html#cb10-26"></a>  </span>
+<span id="cb10-27"><a href="mtf-preprocessing.html#cb10-27"></a>  <span class="co"># Remove value labels so can be merged</span></span>
+<span id="cb10-28"><a href="mtf-preprocessing.html#cb10-28"></a>  intermediate[[i]] &lt;-<span class="st"> </span><span class="kw">zap_labels</span>(intermediate[[i]])</span>
+<span id="cb10-29"><a href="mtf-preprocessing.html#cb10-29"></a>}</span>
+<span id="cb10-30"><a href="mtf-preprocessing.html#cb10-30"></a></span>
+<span id="cb10-31"><a href="mtf-preprocessing.html#cb10-31"></a><span class="co"># Merging the data in the main dataframe</span></span>
+<span id="cb10-32"><a href="mtf-preprocessing.html#cb10-32"></a>MTF &lt;-<span class="st"> </span>plyr<span class="op">::</span><span class="kw">rbind.fill</span>(intermediate)</span></code></pre></div>
 <p>After merging the files, there are some leftover things we still have to do
-* Variables with the labels ‘SAT LIFE AS WHL’ and ‘CMP SATFD’ are actually the same variable and they should be merged;</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="mtf-preprocessing.html#cb9-1"></a>MTF<span class="op">$</span><span class="st">`</span><span class="dt">SAT LIFE AS WHL</span><span class="st">`</span> &lt;-<span class="st"> </span><span class="kw">rowSums</span>(MTF[, <span class="kw">c</span>(<span class="st">&quot;SAT LIFE AS WHL&quot;</span>, <span class="st">&quot;CMP SATFD&quot;</span>)], <span class="dt">na.rm =</span> T)</span>
-<span id="cb9-2"><a href="mtf-preprocessing.html#cb9-2"></a>MTF &lt;-<span class="st"> </span><span class="kw">subset</span>(MTF, <span class="dt">select =</span> <span class="op">-</span><span class="st">`</span><span class="dt">CMP SATFD</span><span class="st">`</span>)</span>
-<span id="cb9-3"><a href="mtf-preprocessing.html#cb9-3"></a>vars &lt;-<span class="st"> </span>vars[<span class="op">-</span><span class="dv">26</span>]</span></code></pre></div>
+* Variables with the labels ‘SAT LIFE AS WHL’ and ‘CMP SATFD’ are actually the same variable and they should be merged;
+* The same goes for variables named ‘WEB FACEBK’ and ‘MYSPC’;</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="mtf-preprocessing.html#cb11-1"></a>MTF<span class="op">$</span><span class="st">`</span><span class="dt">SAT LIFE AS WHL</span><span class="st">`</span> &lt;-<span class="st"> </span><span class="kw">rowSums</span>(MTF[, <span class="kw">c</span>(<span class="st">&quot;SAT LIFE AS WHL&quot;</span>, <span class="st">&quot;CMP SATFD&quot;</span>)], <span class="dt">na.rm =</span> T)</span>
+<span id="cb11-2"><a href="mtf-preprocessing.html#cb11-2"></a>MTF &lt;-<span class="st"> </span><span class="kw">subset</span>(MTF, <span class="dt">select =</span> <span class="op">-</span><span class="st">`</span><span class="dt">CMP SATFD</span><span class="st">`</span>)</span>
+<span id="cb11-3"><a href="mtf-preprocessing.html#cb11-3"></a>vars &lt;-<span class="st"> </span>vars[<span class="op">-</span><span class="dv">26</span>]</span></code></pre></div>
 <ul>
 <li>The above also applies to variables with the labels ‘S SEX’ and ‘s SEX’;</li>
 </ul>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="mtf-preprocessing.html#cb10-1"></a>MTF<span class="op">$</span><span class="st">`</span><span class="dt">S SEX</span><span class="st">`</span> &lt;-<span class="st"> </span><span class="kw">rowSums</span>(MTF[, <span class="kw">c</span>(<span class="st">&quot;S SEX&quot;</span>, <span class="st">&quot;s SEX&quot;</span>)], <span class="dt">na.rm =</span> T)</span>
-<span id="cb10-2"><a href="mtf-preprocessing.html#cb10-2"></a>MTF &lt;-<span class="st"> </span><span class="kw">subset</span>(MTF, <span class="dt">select =</span> <span class="op">-</span><span class="st">`</span><span class="dt">s SEX</span><span class="st">`</span>)</span>
-<span id="cb10-3"><a href="mtf-preprocessing.html#cb10-3"></a>vars &lt;-<span class="st"> </span>vars[<span class="op">-</span><span class="dv">3</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="mtf-preprocessing.html#cb12-1"></a>MTF<span class="op">$</span><span class="st">`</span><span class="dt">S SEX</span><span class="st">`</span> &lt;-<span class="st"> </span><span class="kw">rowSums</span>(MTF[, <span class="kw">c</span>(<span class="st">&quot;S SEX&quot;</span>, <span class="st">&quot;s SEX&quot;</span>)], <span class="dt">na.rm =</span> T)</span>
+<span id="cb12-2"><a href="mtf-preprocessing.html#cb12-2"></a>MTF &lt;-<span class="st"> </span><span class="kw">subset</span>(MTF, <span class="dt">select =</span> <span class="op">-</span><span class="st">`</span><span class="dt">s SEX</span><span class="st">`</span>)</span>
+<span id="cb12-3"><a href="mtf-preprocessing.html#cb12-3"></a>vars &lt;-<span class="st"> </span>vars[<span class="op">-</span><span class="dv">3</span>]</span></code></pre></div>
+<ul>
+<li>And the variables ‘WEB FACEBK’ and ‘MYSPC’</li>
+</ul>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="mtf-preprocessing.html#cb13-1"></a>MTF<span class="op">$</span><span class="st">`</span><span class="dt">WEB FACEBK</span><span class="st">`</span> &lt;-<span class="st"> </span><span class="kw">rowSums</span>(MTF[, <span class="kw">c</span>(<span class="st">&quot;WEB FACEBK&quot;</span>, <span class="st">&quot;MYSPC&quot;</span>)], <span class="dt">na.rm =</span> T)</span>
+<span id="cb13-2"><a href="mtf-preprocessing.html#cb13-2"></a>MTF &lt;-<span class="st"> </span><span class="kw">subset</span>(MTF, <span class="dt">select =</span> <span class="op">-</span>MYSPC)</span>
+<span id="cb13-3"><a href="mtf-preprocessing.html#cb13-3"></a>vars &lt;-<span class="st"> </span>vars[<span class="op">-</span><span class="dv">35</span>]</span></code></pre></div>
 <ul>
 <li>Numerical values which indicate various types of missing data have to be removed (i.e., coded as NA);</li>
 </ul>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="mtf-preprocessing.html#cb11-1"></a>MTF[MTF <span class="op">==</span><span class="st"> </span><span class="dv">0</span>] &lt;-<span class="st"> </span><span class="ot">NA</span></span>
-<span id="cb11-2"><a href="mtf-preprocessing.html#cb11-2"></a>MTF[MTF <span class="op">==</span><span class="st"> </span><span class="dv">8</span>] &lt;-<span class="st"> </span><span class="ot">NA</span></span>
-<span id="cb11-3"><a href="mtf-preprocessing.html#cb11-3"></a>MTF[MTF <span class="op">==</span><span class="st"> </span><span class="dv">9</span>] &lt;-<span class="st"> </span><span class="ot">NA</span></span>
-<span id="cb11-4"><a href="mtf-preprocessing.html#cb11-4"></a>MTF[MTF <span class="op">==</span><span class="st"> </span><span class="dv">-9</span>] &lt;-<span class="st"> </span><span class="ot">NA</span></span>
-<span id="cb11-5"><a href="mtf-preprocessing.html#cb11-5"></a>MTF[MTF <span class="op">==</span><span class="st"> </span><span class="dv">-8</span>] &lt;-<span class="st"> </span><span class="ot">NA</span></span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="mtf-preprocessing.html#cb14-1"></a>MTF[MTF <span class="op">==</span><span class="st"> </span><span class="dv">0</span>] &lt;-<span class="st"> </span><span class="ot">NA</span></span>
+<span id="cb14-2"><a href="mtf-preprocessing.html#cb14-2"></a>MTF[MTF <span class="op">==</span><span class="st"> </span><span class="dv">8</span>] &lt;-<span class="st"> </span><span class="ot">NA</span></span>
+<span id="cb14-3"><a href="mtf-preprocessing.html#cb14-3"></a>MTF[MTF <span class="op">==</span><span class="st"> </span><span class="dv">9</span>] &lt;-<span class="st"> </span><span class="ot">NA</span></span>
+<span id="cb14-4"><a href="mtf-preprocessing.html#cb14-4"></a>MTF[MTF <span class="op">==</span><span class="st"> </span><span class="dv">-9</span>] &lt;-<span class="st"> </span><span class="ot">NA</span></span>
+<span id="cb14-5"><a href="mtf-preprocessing.html#cb14-5"></a>MTF[MTF <span class="op">==</span><span class="st"> </span><span class="dv">-8</span>] &lt;-<span class="st"> </span><span class="ot">NA</span></span></code></pre></div>
 <ul>
 <li>Cases which contain data only for 3 variables (year of administration, gender and grade) have to be removed;</li>
 </ul>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="mtf-preprocessing.html#cb12-1"></a>MTF &lt;-<span class="st"> </span>MTF[<span class="op">!</span><span class="kw">rowSums</span>(<span class="kw">is.na</span>(MTF[, <span class="kw">c</span>(<span class="dv">4</span><span class="op">:</span><span class="kw">length</span>(vars))])) <span class="op">==</span><span class="st"> </span>(<span class="kw">length</span>(vars) <span class="op">-</span><span class="st"> </span><span class="dv">3</span>), ]</span></code></pre></div>
-<ul>
-<li>Cases which have unidentified labels for the Sex variable (3, 4, 5, 6 and 7) will be dropped;</li>
-</ul>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="mtf-preprocessing.html#cb13-1"></a>MTF &lt;-<span class="st"> </span><span class="kw">subset</span>(MTF, <span class="st">`</span><span class="dt">S SEX</span><span class="st">`</span> <span class="op">==</span><span class="st"> </span><span class="dv">1</span> <span class="op">|</span><span class="st"> `</span><span class="dt">S SEX</span><span class="st">`</span> <span class="op">==</span><span class="st"> </span><span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="mtf-preprocessing.html#cb15-1"></a>MTF &lt;-<span class="st"> </span>MTF[<span class="op">!</span><span class="kw">rowSums</span>(<span class="kw">is.na</span>(MTF[, <span class="kw">c</span>(<span class="dv">4</span><span class="op">:</span><span class="kw">length</span>(vars))])) <span class="op">==</span><span class="st"> </span>(<span class="kw">length</span>(vars) <span class="op">-</span><span class="st"> </span><span class="dv">3</span>), ]</span></code></pre></div>
 <ul>
 <li>Cases which have unidentified labels for the Grade variable (3, 5, 6 and 7) will be dropped;</li>
 </ul>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="mtf-preprocessing.html#cb14-1"></a>MTF &lt;-<span class="st"> </span><span class="kw">subset</span>(MTF, <span class="st">`</span><span class="dt">WHAT GRADE LEVL</span><span class="st">`</span> <span class="op">==</span><span class="st"> </span><span class="dv">2</span> <span class="op">|</span><span class="st"> `</span><span class="dt">WHAT GRADE LEVL</span><span class="st">`</span> <span class="op">==</span><span class="st"> </span><span class="dv">4</span> <span class="op">|</span><span class="st"> `</span><span class="dt">WHAT GRADE LEVL</span><span class="st">`</span> <span class="op">==</span><span class="st"> </span><span class="dv">12</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="mtf-preprocessing.html#cb16-1"></a>MTF &lt;-<span class="st"> </span><span class="kw">subset</span>(MTF, <span class="st">`</span><span class="dt">WHAT GRADE LEVL</span><span class="st">`</span> <span class="op">==</span><span class="st"> </span><span class="dv">2</span> <span class="op">|</span><span class="st"> `</span><span class="dt">WHAT GRADE LEVL</span><span class="st">`</span> <span class="op">==</span><span class="st"> </span><span class="dv">4</span> <span class="op">|</span><span class="st"> `</span><span class="dt">WHAT GRADE LEVL</span><span class="st">`</span> <span class="op">==</span><span class="st"> </span><span class="dv">12</span>)</span></code></pre></div>
 <ul>
 <li>Cases which have missing values in the Year variable should be dropped;</li>
 </ul>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="mtf-preprocessing.html#cb15-1"></a>MTF &lt;-<span class="st"> </span><span class="kw">drop_na</span>(MTF, <span class="st">`</span><span class="dt">YEAR OF</span><span class="st">`</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="mtf-preprocessing.html#cb17-1"></a>MTF &lt;-<span class="st"> </span><span class="kw">drop_na</span>(MTF, <span class="st">`</span><span class="dt">YEAR OF</span><span class="st">`</span>)</span></code></pre></div>
+<ul>
+<li>Cases which have unidentified labels for the Sex variable (3, 4, 5, 6 and 7) will be dropped;</li>
+</ul>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="mtf-preprocessing.html#cb18-1"></a><span class="kw">prop.table</span>(<span class="kw">table</span>(MTF<span class="op">$</span><span class="st">`</span><span class="dt">S SEX</span><span class="st">`</span>, <span class="dt">useNA =</span> <span class="st">&quot;always&quot;</span>))</span>
+<span id="cb18-2"><a href="mtf-preprocessing.html#cb18-2"></a>MTF &lt;-<span class="st"> </span><span class="kw">subset</span>(MTF, <span class="st">`</span><span class="dt">S SEX</span><span class="st">`</span> <span class="op">==</span><span class="st"> </span><span class="dv">1</span> <span class="op">|</span><span class="st"> `</span><span class="dt">S SEX</span><span class="st">`</span> <span class="op">==</span><span class="st"> </span><span class="dv">2</span>)</span></code></pre></div>
 <ul>
 <li>Initial row numbers should be dropped – convert to tibble takes care of this</li>
 </ul>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="mtf-preprocessing.html#cb16-1"></a>MTF &lt;-<span class="st"> </span><span class="kw">as_tibble</span>(MTF)</span></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="mtf-preprocessing.html#cb19-1"></a>MTF &lt;-<span class="st"> </span><span class="kw">as_tibble</span>(MTF)</span></code></pre></div>
 <ul>
 <li>Values of years which were coded using only last two digits (e.g. 92 instead of 1992) have to be corrected;</li>
 </ul>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="mtf-preprocessing.html#cb17-1"></a>MTF<span class="op">$</span><span class="st">`</span><span class="dt">YEAR OF</span><span class="st">`</span> &lt;-<span class="st"> </span><span class="kw">recode</span>(MTF<span class="op">$</span><span class="st">`</span><span class="dt">YEAR OF</span><span class="st">`</span>, <span class="st">&quot;76=1976;77=1977;78=1978;79=1979;80=1980;81=1981;82=1982;83=1983;84=1984;85=1985;86=1986;87=1987;88=1988;89=1989;90=1990;91=1991;92=1992;93=1993;94=1994;95=1995;96=1996;97=1997;98=1998&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="mtf-preprocessing.html#cb20-1"></a>MTF<span class="op">$</span><span class="st">`</span><span class="dt">YEAR OF</span><span class="st">`</span> &lt;-<span class="st"> </span><span class="kw">recode</span>(MTF<span class="op">$</span><span class="st">`</span><span class="dt">YEAR OF</span><span class="st">`</span>, <span class="st">&quot;76=1976;77=1977;78=1978;79=1979;80=1980;81=1981;82=1982;83=1983;84=1984;85=1985;86=1986;87=1987;88=1988;89=1989;90=1990;91=1991;92=1992;93=1993;94=1994;95=1995;96=1996;97=1997;98=1998&quot;</span>)</span></code></pre></div>
 <ul>
 <li>Sex variable has to be recoded from 1 and 2 to Male and Female, respectively;</li>
 </ul>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="mtf-preprocessing.html#cb18-1"></a>MTF<span class="op">$</span><span class="st">`</span><span class="dt">S SEX</span><span class="st">`</span>[MTF<span class="op">$</span><span class="st">`</span><span class="dt">S SEX</span><span class="st">`</span> <span class="op">==</span><span class="st"> </span><span class="dv">1</span>] &lt;-<span class="st"> &quot;Male&quot;</span></span>
-<span id="cb18-2"><a href="mtf-preprocessing.html#cb18-2"></a>MTF<span class="op">$</span><span class="st">`</span><span class="dt">S SEX</span><span class="st">`</span>[MTF<span class="op">$</span><span class="st">`</span><span class="dt">S SEX</span><span class="st">`</span> <span class="op">==</span><span class="st"> </span><span class="dv">2</span>] &lt;-<span class="st"> &quot;Female&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="mtf-preprocessing.html#cb21-1"></a>MTF<span class="op">$</span><span class="st">`</span><span class="dt">S SEX</span><span class="st">`</span>[MTF<span class="op">$</span><span class="st">`</span><span class="dt">S SEX</span><span class="st">`</span> <span class="op">==</span><span class="st"> </span><span class="dv">1</span>] &lt;-<span class="st"> &quot;Male&quot;</span></span>
+<span id="cb21-2"><a href="mtf-preprocessing.html#cb21-2"></a>MTF<span class="op">$</span><span class="st">`</span><span class="dt">S SEX</span><span class="st">`</span>[MTF<span class="op">$</span><span class="st">`</span><span class="dt">S SEX</span><span class="st">`</span> <span class="op">==</span><span class="st"> </span><span class="dv">2</span>] &lt;-<span class="st"> &quot;Female&quot;</span></span></code></pre></div>
 <ul>
 <li>In the Grade variable, values of 2 and 4 have to ve recoded to 8 and 10, respectively;</li>
 </ul>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="mtf-preprocessing.html#cb19-1"></a>MTF<span class="op">$</span><span class="st">`</span><span class="dt">WHAT GRADE LEVL</span><span class="st">`</span> &lt;-<span class="st"> </span><span class="kw">recode</span>(MTF<span class="op">$</span><span class="st">`</span><span class="dt">WHAT GRADE LEVL</span><span class="st">`</span>, <span class="st">&quot;2=8;4=10&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="mtf-preprocessing.html#cb22-1"></a>MTF<span class="op">$</span><span class="st">`</span><span class="dt">WHAT GRADE LEVL</span><span class="st">`</span> &lt;-<span class="st"> </span><span class="kw">recode</span>(MTF<span class="op">$</span><span class="st">`</span><span class="dt">WHAT GRADE LEVL</span><span class="st">`</span>, <span class="st">&quot;2=8;4=10&quot;</span>)</span></code></pre></div>
 <ul>
 <li>Labels have to be removed from the data (we’ll add new, more meaningful ones later);</li>
 <li>All unnecessary variables which were used in the merging process have to be removed to save memory and space;</li>
 </ul>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="mtf-preprocessing.html#cb20-1"></a><span class="kw">rm</span>(i, indices, j, labels, MTFfiles, vars, names, intermediate)</span></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="mtf-preprocessing.html#cb23-1"></a><span class="kw">rm</span>(i, indices, j, labels, MTFfiles, vars, names, intermediate)</span></code></pre></div>
 <ul>
 <li>Sex will be turned to factor;</li>
 </ul>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="mtf-preprocessing.html#cb21-1"></a>MTF<span class="op">$</span><span class="st">`</span><span class="dt">S SEX</span><span class="st">`</span> &lt;-<span class="st"> </span><span class="kw">as.factor</span>(MTF<span class="op">$</span><span class="st">`</span><span class="dt">S SEX</span><span class="st">`</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="mtf-preprocessing.html#cb24-1"></a>MTF<span class="op">$</span><span class="st">`</span><span class="dt">S SEX</span><span class="st">`</span> &lt;-<span class="st"> </span><span class="kw">as.factor</span>(MTF<span class="op">$</span><span class="st">`</span><span class="dt">S SEX</span><span class="st">`</span>)</span></code></pre></div>
 <ul>
 <li>Convert grade to approximate age (age = grade + 5)</li>
 </ul>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="mtf-preprocessing.html#cb22-1"></a>MTF<span class="op">$</span><span class="st">`</span><span class="dt">WHAT GRADE LEVL</span><span class="st">`</span> &lt;-<span class="st"> </span>MTF<span class="op">$</span><span class="st">`</span><span class="dt">WHAT GRADE LEVL</span><span class="st">`</span> <span class="op">+</span><span class="st"> </span><span class="dv">5</span></span></code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="mtf-preprocessing.html#cb25-1"></a>MTF<span class="op">$</span><span class="st">`</span><span class="dt">WHAT GRADE LEVL</span><span class="st">`</span> &lt;-<span class="st"> </span>MTF<span class="op">$</span><span class="st">`</span><span class="dt">WHAT GRADE LEVL</span><span class="st">`</span> <span class="op">+</span><span class="st"> </span><span class="dv">5</span></span></code></pre></div>
 <ul>
 <li>We will sort the data by year of administration.</li>
 </ul>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="mtf-preprocessing.html#cb23-1"></a>MTF &lt;-<span class="st"> </span><span class="kw">arrange</span>(MTF, <span class="st">`</span><span class="dt">YEAR OF</span><span class="st">`</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="mtf-preprocessing.html#cb26-1"></a>MTF &lt;-<span class="st"> </span><span class="kw">arrange</span>(MTF, <span class="st">`</span><span class="dt">YEAR OF</span><span class="st">`</span>)</span></code></pre></div>
 <ul>
 <li>Rename variables</li>
 </ul>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="mtf-preprocessing.html#cb24-1"></a><span class="kw">colnames</span>(MTF) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Year&quot;</span>, <span class="st">&quot;Sex&quot;</span>, <span class="st">&quot;Age&quot;</span>, <span class="st">&quot;H&quot;</span>, <span class="st">&quot;S&quot;</span>, <span class="st">&quot;SE_R_1&quot;</span>, <span class="st">&quot;SE_R_7&quot;</span>, <span class="st">&quot;SE_R_4&quot;</span>, <span class="st">&quot;SE_R_5&quot;</span>, <span class="st">&quot;SE_R_2&quot;</span>, <span class="st">&quot;D_B_1&quot;</span>, <span class="st">&quot;D_B_2&quot;</span>, <span class="st">&quot;SE_R_10&quot;</span>, <span class="st">&quot;F&quot;</span>, <span class="st">&quot;TV&quot;</span>, <span class="st">&quot;L_MTF_1&quot;</span>, <span class="st">&quot;L_MTF_2&quot;</span>, <span class="st">&quot;L_MTF_3&quot;</span>, <span class="st">&quot;L_MTF_4&quot;</span>, <span class="st">&quot;L_MTF_5&quot;</span>, <span class="st">&quot;L_MTF_6&quot;</span>, <span class="st">&quot;D_B_3&quot;</span>, <span class="st">&quot;D_B_4&quot;</span>, <span class="st">&quot;D_B_5&quot;</span>, <span class="st">&quot;D_B_6&quot;</span>, <span class="st">&quot;TV/WEEKEND&quot;</span>, <span class="st">&quot;COMPUTER/SCHOOL&quot;</span>, <span class="st">&quot;COMPUTER/OTHER&quot;</span>, <span class="st">&quot;COMPUTER JOB&quot;</span>, <span class="st">&quot;INTERNET/WEEK&quot;</span>, <span class="st">&quot;GAMING/WEEK&quot;</span>, <span class="st">&quot;SM&quot;</span>, <span class="st">&quot;music&quot;</span>, <span class="st">&quot;SCREENTIME/WEEKDAY&quot;</span>, <span class="st">&quot;SCREENTIME/WEEKEND&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="mtf-preprocessing.html#cb27-1"></a><span class="kw">colnames</span>(MTF) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Year&quot;</span>, <span class="st">&quot;Sex&quot;</span>, <span class="st">&quot;Age&quot;</span>, <span class="st">&quot;H&quot;</span>, <span class="st">&quot;S&quot;</span>, <span class="st">&quot;SE_R_1&quot;</span>, <span class="st">&quot;SE_R_7&quot;</span>, <span class="st">&quot;SE_R_4&quot;</span>, <span class="st">&quot;SE_R_5&quot;</span>, <span class="st">&quot;SE_R_2&quot;</span>, <span class="st">&quot;D_B_1&quot;</span>, <span class="st">&quot;D_B_2&quot;</span>, <span class="st">&quot;SE_R_10&quot;</span>, <span class="st">&quot;F&quot;</span>, <span class="st">&quot;TV&quot;</span>, <span class="st">&quot;L_MTF_1&quot;</span>, <span class="st">&quot;L_MTF_2&quot;</span>, <span class="st">&quot;L_MTF_3&quot;</span>, <span class="st">&quot;L_MTF_4&quot;</span>, <span class="st">&quot;L_MTF_5&quot;</span>, <span class="st">&quot;L_MTF_6&quot;</span>, <span class="st">&quot;D_B_3&quot;</span>, <span class="st">&quot;D_B_4&quot;</span>, <span class="st">&quot;D_B_5&quot;</span>, <span class="st">&quot;D_B_6&quot;</span>, <span class="st">&quot;TV/WEEKEND&quot;</span>, <span class="st">&quot;COMPUTER/SCHOOL&quot;</span>, <span class="st">&quot;COMPUTER/OTHER&quot;</span>, <span class="st">&quot;COMPUTER JOB&quot;</span>, <span class="st">&quot;INTERNET/WEEK&quot;</span>, <span class="st">&quot;GAMING/WEEK&quot;</span>, <span class="st">&quot;SM&quot;</span>, <span class="st">&quot;music&quot;</span>, <span class="st">&quot;SCREENTIME/WEEKDAY&quot;</span>, <span class="st">&quot;SCREENTIME/WEEKEND&quot;</span>)</span></code></pre></div>
 <p>Let’s also recode the items, so that all the responses indicate higher development of the construct - higher self-esteem, higher loneliness, more depressive symptoms. We’ll also assign labels to those variables.</p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="mtf-preprocessing.html#cb25-1"></a>MTF<span class="op">$</span>SE_R_<span class="dv">5</span> &lt;-<span class="st"> </span><span class="kw">recode</span>(MTF<span class="op">$</span>SE_R_<span class="dv">5</span>, <span class="st">&quot;1=5;2=4;4=2;5=1&quot;</span>)</span>
-<span id="cb25-2"><a href="mtf-preprocessing.html#cb25-2"></a>MTF<span class="op">$</span>SE_R_<span class="dv">2</span> &lt;-<span class="st"> </span><span class="kw">recode</span>(MTF<span class="op">$</span>SE_R_<span class="dv">2</span>, <span class="st">&quot;1=5;2=4;4=2;5=1&quot;</span>)</span>
-<span id="cb25-3"><a href="mtf-preprocessing.html#cb25-3"></a>MTF<span class="op">$</span>L_MTF_<span class="dv">2</span> &lt;-<span class="st"> </span><span class="kw">recode</span>(MTF<span class="op">$</span>L_MTF_<span class="dv">2</span>, <span class="st">&quot;1=5;2=4;4=2;5=1&quot;</span>)</span>
-<span id="cb25-4"><a href="mtf-preprocessing.html#cb25-4"></a>MTF<span class="op">$</span>L_MTF_<span class="dv">4</span> &lt;-<span class="st"> </span><span class="kw">recode</span>(MTF<span class="op">$</span>L_MTF_<span class="dv">4</span>, <span class="st">&quot;1=5;2=4;4=2;5=1&quot;</span>)</span>
-<span id="cb25-5"><a href="mtf-preprocessing.html#cb25-5"></a>MTF<span class="op">$</span>L_MTF_<span class="dv">6</span> &lt;-<span class="st"> </span><span class="kw">recode</span>(MTF<span class="op">$</span>L_MTF_<span class="dv">6</span>, <span class="st">&quot;1=5;2=4;4=2;5=1&quot;</span>)</span>
-<span id="cb25-6"><a href="mtf-preprocessing.html#cb25-6"></a>MTF<span class="op">$</span>D_B_<span class="dv">4</span> &lt;-<span class="st"> </span><span class="kw">recode</span>(MTF<span class="op">$</span>D_B_<span class="dv">4</span>, <span class="st">&quot;1=5;2=4;4=2;5=1&quot;</span>)</span>
-<span id="cb25-7"><a href="mtf-preprocessing.html#cb25-7"></a>MTF<span class="op">$</span>D_B_<span class="dv">6</span> &lt;-<span class="st"> </span><span class="kw">recode</span>(MTF<span class="op">$</span>D_B_<span class="dv">6</span>, <span class="st">&quot;1=5;2=4;4=2;5=1&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="mtf-preprocessing.html#cb28-1"></a>MTF<span class="op">$</span>SE_R_<span class="dv">5</span> &lt;-<span class="st"> </span><span class="kw">recode</span>(MTF<span class="op">$</span>SE_R_<span class="dv">5</span>, <span class="st">&quot;1=5;2=4;4=2;5=1&quot;</span>)</span>
+<span id="cb28-2"><a href="mtf-preprocessing.html#cb28-2"></a>MTF<span class="op">$</span>SE_R_<span class="dv">2</span> &lt;-<span class="st"> </span><span class="kw">recode</span>(MTF<span class="op">$</span>SE_R_<span class="dv">2</span>, <span class="st">&quot;1=5;2=4;4=2;5=1&quot;</span>)</span>
+<span id="cb28-3"><a href="mtf-preprocessing.html#cb28-3"></a>MTF<span class="op">$</span>L_MTF_<span class="dv">2</span> &lt;-<span class="st"> </span><span class="kw">recode</span>(MTF<span class="op">$</span>L_MTF_<span class="dv">2</span>, <span class="st">&quot;1=5;2=4;4=2;5=1&quot;</span>)</span>
+<span id="cb28-4"><a href="mtf-preprocessing.html#cb28-4"></a>MTF<span class="op">$</span>L_MTF_<span class="dv">4</span> &lt;-<span class="st"> </span><span class="kw">recode</span>(MTF<span class="op">$</span>L_MTF_<span class="dv">4</span>, <span class="st">&quot;1=5;2=4;4=2;5=1&quot;</span>)</span>
+<span id="cb28-5"><a href="mtf-preprocessing.html#cb28-5"></a>MTF<span class="op">$</span>L_MTF_<span class="dv">6</span> &lt;-<span class="st"> </span><span class="kw">recode</span>(MTF<span class="op">$</span>L_MTF_<span class="dv">6</span>, <span class="st">&quot;1=5;2=4;4=2;5=1&quot;</span>)</span>
+<span id="cb28-6"><a href="mtf-preprocessing.html#cb28-6"></a>MTF<span class="op">$</span>D_B_<span class="dv">4</span> &lt;-<span class="st"> </span><span class="kw">recode</span>(MTF<span class="op">$</span>D_B_<span class="dv">4</span>, <span class="st">&quot;1=5;2=4;4=2;5=1&quot;</span>)</span>
+<span id="cb28-7"><a href="mtf-preprocessing.html#cb28-7"></a>MTF<span class="op">$</span>D_B_<span class="dv">6</span> &lt;-<span class="st"> </span><span class="kw">recode</span>(MTF<span class="op">$</span>D_B_<span class="dv">6</span>, <span class="st">&quot;1=5;2=4;4=2;5=1&quot;</span>)</span></code></pre></div>
 <p>Remove data before 1991 because it only includes 12th graders (and thus if you include it, any change over time in the aggregate may just reflect a change from 12th graders to mean(8th grade, 10th grade, 12th grade)…)</p>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="mtf-preprocessing.html#cb26-1"></a>MTF &lt;-<span class="st"> </span><span class="kw">filter</span>(MTF, Year <span class="op">&gt;</span><span class="st"> </span><span class="dv">1990</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="mtf-preprocessing.html#cb29-1"></a>MTF &lt;-<span class="st"> </span><span class="kw">filter</span>(MTF, Year <span class="op">&gt;</span><span class="st"> </span><span class="dv">1990</span>)</span></code></pre></div>
 <p>Focus on individuals 15 years old or younger</p>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="mtf-preprocessing.html#cb27-1"></a>MTF &lt;-<span class="st"> </span><span class="kw">filter</span>(MTF, Age <span class="op">&lt;=</span><span class="st"> </span><span class="dv">15</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="mtf-preprocessing.html#cb30-1"></a>MTF &lt;-<span class="st"> </span><span class="kw">filter</span>(MTF, Age <span class="op">&lt;=</span><span class="st"> </span><span class="dv">15</span>)</span></code></pre></div>
 <p>Aggregate, rename, recode</p>
-<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="mtf-preprocessing.html#cb28-1"></a>MTF &lt;-<span class="st"> </span>MTF <span class="op">%&gt;%</span></span>
-<span id="cb28-2"><a href="mtf-preprocessing.html#cb28-2"></a><span class="st">  </span><span class="co"># Select variables</span></span>
-<span id="cb28-3"><a href="mtf-preprocessing.html#cb28-3"></a><span class="st">  </span><span class="kw">select</span>(</span>
-<span id="cb28-4"><a href="mtf-preprocessing.html#cb28-4"></a>    Year, Sex, TV, SM, <span class="kw">contains</span>(<span class="st">&quot;D_B_&quot;</span>)</span>
-<span id="cb28-5"><a href="mtf-preprocessing.html#cb28-5"></a>  ) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb28-6"><a href="mtf-preprocessing.html#cb28-6"></a><span class="st">  </span><span class="kw">mutate</span>(</span>
-<span id="cb28-7"><a href="mtf-preprocessing.html#cb28-7"></a>    <span class="dt">Depression =</span> <span class="kw">rowMeans</span>(<span class="kw">select</span>(., <span class="kw">starts_with</span>(<span class="st">&quot;D_B_&quot;</span>)), <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)</span>
-<span id="cb28-8"><a href="mtf-preprocessing.html#cb28-8"></a>  ) </span>
-<span id="cb28-9"><a href="mtf-preprocessing.html#cb28-9"></a><span class="kw">contrasts</span>(MTF<span class="op">$</span>Sex) &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(.<span class="dv">5</span>, <span class="fl">-.5</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="mtf-preprocessing.html#cb31-1"></a>MTF &lt;-<span class="st"> </span>MTF <span class="op">%&gt;%</span></span>
+<span id="cb31-2"><a href="mtf-preprocessing.html#cb31-2"></a><span class="st">  </span><span class="co"># Select variables</span></span>
+<span id="cb31-3"><a href="mtf-preprocessing.html#cb31-3"></a><span class="st">  </span><span class="kw">select</span>(</span>
+<span id="cb31-4"><a href="mtf-preprocessing.html#cb31-4"></a>    Year, Sex, TV, SM, <span class="kw">contains</span>(<span class="st">&quot;D_B_&quot;</span>)</span>
+<span id="cb31-5"><a href="mtf-preprocessing.html#cb31-5"></a>  ) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb31-6"><a href="mtf-preprocessing.html#cb31-6"></a><span class="st">  </span><span class="kw">mutate</span>(</span>
+<span id="cb31-7"><a href="mtf-preprocessing.html#cb31-7"></a>    <span class="dt">Depression =</span> <span class="kw">rowMeans</span>(<span class="kw">select</span>(., <span class="kw">starts_with</span>(<span class="st">&quot;D_B_&quot;</span>)), <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb31-8"><a href="mtf-preprocessing.html#cb31-8"></a>  ) </span>
+<span id="cb31-9"><a href="mtf-preprocessing.html#cb31-9"></a><span class="kw">contrasts</span>(MTF<span class="op">$</span>Sex) &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(.<span class="dv">5</span>, <span class="fl">-.5</span>))</span></code></pre></div>
 <p>We’re not going to do anything with rows where all D_B_ items were missing, so we drop those from the data</p>
-<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="mtf-preprocessing.html#cb29-1"></a>MTF &lt;-<span class="st"> </span><span class="kw">drop_na</span>(MTF, Depression)</span></code></pre></div>
-<div id="save-to-disk" class="section level2">
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="mtf-preprocessing.html#cb32-1"></a>MTF &lt;-<span class="st"> </span><span class="kw">drop_na</span>(MTF, Depression)</span></code></pre></div>
+<div id="save-to-disk" class="section level2" number="2.1">
 <h2><span class="header-section-number">2.1</span> Save to disk</h2>
-<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="mtf-preprocessing.html#cb30-1"></a><span class="kw">saveRDS</span>(MTF, <span class="st">&quot;data/mtf.rds&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="mtf-preprocessing.html#cb33-1"></a><span class="kw">saveRDS</span>(MTF, <span class="st">&quot;data/mtf.rds&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="mtf-preprocessing.html#cb34-1"></a><span class="kw">library</span>(sessioninfo)</span>
+<span id="cb34-2"><a href="mtf-preprocessing.html#cb34-2"></a><span class="kw">session_info</span>()</span></code></pre></div>
+<pre><code>## ─ Session info ───────────────────────────────────────────────────────────────
+##  setting  value                       
+##  version  R version 4.0.2 (2020-06-22)
+##  os       macOS Catalina 10.15.7      
+##  system   x86_64, darwin17.0          
+##  ui       X11                         
+##  language (EN)                        
+##  collate  en_GB.UTF-8                 
+##  ctype    en_GB.UTF-8                 
+##  tz       Europe/London               
+##  date     2020-10-02                  
+## 
+## ─ Packages ───────────────────────────────────────────────────────────────────
+##  package     * version date       lib source                              
+##  assertthat    0.2.1   2019-03-21 [1] CRAN (R 4.0.0)                      
+##  bookdown      0.20    2020-06-23 [1] CRAN (R 4.0.2)                      
+##  cli           2.0.2   2020-02-28 [1] CRAN (R 4.0.0)                      
+##  crayon        1.3.4   2017-09-16 [1] CRAN (R 4.0.0)                      
+##  digest        0.6.25  2020-02-23 [1] CRAN (R 4.0.0)                      
+##  evaluate      0.14    2019-05-28 [1] CRAN (R 4.0.0)                      
+##  fansi         0.4.1   2020-01-08 [1] CRAN (R 4.0.0)                      
+##  glue          1.4.2   2020-08-27 [1] CRAN (R 4.0.2)                      
+##  htmltools     0.5.0   2020-06-16 [1] CRAN (R 4.0.1)                      
+##  knitr         1.30    2020-09-22 [1] CRAN (R 4.0.2)                      
+##  magrittr      1.5     2014-11-22 [1] CRAN (R 4.0.0)                      
+##  rlang         0.4.7   2020-07-09 [1] CRAN (R 4.0.2)                      
+##  rmarkdown     2.4.0   2020-09-11 [1] Github (cpsievert/rmarkdown@b79fb4d)
+##  sessioninfo * 1.1.1   2018-11-05 [1] CRAN (R 4.0.0)                      
+##  stringi       1.5.3   2020-09-09 [1] CRAN (R 4.0.2)                      
+##  stringr       1.4.0   2019-02-10 [1] CRAN (R 4.0.0)                      
+##  withr         2.3.0   2020-09-22 [1] CRAN (R 4.0.2)                      
+##  xfun          0.18    2020-09-29 [1] CRAN (R 4.0.2)                      
+##  yaml          2.2.1   2020-02-01 [1] CRAN (R 4.0.0)                      
+## 
+## [1] /Library/Frameworks/R.framework/Versions/4.0/Resources/library</code></pre>
 
 </div>
 </div>

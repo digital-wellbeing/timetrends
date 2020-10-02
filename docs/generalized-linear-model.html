@@ -24,7 +24,7 @@
 <meta name="author" content="Matti Vuorre" />
 
 
-<meta name="date" content="2020-09-02" />
+<meta name="date" content="2020-10-02" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,6 +33,7 @@
   
 <link rel="prev" href="data-descriptives.html"/>
 <link rel="next" href="bayesian-generalized-linear-mixed-model.html"/>
+<script src="libs/header-attrs-2.4.0/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -54,18 +55,17 @@
 
 
 <style type="text/css">
-code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
-code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -85,7 +85,7 @@ pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-le
 div.sourceCode
   {   }
 @media screen {
-code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -134,46 +134,58 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="./">Technology effect timecourses</a></li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Preface</a><ul>
-<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#analyses-and-reproducibility"><i class="fa fa-check"></i><b>1.1</b> Analyses and reproducibility</a></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Preface</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#analyses"><i class="fa fa-check"></i><b>1.1</b> Analyses</a></li>
 <li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#raw-data"><i class="fa fa-check"></i><b>1.2</b> Raw data</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#reproducibility"><i class="fa fa-check"></i><b>1.3</b> Reproducibility</a></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="mtf-preprocessing.html"><a href="mtf-preprocessing.html"><i class="fa fa-check"></i><b>2</b> MTF preprocessing</a><ul>
+<li class="chapter" data-level="2" data-path="mtf-preprocessing.html"><a href="mtf-preprocessing.html"><i class="fa fa-check"></i><b>2</b> MTF preprocessing</a>
+<ul>
 <li class="chapter" data-level="2.1" data-path="mtf-preprocessing.html"><a href="mtf-preprocessing.html#save-to-disk"><i class="fa fa-check"></i><b>2.1</b> Save to disk</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="us-preprocessing.html"><a href="us-preprocessing.html"><i class="fa fa-check"></i><b>3</b> US preprocessing</a><ul>
+<li class="chapter" data-level="3" data-path="us-preprocessing.html"><a href="us-preprocessing.html"><i class="fa fa-check"></i><b>3</b> US preprocessing</a>
+<ul>
 <li class="chapter" data-level="3.1" data-path="us-preprocessing.html"><a href="us-preprocessing.html#year"><i class="fa fa-check"></i><b>3.1</b> Year</a></li>
 <li class="chapter" data-level="3.2" data-path="us-preprocessing.html"><a href="us-preprocessing.html#strengths-and-difficulties"><i class="fa fa-check"></i><b>3.2</b> Strengths and difficulties</a></li>
 <li class="chapter" data-level="3.3" data-path="us-preprocessing.html"><a href="us-preprocessing.html#save-file"><i class="fa fa-check"></i><b>3.3</b> Save file</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="yrbs-preprocessing.html"><a href="yrbs-preprocessing.html"><i class="fa fa-check"></i><b>4</b> YRBS preprocessing</a><ul>
+<li class="chapter" data-level="4" data-path="yrbs-preprocessing.html"><a href="yrbs-preprocessing.html"><i class="fa fa-check"></i><b>4</b> YRBS preprocessing</a>
+<ul>
 <li class="chapter" data-level="4.1" data-path="yrbs-preprocessing.html"><a href="yrbs-preprocessing.html#recode-variables"><i class="fa fa-check"></i><b>4.1</b> Recode Variables</a></li>
 <li class="chapter" data-level="4.2" data-path="yrbs-preprocessing.html"><a href="yrbs-preprocessing.html#age"><i class="fa fa-check"></i><b>4.2</b> Age</a></li>
 <li class="chapter" data-level="4.3" data-path="yrbs-preprocessing.html"><a href="yrbs-preprocessing.html#tech-variables"><i class="fa fa-check"></i><b>4.3</b> Tech variables</a></li>
 <li class="chapter" data-level="4.4" data-path="yrbs-preprocessing.html"><a href="yrbs-preprocessing.html#sex"><i class="fa fa-check"></i><b>4.4</b> Sex</a></li>
 <li class="chapter" data-level="4.5" data-path="yrbs-preprocessing.html"><a href="yrbs-preprocessing.html#rename-and-save"><i class="fa fa-check"></i><b>4.5</b> Rename and save</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="data-descriptives.html"><a href="data-descriptives.html"><i class="fa fa-check"></i><b>5</b> Data descriptives</a><ul>
-<li class="chapter" data-level="5.1" data-path="data-descriptives.html"><a href="data-descriptives.html#data"><i class="fa fa-check"></i><b>5.1</b> Data</a><ul>
+<li class="chapter" data-level="5" data-path="data-descriptives.html"><a href="data-descriptives.html"><i class="fa fa-check"></i><b>5</b> Data descriptives</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="data-descriptives.html"><a href="data-descriptives.html#data"><i class="fa fa-check"></i><b>5.1</b> Data</a>
+<ul>
 <li class="chapter" data-level="5.1.1" data-path="data-descriptives.html"><a href="data-descriptives.html#sample-sizes-and-years"><i class="fa fa-check"></i><b>5.1.1</b> Sample sizes and years</a></li>
-<li class="chapter" data-level="5.1.2" data-path="data-descriptives.html"><a href="data-descriptives.html#outcomes"><i class="fa fa-check"></i><b>5.1.2</b> Outcomes</a></li>
+<li class="chapter" data-level="5.1.2" data-path="data-descriptives.html"><a href="data-descriptives.html#missingness"><i class="fa fa-check"></i><b>5.1.2</b> Missingness</a></li>
+<li class="chapter" data-level="5.1.3" data-path="data-descriptives.html"><a href="data-descriptives.html#outcomes"><i class="fa fa-check"></i><b>5.1.3</b> Outcomes</a></li>
 </ul></li>
 <li class="chapter" data-level="5.2" data-path="data-descriptives.html"><a href="data-descriptives.html#figures"><i class="fa fa-check"></i><b>5.2</b> Figures</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="generalized-linear-model.html"><a href="generalized-linear-model.html"><i class="fa fa-check"></i><b>6</b> Generalized Linear Model</a><ul>
+<li class="chapter" data-level="6" data-path="generalized-linear-model.html"><a href="generalized-linear-model.html"><i class="fa fa-check"></i><b>6</b> Generalized Linear Model</a>
+<ul>
 <li class="chapter" data-level="6.1" data-path="data-descriptives.html"><a href="data-descriptives.html#data"><i class="fa fa-check"></i><b>6.1</b> Data</a></li>
 <li class="chapter" data-level="6.2" data-path="generalized-linear-model.html"><a href="generalized-linear-model.html#yearly-correlations-figure"><i class="fa fa-check"></i><b>6.2</b> Yearly correlations figure</a></li>
 <li class="chapter" data-level="6.3" data-path="generalized-linear-model.html"><a href="generalized-linear-model.html#models"><i class="fa fa-check"></i><b>6.3</b> Models</a></li>
 <li class="chapter" data-level="6.4" data-path="generalized-linear-model.html"><a href="generalized-linear-model.html#results"><i class="fa fa-check"></i><b>6.4</b> Results</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="bayesian-generalized-linear-mixed-model.html"><a href="bayesian-generalized-linear-mixed-model.html"><i class="fa fa-check"></i><b>7</b> Bayesian Generalized Linear Mixed Model</a><ul>
+<li class="chapter" data-level="7" data-path="bayesian-generalized-linear-mixed-model.html"><a href="bayesian-generalized-linear-mixed-model.html"><i class="fa fa-check"></i><b>7</b> Bayesian Generalized Linear Mixed Model</a>
+<ul>
 <li class="chapter" data-level="7.1" data-path="data-descriptives.html"><a href="data-descriptives.html#data"><i class="fa fa-check"></i><b>7.1</b> Data</a></li>
-<li class="chapter" data-level="7.2" data-path="generalized-linear-model.html"><a href="generalized-linear-model.html#models"><i class="fa fa-check"></i><b>7.2</b> Models</a><ul>
+<li class="chapter" data-level="7.2" data-path="generalized-linear-model.html"><a href="generalized-linear-model.html#models"><i class="fa fa-check"></i><b>7.2</b> Models</a>
+<ul>
 <li class="chapter" data-level="7.2.1" data-path="bayesian-generalized-linear-mixed-model.html"><a href="bayesian-generalized-linear-mixed-model.html#estimate"><i class="fa fa-check"></i><b>7.2.1</b> Estimate</a></li>
-<li class="chapter" data-level="7.2.2" data-path="bayesian-generalized-linear-mixed-model.html"><a href="bayesian-generalized-linear-mixed-model.html#year-and-tech"><i class="fa fa-check"></i><b>7.2.2</b> Year and tech</a></li>
+<li class="chapter" data-level="7.2.2" data-path="generalized-linear-model.html"><a href="generalized-linear-model.html#results"><i class="fa fa-check"></i><b>7.2.2</b> Results</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="latent-variable-models.html"><a href="latent-variable-models.html"><i class="fa fa-check"></i><b>8</b> Latent Variable Models</a><ul>
+<li class="chapter" data-level="8" data-path="latent-variable-models.html"><a href="latent-variable-models.html"><i class="fa fa-check"></i><b>8</b> Latent Variable Models</a>
+<ul>
 <li class="chapter" data-level="8.1" data-path="data-descriptives.html"><a href="data-descriptives.html#data"><i class="fa fa-check"></i><b>8.1</b> Data</a></li>
 <li class="chapter" data-level="8.2" data-path="generalized-linear-model.html"><a href="generalized-linear-model.html#models"><i class="fa fa-check"></i><b>8.2</b> Models</a></li>
 <li class="chapter" data-level="8.3" data-path="generalized-linear-model.html"><a href="generalized-linear-model.html#results"><i class="fa fa-check"></i><b>8.3</b> Results</a></li>
@@ -195,214 +207,322 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="generalized-linear-model" class="section level1">
+<div id="generalized-linear-model" class="section level1" number="6">
 <h1><span class="header-section-number">Chapter 6</span> Generalized Linear Model</h1>
 <p>This is a first pass. We model the means of the items of each dataset with OLS regression.</p>
-<div id="data" class="section level2">
+<div id="data" class="section level2" number="6.1">
 <h2><span class="header-section-number">6.1</span> Data</h2>
-<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="generalized-linear-model.html#cb75-1"></a>mtf &lt;-<span class="st"> </span><span class="kw">read_rds</span>(<span class="st">&quot;data/mtf.rds&quot;</span>)</span>
-<span id="cb75-2"><a href="generalized-linear-model.html#cb75-2"></a>us &lt;-<span class="st"> </span><span class="kw">read_rds</span>(<span class="st">&quot;data/us.rds&quot;</span>)</span>
-<span id="cb75-3"><a href="generalized-linear-model.html#cb75-3"></a>yrbs &lt;-<span class="st"> </span><span class="kw">read_rds</span>(<span class="st">&quot;data/yrbs.rds&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="generalized-linear-model.html#cb88-1"></a>mtf &lt;-<span class="st"> </span><span class="kw">read_rds</span>(<span class="st">&quot;data/mtf.rds&quot;</span>)</span>
+<span id="cb88-2"><a href="generalized-linear-model.html#cb88-2"></a>us &lt;-<span class="st"> </span><span class="kw">read_rds</span>(<span class="st">&quot;data/us.rds&quot;</span>)</span>
+<span id="cb88-3"><a href="generalized-linear-model.html#cb88-3"></a>yrbs &lt;-<span class="st"> </span><span class="kw">read_rds</span>(<span class="st">&quot;data/yrbs.rds&quot;</span>)</span></code></pre></div>
 <p>For US, we also isolate between- and within-person variables.</p>
-<div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb76-1"><a href="generalized-linear-model.html#cb76-1"></a>us &lt;-<span class="st"> </span>bmlm<span class="op">::</span><span class="kw">isolate</span>(us, <span class="st">&quot;pidp&quot;</span>, <span class="st">&quot;TV&quot;</span>, <span class="dt">which =</span> <span class="st">&quot;both&quot;</span>, <span class="dt">z =</span> <span class="ot">TRUE</span>)</span>
-<span id="cb76-2"><a href="generalized-linear-model.html#cb76-2"></a>us &lt;-<span class="st"> </span>bmlm<span class="op">::</span><span class="kw">isolate</span>(us, <span class="st">&quot;pidp&quot;</span>, <span class="st">&quot;SM&quot;</span>, <span class="dt">which =</span> <span class="st">&quot;both&quot;</span>, <span class="dt">z =</span> <span class="ot">TRUE</span>)</span>
-<span id="cb76-3"><a href="generalized-linear-model.html#cb76-3"></a>us &lt;-<span class="st"> </span>us <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(<span class="op">-</span>TV, <span class="op">-</span>SM)</span>
-<span id="cb76-4"><a href="generalized-linear-model.html#cb76-4"></a><span class="co"># We focus on between-person relations so rename those back</span></span>
-<span id="cb76-5"><a href="generalized-linear-model.html#cb76-5"></a>us &lt;-<span class="st"> </span>us <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">rename</span>(<span class="dt">TV =</span> TV_cb, <span class="dt">SM =</span> SM_cb)</span></code></pre></div>
+<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="generalized-linear-model.html#cb89-1"></a>us &lt;-<span class="st"> </span>bmlm<span class="op">::</span><span class="kw">isolate</span>(us, <span class="st">&quot;pidp&quot;</span>, <span class="st">&quot;TV&quot;</span>, <span class="dt">which =</span> <span class="st">&quot;both&quot;</span>, <span class="dt">z =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb89-2"><a href="generalized-linear-model.html#cb89-2"></a>us &lt;-<span class="st"> </span>bmlm<span class="op">::</span><span class="kw">isolate</span>(us, <span class="st">&quot;pidp&quot;</span>, <span class="st">&quot;SM&quot;</span>, <span class="dt">which =</span> <span class="st">&quot;both&quot;</span>, <span class="dt">z =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb89-3"><a href="generalized-linear-model.html#cb89-3"></a>us &lt;-<span class="st"> </span>us <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(<span class="op">-</span>TV, <span class="op">-</span>SM)</span>
+<span id="cb89-4"><a href="generalized-linear-model.html#cb89-4"></a><span class="co"># We focus on between-person relations so rename those back</span></span>
+<span id="cb89-5"><a href="generalized-linear-model.html#cb89-5"></a>us &lt;-<span class="st"> </span>us <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">rename</span>(<span class="dt">TV =</span> TV_cb, <span class="dt">SM =</span> SM_cb)</span></code></pre></div>
 </div>
-<div id="yearly-correlations-figure" class="section level2">
+<div id="yearly-correlations-figure" class="section level2" number="6.2">
 <h2><span class="header-section-number">6.2</span> Yearly correlations figure</h2>
-<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="generalized-linear-model.html#cb77-1"></a>fit_year &lt;-<span class="st"> </span><span class="cf">function</span>(data, x, y, name) {</span>
-<span id="cb77-2"><a href="generalized-linear-model.html#cb77-2"></a>  data &lt;-<span class="st"> </span>data[,<span class="kw">c</span>(<span class="st">&quot;Year&quot;</span>, x, y, <span class="st">&quot;Sex&quot;</span>)]</span>
-<span id="cb77-3"><a href="generalized-linear-model.html#cb77-3"></a>  <span class="kw">names</span>(data) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Year&quot;</span>, <span class="st">&quot;x&quot;</span>, <span class="st">&quot;y&quot;</span>, <span class="st">&quot;Sex&quot;</span>)</span>
-<span id="cb77-4"><a href="generalized-linear-model.html#cb77-4"></a>  data <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb77-5"><a href="generalized-linear-model.html#cb77-5"></a><span class="st">    </span><span class="kw">drop_na</span>(x, y) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb77-6"><a href="generalized-linear-model.html#cb77-6"></a><span class="st">    </span><span class="kw">group_by</span>(Year) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb77-7"><a href="generalized-linear-model.html#cb77-7"></a><span class="st">    </span><span class="kw">mutate</span>(</span>
-<span id="cb77-8"><a href="generalized-linear-model.html#cb77-8"></a>      <span class="dt">x =</span> <span class="kw">as.numeric</span>(<span class="kw">scale</span>(x)), </span>
-<span id="cb77-9"><a href="generalized-linear-model.html#cb77-9"></a>      <span class="dt">y =</span> <span class="kw">as.numeric</span>(<span class="kw">scale</span>(y))</span>
-<span id="cb77-10"><a href="generalized-linear-model.html#cb77-10"></a>    ) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb77-11"><a href="generalized-linear-model.html#cb77-11"></a><span class="st">    </span><span class="kw">group_modify</span>(<span class="op">~</span>broom<span class="op">::</span><span class="kw">tidy</span>(<span class="kw">lm</span>(y <span class="op">~</span><span class="st"> </span>x<span class="op">*</span>Sex, <span class="dt">data =</span> .), <span class="dt">conf.int =</span> <span class="ot">TRUE</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb77-12"><a href="generalized-linear-model.html#cb77-12"></a><span class="st">    </span><span class="kw">filter</span>(term<span class="op">==</span><span class="st">&quot;x&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb77-13"><a href="generalized-linear-model.html#cb77-13"></a><span class="st">    </span><span class="kw">mutate</span>(<span class="dt">Technology =</span> x, <span class="dt">Outcome =</span> y, <span class="dt">data =</span> name)</span>
-<span id="cb77-14"><a href="generalized-linear-model.html#cb77-14"></a>}</span>
-<span id="cb77-15"><a href="generalized-linear-model.html#cb77-15"></a>x1 &lt;-<span class="st"> </span><span class="kw">fit_year</span>(mtf, <span class="st">&quot;TV&quot;</span>, <span class="st">&quot;Depression&quot;</span>, <span class="st">&quot;MTF&quot;</span>)</span>
-<span id="cb77-16"><a href="generalized-linear-model.html#cb77-16"></a>x2 &lt;-<span class="st"> </span><span class="kw">fit_year</span>(mtf, <span class="st">&quot;SM&quot;</span>, <span class="st">&quot;Depression&quot;</span>, <span class="st">&quot;MTF&quot;</span>)</span>
-<span id="cb77-17"><a href="generalized-linear-model.html#cb77-17"></a>x3 &lt;-<span class="st"> </span><span class="kw">fit_year</span>(yrbs, <span class="st">&quot;TV&quot;</span>, <span class="st">&quot;Suicide&quot;</span>, <span class="st">&quot;YRBS&quot;</span>)</span>
-<span id="cb77-18"><a href="generalized-linear-model.html#cb77-18"></a>x4 &lt;-<span class="st"> </span><span class="kw">fit_year</span>(yrbs, <span class="st">&quot;DV&quot;</span>, <span class="st">&quot;Suicide&quot;</span>, <span class="st">&quot;YRBS&quot;</span>)</span>
-<span id="cb77-19"><a href="generalized-linear-model.html#cb77-19"></a>x5 &lt;-<span class="st"> </span><span class="kw">fit_year</span>(us, <span class="st">&quot;TV&quot;</span>, <span class="st">&quot;Emotion&quot;</span>, <span class="st">&quot;US&quot;</span>)</span>
-<span id="cb77-20"><a href="generalized-linear-model.html#cb77-20"></a>x6 &lt;-<span class="st"> </span><span class="kw">fit_year</span>(us, <span class="st">&quot;TV&quot;</span>, <span class="st">&quot;Conduct&quot;</span>, <span class="st">&quot;US&quot;</span>)</span>
-<span id="cb77-21"><a href="generalized-linear-model.html#cb77-21"></a>x7 &lt;-<span class="st"> </span><span class="kw">fit_year</span>(us, <span class="st">&quot;SM&quot;</span>, <span class="st">&quot;Emotion&quot;</span>, <span class="st">&quot;US&quot;</span>)</span>
-<span id="cb77-22"><a href="generalized-linear-model.html#cb77-22"></a>x8 &lt;-<span class="st"> </span><span class="kw">fit_year</span>(us, <span class="st">&quot;SM&quot;</span>, <span class="st">&quot;Conduct&quot;</span>, <span class="st">&quot;US&quot;</span>)</span>
-<span id="cb77-23"><a href="generalized-linear-model.html#cb77-23"></a>fits_year &lt;-<span class="st"> </span><span class="kw">bind_rows</span>(x1,x2,x3,x4,x5,x6,x7,x8)</span>
-<span id="cb77-24"><a href="generalized-linear-model.html#cb77-24"></a><span class="co"># Rename device and social media to a similar construct</span></span>
-<span id="cb77-25"><a href="generalized-linear-model.html#cb77-25"></a>fits_year &lt;-<span class="st"> </span>fits_year <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb77-26"><a href="generalized-linear-model.html#cb77-26"></a><span class="st">  </span><span class="kw">mutate</span>(</span>
-<span id="cb77-27"><a href="generalized-linear-model.html#cb77-27"></a>    <span class="dt">Technology =</span> <span class="kw">ifelse</span>(</span>
-<span id="cb77-28"><a href="generalized-linear-model.html#cb77-28"></a>      Technology <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;SM&quot;</span>, <span class="st">&quot;DV&quot;</span>), </span>
-<span id="cb77-29"><a href="generalized-linear-model.html#cb77-29"></a>      <span class="st">&quot;Social media / device&quot;</span>, </span>
-<span id="cb77-30"><a href="generalized-linear-model.html#cb77-30"></a>      <span class="st">&quot;Television&quot;</span></span>
-<span id="cb77-31"><a href="generalized-linear-model.html#cb77-31"></a>    )</span>
-<span id="cb77-32"><a href="generalized-linear-model.html#cb77-32"></a>  )</span>
-<span id="cb77-33"><a href="generalized-linear-model.html#cb77-33"></a>fits_year <span class="op">%&gt;%</span><span class="st">   </span></span>
-<span id="cb77-34"><a href="generalized-linear-model.html#cb77-34"></a><span class="st">  </span><span class="kw">ggplot</span>(</span>
-<span id="cb77-35"><a href="generalized-linear-model.html#cb77-35"></a>    <span class="kw">aes</span>(Year, estimate, <span class="dt">shape =</span> Outcome)</span>
-<span id="cb77-36"><a href="generalized-linear-model.html#cb77-36"></a>  ) <span class="op">+</span></span>
-<span id="cb77-37"><a href="generalized-linear-model.html#cb77-37"></a><span class="st">  </span><span class="kw">geom_hline</span>(<span class="dt">yintercept =</span> <span class="dv">0</span>, <span class="dt">lty =</span> <span class="dv">2</span>, <span class="dt">size =</span> <span class="fl">.25</span>) <span class="op">+</span></span>
-<span id="cb77-38"><a href="generalized-linear-model.html#cb77-38"></a><span class="st">  </span><span class="kw">scale_shape_manual</span>(<span class="dt">values =</span> <span class="kw">c</span>(<span class="dv">15</span>, <span class="dv">16</span>, <span class="dv">21</span>, <span class="dv">22</span>)) <span class="op">+</span></span>
-<span id="cb77-39"><a href="generalized-linear-model.html#cb77-39"></a><span class="st">  </span><span class="kw">scale_x_continuous</span>(</span>
-<span id="cb77-40"><a href="generalized-linear-model.html#cb77-40"></a>    <span class="st">&quot;Year&quot;</span>,</span>
-<span id="cb77-41"><a href="generalized-linear-model.html#cb77-41"></a>    <span class="dt">breaks =</span> scales<span class="op">::</span><span class="kw">pretty_breaks</span>()</span>
-<span id="cb77-42"><a href="generalized-linear-model.html#cb77-42"></a>  ) <span class="op">+</span></span>
-<span id="cb77-43"><a href="generalized-linear-model.html#cb77-43"></a><span class="st">  </span><span class="kw">scale_y_continuous</span>(</span>
-<span id="cb77-44"><a href="generalized-linear-model.html#cb77-44"></a>    <span class="st">&quot;Estimate (±95%CI)&quot;</span>,</span>
-<span id="cb77-45"><a href="generalized-linear-model.html#cb77-45"></a>    <span class="dt">breaks =</span> scales<span class="op">::</span><span class="kw">pretty_breaks</span>()</span>
-<span id="cb77-46"><a href="generalized-linear-model.html#cb77-46"></a>  ) <span class="op">+</span></span>
-<span id="cb77-47"><a href="generalized-linear-model.html#cb77-47"></a><span class="st">  </span><span class="kw">geom_line</span>(</span>
-<span id="cb77-48"><a href="generalized-linear-model.html#cb77-48"></a>    <span class="dt">position =</span> <span class="kw">position_dodge</span>(.<span class="dv">33</span>),</span>
-<span id="cb77-49"><a href="generalized-linear-model.html#cb77-49"></a>    <span class="dt">size =</span> <span class="fl">.25</span>, </span>
-<span id="cb77-50"><a href="generalized-linear-model.html#cb77-50"></a>  ) <span class="op">+</span></span>
-<span id="cb77-51"><a href="generalized-linear-model.html#cb77-51"></a><span class="st">  </span><span class="kw">geom_linerange</span>(</span>
-<span id="cb77-52"><a href="generalized-linear-model.html#cb77-52"></a>    <span class="dt">position =</span> <span class="kw">position_dodge</span>(.<span class="dv">33</span>),</span>
-<span id="cb77-53"><a href="generalized-linear-model.html#cb77-53"></a>    <span class="dt">show.legend =</span> <span class="ot">FALSE</span>,</span>
-<span id="cb77-54"><a href="generalized-linear-model.html#cb77-54"></a>    <span class="kw">aes</span>(<span class="dt">ymin =</span> conf.high, <span class="dt">ymax =</span> conf.low)</span>
-<span id="cb77-55"><a href="generalized-linear-model.html#cb77-55"></a>  ) <span class="op">+</span></span>
-<span id="cb77-56"><a href="generalized-linear-model.html#cb77-56"></a><span class="st">  </span><span class="kw">geom_point</span>(</span>
-<span id="cb77-57"><a href="generalized-linear-model.html#cb77-57"></a>    <span class="dt">position =</span> <span class="kw">position_dodge</span>(.<span class="dv">33</span>),</span>
-<span id="cb77-58"><a href="generalized-linear-model.html#cb77-58"></a>    <span class="dt">fill =</span> <span class="st">&quot;white&quot;</span>, <span class="dt">stroke =</span> <span class="fl">0.75</span></span>
-<span id="cb77-59"><a href="generalized-linear-model.html#cb77-59"></a>  ) <span class="op">+</span></span>
-<span id="cb77-60"><a href="generalized-linear-model.html#cb77-60"></a><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="st">&quot;Technology&quot;</span>, <span class="dt">scales =</span> <span class="st">&quot;fixed&quot;</span>, <span class="dt">ncol =</span> <span class="dv">1</span>) <span class="op">+</span></span>
-<span id="cb77-61"><a href="generalized-linear-model.html#cb77-61"></a><span class="st">  </span><span class="kw">theme</span>(</span>
-<span id="cb77-62"><a href="generalized-linear-model.html#cb77-62"></a>    <span class="dt">legend.position =</span> <span class="kw">c</span>(<span class="fl">0.1</span>,<span class="fl">0.77</span>), </span>
-<span id="cb77-63"><a href="generalized-linear-model.html#cb77-63"></a>    <span class="dt">legend.background =</span> <span class="kw">element_rect</span>(<span class="dt">fill =</span> <span class="ot">NA</span>), </span>
-<span id="cb77-64"><a href="generalized-linear-model.html#cb77-64"></a>    <span class="dt">legend.key =</span> <span class="kw">element_rect</span>(<span class="dt">fill =</span> <span class="ot">NA</span>),</span>
-<span id="cb77-65"><a href="generalized-linear-model.html#cb77-65"></a>    <span class="dt">legend.text =</span> <span class="kw">element_text</span>(<span class="dt">size =</span> <span class="dv">8</span>), </span>
-<span id="cb77-66"><a href="generalized-linear-model.html#cb77-66"></a>    <span class="dt">legend.box.spacing =</span> <span class="kw">unit</span>(<span class="dv">0</span>, <span class="st">&quot;cm&quot;</span>)</span>
-<span id="cb77-67"><a href="generalized-linear-model.html#cb77-67"></a>  )</span></code></pre></div>
+<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="generalized-linear-model.html#cb90-1"></a>fit_year &lt;-<span class="st"> </span><span class="cf">function</span>(data, x, y, name) {</span>
+<span id="cb90-2"><a href="generalized-linear-model.html#cb90-2"></a>  data &lt;-<span class="st"> </span>data[,<span class="kw">c</span>(<span class="st">&quot;Year&quot;</span>, x, y, <span class="st">&quot;Sex&quot;</span>)]</span>
+<span id="cb90-3"><a href="generalized-linear-model.html#cb90-3"></a>  <span class="kw">names</span>(data) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Year&quot;</span>, <span class="st">&quot;x&quot;</span>, <span class="st">&quot;y&quot;</span>, <span class="st">&quot;Sex&quot;</span>)</span>
+<span id="cb90-4"><a href="generalized-linear-model.html#cb90-4"></a>  data <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb90-5"><a href="generalized-linear-model.html#cb90-5"></a><span class="st">    </span><span class="kw">drop_na</span>(x, y) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb90-6"><a href="generalized-linear-model.html#cb90-6"></a><span class="st">    </span><span class="kw">group_by</span>(Year) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb90-7"><a href="generalized-linear-model.html#cb90-7"></a><span class="st">    </span><span class="kw">mutate</span>(</span>
+<span id="cb90-8"><a href="generalized-linear-model.html#cb90-8"></a>      <span class="dt">x =</span> <span class="kw">as.numeric</span>(<span class="kw">scale</span>(x)), </span>
+<span id="cb90-9"><a href="generalized-linear-model.html#cb90-9"></a>      <span class="dt">y =</span> <span class="kw">as.numeric</span>(<span class="kw">scale</span>(y))</span>
+<span id="cb90-10"><a href="generalized-linear-model.html#cb90-10"></a>    ) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb90-11"><a href="generalized-linear-model.html#cb90-11"></a><span class="st">    </span><span class="kw">group_modify</span>(<span class="op">~</span>broom<span class="op">::</span><span class="kw">tidy</span>(<span class="kw">lm</span>(y <span class="op">~</span><span class="st"> </span>x<span class="op">*</span>Sex, <span class="dt">data =</span> .), <span class="dt">conf.int =</span> <span class="ot">TRUE</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb90-12"><a href="generalized-linear-model.html#cb90-12"></a><span class="st">    </span><span class="kw">filter</span>(term<span class="op">==</span><span class="st">&quot;x&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb90-13"><a href="generalized-linear-model.html#cb90-13"></a><span class="st">    </span><span class="kw">mutate</span>(<span class="dt">Technology =</span> x, <span class="dt">Outcome =</span> y, <span class="dt">data =</span> name)</span>
+<span id="cb90-14"><a href="generalized-linear-model.html#cb90-14"></a>}</span>
+<span id="cb90-15"><a href="generalized-linear-model.html#cb90-15"></a>x1 &lt;-<span class="st"> </span><span class="kw">fit_year</span>(mtf, <span class="st">&quot;TV&quot;</span>, <span class="st">&quot;Depression&quot;</span>, <span class="st">&quot;MTF&quot;</span>)</span>
+<span id="cb90-16"><a href="generalized-linear-model.html#cb90-16"></a>x2 &lt;-<span class="st"> </span><span class="kw">fit_year</span>(mtf, <span class="st">&quot;SM&quot;</span>, <span class="st">&quot;Depression&quot;</span>, <span class="st">&quot;MTF&quot;</span>)</span>
+<span id="cb90-17"><a href="generalized-linear-model.html#cb90-17"></a>x3 &lt;-<span class="st"> </span><span class="kw">fit_year</span>(yrbs, <span class="st">&quot;TV&quot;</span>, <span class="st">&quot;Suicide&quot;</span>, <span class="st">&quot;YRBS&quot;</span>)</span>
+<span id="cb90-18"><a href="generalized-linear-model.html#cb90-18"></a>x4 &lt;-<span class="st"> </span><span class="kw">fit_year</span>(yrbs, <span class="st">&quot;DV&quot;</span>, <span class="st">&quot;Suicide&quot;</span>, <span class="st">&quot;YRBS&quot;</span>)</span>
+<span id="cb90-19"><a href="generalized-linear-model.html#cb90-19"></a>x5 &lt;-<span class="st"> </span><span class="kw">fit_year</span>(us, <span class="st">&quot;TV&quot;</span>, <span class="st">&quot;Emotion&quot;</span>, <span class="st">&quot;US&quot;</span>)</span>
+<span id="cb90-20"><a href="generalized-linear-model.html#cb90-20"></a>x6 &lt;-<span class="st"> </span><span class="kw">fit_year</span>(us, <span class="st">&quot;TV&quot;</span>, <span class="st">&quot;Conduct&quot;</span>, <span class="st">&quot;US&quot;</span>)</span>
+<span id="cb90-21"><a href="generalized-linear-model.html#cb90-21"></a>x7 &lt;-<span class="st"> </span><span class="kw">fit_year</span>(us, <span class="st">&quot;SM&quot;</span>, <span class="st">&quot;Emotion&quot;</span>, <span class="st">&quot;US&quot;</span>)</span>
+<span id="cb90-22"><a href="generalized-linear-model.html#cb90-22"></a>x8 &lt;-<span class="st"> </span><span class="kw">fit_year</span>(us, <span class="st">&quot;SM&quot;</span>, <span class="st">&quot;Conduct&quot;</span>, <span class="st">&quot;US&quot;</span>)</span>
+<span id="cb90-23"><a href="generalized-linear-model.html#cb90-23"></a>fits_year &lt;-<span class="st"> </span><span class="kw">bind_rows</span>(x1,x2,x3,x4,x5,x6,x7,x8)</span>
+<span id="cb90-24"><a href="generalized-linear-model.html#cb90-24"></a><span class="co"># Rename device and social media to a similar construct</span></span>
+<span id="cb90-25"><a href="generalized-linear-model.html#cb90-25"></a>fits_year &lt;-<span class="st"> </span>fits_year <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb90-26"><a href="generalized-linear-model.html#cb90-26"></a><span class="st">  </span><span class="kw">mutate</span>(</span>
+<span id="cb90-27"><a href="generalized-linear-model.html#cb90-27"></a>    <span class="dt">Technology =</span> <span class="kw">ifelse</span>(</span>
+<span id="cb90-28"><a href="generalized-linear-model.html#cb90-28"></a>      Technology <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;SM&quot;</span>, <span class="st">&quot;DV&quot;</span>), </span>
+<span id="cb90-29"><a href="generalized-linear-model.html#cb90-29"></a>      <span class="st">&quot;Social media / digital device&quot;</span>, </span>
+<span id="cb90-30"><a href="generalized-linear-model.html#cb90-30"></a>      <span class="st">&quot;Television&quot;</span></span>
+<span id="cb90-31"><a href="generalized-linear-model.html#cb90-31"></a>    )</span>
+<span id="cb90-32"><a href="generalized-linear-model.html#cb90-32"></a>  )</span>
+<span id="cb90-33"><a href="generalized-linear-model.html#cb90-33"></a>fits_year <span class="op">%&gt;%</span><span class="st">   </span></span>
+<span id="cb90-34"><a href="generalized-linear-model.html#cb90-34"></a><span class="st">  </span><span class="kw">ggplot</span>(</span>
+<span id="cb90-35"><a href="generalized-linear-model.html#cb90-35"></a>    <span class="kw">aes</span>(Year, estimate, <span class="dt">shape =</span> Outcome)</span>
+<span id="cb90-36"><a href="generalized-linear-model.html#cb90-36"></a>  ) <span class="op">+</span></span>
+<span id="cb90-37"><a href="generalized-linear-model.html#cb90-37"></a><span class="st">  </span><span class="kw">geom_hline</span>(<span class="dt">yintercept =</span> <span class="dv">0</span>, <span class="dt">lty =</span> <span class="dv">2</span>, <span class="dt">size =</span> <span class="fl">.25</span>) <span class="op">+</span></span>
+<span id="cb90-38"><a href="generalized-linear-model.html#cb90-38"></a><span class="st">  </span><span class="kw">scale_shape_manual</span>(<span class="dt">values =</span> <span class="kw">c</span>(<span class="dv">15</span>, <span class="dv">16</span>, <span class="dv">21</span>, <span class="dv">22</span>)) <span class="op">+</span></span>
+<span id="cb90-39"><a href="generalized-linear-model.html#cb90-39"></a><span class="st">  </span><span class="kw">scale_x_continuous</span>(</span>
+<span id="cb90-40"><a href="generalized-linear-model.html#cb90-40"></a>    <span class="st">&quot;Year&quot;</span>,</span>
+<span id="cb90-41"><a href="generalized-linear-model.html#cb90-41"></a>    <span class="dt">breaks =</span> scales<span class="op">::</span><span class="kw">pretty_breaks</span>()</span>
+<span id="cb90-42"><a href="generalized-linear-model.html#cb90-42"></a>  ) <span class="op">+</span></span>
+<span id="cb90-43"><a href="generalized-linear-model.html#cb90-43"></a><span class="st">  </span><span class="kw">scale_y_continuous</span>(</span>
+<span id="cb90-44"><a href="generalized-linear-model.html#cb90-44"></a>    <span class="st">&quot;Estimate (±95%CI)&quot;</span>,</span>
+<span id="cb90-45"><a href="generalized-linear-model.html#cb90-45"></a>    <span class="dt">breaks =</span> scales<span class="op">::</span><span class="kw">pretty_breaks</span>()</span>
+<span id="cb90-46"><a href="generalized-linear-model.html#cb90-46"></a>  ) <span class="op">+</span></span>
+<span id="cb90-47"><a href="generalized-linear-model.html#cb90-47"></a><span class="st">  </span><span class="kw">geom_line</span>(</span>
+<span id="cb90-48"><a href="generalized-linear-model.html#cb90-48"></a>    <span class="dt">position =</span> <span class="kw">position_dodge</span>(.<span class="dv">33</span>),</span>
+<span id="cb90-49"><a href="generalized-linear-model.html#cb90-49"></a>    <span class="dt">size =</span> <span class="fl">.25</span>, </span>
+<span id="cb90-50"><a href="generalized-linear-model.html#cb90-50"></a>  ) <span class="op">+</span></span>
+<span id="cb90-51"><a href="generalized-linear-model.html#cb90-51"></a><span class="st">  </span><span class="kw">geom_linerange</span>(</span>
+<span id="cb90-52"><a href="generalized-linear-model.html#cb90-52"></a>    <span class="dt">position =</span> <span class="kw">position_dodge</span>(.<span class="dv">33</span>),</span>
+<span id="cb90-53"><a href="generalized-linear-model.html#cb90-53"></a>    <span class="dt">show.legend =</span> <span class="ot">FALSE</span>,</span>
+<span id="cb90-54"><a href="generalized-linear-model.html#cb90-54"></a>    <span class="kw">aes</span>(<span class="dt">ymin =</span> conf.high, <span class="dt">ymax =</span> conf.low)</span>
+<span id="cb90-55"><a href="generalized-linear-model.html#cb90-55"></a>  ) <span class="op">+</span></span>
+<span id="cb90-56"><a href="generalized-linear-model.html#cb90-56"></a><span class="st">  </span><span class="kw">geom_point</span>(</span>
+<span id="cb90-57"><a href="generalized-linear-model.html#cb90-57"></a>    <span class="dt">position =</span> <span class="kw">position_dodge</span>(.<span class="dv">33</span>),</span>
+<span id="cb90-58"><a href="generalized-linear-model.html#cb90-58"></a>    <span class="dt">fill =</span> <span class="st">&quot;white&quot;</span>, <span class="dt">stroke =</span> <span class="fl">0.75</span></span>
+<span id="cb90-59"><a href="generalized-linear-model.html#cb90-59"></a>  ) <span class="op">+</span></span>
+<span id="cb90-60"><a href="generalized-linear-model.html#cb90-60"></a><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="st">&quot;Technology&quot;</span>, <span class="dt">scales =</span> <span class="st">&quot;fixed&quot;</span>, <span class="dt">ncol =</span> <span class="dv">1</span>) <span class="op">+</span></span>
+<span id="cb90-61"><a href="generalized-linear-model.html#cb90-61"></a><span class="st">  </span><span class="kw">theme</span>(</span>
+<span id="cb90-62"><a href="generalized-linear-model.html#cb90-62"></a>    <span class="dt">legend.position =</span> <span class="st">&quot;right&quot;</span>, </span>
+<span id="cb90-63"><a href="generalized-linear-model.html#cb90-63"></a>    <span class="dt">legend.background =</span> <span class="kw">element_rect</span>(<span class="dt">fill =</span> <span class="ot">NA</span>), </span>
+<span id="cb90-64"><a href="generalized-linear-model.html#cb90-64"></a>    <span class="dt">legend.key =</span> <span class="kw">element_rect</span>(<span class="dt">fill =</span> <span class="ot">NA</span>),</span>
+<span id="cb90-65"><a href="generalized-linear-model.html#cb90-65"></a>    <span class="dt">legend.text =</span> <span class="kw">element_text</span>(<span class="dt">size =</span> <span class="dv">8</span>), </span>
+<span id="cb90-66"><a href="generalized-linear-model.html#cb90-66"></a>    <span class="dt">legend.box.spacing =</span> <span class="kw">unit</span>(<span class="dv">0</span>, <span class="st">&quot;cm&quot;</span>)</span>
+<span id="cb90-67"><a href="generalized-linear-model.html#cb90-67"></a>  )</span></code></pre></div>
 <p><img src="03-GLM_files/figure-html/yearly-correlations-figure-1.png" width="768" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb78-1"><a href="generalized-linear-model.html#cb78-1"></a><span class="kw">ggsave</span>(<span class="st">&quot;Figure1.png&quot;</span>, <span class="dt">width =</span> <span class="dv">6</span>, <span class="dt">height =</span> <span class="dv">4</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="generalized-linear-model.html#cb91-1"></a><span class="kw">ggsave</span>(<span class="st">&quot;Figure1.png&quot;</span>, <span class="dt">width =</span> <span class="dv">6</span>, <span class="dt">height =</span> <span class="dv">4</span>)</span></code></pre></div>
 </div>
-<div id="models" class="section level2">
+<div id="models" class="section level2" number="6.3">
 <h2><span class="header-section-number">6.3</span> Models</h2>
-<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb79-1"><a href="generalized-linear-model.html#cb79-1"></a>fit &lt;-<span class="st"> </span><span class="cf">function</span>(data, name, x, y) {</span>
-<span id="cb79-2"><a href="generalized-linear-model.html#cb79-2"></a>  data &lt;-<span class="st"> </span><span class="kw">drop_na</span>(data, <span class="kw">all_of</span>(x), <span class="kw">all_of</span>(y))</span>
-<span id="cb79-3"><a href="generalized-linear-model.html#cb79-3"></a>  <span class="co"># Standardize X and Y</span></span>
-<span id="cb79-4"><a href="generalized-linear-model.html#cb79-4"></a>  data &lt;-<span class="st"> </span><span class="kw">mutate</span>(data, <span class="kw">across</span>(<span class="kw">c</span>(<span class="kw">all_of</span>(x), <span class="kw">all_of</span>(y)), <span class="op">~</span><span class="kw">as.numeric</span>(<span class="kw">scale</span>(.))))</span>
-<span id="cb79-5"><a href="generalized-linear-model.html#cb79-5"></a>  data &lt;-<span class="st"> </span><span class="kw">mutate</span>(data, <span class="dt">Year =</span> Year <span class="op">-</span><span class="st"> </span><span class="dv">2017</span>)</span>
-<span id="cb79-6"><a href="generalized-linear-model.html#cb79-6"></a>  ml1 &lt;-<span class="st"> </span><span class="kw">lm</span>(</span>
-<span id="cb79-7"><a href="generalized-linear-model.html#cb79-7"></a>    <span class="kw">str_glue</span>(<span class="st">&quot;{y} ~ Sex * Year * {x}&quot;</span>),</span>
-<span id="cb79-8"><a href="generalized-linear-model.html#cb79-8"></a>    <span class="dt">data =</span> data</span>
-<span id="cb79-9"><a href="generalized-linear-model.html#cb79-9"></a>  )</span>
-<span id="cb79-10"><a href="generalized-linear-model.html#cb79-10"></a>  <span class="kw">tibble</span>(</span>
-<span id="cb79-11"><a href="generalized-linear-model.html#cb79-11"></a>    <span class="dt">data =</span> name,</span>
-<span id="cb79-12"><a href="generalized-linear-model.html#cb79-12"></a>    <span class="dt">Technology =</span> x,</span>
-<span id="cb79-13"><a href="generalized-linear-model.html#cb79-13"></a>    <span class="dt">Outcome =</span> y,</span>
-<span id="cb79-14"><a href="generalized-linear-model.html#cb79-14"></a>    <span class="dt">ml1 =</span> <span class="kw">list</span>(ml1)</span>
-<span id="cb79-15"><a href="generalized-linear-model.html#cb79-15"></a>  )</span>
-<span id="cb79-16"><a href="generalized-linear-model.html#cb79-16"></a>}</span>
-<span id="cb79-17"><a href="generalized-linear-model.html#cb79-17"></a>x1 &lt;-<span class="st"> </span><span class="kw">fit</span>(yrbs, <span class="st">&quot;YRBS&quot;</span>, <span class="st">&quot;TV&quot;</span>, <span class="st">&quot;Suicide&quot;</span>)</span>
-<span id="cb79-18"><a href="generalized-linear-model.html#cb79-18"></a>x2 &lt;-<span class="st"> </span><span class="kw">fit</span>(yrbs, <span class="st">&quot;YRBS&quot;</span>, <span class="st">&quot;DV&quot;</span>, <span class="st">&quot;Suicide&quot;</span>)</span>
-<span id="cb79-19"><a href="generalized-linear-model.html#cb79-19"></a>x3 &lt;-<span class="st"> </span><span class="kw">fit</span>(mtf, <span class="st">&quot;MTF&quot;</span>, <span class="st">&quot;TV&quot;</span>, <span class="st">&quot;Depression&quot;</span>)</span>
-<span id="cb79-20"><a href="generalized-linear-model.html#cb79-20"></a>x4 &lt;-<span class="st"> </span><span class="kw">fit</span>(mtf, <span class="st">&quot;MTF&quot;</span>, <span class="st">&quot;SM&quot;</span>, <span class="st">&quot;Depression&quot;</span>)</span>
-<span id="cb79-21"><a href="generalized-linear-model.html#cb79-21"></a>x5 &lt;-<span class="st"> </span><span class="kw">fit</span>(us, <span class="st">&quot;US&quot;</span>, <span class="st">&quot;SM&quot;</span>, <span class="st">&quot;Emotion&quot;</span>)</span>
-<span id="cb79-22"><a href="generalized-linear-model.html#cb79-22"></a>x6 &lt;-<span class="st"> </span><span class="kw">fit</span>(us, <span class="st">&quot;US&quot;</span>, <span class="st">&quot;SM&quot;</span>, <span class="st">&quot;Conduct&quot;</span>)</span>
-<span id="cb79-23"><a href="generalized-linear-model.html#cb79-23"></a>x7 &lt;-<span class="st"> </span><span class="kw">fit</span>(us, <span class="st">&quot;US&quot;</span>, <span class="st">&quot;TV&quot;</span>, <span class="st">&quot;Emotion&quot;</span>)</span>
-<span id="cb79-24"><a href="generalized-linear-model.html#cb79-24"></a>x8 &lt;-<span class="st"> </span><span class="kw">fit</span>(us, <span class="st">&quot;US&quot;</span>, <span class="st">&quot;TV&quot;</span>, <span class="st">&quot;Conduct&quot;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb80-1"><a href="generalized-linear-model.html#cb80-1"></a>fits &lt;-<span class="st"> </span><span class="kw">bind_rows</span>(x1,x2,x3,x4,x5,x6,x7,x8)</span>
-<span id="cb80-2"><a href="generalized-linear-model.html#cb80-2"></a><span class="co"># Labels for plots</span></span>
-<span id="cb80-3"><a href="generalized-linear-model.html#cb80-3"></a>fits &lt;-<span class="st"> </span>fits <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb80-4"><a href="generalized-linear-model.html#cb80-4"></a><span class="st">  </span><span class="kw">mutate</span>(</span>
-<span id="cb80-5"><a href="generalized-linear-model.html#cb80-5"></a>    <span class="dt">Technology =</span> <span class="kw">ifelse</span>(</span>
-<span id="cb80-6"><a href="generalized-linear-model.html#cb80-6"></a>      Technology <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;SM&quot;</span>, <span class="st">&quot;DV&quot;</span>), </span>
-<span id="cb80-7"><a href="generalized-linear-model.html#cb80-7"></a>      <span class="st">&quot;Social media / device&quot;</span>, </span>
-<span id="cb80-8"><a href="generalized-linear-model.html#cb80-8"></a>      <span class="st">&quot;Television&quot;</span></span>
-<span id="cb80-9"><a href="generalized-linear-model.html#cb80-9"></a>    )</span>
-<span id="cb80-10"><a href="generalized-linear-model.html#cb80-10"></a>  )</span></code></pre></div>
+<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="generalized-linear-model.html#cb92-1"></a>fit &lt;-<span class="st"> </span><span class="cf">function</span>(data, name, x, y) {</span>
+<span id="cb92-2"><a href="generalized-linear-model.html#cb92-2"></a>  data &lt;-<span class="st"> </span><span class="kw">drop_na</span>(data, <span class="kw">all_of</span>(x), <span class="kw">all_of</span>(y))</span>
+<span id="cb92-3"><a href="generalized-linear-model.html#cb92-3"></a>  <span class="co"># Standardize X and Y</span></span>
+<span id="cb92-4"><a href="generalized-linear-model.html#cb92-4"></a>  data &lt;-<span class="st"> </span><span class="kw">mutate</span>(data, <span class="kw">across</span>(<span class="kw">c</span>(<span class="kw">all_of</span>(x), <span class="kw">all_of</span>(y)), <span class="op">~</span><span class="kw">as.numeric</span>(<span class="kw">scale</span>(.))))</span>
+<span id="cb92-5"><a href="generalized-linear-model.html#cb92-5"></a>  data &lt;-<span class="st"> </span><span class="kw">mutate</span>(data, <span class="dt">Year =</span> Year <span class="op">-</span><span class="st"> </span><span class="dv">2017</span>)</span>
+<span id="cb92-6"><a href="generalized-linear-model.html#cb92-6"></a>  ml1 &lt;-<span class="st"> </span><span class="kw">lm</span>(</span>
+<span id="cb92-7"><a href="generalized-linear-model.html#cb92-7"></a>    <span class="kw">str_glue</span>(<span class="st">&quot;{y} ~ Sex * Year * {x}&quot;</span>),</span>
+<span id="cb92-8"><a href="generalized-linear-model.html#cb92-8"></a>    <span class="dt">data =</span> data</span>
+<span id="cb92-9"><a href="generalized-linear-model.html#cb92-9"></a>  )</span>
+<span id="cb92-10"><a href="generalized-linear-model.html#cb92-10"></a>  <span class="kw">tibble</span>(</span>
+<span id="cb92-11"><a href="generalized-linear-model.html#cb92-11"></a>    <span class="dt">data =</span> name,</span>
+<span id="cb92-12"><a href="generalized-linear-model.html#cb92-12"></a>    <span class="dt">Technology =</span> x,</span>
+<span id="cb92-13"><a href="generalized-linear-model.html#cb92-13"></a>    <span class="dt">Outcome =</span> y,</span>
+<span id="cb92-14"><a href="generalized-linear-model.html#cb92-14"></a>    <span class="dt">ml1 =</span> <span class="kw">list</span>(ml1)</span>
+<span id="cb92-15"><a href="generalized-linear-model.html#cb92-15"></a>  )</span>
+<span id="cb92-16"><a href="generalized-linear-model.html#cb92-16"></a>}</span>
+<span id="cb92-17"><a href="generalized-linear-model.html#cb92-17"></a>x1 &lt;-<span class="st"> </span><span class="kw">fit</span>(yrbs, <span class="st">&quot;YRBS&quot;</span>, <span class="st">&quot;TV&quot;</span>, <span class="st">&quot;Suicide&quot;</span>)</span>
+<span id="cb92-18"><a href="generalized-linear-model.html#cb92-18"></a>x2 &lt;-<span class="st"> </span><span class="kw">fit</span>(yrbs, <span class="st">&quot;YRBS&quot;</span>, <span class="st">&quot;DV&quot;</span>, <span class="st">&quot;Suicide&quot;</span>)</span>
+<span id="cb92-19"><a href="generalized-linear-model.html#cb92-19"></a>x3 &lt;-<span class="st"> </span><span class="kw">fit</span>(mtf, <span class="st">&quot;MTF&quot;</span>, <span class="st">&quot;TV&quot;</span>, <span class="st">&quot;Depression&quot;</span>)</span>
+<span id="cb92-20"><a href="generalized-linear-model.html#cb92-20"></a>x4 &lt;-<span class="st"> </span><span class="kw">fit</span>(mtf, <span class="st">&quot;MTF&quot;</span>, <span class="st">&quot;SM&quot;</span>, <span class="st">&quot;Depression&quot;</span>)</span>
+<span id="cb92-21"><a href="generalized-linear-model.html#cb92-21"></a>x5 &lt;-<span class="st"> </span><span class="kw">fit</span>(us, <span class="st">&quot;US&quot;</span>, <span class="st">&quot;SM&quot;</span>, <span class="st">&quot;Emotion&quot;</span>)</span>
+<span id="cb92-22"><a href="generalized-linear-model.html#cb92-22"></a>x6 &lt;-<span class="st"> </span><span class="kw">fit</span>(us, <span class="st">&quot;US&quot;</span>, <span class="st">&quot;SM&quot;</span>, <span class="st">&quot;Conduct&quot;</span>)</span>
+<span id="cb92-23"><a href="generalized-linear-model.html#cb92-23"></a>x7 &lt;-<span class="st"> </span><span class="kw">fit</span>(us, <span class="st">&quot;US&quot;</span>, <span class="st">&quot;TV&quot;</span>, <span class="st">&quot;Emotion&quot;</span>)</span>
+<span id="cb92-24"><a href="generalized-linear-model.html#cb92-24"></a>x8 &lt;-<span class="st"> </span><span class="kw">fit</span>(us, <span class="st">&quot;US&quot;</span>, <span class="st">&quot;TV&quot;</span>, <span class="st">&quot;Conduct&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="generalized-linear-model.html#cb93-1"></a>fits &lt;-<span class="st"> </span><span class="kw">bind_rows</span>(x1,x2,x3,x4,x5,x6,x7,x8)</span>
+<span id="cb93-2"><a href="generalized-linear-model.html#cb93-2"></a><span class="co"># Labels for plots</span></span>
+<span id="cb93-3"><a href="generalized-linear-model.html#cb93-3"></a>fits &lt;-<span class="st"> </span>fits <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb93-4"><a href="generalized-linear-model.html#cb93-4"></a><span class="st">  </span><span class="kw">mutate</span>(</span>
+<span id="cb93-5"><a href="generalized-linear-model.html#cb93-5"></a>    <span class="dt">Technology =</span> <span class="kw">ifelse</span>(</span>
+<span id="cb93-6"><a href="generalized-linear-model.html#cb93-6"></a>      Technology <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;SM&quot;</span>, <span class="st">&quot;DV&quot;</span>), </span>
+<span id="cb93-7"><a href="generalized-linear-model.html#cb93-7"></a>      <span class="st">&quot;Social media / device&quot;</span>, </span>
+<span id="cb93-8"><a href="generalized-linear-model.html#cb93-8"></a>      <span class="st">&quot;Television&quot;</span></span>
+<span id="cb93-9"><a href="generalized-linear-model.html#cb93-9"></a>    )</span>
+<span id="cb93-10"><a href="generalized-linear-model.html#cb93-10"></a>  )</span></code></pre></div>
 </div>
-<div id="results" class="section level2">
+<div id="results" class="section level2" number="6.4">
 <h2><span class="header-section-number">6.4</span> Results</h2>
-<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb81-1"><a href="generalized-linear-model.html#cb81-1"></a>fits <span class="op">%&gt;%</span></span>
-<span id="cb81-2"><a href="generalized-linear-model.html#cb81-2"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Outcome =</span> <span class="kw">fct_rev</span>(Outcome)) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb81-3"><a href="generalized-linear-model.html#cb81-3"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">linear =</span> <span class="kw">map</span>(ml1, <span class="op">~</span><span class="kw">tidy</span>(., <span class="dt">conf.int=</span><span class="ot">TRUE</span>))) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb81-4"><a href="generalized-linear-model.html#cb81-4"></a><span class="st">  </span><span class="kw">unnest</span>(linear) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb81-5"><a href="generalized-linear-model.html#cb81-5"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Parameter =</span> <span class="kw">case_when</span>(</span>
-<span id="cb81-6"><a href="generalized-linear-model.html#cb81-6"></a>    term <span class="op">==</span><span class="st"> &quot;Year&quot;</span> <span class="op">~</span><span class="st"> &quot;Year&quot;</span>,</span>
-<span id="cb81-7"><a href="generalized-linear-model.html#cb81-7"></a>    term <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;TV&quot;</span>, <span class="st">&quot;SM&quot;</span>, <span class="st">&quot;DV&quot;</span>) <span class="op">~</span><span class="st"> &quot;Technology&quot;</span>,</span>
-<span id="cb81-8"><a href="generalized-linear-model.html#cb81-8"></a>    term <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Year:TV&quot;</span>, <span class="st">&quot;Year:SM&quot;</span>, <span class="st">&quot;Year:DV&quot;</span>) <span class="op">~</span><span class="st"> &quot;Year x Technology&quot;</span></span>
-<span id="cb81-9"><a href="generalized-linear-model.html#cb81-9"></a>  )) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb81-10"><a href="generalized-linear-model.html#cb81-10"></a><span class="st">  </span><span class="kw">drop_na</span>(Parameter) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb81-11"><a href="generalized-linear-model.html#cb81-11"></a><span class="st">  </span><span class="kw">mutate</span>(</span>
-<span id="cb81-12"><a href="generalized-linear-model.html#cb81-12"></a>    <span class="dt">Parameter =</span> <span class="kw">factor</span>(Parameter, <span class="dt">levels =</span> <span class="kw">c</span>(<span class="st">&quot;Year&quot;</span>, <span class="st">&quot;Technology&quot;</span>, <span class="st">&quot;Year x Technology&quot;</span>))</span>
-<span id="cb81-13"><a href="generalized-linear-model.html#cb81-13"></a>  ) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb81-14"><a href="generalized-linear-model.html#cb81-14"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(estimate, Outcome, <span class="dt">shape =</span> Technology, <span class="dt">fill =</span> p.value <span class="op">&lt;</span><span class="st"> </span><span class="fl">.05</span>)) <span class="op">+</span></span>
-<span id="cb81-15"><a href="generalized-linear-model.html#cb81-15"></a><span class="st">  </span><span class="kw">scale_shape_manual</span>(<span class="dt">values =</span> <span class="kw">c</span>(<span class="dv">21</span>, <span class="dv">22</span>)) <span class="op">+</span></span>
-<span id="cb81-16"><a href="generalized-linear-model.html#cb81-16"></a><span class="st">  </span><span class="kw">scale_fill_manual</span>(<span class="dt">values =</span> <span class="kw">c</span>(<span class="st">&quot;white&quot;</span>, <span class="st">&quot;black&quot;</span>), <span class="dt">guide =</span> <span class="ot">FALSE</span>) <span class="op">+</span></span>
-<span id="cb81-17"><a href="generalized-linear-model.html#cb81-17"></a><span class="st">  </span><span class="kw">scale_x_continuous</span>(</span>
-<span id="cb81-18"><a href="generalized-linear-model.html#cb81-18"></a>    <span class="st">&quot;Parameter estimate&quot;</span>,</span>
-<span id="cb81-19"><a href="generalized-linear-model.html#cb81-19"></a>    <span class="dt">breaks =</span> scales<span class="op">::</span><span class="kw">pretty_breaks</span>(), </span>
-<span id="cb81-20"><a href="generalized-linear-model.html#cb81-20"></a>    <span class="dt">expand =</span> <span class="kw">expansion</span>(.<span class="dv">1</span>)</span>
-<span id="cb81-21"><a href="generalized-linear-model.html#cb81-21"></a>  ) <span class="op">+</span></span>
-<span id="cb81-22"><a href="generalized-linear-model.html#cb81-22"></a><span class="st">  </span><span class="kw">geom_vline</span>(<span class="dt">xintercept =</span> <span class="dv">0</span>, <span class="dt">lty =</span> <span class="dv">2</span>, <span class="dt">size =</span> <span class="fl">.25</span>) <span class="op">+</span></span>
-<span id="cb81-23"><a href="generalized-linear-model.html#cb81-23"></a><span class="st">  </span><span class="kw">geom_linerangeh</span>(</span>
-<span id="cb81-24"><a href="generalized-linear-model.html#cb81-24"></a>    <span class="dt">position =</span> <span class="kw">position_dodge2v</span>(.<span class="dv">4</span>),</span>
-<span id="cb81-25"><a href="generalized-linear-model.html#cb81-25"></a>    <span class="kw">aes</span>(<span class="dt">xmin =</span> conf.low, <span class="dt">xmax =</span> conf.high)</span>
-<span id="cb81-26"><a href="generalized-linear-model.html#cb81-26"></a>  ) <span class="op">+</span></span>
-<span id="cb81-27"><a href="generalized-linear-model.html#cb81-27"></a><span class="st">  </span><span class="kw">geom_point</span>(</span>
-<span id="cb81-28"><a href="generalized-linear-model.html#cb81-28"></a>    <span class="dt">size =</span> <span class="dv">2</span>, <span class="dt">position =</span> <span class="kw">position_dodge2v</span>(.<span class="dv">4</span>),</span>
-<span id="cb81-29"><a href="generalized-linear-model.html#cb81-29"></a>  ) <span class="op">+</span></span>
-<span id="cb81-30"><a href="generalized-linear-model.html#cb81-30"></a><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="st">&quot;Parameter&quot;</span>, <span class="dt">scales =</span> <span class="st">&quot;free_x&quot;</span>) <span class="op">+</span></span>
-<span id="cb81-31"><a href="generalized-linear-model.html#cb81-31"></a><span class="st">  </span><span class="kw">theme</span>(</span>
-<span id="cb81-32"><a href="generalized-linear-model.html#cb81-32"></a>    <span class="dt">legend.position =</span> <span class="st">&quot;bottom&quot;</span>,</span>
-<span id="cb81-33"><a href="generalized-linear-model.html#cb81-33"></a>    <span class="dt">axis.title.y =</span> <span class="kw">element_blank</span>(), </span>
-<span id="cb81-34"><a href="generalized-linear-model.html#cb81-34"></a>    <span class="dt">panel.spacing.x =</span> <span class="kw">unit</span>(<span class="dv">12</span>, <span class="st">&quot;pt&quot;</span>)</span>
-<span id="cb81-35"><a href="generalized-linear-model.html#cb81-35"></a>  )</span></code></pre></div>
+<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb94-1"><a href="generalized-linear-model.html#cb94-1"></a>fits <span class="op">%&gt;%</span></span>
+<span id="cb94-2"><a href="generalized-linear-model.html#cb94-2"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Outcome =</span> <span class="kw">fct_rev</span>(Outcome)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb94-3"><a href="generalized-linear-model.html#cb94-3"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">linear =</span> <span class="kw">map</span>(ml1, <span class="op">~</span><span class="kw">tidy</span>(., <span class="dt">conf.int=</span><span class="ot">TRUE</span>))) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb94-4"><a href="generalized-linear-model.html#cb94-4"></a><span class="st">  </span><span class="kw">unnest</span>(linear) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb94-5"><a href="generalized-linear-model.html#cb94-5"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Parameter =</span> <span class="kw">case_when</span>(</span>
+<span id="cb94-6"><a href="generalized-linear-model.html#cb94-6"></a>    term <span class="op">==</span><span class="st"> &quot;Year&quot;</span> <span class="op">~</span><span class="st"> &quot;Year&quot;</span>,</span>
+<span id="cb94-7"><a href="generalized-linear-model.html#cb94-7"></a>    term <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;TV&quot;</span>, <span class="st">&quot;SM&quot;</span>, <span class="st">&quot;DV&quot;</span>) <span class="op">~</span><span class="st"> &quot;Technology&quot;</span>,</span>
+<span id="cb94-8"><a href="generalized-linear-model.html#cb94-8"></a>    term <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Year:TV&quot;</span>, <span class="st">&quot;Year:SM&quot;</span>, <span class="st">&quot;Year:DV&quot;</span>) <span class="op">~</span><span class="st"> &quot;Year x Technology&quot;</span></span>
+<span id="cb94-9"><a href="generalized-linear-model.html#cb94-9"></a>  )) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb94-10"><a href="generalized-linear-model.html#cb94-10"></a><span class="st">  </span><span class="kw">drop_na</span>(Parameter) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb94-11"><a href="generalized-linear-model.html#cb94-11"></a><span class="st">  </span><span class="kw">mutate</span>(</span>
+<span id="cb94-12"><a href="generalized-linear-model.html#cb94-12"></a>    <span class="dt">Parameter =</span> <span class="kw">factor</span>(Parameter, <span class="dt">levels =</span> <span class="kw">c</span>(<span class="st">&quot;Year&quot;</span>, <span class="st">&quot;Technology&quot;</span>, <span class="st">&quot;Year x Technology&quot;</span>))</span>
+<span id="cb94-13"><a href="generalized-linear-model.html#cb94-13"></a>  ) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb94-14"><a href="generalized-linear-model.html#cb94-14"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(estimate, Outcome, <span class="dt">shape =</span> Technology, <span class="dt">fill =</span> p.value <span class="op">&lt;</span><span class="st"> </span><span class="fl">.05</span>)) <span class="op">+</span></span>
+<span id="cb94-15"><a href="generalized-linear-model.html#cb94-15"></a><span class="st">  </span><span class="kw">scale_shape_manual</span>(<span class="dt">values =</span> <span class="kw">c</span>(<span class="dv">21</span>, <span class="dv">22</span>)) <span class="op">+</span></span>
+<span id="cb94-16"><a href="generalized-linear-model.html#cb94-16"></a><span class="st">  </span><span class="kw">scale_fill_manual</span>(<span class="dt">values =</span> <span class="kw">c</span>(<span class="st">&quot;white&quot;</span>, <span class="st">&quot;black&quot;</span>), <span class="dt">guide =</span> <span class="ot">FALSE</span>) <span class="op">+</span></span>
+<span id="cb94-17"><a href="generalized-linear-model.html#cb94-17"></a><span class="st">  </span><span class="kw">scale_x_continuous</span>(</span>
+<span id="cb94-18"><a href="generalized-linear-model.html#cb94-18"></a>    <span class="st">&quot;Parameter estimate&quot;</span>,</span>
+<span id="cb94-19"><a href="generalized-linear-model.html#cb94-19"></a>    <span class="dt">breaks =</span> scales<span class="op">::</span><span class="kw">pretty_breaks</span>(), </span>
+<span id="cb94-20"><a href="generalized-linear-model.html#cb94-20"></a>    <span class="dt">expand =</span> <span class="kw">expansion</span>(.<span class="dv">1</span>)</span>
+<span id="cb94-21"><a href="generalized-linear-model.html#cb94-21"></a>  ) <span class="op">+</span></span>
+<span id="cb94-22"><a href="generalized-linear-model.html#cb94-22"></a><span class="st">  </span><span class="kw">geom_vline</span>(<span class="dt">xintercept =</span> <span class="dv">0</span>, <span class="dt">lty =</span> <span class="dv">2</span>, <span class="dt">size =</span> <span class="fl">.25</span>) <span class="op">+</span></span>
+<span id="cb94-23"><a href="generalized-linear-model.html#cb94-23"></a><span class="st">  </span><span class="kw">geom_linerangeh</span>(</span>
+<span id="cb94-24"><a href="generalized-linear-model.html#cb94-24"></a>    <span class="dt">position =</span> <span class="kw">position_dodge2v</span>(.<span class="dv">4</span>),</span>
+<span id="cb94-25"><a href="generalized-linear-model.html#cb94-25"></a>    <span class="kw">aes</span>(<span class="dt">xmin =</span> conf.low, <span class="dt">xmax =</span> conf.high)</span>
+<span id="cb94-26"><a href="generalized-linear-model.html#cb94-26"></a>  ) <span class="op">+</span></span>
+<span id="cb94-27"><a href="generalized-linear-model.html#cb94-27"></a><span class="st">  </span><span class="kw">geom_point</span>(</span>
+<span id="cb94-28"><a href="generalized-linear-model.html#cb94-28"></a>    <span class="dt">size =</span> <span class="dv">2</span>, <span class="dt">position =</span> <span class="kw">position_dodge2v</span>(.<span class="dv">4</span>),</span>
+<span id="cb94-29"><a href="generalized-linear-model.html#cb94-29"></a>  ) <span class="op">+</span></span>
+<span id="cb94-30"><a href="generalized-linear-model.html#cb94-30"></a><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="st">&quot;Parameter&quot;</span>, <span class="dt">scales =</span> <span class="st">&quot;free_x&quot;</span>) <span class="op">+</span></span>
+<span id="cb94-31"><a href="generalized-linear-model.html#cb94-31"></a><span class="st">  </span><span class="kw">theme</span>(</span>
+<span id="cb94-32"><a href="generalized-linear-model.html#cb94-32"></a>    <span class="dt">legend.position =</span> <span class="st">&quot;bottom&quot;</span>,</span>
+<span id="cb94-33"><a href="generalized-linear-model.html#cb94-33"></a>    <span class="dt">axis.title.y =</span> <span class="kw">element_blank</span>(), </span>
+<span id="cb94-34"><a href="generalized-linear-model.html#cb94-34"></a>    <span class="dt">panel.spacing.x =</span> <span class="kw">unit</span>(<span class="dv">12</span>, <span class="st">&quot;pt&quot;</span>)</span>
+<span id="cb94-35"><a href="generalized-linear-model.html#cb94-35"></a>  )</span></code></pre></div>
 <p><img src="03-GLM_files/figure-html/ols-parameters-figure-1.png" width="768" style="display: block; margin: auto;" /></p>
 <p>YRBS with separate logistic regressions for each outcome</p>
-<div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb82-1"><a href="generalized-linear-model.html#cb82-1"></a>tmp &lt;-<span class="st"> </span>yrbs <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">pivot_longer</span>(sad_lonely<span class="op">:</span>suicide_<span class="dv">3</span>)</span>
-<span id="cb82-2"><a href="generalized-linear-model.html#cb82-2"></a>tmp_tv &lt;-<span class="st"> </span>tmp <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb82-3"><a href="generalized-linear-model.html#cb82-3"></a><span class="st">  </span><span class="kw">group_by</span>(name) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb82-4"><a href="generalized-linear-model.html#cb82-4"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">TV =</span> <span class="kw">as.numeric</span>(<span class="kw">scale</span>(TV)), <span class="dt">Year =</span> Year<span class="dv">-2017</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb82-5"><a href="generalized-linear-model.html#cb82-5"></a><span class="st">  </span><span class="kw">group_modify</span>(<span class="op">~</span><span class="kw">tidy</span>(<span class="kw">glm</span>(value <span class="op">~</span><span class="st"> </span>Year<span class="op">*</span>TV, <span class="dt">family =</span> binomial, <span class="dt">data =</span> .), <span class="dt">conf.int =</span> <span class="ot">TRUE</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb82-6"><a href="generalized-linear-model.html#cb82-6"></a><span class="st">  </span><span class="kw">filter</span>(term <span class="op">!=</span><span class="st"> &quot;(Intercept)&quot;</span>)</span>
-<span id="cb82-7"><a href="generalized-linear-model.html#cb82-7"></a>tmp_dv &lt;-<span class="st"> </span>tmp <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb82-8"><a href="generalized-linear-model.html#cb82-8"></a><span class="st">  </span><span class="kw">group_by</span>(name) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb82-9"><a href="generalized-linear-model.html#cb82-9"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">DV =</span> <span class="kw">as.numeric</span>(<span class="kw">scale</span>(DV)), <span class="dt">Year =</span> Year<span class="dv">-2017</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb82-10"><a href="generalized-linear-model.html#cb82-10"></a><span class="st">  </span><span class="kw">group_modify</span>(<span class="op">~</span><span class="kw">tidy</span>(<span class="kw">glm</span>(value <span class="op">~</span><span class="st"> </span>Year<span class="op">*</span>DV, <span class="dt">family =</span> binomial, <span class="dt">data =</span> .), <span class="dt">conf.int =</span> <span class="ot">TRUE</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb82-11"><a href="generalized-linear-model.html#cb82-11"></a><span class="st">  </span><span class="kw">filter</span>(term <span class="op">!=</span><span class="st"> &quot;(Intercept)&quot;</span>)</span>
-<span id="cb82-12"><a href="generalized-linear-model.html#cb82-12"></a><span class="kw">bind_rows</span>(tmp_dv, tmp_tv, <span class="dt">.id =</span> <span class="st">&quot;Technology&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb82-13"><a href="generalized-linear-model.html#cb82-13"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Technology =</span> <span class="kw">factor</span>(Technology, <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;DV&quot;</span>, <span class="st">&quot;TV&quot;</span>))) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb82-14"><a href="generalized-linear-model.html#cb82-14"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Parameter =</span> <span class="kw">case_when</span>(</span>
-<span id="cb82-15"><a href="generalized-linear-model.html#cb82-15"></a>    term <span class="op">==</span><span class="st"> &quot;Year&quot;</span> <span class="op">~</span><span class="st"> &quot;Year&quot;</span>,</span>
-<span id="cb82-16"><a href="generalized-linear-model.html#cb82-16"></a>    term <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;TV&quot;</span>, <span class="st">&quot;DV&quot;</span>) <span class="op">~</span><span class="st"> &quot;Technology&quot;</span>,</span>
-<span id="cb82-17"><a href="generalized-linear-model.html#cb82-17"></a>    term <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Year:TV&quot;</span>, <span class="st">&quot;Year:DV&quot;</span>) <span class="op">~</span><span class="st"> &quot;Year x Technology&quot;</span></span>
-<span id="cb82-18"><a href="generalized-linear-model.html#cb82-18"></a>  )) <span class="op">%&gt;%</span></span>
-<span id="cb82-19"><a href="generalized-linear-model.html#cb82-19"></a><span class="st">  </span><span class="kw">drop_na</span>(Parameter) <span class="op">%&gt;%</span></span>
-<span id="cb82-20"><a href="generalized-linear-model.html#cb82-20"></a><span class="st">  </span><span class="kw">mutate</span>(</span>
-<span id="cb82-21"><a href="generalized-linear-model.html#cb82-21"></a>    <span class="dt">Parameter =</span> <span class="kw">factor</span>(Parameter, <span class="dt">levels =</span> <span class="kw">c</span>(<span class="st">&quot;Year&quot;</span>, <span class="st">&quot;Technology&quot;</span>, <span class="st">&quot;Year x Technology&quot;</span>))</span>
-<span id="cb82-22"><a href="generalized-linear-model.html#cb82-22"></a>  ) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb82-23"><a href="generalized-linear-model.html#cb82-23"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(estimate, name, <span class="dt">fill =</span> p.value <span class="op">&lt;</span><span class="st"> </span><span class="fl">.05</span>, <span class="dt">shape =</span> Technology)) <span class="op">+</span></span>
-<span id="cb82-24"><a href="generalized-linear-model.html#cb82-24"></a><span class="st">  </span><span class="kw">scale_fill_manual</span>(<span class="dt">values =</span> <span class="kw">c</span>(<span class="st">&quot;white&quot;</span>, <span class="st">&quot;black&quot;</span>), <span class="dt">guide =</span> <span class="ot">FALSE</span>) <span class="op">+</span></span>
-<span id="cb82-25"><a href="generalized-linear-model.html#cb82-25"></a><span class="st">  </span><span class="kw">scale_shape_manual</span>(<span class="dt">values =</span> <span class="kw">c</span>(<span class="dv">21</span>, <span class="dv">22</span>)) <span class="op">+</span></span>
-<span id="cb82-26"><a href="generalized-linear-model.html#cb82-26"></a><span class="st">  </span><span class="kw">scale_x_continuous</span>(</span>
-<span id="cb82-27"><a href="generalized-linear-model.html#cb82-27"></a>    <span class="st">&quot;Parameter estimate&quot;</span>,</span>
-<span id="cb82-28"><a href="generalized-linear-model.html#cb82-28"></a>    <span class="dt">breaks =</span> scales<span class="op">::</span><span class="kw">pretty_breaks</span>(), </span>
-<span id="cb82-29"><a href="generalized-linear-model.html#cb82-29"></a>    <span class="dt">expand =</span> <span class="kw">expansion</span>(.<span class="dv">1</span>)</span>
-<span id="cb82-30"><a href="generalized-linear-model.html#cb82-30"></a>  ) <span class="op">+</span></span>
-<span id="cb82-31"><a href="generalized-linear-model.html#cb82-31"></a><span class="st">  </span><span class="kw">geom_vline</span>(<span class="dt">xintercept =</span> <span class="dv">0</span>, <span class="dt">lty =</span> <span class="dv">2</span>, <span class="dt">size =</span> <span class="fl">.25</span>) <span class="op">+</span></span>
-<span id="cb82-32"><a href="generalized-linear-model.html#cb82-32"></a><span class="st">  </span><span class="kw">geom_linerangeh</span>(</span>
-<span id="cb82-33"><a href="generalized-linear-model.html#cb82-33"></a>    <span class="dt">position =</span> <span class="kw">position_dodge2v</span>(.<span class="dv">4</span>),</span>
-<span id="cb82-34"><a href="generalized-linear-model.html#cb82-34"></a>    <span class="kw">aes</span>(<span class="dt">xmin =</span> conf.low, <span class="dt">xmax =</span> conf.high)</span>
-<span id="cb82-35"><a href="generalized-linear-model.html#cb82-35"></a>  ) <span class="op">+</span></span>
-<span id="cb82-36"><a href="generalized-linear-model.html#cb82-36"></a><span class="st">  </span><span class="kw">geom_point</span>(</span>
-<span id="cb82-37"><a href="generalized-linear-model.html#cb82-37"></a>    <span class="dt">size =</span> <span class="dv">2</span>, <span class="dt">position =</span> <span class="kw">position_dodge2v</span>(.<span class="dv">4</span>),</span>
-<span id="cb82-38"><a href="generalized-linear-model.html#cb82-38"></a>  ) <span class="op">+</span></span>
-<span id="cb82-39"><a href="generalized-linear-model.html#cb82-39"></a><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="st">&quot;Parameter&quot;</span>, <span class="dt">scales =</span> <span class="st">&quot;free_x&quot;</span>) <span class="op">+</span></span>
-<span id="cb82-40"><a href="generalized-linear-model.html#cb82-40"></a><span class="st">  </span><span class="kw">theme</span>(</span>
-<span id="cb82-41"><a href="generalized-linear-model.html#cb82-41"></a>    <span class="dt">legend.position =</span> <span class="st">&quot;bottom&quot;</span>,</span>
-<span id="cb82-42"><a href="generalized-linear-model.html#cb82-42"></a>    <span class="dt">axis.title.y =</span> <span class="kw">element_blank</span>(), </span>
-<span id="cb82-43"><a href="generalized-linear-model.html#cb82-43"></a>    <span class="dt">panel.spacing.x =</span> <span class="kw">unit</span>(<span class="dv">12</span>, <span class="st">&quot;pt&quot;</span>)</span>
-<span id="cb82-44"><a href="generalized-linear-model.html#cb82-44"></a>  )</span></code></pre></div>
+<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="generalized-linear-model.html#cb95-1"></a>tmp &lt;-<span class="st"> </span>yrbs <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">pivot_longer</span>(sad_lonely<span class="op">:</span>suicide_<span class="dv">3</span>)</span>
+<span id="cb95-2"><a href="generalized-linear-model.html#cb95-2"></a>tmp_tv &lt;-<span class="st"> </span>tmp <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb95-3"><a href="generalized-linear-model.html#cb95-3"></a><span class="st">  </span><span class="kw">group_by</span>(name) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb95-4"><a href="generalized-linear-model.html#cb95-4"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">TV =</span> <span class="kw">as.numeric</span>(<span class="kw">scale</span>(TV)), <span class="dt">Year =</span> Year<span class="dv">-2017</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb95-5"><a href="generalized-linear-model.html#cb95-5"></a><span class="st">  </span><span class="kw">group_modify</span>(<span class="op">~</span><span class="kw">tidy</span>(<span class="kw">glm</span>(value <span class="op">~</span><span class="st"> </span>Year<span class="op">*</span>TV, <span class="dt">family =</span> binomial, <span class="dt">data =</span> .), <span class="dt">conf.int =</span> <span class="ot">TRUE</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb95-6"><a href="generalized-linear-model.html#cb95-6"></a><span class="st">  </span><span class="kw">filter</span>(term <span class="op">!=</span><span class="st"> &quot;(Intercept)&quot;</span>)</span>
+<span id="cb95-7"><a href="generalized-linear-model.html#cb95-7"></a>tmp_dv &lt;-<span class="st"> </span>tmp <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb95-8"><a href="generalized-linear-model.html#cb95-8"></a><span class="st">  </span><span class="kw">group_by</span>(name) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb95-9"><a href="generalized-linear-model.html#cb95-9"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">DV =</span> <span class="kw">as.numeric</span>(<span class="kw">scale</span>(DV)), <span class="dt">Year =</span> Year<span class="dv">-2017</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb95-10"><a href="generalized-linear-model.html#cb95-10"></a><span class="st">  </span><span class="kw">group_modify</span>(<span class="op">~</span><span class="kw">tidy</span>(<span class="kw">glm</span>(value <span class="op">~</span><span class="st"> </span>Year<span class="op">*</span>DV, <span class="dt">family =</span> binomial, <span class="dt">data =</span> .), <span class="dt">conf.int =</span> <span class="ot">TRUE</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb95-11"><a href="generalized-linear-model.html#cb95-11"></a><span class="st">  </span><span class="kw">filter</span>(term <span class="op">!=</span><span class="st"> &quot;(Intercept)&quot;</span>)</span>
+<span id="cb95-12"><a href="generalized-linear-model.html#cb95-12"></a><span class="kw">bind_rows</span>(tmp_dv, tmp_tv, <span class="dt">.id =</span> <span class="st">&quot;Technology&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb95-13"><a href="generalized-linear-model.html#cb95-13"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Technology =</span> <span class="kw">factor</span>(Technology, <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;DV&quot;</span>, <span class="st">&quot;TV&quot;</span>))) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb95-14"><a href="generalized-linear-model.html#cb95-14"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Parameter =</span> <span class="kw">case_when</span>(</span>
+<span id="cb95-15"><a href="generalized-linear-model.html#cb95-15"></a>    term <span class="op">==</span><span class="st"> &quot;Year&quot;</span> <span class="op">~</span><span class="st"> &quot;Year&quot;</span>,</span>
+<span id="cb95-16"><a href="generalized-linear-model.html#cb95-16"></a>    term <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;TV&quot;</span>, <span class="st">&quot;DV&quot;</span>) <span class="op">~</span><span class="st"> &quot;Technology&quot;</span>,</span>
+<span id="cb95-17"><a href="generalized-linear-model.html#cb95-17"></a>    term <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Year:TV&quot;</span>, <span class="st">&quot;Year:DV&quot;</span>) <span class="op">~</span><span class="st"> &quot;Year x Technology&quot;</span></span>
+<span id="cb95-18"><a href="generalized-linear-model.html#cb95-18"></a>  )) <span class="op">%&gt;%</span></span>
+<span id="cb95-19"><a href="generalized-linear-model.html#cb95-19"></a><span class="st">  </span><span class="kw">drop_na</span>(Parameter) <span class="op">%&gt;%</span></span>
+<span id="cb95-20"><a href="generalized-linear-model.html#cb95-20"></a><span class="st">  </span><span class="kw">mutate</span>(</span>
+<span id="cb95-21"><a href="generalized-linear-model.html#cb95-21"></a>    <span class="dt">Parameter =</span> <span class="kw">factor</span>(Parameter, <span class="dt">levels =</span> <span class="kw">c</span>(<span class="st">&quot;Year&quot;</span>, <span class="st">&quot;Technology&quot;</span>, <span class="st">&quot;Year x Technology&quot;</span>))</span>
+<span id="cb95-22"><a href="generalized-linear-model.html#cb95-22"></a>  ) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb95-23"><a href="generalized-linear-model.html#cb95-23"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(estimate, name, <span class="dt">fill =</span> p.value <span class="op">&lt;</span><span class="st"> </span><span class="fl">.05</span>, <span class="dt">shape =</span> Technology)) <span class="op">+</span></span>
+<span id="cb95-24"><a href="generalized-linear-model.html#cb95-24"></a><span class="st">  </span><span class="kw">scale_fill_manual</span>(<span class="dt">values =</span> <span class="kw">c</span>(<span class="st">&quot;white&quot;</span>, <span class="st">&quot;black&quot;</span>), <span class="dt">guide =</span> <span class="ot">FALSE</span>) <span class="op">+</span></span>
+<span id="cb95-25"><a href="generalized-linear-model.html#cb95-25"></a><span class="st">  </span><span class="kw">scale_shape_manual</span>(<span class="dt">values =</span> <span class="kw">c</span>(<span class="dv">21</span>, <span class="dv">22</span>)) <span class="op">+</span></span>
+<span id="cb95-26"><a href="generalized-linear-model.html#cb95-26"></a><span class="st">  </span><span class="kw">scale_x_continuous</span>(</span>
+<span id="cb95-27"><a href="generalized-linear-model.html#cb95-27"></a>    <span class="st">&quot;Parameter estimate&quot;</span>,</span>
+<span id="cb95-28"><a href="generalized-linear-model.html#cb95-28"></a>    <span class="dt">breaks =</span> scales<span class="op">::</span><span class="kw">pretty_breaks</span>(), </span>
+<span id="cb95-29"><a href="generalized-linear-model.html#cb95-29"></a>    <span class="dt">expand =</span> <span class="kw">expansion</span>(.<span class="dv">1</span>)</span>
+<span id="cb95-30"><a href="generalized-linear-model.html#cb95-30"></a>  ) <span class="op">+</span></span>
+<span id="cb95-31"><a href="generalized-linear-model.html#cb95-31"></a><span class="st">  </span><span class="kw">geom_vline</span>(<span class="dt">xintercept =</span> <span class="dv">0</span>, <span class="dt">lty =</span> <span class="dv">2</span>, <span class="dt">size =</span> <span class="fl">.25</span>) <span class="op">+</span></span>
+<span id="cb95-32"><a href="generalized-linear-model.html#cb95-32"></a><span class="st">  </span><span class="kw">geom_linerangeh</span>(</span>
+<span id="cb95-33"><a href="generalized-linear-model.html#cb95-33"></a>    <span class="dt">position =</span> <span class="kw">position_dodge2v</span>(.<span class="dv">4</span>),</span>
+<span id="cb95-34"><a href="generalized-linear-model.html#cb95-34"></a>    <span class="kw">aes</span>(<span class="dt">xmin =</span> conf.low, <span class="dt">xmax =</span> conf.high)</span>
+<span id="cb95-35"><a href="generalized-linear-model.html#cb95-35"></a>  ) <span class="op">+</span></span>
+<span id="cb95-36"><a href="generalized-linear-model.html#cb95-36"></a><span class="st">  </span><span class="kw">geom_point</span>(</span>
+<span id="cb95-37"><a href="generalized-linear-model.html#cb95-37"></a>    <span class="dt">size =</span> <span class="dv">2</span>, <span class="dt">position =</span> <span class="kw">position_dodge2v</span>(.<span class="dv">4</span>),</span>
+<span id="cb95-38"><a href="generalized-linear-model.html#cb95-38"></a>  ) <span class="op">+</span></span>
+<span id="cb95-39"><a href="generalized-linear-model.html#cb95-39"></a><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="st">&quot;Parameter&quot;</span>, <span class="dt">scales =</span> <span class="st">&quot;free_x&quot;</span>) <span class="op">+</span></span>
+<span id="cb95-40"><a href="generalized-linear-model.html#cb95-40"></a><span class="st">  </span><span class="kw">theme</span>(</span>
+<span id="cb95-41"><a href="generalized-linear-model.html#cb95-41"></a>    <span class="dt">legend.position =</span> <span class="st">&quot;bottom&quot;</span>,</span>
+<span id="cb95-42"><a href="generalized-linear-model.html#cb95-42"></a>    <span class="dt">axis.title.y =</span> <span class="kw">element_blank</span>(), </span>
+<span id="cb95-43"><a href="generalized-linear-model.html#cb95-43"></a>    <span class="dt">panel.spacing.x =</span> <span class="kw">unit</span>(<span class="dv">12</span>, <span class="st">&quot;pt&quot;</span>)</span>
+<span id="cb95-44"><a href="generalized-linear-model.html#cb95-44"></a>  )</span></code></pre></div>
 <p><img src="03-GLM_files/figure-html/yrbs-logistic-1.png" width="768" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb96-1"><a href="generalized-linear-model.html#cb96-1"></a><span class="kw">library</span>(sessioninfo)</span>
+<span id="cb96-2"><a href="generalized-linear-model.html#cb96-2"></a><span class="kw">session_info</span>()</span></code></pre></div>
+<pre><code>## ─ Session info ───────────────────────────────────────────────────────────────
+##  setting  value                       
+##  version  R version 4.0.2 (2020-06-22)
+##  os       macOS Catalina 10.15.7      
+##  system   x86_64, darwin17.0          
+##  ui       X11                         
+##  language (EN)                        
+##  collate  en_GB.UTF-8                 
+##  ctype    en_GB.UTF-8                 
+##  tz       Europe/London               
+##  date     2020-10-02                  
+## 
+## ─ Packages ───────────────────────────────────────────────────────────────────
+##  package      * version    date       lib source                              
+##  assertthat     0.2.1      2019-03-21 [1] CRAN (R 4.0.0)                      
+##  backports      1.1.10     2020-09-15 [1] CRAN (R 4.0.2)                      
+##  blob           1.2.1      2020-01-20 [1] CRAN (R 4.0.0)                      
+##  bmlm           1.3.11     2019-02-21 [1] CRAN (R 4.0.0)                      
+##  bookdown       0.20       2020-06-23 [1] CRAN (R 4.0.2)                      
+##  broom        * 0.7.0.9001 2020-07-23 [1] Github (tidymodels/broom@7db1139)   
+##  callr          3.4.4      2020-09-07 [1] CRAN (R 4.0.2)                      
+##  cellranger     1.1.0      2016-07-27 [1] CRAN (R 4.0.0)                      
+##  cli            2.0.2      2020-02-28 [1] CRAN (R 4.0.0)                      
+##  coda           0.19-3     2019-07-05 [1] CRAN (R 4.0.0)                      
+##  codetools      0.2-16     2018-12-24 [1] CRAN (R 4.0.2)                      
+##  colorspace     1.4-1      2019-03-18 [1] CRAN (R 4.0.0)                      
+##  crayon         1.3.4      2017-09-16 [1] CRAN (R 4.0.0)                      
+##  curl           4.3        2019-12-02 [1] CRAN (R 4.0.0)                      
+##  DBI            1.1.0      2019-12-15 [1] CRAN (R 4.0.0)                      
+##  dbplyr         1.4.4      2020-05-27 [1] CRAN (R 4.0.0)                      
+##  digest         0.6.25     2020-02-23 [1] CRAN (R 4.0.0)                      
+##  dplyr        * 1.0.2      2020-08-18 [1] CRAN (R 4.0.2)                      
+##  ellipsis       0.3.1      2020-05-15 [1] CRAN (R 4.0.0)                      
+##  emmeans      * 1.5.1      2020-09-18 [1] CRAN (R 4.0.2)                      
+##  estimability   1.3        2018-02-11 [1] CRAN (R 4.0.0)                      
+##  evaluate       0.14       2019-05-28 [1] CRAN (R 4.0.0)                      
+##  fansi          0.4.1      2020-01-08 [1] CRAN (R 4.0.0)                      
+##  farver         2.0.3      2020-01-16 [1] CRAN (R 4.0.0)                      
+##  forcats      * 0.5.0      2020-03-01 [1] CRAN (R 4.0.0)                      
+##  fs             1.5.0      2020-07-31 [1] CRAN (R 4.0.2)                      
+##  generics       0.0.2      2018-11-29 [1] CRAN (R 4.0.0)                      
+##  ggplot2      * 3.3.2      2020-06-19 [1] CRAN (R 4.0.1)                      
+##  ggstance     * 0.3.4      2020-04-02 [1] CRAN (R 4.0.0)                      
+##  glue           1.4.2      2020-08-27 [1] CRAN (R 4.0.2)                      
+##  gridExtra      2.3        2017-09-09 [1] CRAN (R 4.0.0)                      
+##  gtable         0.3.0      2019-03-25 [1] CRAN (R 4.0.0)                      
+##  haven          2.3.1      2020-06-01 [1] CRAN (R 4.0.0)                      
+##  hms            0.5.3      2020-01-08 [1] CRAN (R 4.0.0)                      
+##  htmltools      0.5.0      2020-06-16 [1] CRAN (R 4.0.1)                      
+##  httr           1.4.2      2020-07-20 [1] CRAN (R 4.0.2)                      
+##  inline         0.3.16     2020-09-06 [1] CRAN (R 4.0.2)                      
+##  jsonlite       1.7.1      2020-09-07 [1] CRAN (R 4.0.2)                      
+##  knitr        * 1.30       2020-09-22 [1] CRAN (R 4.0.2)                      
+##  lattice        0.20-41    2020-04-02 [1] CRAN (R 4.0.2)                      
+##  lifecycle      0.2.0      2020-03-06 [1] CRAN (R 4.0.0)                      
+##  loo            2.3.1      2020-07-14 [1] CRAN (R 4.0.2)                      
+##  lubridate      1.7.9      2020-06-08 [1] CRAN (R 4.0.1)                      
+##  magrittr       1.5        2014-11-22 [1] CRAN (R 4.0.0)                      
+##  MASS         * 7.3-53     2020-09-09 [1] CRAN (R 4.0.2)                      
+##  Matrix         1.2-18     2019-11-27 [1] CRAN (R 4.0.2)                      
+##  matrixStats    0.57.0     2020-09-25 [1] CRAN (R 4.0.2)                      
+##  modelr         0.1.8      2020-05-19 [1] CRAN (R 4.0.0)                      
+##  multcomp     * 1.4-13     2020-04-08 [1] CRAN (R 4.0.0)                      
+##  munsell        0.5.0      2018-06-12 [1] CRAN (R 4.0.0)                      
+##  mvtnorm      * 1.1-1      2020-06-09 [1] CRAN (R 4.0.0)                      
+##  pacman         0.5.1      2019-03-11 [1] CRAN (R 4.0.0)                      
+##  pillar         1.4.6      2020-07-10 [1] CRAN (R 4.0.2)                      
+##  pkgbuild       1.1.0      2020-07-13 [1] CRAN (R 4.0.2)                      
+##  pkgconfig      2.0.3      2019-09-22 [1] CRAN (R 4.0.0)                      
+##  prettyunits    1.1.1      2020-01-24 [1] CRAN (R 4.0.0)                      
+##  processx       3.4.4      2020-09-03 [1] CRAN (R 4.0.2)                      
+##  ps             1.3.4      2020-08-11 [1] CRAN (R 4.0.2)                      
+##  purrr        * 0.3.4      2020-04-17 [1] CRAN (R 4.0.0)                      
+##  R6             2.4.1      2019-11-12 [1] CRAN (R 4.0.0)                      
+##  Rcpp           1.0.5      2020-07-06 [1] CRAN (R 4.0.2)                      
+##  RcppParallel   5.0.2      2020-06-24 [1] CRAN (R 4.0.0)                      
+##  readr        * 1.3.1      2018-12-21 [1] CRAN (R 4.0.0)                      
+##  readxl         1.3.1      2019-03-13 [1] CRAN (R 4.0.0)                      
+##  reprex         0.3.0      2019-05-16 [1] CRAN (R 4.0.0)                      
+##  rlang          0.4.7      2020-07-09 [1] CRAN (R 4.0.2)                      
+##  rmarkdown      2.4.0      2020-09-11 [1] Github (cpsievert/rmarkdown@b79fb4d)
+##  rstan          2.21.3     2020-09-29 [1] Github (stan-dev/rstan@ae36e6f)     
+##  rstudioapi     0.11       2020-02-07 [1] CRAN (R 4.0.0)                      
+##  rvest          0.3.6      2020-07-25 [1] CRAN (R 4.0.2)                      
+##  sandwich       2.5-1      2019-04-06 [1] CRAN (R 4.0.0)                      
+##  scales       * 1.1.1      2020-05-11 [1] CRAN (R 4.0.0)                      
+##  sessioninfo  * 1.1.1      2018-11-05 [1] CRAN (R 4.0.0)                      
+##  StanHeaders    2.21.0-6   2020-08-16 [1] CRAN (R 4.0.2)                      
+##  stringi        1.5.3      2020-09-09 [1] CRAN (R 4.0.2)                      
+##  stringr      * 1.4.0      2019-02-10 [1] CRAN (R 4.0.0)                      
+##  survival     * 3.2-3      2020-06-13 [1] CRAN (R 4.0.2)                      
+##  TH.data      * 1.0-10     2019-01-21 [1] CRAN (R 4.0.0)                      
+##  tibble       * 3.0.3      2020-07-10 [1] CRAN (R 4.0.2)                      
+##  tidyr        * 1.1.2      2020-08-27 [1] CRAN (R 4.0.2)                      
+##  tidyselect     1.1.0      2020-05-11 [1] CRAN (R 4.0.0)                      
+##  tidyverse    * 1.3.0      2019-11-21 [1] CRAN (R 4.0.0)                      
+##  V8             3.2.0      2020-06-19 [1] CRAN (R 4.0.2)                      
+##  vctrs          0.3.4      2020-08-29 [1] CRAN (R 4.0.2)                      
+##  withr          2.3.0      2020-09-22 [1] CRAN (R 4.0.2)                      
+##  xfun           0.18       2020-09-29 [1] CRAN (R 4.0.2)                      
+##  xml2           1.3.2      2020-04-23 [1] CRAN (R 4.0.0)                      
+##  xtable         1.8-4      2019-04-21 [1] CRAN (R 4.0.0)                      
+##  yaml           2.2.1      2020-02-01 [1] CRAN (R 4.0.0)                      
+##  zoo            1.8-8      2020-05-02 [1] CRAN (R 4.0.0)                      
+## 
+## [1] /Library/Frameworks/R.framework/Versions/4.0/Resources/library</code></pre>
 
 </div>
 </div>
