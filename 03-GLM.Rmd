@@ -252,3 +252,7 @@ bind_rows(tmp_dv, tmp_tv, .id = "Technology") %>%
   )
 ```
 
+```{r, eval = TRUE}
+library(sessioninfo)
+session_info()
+```

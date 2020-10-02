@@ -223,3 +223,7 @@ fits %>%
   )
 ```
 
+```{r, eval = TRUE}
+library(sessioninfo)
+session_info()
+```

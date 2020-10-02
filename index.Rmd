@@ -14,9 +14,9 @@ description: ""
 
 We study the timecourse of technology effects on adolescent mental health in three large representative datasets.
 
-## Analyses and reproducibility
+## Analyses
 
-The data analyses are organized into separate [R Markdown](https://rmarkdown.rstudio.com/) files. First, there are three files that do preprocessing of the raw datasets (extracting the relevant variables from the raw data). Then, the data is cleaned a bit further and visualized. The main analyses are in the modelling scripts, that build up to the most robust treatment, the bayesian generalized linear mixed model. 
+The data analyses are organized into separate [R Markdown](https://rmarkdown.rstudio.com/) files. First, there are three files that do preprocessing of the raw datasets (extracting the relevant variables from the raw data). Then, the data is cleaned a bit further and visualized. The main analyses are in the modelling scripts, that build up to the bayesian generalized linear mixed model. 
 
 The project is organized as a R [bookdown](https://bookdown.org/yihui/bookdown/) project, so you can reproduce all analyses by building the book (e.g. in RStudio click the "Build Book" button). (Be advised, though, that the Bayesian GLMMs take a very long time to run [many days]). The results are rendered to `docs/index.html` and can be viewed in a web browser.
 
@@ -42,3 +42,16 @@ The datasets' Terms of Use prevent us for sharing the data files here, so you mu
 	- https://www.cdc.gov/healthyyouth/data/yrbs/data.htm
 	- Download the National ASCII format data and the associated SPSS syntax to `data-raw/yrbs/`
 	- Process the ASCII file in place with the SPSS syntax file, so you end up with a file `data-raw/yrbs/sadc_2017_national.sav`
+
+## Reproducibility
+
+```{r, include = FALSE}
+# Ensure that .nojekyll exists for github pages
+dir.create('docs', F); file.create('docs/.nojekyll')
+```
+
+```{r}
+library(sessioninfo)
+session_info()
+```
+

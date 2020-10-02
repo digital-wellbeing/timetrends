@@ -124,3 +124,8 @@ data
 # Save data to disk
 saveRDS(data, "data/yrbs.rds")
 ```
+
+```{r, eval = TRUE}
+library(sessioninfo)
+session_info()
+```

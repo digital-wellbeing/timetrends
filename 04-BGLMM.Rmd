@@ -285,3 +285,8 @@ pars %>%
     panel.spacing.x = unit(12, "pt")
   )
 ```
+
+```{r, eval = TRUE}
+library(sessioninfo)
+session_info()
+```

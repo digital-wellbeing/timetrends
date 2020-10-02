@@ -167,3 +167,8 @@ yrbs %>%
   stat_summary(fun=mean, geom="line") +
   facet_wrap("name", scales = "free_y")
 ```
+
+```{r, eval = TRUE}
+library(sessioninfo)
+session_info()
+```

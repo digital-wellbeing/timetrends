@@ -173,3 +173,8 @@ data <- data %>%
 # Save file to disk
 saveRDS(data, "data/us.rds")
 ```
+
+```{r, eval = TRUE}
+library(sessioninfo)
+session_info()
+```
