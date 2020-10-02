@@ -175,6 +175,7 @@ saveRDS(data, "data/us.rds")
 ```
 
 ```{r, eval = TRUE}
+options(width = 120)
 library(sessioninfo)
 session_info()
 ```

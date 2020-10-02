@@ -52,6 +52,8 @@
 
 
 <script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<link href="libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet" />
+<script src="libs/pagedtable-1.1/js/pagedtable.js"></script>
 
 
 <style type="text/css">
@@ -250,9 +252,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="reproducibility" class="section level2" number="1.3">
 <h2><span class="header-section-number">1.3</span> Reproducibility</h2>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="index.html#cb1-1"></a><span class="kw">library</span>(sessioninfo)</span>
-<span id="cb1-2"><a href="index.html#cb1-2"></a><span class="kw">session_info</span>()</span></code></pre></div>
-<pre><code>## ─ Session info ───────────────────────────────────────────────────────────────
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="index.html#cb1-1"></a><span class="kw">options</span>(<span class="dt">width =</span> <span class="dv">120</span>)</span>
+<span id="cb1-2"><a href="index.html#cb1-2"></a><span class="kw">library</span>(sessioninfo)</span>
+<span id="cb1-3"><a href="index.html#cb1-3"></a><span class="kw">session_info</span>()</span></code></pre></div>
+<pre><code>## ─ Session info ───────────────────────────────────────────────────────────────────────────────────────────────────────
 ##  setting  value                       
 ##  version  R version 4.0.2 (2020-06-22)
 ##  os       macOS Catalina 10.15.7      
@@ -264,7 +267,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##  tz       Europe/London               
 ##  date     2020-10-02                  
 ## 
-## ─ Packages ───────────────────────────────────────────────────────────────────
+## ─ Packages ───────────────────────────────────────────────────────────────────────────────────────────────────────────
 ##  package     * version date       lib source                              
 ##  assertthat    0.2.1   2019-03-21 [1] CRAN (R 4.0.0)                      
 ##  bookdown      0.20    2020-06-23 [1] CRAN (R 4.0.2)                      

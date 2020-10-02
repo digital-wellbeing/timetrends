@@ -52,6 +52,8 @@
 
 
 <script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<link href="libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet" />
+<script src="libs/pagedtable-1.1/js/pagedtable.js"></script>
 
 
 <style type="text/css">
@@ -556,9 +558,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb85-8"><a href="data-descriptives.html#cb85-8"></a><span class="st">  </span><span class="kw">stat_summary</span>(<span class="dt">fun=</span>mean, <span class="dt">geom=</span><span class="st">&quot;line&quot;</span>) <span class="op">+</span></span>
 <span id="cb85-9"><a href="data-descriptives.html#cb85-9"></a><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="st">&quot;name&quot;</span>, <span class="dt">scales =</span> <span class="st">&quot;free_y&quot;</span>)</span></code></pre></div>
 <p><img src="02-Describe_files/figure-html/yrbs-data-fig-1.png" width="768" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb86-1"><a href="data-descriptives.html#cb86-1"></a><span class="kw">library</span>(sessioninfo)</span>
-<span id="cb86-2"><a href="data-descriptives.html#cb86-2"></a><span class="kw">session_info</span>()</span></code></pre></div>
-<pre><code>## ─ Session info ───────────────────────────────────────────────────────────────
+<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb86-1"><a href="data-descriptives.html#cb86-1"></a><span class="kw">options</span>(<span class="dt">width =</span> <span class="dv">120</span>)</span>
+<span id="cb86-2"><a href="data-descriptives.html#cb86-2"></a><span class="kw">library</span>(sessioninfo)</span>
+<span id="cb86-3"><a href="data-descriptives.html#cb86-3"></a><span class="kw">session_info</span>()</span></code></pre></div>
+<pre><code>## ─ Session info ───────────────────────────────────────────────────────────────────────────────────────────────────────
 ##  setting  value                       
 ##  version  R version 4.0.2 (2020-06-22)
 ##  os       macOS Catalina 10.15.7      
@@ -570,7 +573,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##  tz       Europe/London               
 ##  date     2020-10-02                  
 ## 
-## ─ Packages ───────────────────────────────────────────────────────────────────
+## ─ Packages ───────────────────────────────────────────────────────────────────────────────────────────────────────────
 ##  package     * version    date       lib source                              
 ##  assertthat    0.2.1      2019-03-21 [1] CRAN (R 4.0.0)                      
 ##  backports     1.1.10     2020-09-15 [1] CRAN (R 4.0.2)                      

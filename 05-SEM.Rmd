@@ -3,12 +3,10 @@
 ```{r setup, include=FALSE}
 pacman::p_load(
   knitr, 
-  brms, 
   future,
   broom,
   ggstance,
   lavaan,
-  semPlot,
   tidyverse
 )
 opts_chunk$set(
@@ -173,11 +171,11 @@ coefs %>%
   )
 ```
 
-```{r, eval = FALSE}
+```{r, paged.print = TRUE}
 # Numbers
 coefs %>% 
-  filter(Outcome == "Suicide", rhs == "TV") %>% 
-  select(data:Outcome, estimate:conf.high)
+  mutate(coef = str_glue("{lhs} {op} {rhs}")) %>% 
+  select(data:Outcome, coef, estimate:conf.high)
 ```
 
 
@@ -224,6 +222,7 @@ fits %>%
 ```
 
 ```{r, eval = TRUE}
+options(width = 120)
 library(sessioninfo)
 session_info()
 ```

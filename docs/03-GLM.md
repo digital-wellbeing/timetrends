@@ -245,12 +245,13 @@ bind_rows(tmp_dv, tmp_tv, .id = "Technology") %>%
 
 
 ```r
+options(width = 120)
 library(sessioninfo)
 session_info()
 ```
 
 ```
-## ─ Session info ───────────────────────────────────────────────────────────────
+## ─ Session info ───────────────────────────────────────────────────────────────────────────────────────────────────────
 ##  setting  value                       
 ##  version  R version 4.0.2 (2020-06-22)
 ##  os       macOS Catalina 10.15.7      
@@ -262,7 +263,7 @@ session_info()
 ##  tz       Europe/London               
 ##  date     2020-10-02                  
 ## 
-## ─ Packages ───────────────────────────────────────────────────────────────────
+## ─ Packages ───────────────────────────────────────────────────────────────────────────────────────────────────────────
 ##  package      * version    date       lib source                              
 ##  assertthat     0.2.1      2019-03-21 [1] CRAN (R 4.0.0)                      
 ##  backports      1.1.10     2020-09-15 [1] CRAN (R 4.0.2)                      

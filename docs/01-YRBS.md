@@ -134,12 +134,13 @@ saveRDS(data, "data/yrbs.rds")
 
 
 ```r
+options(width = 120)
 library(sessioninfo)
 session_info()
 ```
 
 ```
-## ─ Session info ───────────────────────────────────────────────────────────────
+## ─ Session info ───────────────────────────────────────────────────────────────────────────────────────────────────────
 ##  setting  value                       
 ##  version  R version 4.0.2 (2020-06-22)
 ##  os       macOS Catalina 10.15.7      
@@ -151,7 +152,7 @@ session_info()
 ##  tz       Europe/London               
 ##  date     2020-10-02                  
 ## 
-## ─ Packages ───────────────────────────────────────────────────────────────────
+## ─ Packages ───────────────────────────────────────────────────────────────────────────────────────────────────────────
 ##  package     * version date       lib source                              
 ##  assertthat    0.2.1   2019-03-21 [1] CRAN (R 4.0.0)                      
 ##  bookdown      0.20    2020-06-23 [1] CRAN (R 4.0.2)                      

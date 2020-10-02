@@ -51,6 +51,7 @@ dir.create('docs', F); file.create('docs/.nojekyll')
 ```
 
 ```{r}
+options(width = 120)
 library(sessioninfo)
 session_info()
 ```

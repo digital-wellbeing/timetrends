@@ -52,6 +52,8 @@
 
 
 <script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<link href="libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet" />
+<script src="libs/pagedtable-1.1/js/pagedtable.js"></script>
 
 
 <style type="text/css">
@@ -415,9 +417,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb95-43"><a href="generalized-linear-model.html#cb95-43"></a>    <span class="dt">panel.spacing.x =</span> <span class="kw">unit</span>(<span class="dv">12</span>, <span class="st">&quot;pt&quot;</span>)</span>
 <span id="cb95-44"><a href="generalized-linear-model.html#cb95-44"></a>  )</span></code></pre></div>
 <p><img src="03-GLM_files/figure-html/yrbs-logistic-1.png" width="768" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb96-1"><a href="generalized-linear-model.html#cb96-1"></a><span class="kw">library</span>(sessioninfo)</span>
-<span id="cb96-2"><a href="generalized-linear-model.html#cb96-2"></a><span class="kw">session_info</span>()</span></code></pre></div>
-<pre><code>## ─ Session info ───────────────────────────────────────────────────────────────
+<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb96-1"><a href="generalized-linear-model.html#cb96-1"></a><span class="kw">options</span>(<span class="dt">width =</span> <span class="dv">120</span>)</span>
+<span id="cb96-2"><a href="generalized-linear-model.html#cb96-2"></a><span class="kw">library</span>(sessioninfo)</span>
+<span id="cb96-3"><a href="generalized-linear-model.html#cb96-3"></a><span class="kw">session_info</span>()</span></code></pre></div>
+<pre><code>## ─ Session info ───────────────────────────────────────────────────────────────────────────────────────────────────────
 ##  setting  value                       
 ##  version  R version 4.0.2 (2020-06-22)
 ##  os       macOS Catalina 10.15.7      
@@ -429,7 +432,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##  tz       Europe/London               
 ##  date     2020-10-02                  
 ## 
-## ─ Packages ───────────────────────────────────────────────────────────────────
+## ─ Packages ───────────────────────────────────────────────────────────────────────────────────────────────────────────
 ##  package      * version    date       lib source                              
 ##  assertthat     0.2.1      2019-03-21 [1] CRAN (R 4.0.0)                      
 ##  backports      1.1.10     2020-09-15 [1] CRAN (R 4.0.2)                      
