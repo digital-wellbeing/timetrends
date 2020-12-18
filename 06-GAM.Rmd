@@ -1,0 +1,288 @@
+# GAM
+
+```{r setup, include=FALSE}
+pacman::p_load(
+  knitr, 
+  brms, 
+  future,
+  scales,
+  ggstance,
+  patchwork,
+  lavaan,
+  mgcv,
+  tidyverse
+)
+opts_chunk$set(
+  cache = FALSE,
+  echo = TRUE,
+  message = FALSE,
+  warning = FALSE,
+  fig.retina = 2, 
+  fig.width = 6,
+  fig.height = 4,
+  fig.align = 'center',
+  # Save more figure formats
+  dev = c("png", "tiff"),
+  fig.ext = c("png", "tiff")
+)
+theme_set(
+  theme_linedraw(base_size = 8) +
+    theme(
+      panel.grid = element_blank()
+    )
+)
+dir.create("models")
+```
+
+## Data
+
+```{r data-load}
+mtf <- read_rds("data/mtf.rds")
+us <- read_rds("data/us.rds")
+yrbs <- read_rds("data/yrbs.rds")
+
+us <- mutate(us, across(sdqc:sdqv, ordered))
+yrbs <- mutate(yrbs, across(sad_lonely:suicide_3, ordered))
+
+# Drop rows where all outcome items are missing
+# And remove mean outcome (will use latent factors)
+mtf <- drop_na(mtf, Depression) %>% select(-Depression)
+us <- drop_na(us, Emotion, Conduct) %>% select(-Emotion, -Conduct)
+yrbs <- drop_na(yrbs, Suicide) %>% select(-Suicide)
+```
+
+## Models
+
+Roadmap:
+
+- For each outcome in each dataset, a multiple indicator latent variable is created with lavaan
+- Those latent variables are extracted back to the main data frames
+- Latent variables are treated as outcomes in GAMs
+- GAMs treat predictors with smooths to allow wiggliness
+- Two models are compared: one with smooth X and year, one with smooth X, year, and smooth X by year interaction
+- Present all model comparisons and R squareds
+
+## Create latent variables for outcomes
+
+```{r}
+fit_sem <- function(data, items, y, missing = "ml") {
+  
+  # Combine names of items to a string for lavaan model
+  items_all <- paste0(items, collapse = " + ")
+  
+  # Model strings
+  sem0 <- str_glue("{y} =~ {items_all}")
+  
+  ml0 <- sem(sem0, data = data, missing = missing)
+  
+  return(bind_cols(data, as.data.frame(predict(ml0))))
+  
+}
+```
+
+```{r lavaan-mtf, cache = TRUE}
+mtf_mod <- '
+  Depression =~ D_B_1 + D_B_2 + D_B_3 + D_B_4 + D_B_5 + D_B_6
+'
+out <- cfa(mtf_mod, data = mtf, missing = "ml", std.lv = TRUE)
+mtf <- bind_cols(mtf, as.data.frame(predict(out)))
+mtf$Depression <- as.numeric(scale(mtf$Depression))
+```
+
+```{r lavaan-us, cache = TRUE}
+us_mod <- '
+  Conduct =~ sdqe + sdqg + sdql + sdqr + sdqv
+  Emotion =~ sdqc + sdqh + sdqm + sdqp + sdqx 
+'
+out <- cfa(us_mod, data = us, missing = "pairwise", std.lv = TRUE)
+us <- bind_cols(us, as.data.frame(predict(out)))
+us$Conduct <- as.numeric(scale(us$Conduct))
+us$Emotion <- as.numeric(scale(us$Emotion))
+```
+
+```{r lavaan-yrbs, cache = TRUE}
+yrbs_mod <- '
+  Suicide =~ sad_lonely + suicide_1 + suicide_2 + suicide_3
+'
+out <- cfa(yrbs_mod, data = yrbs, missing = "pairwise", std.lv = TRUE)
+yrbs <- bind_cols(yrbs, as.data.frame(predict(out)))
+yrbs$Suicide <- as.numeric(scale(yrbs$Suicide))
+```
+
+## Estimate GAMs
+
+```{r}
+fit <- function(data, x, y, name) {
+  
+  # Center year
+  data <- mutate(data, Year = Year - 2017)
+
+  # Drop rows with missing predictor
+  data <- drop_na(data, all_of(x))
+  
+  # Ensure max knots
+  k_x <- length(table(data[[x]]))
+  k_yr <- length(table(data[["Year"]]))
+
+  # Model strings
+  model0 <- str_glue("{y} ~ ti(Year, k = {k_yr})")
+  model1 <- str_glue("{y} ~ ti(Year, k = {k_yr}) + ti({x}, k = {k_x})")
+  model2 <- str_glue(
+    "{y} ~ ti(Year, k = {k_yr}) + ti({x}, k = {k_x}) + ti({x}, Year, k = c({k_x}, {k_yr}))"
+  )
+  
+  fit0 <- gam(as.formula(model0), data = data, method = "REML")
+  fit1 <- gam(as.formula(model1), data = data, method = "REML")
+  fit2 <- gam(as.formula(model2), data = data, method = "REML")
+  
+  return(
+    tibble(
+      name, x, y, 
+      fit0 = list(fit0), fit1 = list(fit1), fit2 = list(fit2)
+    )
+  )
+}
+```
+
+```{r fit-gams}
+if (!file.exists("models/gams.rds")) {
+  x1 <- fit(mtf, "SM", "Depression", "MTF")
+  x2 <- fit(mtf, "TV", "Depression", "MTF")
+  x3 <- fit(us, "SM", "Conduct", "US")
+  x4 <- fit(us, "TV", "Conduct", "US")
+  x5 <- fit(us, "SM", "Emotion", "US")
+  x6 <- fit(us, "TV", "Emotion", "US")
+  x7 <- fit(yrbs, "DV", "Suicide", "YRBS")
+  x8 <- fit(yrbs, "TV", "Suicide", "YRBS")
+  
+  # Rename variables
+  fits <- bind_rows(x1,x2,x3,x4,x5,x6,x7,x8)
+  fits <- fits %>% 
+    rename(Technology = x, Outcome = y, Study = name) %>% 
+    mutate(
+      Technology = ifelse(
+        Technology %in% c("SM", "DV"), 
+        "Social media / device", 
+        "Television"
+      )
+    )
+  saveRDS(fits, "models/gams.rds")
+} else {fits <- readRDS("models/gams.rds")}
+```
+
+```{r}
+out <- fits %>% 
+  pivot_longer(fit0:fit2) %>% 
+  mutate(
+    rsq = map_dbl(value, ~summary(.)$r.sq),
+    dev = map_dbl(value, ~summary(.)$dev.expl),
+    aic = map_dbl(value, AIC)
+  ) %>% 
+  select(-value) %>% 
+  pivot_wider(values_from = rsq:aic)
+kable(out, digits = 2)
+```
+
+Figure of fitted X - Y lines per year
+
+```{r}
+fits
+foo <- function(row) {
+  fit <- fits$fit2[[row]]
+  newx <- distinct(fit[["model"]][,2:3])
+  preds <- cbind(newx, predict(fit, newdata = newx, se.fit = TRUE)) %>% 
+    as_tibble()
+  names(preds)[2] <- "x"
+  preds$Year <- preds$Year + 2017
+  return(preds)
+}
+bar <- function(row) {
+  fit <- fits$fit2[[row]]
+  newx <- as_tibble(fit[["model"]])
+  names(newx) <- c("y", "Year", "x")
+  newx$Year <- newx$Year + 2017
+  return(newx)
+}
+
+fits$outs <- map(1:8, foo)
+fits$dats <- map(1:8, bar)
+p01 <- fits %>% 
+  select(-c(fit0:fit2, dats)) %>% 
+  unnest(outs) %>% 
+  # mutate(Year2 = Year, Year = factor(ifelse(Year < 2005, "< 2005", Year))) %>% 
+  ggplot(aes(x, fit, col = Year, group = Year, fill = Year)) +
+  scale_colour_viridis_c(
+    aesthetics = c("color", "fill"), 
+    direction = -1, end = .95, values = c(.6, 1), na.value = "#C9DF2F",
+    guide = "legend", 
+    breaks = c(2005, 2008, 2011, 2014, 2017), 
+    labels = c("2005\n(or before)", 2008, 2011, 2014, 2017)
+    ) +
+  scale_y_continuous(breaks = pretty_breaks()) +
+  scale_x_continuous(breaks = pretty_breaks()) +
+  # Can add points but this renders trends invisibly small
+  # geom_point(
+  #   data = unnest(select(fits, -c(fit0:fit2, outs)), dats),
+  #   aes(x=x, y=y), size = .1, alpha = .075,
+  #   position = position_jitter(.25, 0, seed = 1)
+  # ) +
+  geom_ribbon(
+    aes(ymin = fit-se.fit*2, ymax = fit+se.fit*2), 
+    alpha = .15, col = NA, show.legend = FALSE
+  ) +
+  geom_line(size = .6) +
+  guides(
+    color = guide_legend(
+      override.aes = list(size = 1.25)
+    )
+  ) + 
+  labs(x = "Technology use", y = "Standardized latent factor score") +
+  facet_grid(
+    Technology~Outcome, scales = "free_x", labeller = label_wrap_gen(13)
+  )
+p01
+```
+
+```{r Figure3, fig.height = 4.3, fig.width = 6.4}
+p1 <- out %>% 
+  ggplot(aes(Technology, dev_fit1, shape = Outcome)) +
+  scale_y_continuous(
+    "Proportion\nvariance explained",
+    limits = c(0, .04), 
+    labels = function(x) percent(x, 1)
+  ) +
+  scale_x_discrete(labels = function(x) str_replace(x, "/", "\n/")) +
+  geom_point(position = position_jitter(.1, seed = 1), size = 2) +
+  scale_shape_manual(values = c(15, 16, 21, 22)) +
+  theme(
+    legend.position = "none", 
+    aspect.ratio = 1, 
+    axis.title.x = element_blank()
+  )
+p2 <- out %>%   
+  ggplot(aes(dev_fit2-dev_fit1, aic_fit1-aic_fit2, shape = Outcome)) +
+  geom_hline(yintercept = c(-3, 3), lty = 2, size = .25) +
+  scale_shape_manual(values = c(15, 16, 21, 22)) +
+  geom_point(size = 2) +
+  labs(y = "AIC difference") +
+  coord_cartesian(ylim = c(-10, 10)) +
+  scale_x_continuous(
+    "Additional variance explained\nby model with interaction",
+    labels = function(x) percent(x, .01)
+  ) +
+  facet_wrap("Technology", labeller = label_wrap_gen(13)) +
+  theme()
+p01 / ((p1 | p2) + plot_layout(widths = c(4, 6))) + plot_layout(heights = c(65, 35))
+ggsave("Figure3.png", width = 7, height = 5)
+filter(out, Study=="MTF") %>% 
+  mutate(delta_aic = aic_fit1-aic_fit2, delta_dev = percent(dev_fit2-dev_fit1)) %>% 
+  select(Study:Outcome, starts_with("delta")) 
+```
+
+## Session information
+
+```{r, eval = TRUE, warning = FALSE}
+options(width = 120)
+library(sessioninfo)
+session_info()
+```
