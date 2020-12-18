@@ -224,8 +224,6 @@ p1 <- bind_rows(b_Year, b_Tech, b_Interaction) %>%
   p1 %+% filter(p1$data, Parameter == "Year by Technology Interaction")) +
   plot_layout(guides = "collect") &
   theme(legend.position = "right")
-
-ggsave("Figure2.png", width = 6, height = 4)
 ```
 
 

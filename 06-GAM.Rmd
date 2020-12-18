@@ -273,7 +273,6 @@ p2 <- out %>%
   facet_wrap("Technology", labeller = label_wrap_gen(13)) +
   theme()
 p01 / ((p1 | p2) + plot_layout(widths = c(4, 6))) + plot_layout(heights = c(65, 35))
-ggsave("Figure3.png", width = 7, height = 5)
 filter(out, Study=="MTF") %>% 
   mutate(delta_aic = aic_fit1-aic_fit2, delta_dev = percent(dev_fit2-dev_fit1)) %>% 
   select(Study:Outcome, starts_with("delta")) 
