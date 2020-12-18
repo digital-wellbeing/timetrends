@@ -16,8 +16,12 @@ opts_chunk$set(
   warning = FALSE,
   fig.retina = 2, 
   fig.width = 8,
-  fig.align = 'center'
-)
+  fig.align = 'center',
+  # Save more figure formats
+  dev = c("png", "tiff"),
+  fig.ext = c("png", "tiff")
+
+  )
 theme_set(
   theme_linedraw(base_size = 10) +
     theme(

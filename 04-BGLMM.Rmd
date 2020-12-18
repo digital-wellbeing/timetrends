@@ -15,8 +15,12 @@ opts_chunk$set(
   message = FALSE,
   warning = FALSE,
   fig.retina = 2, 
-  fig.width = 8,
-  fig.align = 'center'
+  fig.width = 6,
+  fig.height = 4,
+  fig.align = 'center',
+  # Save more figure formats
+  dev = c("png", "tiff"),
+  fig.ext = c("png", "tiff")
 )
 theme_set(
   theme_linedraw(base_size = 9) +
@@ -63,9 +67,9 @@ yrbs <- yrbs %>%
 
 ### Estimate
 
-MTF: Single level model
-US: Random intercepts for participants. 85% of participants have only 1 or 2 observations, so random slopes without strong priors are not a good idea.
-YRBS: Full item-specific random effects.
+- MTF: Single level model
+- US: Random intercepts for participants. 85% of participants have only 1 or 2 observations, so random slopes without strong priors are not a good idea.
+- YRBS: Full item-specific random effects.
 
 ```{r}
 fit <- function(data, name, x, y, iter = 1000, chains = 12, cores = 12) {
@@ -137,6 +141,21 @@ fits <- fits %>%
 ```
 
 ### Results
+
+Focus on some YRBS outcomes: plan suicide (suicide_2) on social media
+
+```{r}
+fits
+
+fitted(fits$ml1[[2]], newdata = tibble(item = "suicide_2", Sex = "Male", Year = 0, DV = 0:1), summary = FALSE, re_formula = NULL) %>% 
+  as.data.frame() %>% 
+  tibble() %>% 
+  mutate(delta = V2-V1) %>%
+  pivot_longer(everything()) %>% 
+  group_by(name) %>% 
+  tidybayes::mean_qi(value)
+```
+
 
 ```{r Parameter-figure}
 probs <- c(.025, .1, .9, .975)
