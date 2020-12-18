@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 9 GAM | Technology association timecourses</title>
+  <meta name="description" content="Chapter 9 GAM | Technology association timecourses" />
+  <meta name="generator" content="bookdown 0.21.6 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 9 GAM | Technology association timecourses" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 9 GAM | Technology association timecourses" />
+  
+  
+  
+
+<meta name="author" content="Matti Vuorre" />
+
+
+<meta name="date" content="2020-12-18" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="latent-variable-models.html"/>
+
+<script src="libs/header-attrs-2.6.1/header-attrs.js"></script>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<link href="libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet" />
+<script src="libs/pagedtable-1.1/js/pagedtable.js"></script>
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    background-color: #ffffff;
+    color: #a0a0a0;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #a0a0a0;  padding-left: 4px; }
+div.sourceCode
+  { color: #1f1c1b; background-color: #ffffff; }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span { color: #1f1c1b; } /* Normal */
+code span.al { color: #bf0303; background-color: #f7e6e6; font-weight: bold; } /* Alert */
+code span.an { color: #ca60ca; } /* Annotation */
+code span.at { color: #0057ae; } /* Attribute */
+code span.bn { color: #b08000; } /* BaseN */
+code span.bu { color: #644a9b; font-weight: bold; } /* BuiltIn */
+code span.cf { color: #1f1c1b; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #924c9d; } /* Char */
+code span.cn { color: #aa5500; } /* Constant */
+code span.co { color: #898887; } /* Comment */
+code span.cv { color: #0095ff; } /* CommentVar */
+code span.do { color: #607880; } /* Documentation */
+code span.dt { color: #0057ae; } /* DataType */
+code span.dv { color: #b08000; } /* DecVal */
+code span.er { color: #bf0303; text-decoration: underline; } /* Error */
+code span.ex { color: #0095ff; font-weight: bold; } /* Extension */
+code span.fl { color: #b08000; } /* Float */
+code span.fu { color: #644a9b; } /* Function */
+code span.im { color: #ff5500; } /* Import */
+code span.in { color: #b08000; } /* Information */
+code span.kw { color: #1f1c1b; font-weight: bold; } /* Keyword */
+code span.op { color: #1f1c1b; } /* Operator */
+code span.ot { color: #006e28; } /* Other */
+code span.pp { color: #006e28; } /* Preprocessor */
+code span.re { color: #0057ae; background-color: #e0e9f8; } /* RegionMarker */
+code span.sc { color: #3daee9; } /* SpecialChar */
+code span.ss { color: #ff5500; } /* SpecialString */
+code span.st { color: #bf0303; } /* String */
+code span.va { color: #0057ae; } /* Variable */
+code span.vs { color: #bf0303; } /* VerbatimString */
+code span.wa { color: #bf0303; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Technology effect timecourses</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Preface</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#analyses"><i class="fa fa-check"></i><b>1.1</b> Analyses</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#raw-data"><i class="fa fa-check"></i><b>1.2</b> Raw data</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#reproducibility"><i class="fa fa-check"></i><b>1.3</b> Reproducibility</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="mtf-preprocessing.html"><a href="mtf-preprocessing.html"><i class="fa fa-check"></i><b>2</b> MTF preprocessing</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="mtf-preprocessing.html"><a href="mtf-preprocessing.html#save-to-disk"><i class="fa fa-check"></i><b>2.1</b> Save to disk</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="us-preprocessing.html"><a href="us-preprocessing.html"><i class="fa fa-check"></i><b>3</b> US preprocessing</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="us-preprocessing.html"><a href="us-preprocessing.html#year"><i class="fa fa-check"></i><b>3.1</b> Year</a></li>
+<li class="chapter" data-level="3.2" data-path="us-preprocessing.html"><a href="us-preprocessing.html#strengths-and-difficulties"><i class="fa fa-check"></i><b>3.2</b> Strengths and difficulties</a></li>
+<li class="chapter" data-level="3.3" data-path="us-preprocessing.html"><a href="us-preprocessing.html#save-file"><i class="fa fa-check"></i><b>3.3</b> Save file</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="yrbs-preprocessing.html"><a href="yrbs-preprocessing.html"><i class="fa fa-check"></i><b>4</b> YRBS preprocessing</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="yrbs-preprocessing.html"><a href="yrbs-preprocessing.html#recode-variables"><i class="fa fa-check"></i><b>4.1</b> Recode Variables</a></li>
+<li class="chapter" data-level="4.2" data-path="yrbs-preprocessing.html"><a href="yrbs-preprocessing.html#age"><i class="fa fa-check"></i><b>4.2</b> Age</a></li>
+<li class="chapter" data-level="4.3" data-path="yrbs-preprocessing.html"><a href="yrbs-preprocessing.html#tech-variables"><i class="fa fa-check"></i><b>4.3</b> Tech variables</a></li>
+<li class="chapter" data-level="4.4" data-path="yrbs-preprocessing.html"><a href="yrbs-preprocessing.html#sex"><i class="fa fa-check"></i><b>4.4</b> Sex</a></li>
+<li class="chapter" data-level="4.5" data-path="yrbs-preprocessing.html"><a href="yrbs-preprocessing.html#rename-and-save"><i class="fa fa-check"></i><b>4.5</b> Rename and save</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="data-descriptives.html"><a href="data-descriptives.html"><i class="fa fa-check"></i><b>5</b> Data descriptives</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="data-descriptives.html"><a href="data-descriptives.html#data"><i class="fa fa-check"></i><b>5.1</b> Data</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="data-descriptives.html"><a href="data-descriptives.html#sample-sizes-and-years"><i class="fa fa-check"></i><b>5.1.1</b> Sample sizes and years</a></li>
+<li class="chapter" data-level="5.1.2" data-path="data-descriptives.html"><a href="data-descriptives.html#missingness"><i class="fa fa-check"></i><b>5.1.2</b> Missingness</a></li>
+<li class="chapter" data-level="5.1.3" data-path="data-descriptives.html"><a href="data-descriptives.html#outcomes"><i class="fa fa-check"></i><b>5.1.3</b> Outcomes</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="data-descriptives.html"><a href="data-descriptives.html#figures"><i class="fa fa-check"></i><b>5.2</b> Figures</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="generalized-linear-model.html"><a href="generalized-linear-model.html"><i class="fa fa-check"></i><b>6</b> Generalized Linear Model</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="generalized-linear-model.html"><a href="generalized-linear-model.html#data-1"><i class="fa fa-check"></i><b>6.1</b> Data</a></li>
+<li class="chapter" data-level="6.2" data-path="generalized-linear-model.html"><a href="generalized-linear-model.html#yearly-correlations-figure"><i class="fa fa-check"></i><b>6.2</b> Yearly correlations figure</a></li>
+<li class="chapter" data-level="6.3" data-path="generalized-linear-model.html"><a href="generalized-linear-model.html#models"><i class="fa fa-check"></i><b>6.3</b> Models</a></li>
+<li class="chapter" data-level="6.4" data-path="generalized-linear-model.html"><a href="generalized-linear-model.html#results"><i class="fa fa-check"></i><b>6.4</b> Results</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="bayesian-generalized-linear-mixed-model.html"><a href="bayesian-generalized-linear-mixed-model.html"><i class="fa fa-check"></i><b>7</b> Bayesian Generalized Linear Mixed Model</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="bayesian-generalized-linear-mixed-model.html"><a href="bayesian-generalized-linear-mixed-model.html#data-2"><i class="fa fa-check"></i><b>7.1</b> Data</a></li>
+<li class="chapter" data-level="7.2" data-path="bayesian-generalized-linear-mixed-model.html"><a href="bayesian-generalized-linear-mixed-model.html#models-1"><i class="fa fa-check"></i><b>7.2</b> Models</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="bayesian-generalized-linear-mixed-model.html"><a href="bayesian-generalized-linear-mixed-model.html#estimate"><i class="fa fa-check"></i><b>7.2.1</b> Estimate</a></li>
+<li class="chapter" data-level="7.2.2" data-path="bayesian-generalized-linear-mixed-model.html"><a href="bayesian-generalized-linear-mixed-model.html#results-1"><i class="fa fa-check"></i><b>7.2.2</b> Results</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="latent-variable-models.html"><a href="latent-variable-models.html"><i class="fa fa-check"></i><b>8</b> Latent Variable Models</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="latent-variable-models.html"><a href="latent-variable-models.html#data-3"><i class="fa fa-check"></i><b>8.1</b> Data</a></li>
+<li class="chapter" data-level="8.2" data-path="latent-variable-models.html"><a href="latent-variable-models.html#models-2"><i class="fa fa-check"></i><b>8.2</b> Models</a></li>
+<li class="chapter" data-level="8.3" data-path="latent-variable-models.html"><a href="latent-variable-models.html#results-2"><i class="fa fa-check"></i><b>8.3</b> Results</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="gam.html"><a href="gam.html"><i class="fa fa-check"></i><b>9</b> GAM</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="gam.html"><a href="gam.html#data-4"><i class="fa fa-check"></i><b>9.1</b> Data</a></li>
+<li class="chapter" data-level="9.2" data-path="gam.html"><a href="gam.html#models-3"><i class="fa fa-check"></i><b>9.2</b> Models</a></li>
+<li class="chapter" data-level="9.3" data-path="gam.html"><a href="gam.html#create-latent-variables-for-outcomes"><i class="fa fa-check"></i><b>9.3</b> Create latent variables for outcomes</a></li>
+<li class="chapter" data-level="9.4" data-path="gam.html"><a href="gam.html#estimate-gams"><i class="fa fa-check"></i><b>9.4</b> Estimate GAMs</a></li>
+<li class="chapter" data-level="9.5" data-path="gam.html"><a href="gam.html#session-information"><i class="fa fa-check"></i><b>9.5</b> Session information</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Technology association timecourses</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="gam" class="section level1" number="9">
+<h1><span class="header-section-number">Chapter 9</span> GAM</h1>
+<div id="data-4" class="section level2" number="9.1">
+<h2><span class="header-section-number">9.1</span> Data</h2>
+<div class="sourceCode" id="cb119"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb119-1"><a href="gam.html#cb119-1" aria-hidden="true" tabindex="-1"></a>mtf <span class="ot">&lt;-</span> <span class="fu">read_rds</span>(<span class="st">&quot;data/mtf.rds&quot;</span>)</span>
+<span id="cb119-2"><a href="gam.html#cb119-2" aria-hidden="true" tabindex="-1"></a>us <span class="ot">&lt;-</span> <span class="fu">read_rds</span>(<span class="st">&quot;data/us.rds&quot;</span>)</span>
+<span id="cb119-3"><a href="gam.html#cb119-3" aria-hidden="true" tabindex="-1"></a>yrbs <span class="ot">&lt;-</span> <span class="fu">read_rds</span>(<span class="st">&quot;data/yrbs.rds&quot;</span>)</span>
+<span id="cb119-4"><a href="gam.html#cb119-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb119-5"><a href="gam.html#cb119-5" aria-hidden="true" tabindex="-1"></a>us <span class="ot">&lt;-</span> <span class="fu">mutate</span>(us, <span class="fu">across</span>(sdqc<span class="sc">:</span>sdqv, ordered))</span>
+<span id="cb119-6"><a href="gam.html#cb119-6" aria-hidden="true" tabindex="-1"></a>yrbs <span class="ot">&lt;-</span> <span class="fu">mutate</span>(yrbs, <span class="fu">across</span>(sad_lonely<span class="sc">:</span>suicide_3, ordered))</span>
+<span id="cb119-7"><a href="gam.html#cb119-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb119-8"><a href="gam.html#cb119-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Drop rows where all outcome items are missing</span></span>
+<span id="cb119-9"><a href="gam.html#cb119-9" aria-hidden="true" tabindex="-1"></a><span class="co"># And remove mean outcome (will use latent factors)</span></span>
+<span id="cb119-10"><a href="gam.html#cb119-10" aria-hidden="true" tabindex="-1"></a>mtf <span class="ot">&lt;-</span> <span class="fu">drop_na</span>(mtf, Depression) <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="sc">-</span>Depression)</span>
+<span id="cb119-11"><a href="gam.html#cb119-11" aria-hidden="true" tabindex="-1"></a>us <span class="ot">&lt;-</span> <span class="fu">drop_na</span>(us, Emotion, Conduct) <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="sc">-</span>Emotion, <span class="sc">-</span>Conduct)</span>
+<span id="cb119-12"><a href="gam.html#cb119-12" aria-hidden="true" tabindex="-1"></a>yrbs <span class="ot">&lt;-</span> <span class="fu">drop_na</span>(yrbs, Suicide) <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="sc">-</span>Suicide)</span></code></pre></div>
+</div>
+<div id="models-3" class="section level2" number="9.2">
+<h2><span class="header-section-number">9.2</span> Models</h2>
+<p>Roadmap:</p>
+<ul>
+<li>For each outcome in each dataset, a multiple indicator latent variable is created with lavaan</li>
+<li>Those latent variables are extracted back to the main data frames</li>
+<li>Latent variables are treated as outcomes in GAMs</li>
+<li>GAMs treat predictors with smooths to allow wiggliness</li>
+<li>Two models are compared: one with smooth X and year, one with smooth X, year, and smooth X by year interaction</li>
+<li>Present all model comparisons and R squareds</li>
+</ul>
+</div>
+<div id="create-latent-variables-for-outcomes" class="section level2" number="9.3">
+<h2><span class="header-section-number">9.3</span> Create latent variables for outcomes</h2>
+<div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb120-1"><a href="gam.html#cb120-1" aria-hidden="true" tabindex="-1"></a>fit_sem <span class="ot">&lt;-</span> <span class="cf">function</span>(data, items, y, <span class="at">missing =</span> <span class="st">&quot;ml&quot;</span>) {</span>
+<span id="cb120-2"><a href="gam.html#cb120-2" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb120-3"><a href="gam.html#cb120-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Combine names of items to a string for lavaan model</span></span>
+<span id="cb120-4"><a href="gam.html#cb120-4" aria-hidden="true" tabindex="-1"></a>  items_all <span class="ot">&lt;-</span> <span class="fu">paste0</span>(items, <span class="at">collapse =</span> <span class="st">&quot; + &quot;</span>)</span>
+<span id="cb120-5"><a href="gam.html#cb120-5" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb120-6"><a href="gam.html#cb120-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Model strings</span></span>
+<span id="cb120-7"><a href="gam.html#cb120-7" aria-hidden="true" tabindex="-1"></a>  sem0 <span class="ot">&lt;-</span> <span class="fu">str_glue</span>(<span class="st">&quot;{y} =~ {items_all}&quot;</span>)</span>
+<span id="cb120-8"><a href="gam.html#cb120-8" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb120-9"><a href="gam.html#cb120-9" aria-hidden="true" tabindex="-1"></a>  ml0 <span class="ot">&lt;-</span> <span class="fu">sem</span>(sem0, <span class="at">data =</span> data, <span class="at">missing =</span> missing)</span>
+<span id="cb120-10"><a href="gam.html#cb120-10" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb120-11"><a href="gam.html#cb120-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">bind_cols</span>(data, <span class="fu">as.data.frame</span>(<span class="fu">predict</span>(ml0))))</span>
+<span id="cb120-12"><a href="gam.html#cb120-12" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb120-13"><a href="gam.html#cb120-13" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb121"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb121-1"><a href="gam.html#cb121-1" aria-hidden="true" tabindex="-1"></a>mtf_mod <span class="ot">&lt;-</span> <span class="st">&#39;</span></span>
+<span id="cb121-2"><a href="gam.html#cb121-2" aria-hidden="true" tabindex="-1"></a><span class="st">  Depression =~ D_B_1 + D_B_2 + D_B_3 + D_B_4 + D_B_5 + D_B_6</span></span>
+<span id="cb121-3"><a href="gam.html#cb121-3" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;</span></span>
+<span id="cb121-4"><a href="gam.html#cb121-4" aria-hidden="true" tabindex="-1"></a>out <span class="ot">&lt;-</span> <span class="fu">cfa</span>(mtf_mod, <span class="at">data =</span> mtf, <span class="at">missing =</span> <span class="st">&quot;ml&quot;</span>, <span class="at">std.lv =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb121-5"><a href="gam.html#cb121-5" aria-hidden="true" tabindex="-1"></a>mtf <span class="ot">&lt;-</span> <span class="fu">bind_cols</span>(mtf, <span class="fu">as.data.frame</span>(<span class="fu">predict</span>(out)))</span>
+<span id="cb121-6"><a href="gam.html#cb121-6" aria-hidden="true" tabindex="-1"></a>mtf<span class="sc">$</span>Depression <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">scale</span>(mtf<span class="sc">$</span>Depression))</span></code></pre></div>
+<div class="sourceCode" id="cb122"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb122-1"><a href="gam.html#cb122-1" aria-hidden="true" tabindex="-1"></a>us_mod <span class="ot">&lt;-</span> <span class="st">&#39;</span></span>
+<span id="cb122-2"><a href="gam.html#cb122-2" aria-hidden="true" tabindex="-1"></a><span class="st">  Conduct =~ sdqe + sdqg + sdql + sdqr + sdqv</span></span>
+<span id="cb122-3"><a href="gam.html#cb122-3" aria-hidden="true" tabindex="-1"></a><span class="st">  Emotion =~ sdqc + sdqh + sdqm + sdqp + sdqx </span></span>
+<span id="cb122-4"><a href="gam.html#cb122-4" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;</span></span>
+<span id="cb122-5"><a href="gam.html#cb122-5" aria-hidden="true" tabindex="-1"></a>out <span class="ot">&lt;-</span> <span class="fu">cfa</span>(us_mod, <span class="at">data =</span> us, <span class="at">missing =</span> <span class="st">&quot;pairwise&quot;</span>, <span class="at">std.lv =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb122-6"><a href="gam.html#cb122-6" aria-hidden="true" tabindex="-1"></a>us <span class="ot">&lt;-</span> <span class="fu">bind_cols</span>(us, <span class="fu">as.data.frame</span>(<span class="fu">predict</span>(out)))</span>
+<span id="cb122-7"><a href="gam.html#cb122-7" aria-hidden="true" tabindex="-1"></a>us<span class="sc">$</span>Conduct <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">scale</span>(us<span class="sc">$</span>Conduct))</span>
+<span id="cb122-8"><a href="gam.html#cb122-8" aria-hidden="true" tabindex="-1"></a>us<span class="sc">$</span>Emotion <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">scale</span>(us<span class="sc">$</span>Emotion))</span></code></pre></div>
+<div class="sourceCode" id="cb123"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb123-1"><a href="gam.html#cb123-1" aria-hidden="true" tabindex="-1"></a>yrbs_mod <span class="ot">&lt;-</span> <span class="st">&#39;</span></span>
+<span id="cb123-2"><a href="gam.html#cb123-2" aria-hidden="true" tabindex="-1"></a><span class="st">  Suicide =~ sad_lonely + suicide_1 + suicide_2 + suicide_3</span></span>
+<span id="cb123-3"><a href="gam.html#cb123-3" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;</span></span>
+<span id="cb123-4"><a href="gam.html#cb123-4" aria-hidden="true" tabindex="-1"></a>out <span class="ot">&lt;-</span> <span class="fu">cfa</span>(yrbs_mod, <span class="at">data =</span> yrbs, <span class="at">missing =</span> <span class="st">&quot;pairwise&quot;</span>, <span class="at">std.lv =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb123-5"><a href="gam.html#cb123-5" aria-hidden="true" tabindex="-1"></a>yrbs <span class="ot">&lt;-</span> <span class="fu">bind_cols</span>(yrbs, <span class="fu">as.data.frame</span>(<span class="fu">predict</span>(out)))</span>
+<span id="cb123-6"><a href="gam.html#cb123-6" aria-hidden="true" tabindex="-1"></a>yrbs<span class="sc">$</span>Suicide <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">scale</span>(yrbs<span class="sc">$</span>Suicide))</span></code></pre></div>
+</div>
+<div id="estimate-gams" class="section level2" number="9.4">
+<h2><span class="header-section-number">9.4</span> Estimate GAMs</h2>
+<div class="sourceCode" id="cb124"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb124-1"><a href="gam.html#cb124-1" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="cf">function</span>(data, x, y, name) {</span>
+<span id="cb124-2"><a href="gam.html#cb124-2" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb124-3"><a href="gam.html#cb124-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Center year</span></span>
+<span id="cb124-4"><a href="gam.html#cb124-4" aria-hidden="true" tabindex="-1"></a>  data <span class="ot">&lt;-</span> <span class="fu">mutate</span>(data, <span class="at">Year =</span> Year <span class="sc">-</span> <span class="dv">2017</span>)</span>
+<span id="cb124-5"><a href="gam.html#cb124-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb124-6"><a href="gam.html#cb124-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Drop rows with missing predictor</span></span>
+<span id="cb124-7"><a href="gam.html#cb124-7" aria-hidden="true" tabindex="-1"></a>  data <span class="ot">&lt;-</span> <span class="fu">drop_na</span>(data, <span class="fu">all_of</span>(x))</span>
+<span id="cb124-8"><a href="gam.html#cb124-8" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb124-9"><a href="gam.html#cb124-9" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Ensure max knots</span></span>
+<span id="cb124-10"><a href="gam.html#cb124-10" aria-hidden="true" tabindex="-1"></a>  k_x <span class="ot">&lt;-</span> <span class="fu">length</span>(<span class="fu">table</span>(data[[x]]))</span>
+<span id="cb124-11"><a href="gam.html#cb124-11" aria-hidden="true" tabindex="-1"></a>  k_yr <span class="ot">&lt;-</span> <span class="fu">length</span>(<span class="fu">table</span>(data[[<span class="st">&quot;Year&quot;</span>]]))</span>
+<span id="cb124-12"><a href="gam.html#cb124-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb124-13"><a href="gam.html#cb124-13" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Model strings</span></span>
+<span id="cb124-14"><a href="gam.html#cb124-14" aria-hidden="true" tabindex="-1"></a>  model0 <span class="ot">&lt;-</span> <span class="fu">str_glue</span>(<span class="st">&quot;{y} ~ ti(Year, k = {k_yr})&quot;</span>)</span>
+<span id="cb124-15"><a href="gam.html#cb124-15" aria-hidden="true" tabindex="-1"></a>  model1 <span class="ot">&lt;-</span> <span class="fu">str_glue</span>(<span class="st">&quot;{y} ~ ti(Year, k = {k_yr}) + ti({x}, k = {k_x})&quot;</span>)</span>
+<span id="cb124-16"><a href="gam.html#cb124-16" aria-hidden="true" tabindex="-1"></a>  model2 <span class="ot">&lt;-</span> <span class="fu">str_glue</span>(</span>
+<span id="cb124-17"><a href="gam.html#cb124-17" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;{y} ~ ti(Year, k = {k_yr}) + ti({x}, k = {k_x}) + ti({x}, Year, k = c({k_x}, {k_yr}))&quot;</span></span>
+<span id="cb124-18"><a href="gam.html#cb124-18" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb124-19"><a href="gam.html#cb124-19" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb124-20"><a href="gam.html#cb124-20" aria-hidden="true" tabindex="-1"></a>  fit0 <span class="ot">&lt;-</span> <span class="fu">gam</span>(<span class="fu">as.formula</span>(model0), <span class="at">data =</span> data, <span class="at">method =</span> <span class="st">&quot;REML&quot;</span>)</span>
+<span id="cb124-21"><a href="gam.html#cb124-21" aria-hidden="true" tabindex="-1"></a>  fit1 <span class="ot">&lt;-</span> <span class="fu">gam</span>(<span class="fu">as.formula</span>(model1), <span class="at">data =</span> data, <span class="at">method =</span> <span class="st">&quot;REML&quot;</span>)</span>
+<span id="cb124-22"><a href="gam.html#cb124-22" aria-hidden="true" tabindex="-1"></a>  fit2 <span class="ot">&lt;-</span> <span class="fu">gam</span>(<span class="fu">as.formula</span>(model2), <span class="at">data =</span> data, <span class="at">method =</span> <span class="st">&quot;REML&quot;</span>)</span>
+<span id="cb124-23"><a href="gam.html#cb124-23" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb124-24"><a href="gam.html#cb124-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(</span>
+<span id="cb124-25"><a href="gam.html#cb124-25" aria-hidden="true" tabindex="-1"></a>    <span class="fu">tibble</span>(</span>
+<span id="cb124-26"><a href="gam.html#cb124-26" aria-hidden="true" tabindex="-1"></a>      name, x, y, </span>
+<span id="cb124-27"><a href="gam.html#cb124-27" aria-hidden="true" tabindex="-1"></a>      <span class="at">fit0 =</span> <span class="fu">list</span>(fit0), <span class="at">fit1 =</span> <span class="fu">list</span>(fit1), <span class="at">fit2 =</span> <span class="fu">list</span>(fit2)</span>
+<span id="cb124-28"><a href="gam.html#cb124-28" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb124-29"><a href="gam.html#cb124-29" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb124-30"><a href="gam.html#cb124-30" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb125"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb125-1"><a href="gam.html#cb125-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">file.exists</span>(<span class="st">&quot;models/gams.rds&quot;</span>)) {</span>
+<span id="cb125-2"><a href="gam.html#cb125-2" aria-hidden="true" tabindex="-1"></a>  x1 <span class="ot">&lt;-</span> <span class="fu">fit</span>(mtf, <span class="st">&quot;SM&quot;</span>, <span class="st">&quot;Depression&quot;</span>, <span class="st">&quot;MTF&quot;</span>)</span>
+<span id="cb125-3"><a href="gam.html#cb125-3" aria-hidden="true" tabindex="-1"></a>  x2 <span class="ot">&lt;-</span> <span class="fu">fit</span>(mtf, <span class="st">&quot;TV&quot;</span>, <span class="st">&quot;Depression&quot;</span>, <span class="st">&quot;MTF&quot;</span>)</span>
+<span id="cb125-4"><a href="gam.html#cb125-4" aria-hidden="true" tabindex="-1"></a>  x3 <span class="ot">&lt;-</span> <span class="fu">fit</span>(us, <span class="st">&quot;SM&quot;</span>, <span class="st">&quot;Conduct&quot;</span>, <span class="st">&quot;US&quot;</span>)</span>
+<span id="cb125-5"><a href="gam.html#cb125-5" aria-hidden="true" tabindex="-1"></a>  x4 <span class="ot">&lt;-</span> <span class="fu">fit</span>(us, <span class="st">&quot;TV&quot;</span>, <span class="st">&quot;Conduct&quot;</span>, <span class="st">&quot;US&quot;</span>)</span>
+<span id="cb125-6"><a href="gam.html#cb125-6" aria-hidden="true" tabindex="-1"></a>  x5 <span class="ot">&lt;-</span> <span class="fu">fit</span>(us, <span class="st">&quot;SM&quot;</span>, <span class="st">&quot;Emotion&quot;</span>, <span class="st">&quot;US&quot;</span>)</span>
+<span id="cb125-7"><a href="gam.html#cb125-7" aria-hidden="true" tabindex="-1"></a>  x6 <span class="ot">&lt;-</span> <span class="fu">fit</span>(us, <span class="st">&quot;TV&quot;</span>, <span class="st">&quot;Emotion&quot;</span>, <span class="st">&quot;US&quot;</span>)</span>
+<span id="cb125-8"><a href="gam.html#cb125-8" aria-hidden="true" tabindex="-1"></a>  x7 <span class="ot">&lt;-</span> <span class="fu">fit</span>(yrbs, <span class="st">&quot;DV&quot;</span>, <span class="st">&quot;Suicide&quot;</span>, <span class="st">&quot;YRBS&quot;</span>)</span>
+<span id="cb125-9"><a href="gam.html#cb125-9" aria-hidden="true" tabindex="-1"></a>  x8 <span class="ot">&lt;-</span> <span class="fu">fit</span>(yrbs, <span class="st">&quot;TV&quot;</span>, <span class="st">&quot;Suicide&quot;</span>, <span class="st">&quot;YRBS&quot;</span>)</span>
+<span id="cb125-10"><a href="gam.html#cb125-10" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb125-11"><a href="gam.html#cb125-11" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Rename variables</span></span>
+<span id="cb125-12"><a href="gam.html#cb125-12" aria-hidden="true" tabindex="-1"></a>  fits <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(x1,x2,x3,x4,x5,x6,x7,x8)</span>
+<span id="cb125-13"><a href="gam.html#cb125-13" aria-hidden="true" tabindex="-1"></a>  fits <span class="ot">&lt;-</span> fits <span class="sc">%&gt;%</span> </span>
+<span id="cb125-14"><a href="gam.html#cb125-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">rename</span>(<span class="at">Technology =</span> x, <span class="at">Outcome =</span> y, <span class="at">Study =</span> name) <span class="sc">%&gt;%</span> </span>
+<span id="cb125-15"><a href="gam.html#cb125-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(</span>
+<span id="cb125-16"><a href="gam.html#cb125-16" aria-hidden="true" tabindex="-1"></a>      <span class="at">Technology =</span> <span class="fu">ifelse</span>(</span>
+<span id="cb125-17"><a href="gam.html#cb125-17" aria-hidden="true" tabindex="-1"></a>        Technology <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;SM&quot;</span>, <span class="st">&quot;DV&quot;</span>), </span>
+<span id="cb125-18"><a href="gam.html#cb125-18" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;Social media / device&quot;</span>, </span>
+<span id="cb125-19"><a href="gam.html#cb125-19" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;Television&quot;</span></span>
+<span id="cb125-20"><a href="gam.html#cb125-20" aria-hidden="true" tabindex="-1"></a>      )</span>
+<span id="cb125-21"><a href="gam.html#cb125-21" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb125-22"><a href="gam.html#cb125-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">saveRDS</span>(fits, <span class="st">&quot;models/gams.rds&quot;</span>)</span>
+<span id="cb125-23"><a href="gam.html#cb125-23" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> {fits <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">&quot;models/gams.rds&quot;</span>)}</span></code></pre></div>
+<div class="sourceCode" id="cb126"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb126-1"><a href="gam.html#cb126-1" aria-hidden="true" tabindex="-1"></a>out <span class="ot">&lt;-</span> fits <span class="sc">%&gt;%</span> </span>
+<span id="cb126-2"><a href="gam.html#cb126-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(fit0<span class="sc">:</span>fit2) <span class="sc">%&gt;%</span> </span>
+<span id="cb126-3"><a href="gam.html#cb126-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb126-4"><a href="gam.html#cb126-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">rsq =</span> <span class="fu">map_dbl</span>(value, <span class="sc">~</span><span class="fu">summary</span>(.)<span class="sc">$</span>r.sq),</span>
+<span id="cb126-5"><a href="gam.html#cb126-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">dev =</span> <span class="fu">map_dbl</span>(value, <span class="sc">~</span><span class="fu">summary</span>(.)<span class="sc">$</span>dev.expl),</span>
+<span id="cb126-6"><a href="gam.html#cb126-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">aic =</span> <span class="fu">map_dbl</span>(value, AIC)</span>
+<span id="cb126-7"><a href="gam.html#cb126-7" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span> </span>
+<span id="cb126-8"><a href="gam.html#cb126-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>value) <span class="sc">%&gt;%</span> </span>
+<span id="cb126-9"><a href="gam.html#cb126-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">values_from =</span> rsq<span class="sc">:</span>aic)</span>
+<span id="cb126-10"><a href="gam.html#cb126-10" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(out, <span class="at">digits =</span> <span class="dv">2</span>)</span></code></pre></div>
+<table style="width:100%;">
+<colgroup>
+<col width="4%" />
+<col width="17%" />
+<col width="8%" />
+<col width="7%" />
+<col width="7%" />
+<col width="7%" />
+<col width="7%" />
+<col width="7%" />
+<col width="7%" />
+<col width="8%" />
+<col width="8%" />
+<col width="8%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Study</th>
+<th align="left">Technology</th>
+<th align="left">Outcome</th>
+<th align="right">rsq_fit0</th>
+<th align="right">rsq_fit1</th>
+<th align="right">rsq_fit2</th>
+<th align="right">dev_fit0</th>
+<th align="right">dev_fit1</th>
+<th align="right">dev_fit2</th>
+<th align="right">aic_fit0</th>
+<th align="right">aic_fit1</th>
+<th align="right">aic_fit2</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">MTF</td>
+<td align="left">Social media / device</td>
+<td align="left">Depression</td>
+<td align="right">0.01</td>
+<td align="right">0.01</td>
+<td align="right">0.01</td>
+<td align="right">0.01</td>
+<td align="right">0.01</td>
+<td align="right">0.01</td>
+<td align="right">347916.95</td>
+<td align="right">347694.60</td>
+<td align="right">347692.53</td>
+</tr>
+<tr class="even">
+<td align="left">MTF</td>
+<td align="left">Television</td>
+<td align="left">Depression</td>
+<td align="right">0.00</td>
+<td align="right">0.01</td>
+<td align="right">0.01</td>
+<td align="right">0.00</td>
+<td align="right">0.01</td>
+<td align="right">0.01</td>
+<td align="right">1038065.36</td>
+<td align="right">1035800.03</td>
+<td align="right">1035710.03</td>
+</tr>
+<tr class="odd">
+<td align="left">US</td>
+<td align="left">Social media / device</td>
+<td align="left">Conduct</td>
+<td align="right">0.00</td>
+<td align="right">0.03</td>
+<td align="right">0.03</td>
+<td align="right">0.00</td>
+<td align="right">0.03</td>
+<td align="right">0.03</td>
+<td align="right">53280.58</td>
+<td align="right">52826.26</td>
+<td align="right">52825.78</td>
+</tr>
+<tr class="even">
+<td align="left">US</td>
+<td align="left">Television</td>
+<td align="left">Conduct</td>
+<td align="right">0.00</td>
+<td align="right">0.02</td>
+<td align="right">0.02</td>
+<td align="right">0.00</td>
+<td align="right">0.02</td>
+<td align="right">0.02</td>
+<td align="right">54062.73</td>
+<td align="right">53781.76</td>
+<td align="right">53783.35</td>
+</tr>
+<tr class="odd">
+<td align="left">US</td>
+<td align="left">Social media / device</td>
+<td align="left">Emotion</td>
+<td align="right">0.00</td>
+<td align="right">0.02</td>
+<td align="right">0.02</td>
+<td align="right">0.00</td>
+<td align="right">0.02</td>
+<td align="right">0.02</td>
+<td align="right">53374.18</td>
+<td align="right">53045.29</td>
+<td align="right">53038.83</td>
+</tr>
+<tr class="even">
+<td align="left">US</td>
+<td align="left">Television</td>
+<td align="left">Emotion</td>
+<td align="right">0.00</td>
+<td align="right">0.01</td>
+<td align="right">0.01</td>
+<td align="right">0.00</td>
+<td align="right">0.01</td>
+<td align="right">0.01</td>
+<td align="right">54123.54</td>
+<td align="right">53912.85</td>
+<td align="right">53911.05</td>
+</tr>
+<tr class="odd">
+<td align="left">YRBS</td>
+<td align="left">Social media / device</td>
+<td align="left">Suicide</td>
+<td align="right">0.00</td>
+<td align="right">0.02</td>
+<td align="right">0.02</td>
+<td align="right">0.00</td>
+<td align="right">0.02</td>
+<td align="right">0.02</td>
+<td align="right">83550.64</td>
+<td align="right">83051.90</td>
+<td align="right">83054.78</td>
+</tr>
+<tr class="even">
+<td align="left">YRBS</td>
+<td align="left">Television</td>
+<td align="left">Suicide</td>
+<td align="right">0.00</td>
+<td align="right">0.01</td>
+<td align="right">0.01</td>
+<td align="right">0.00</td>
+<td align="right">0.01</td>
+<td align="right">0.01</td>
+<td align="right">83510.82</td>
+<td align="right">83369.27</td>
+<td align="right">83367.99</td>
+</tr>
+</tbody>
+</table>
+<p>Figure of fitted X - Y lines per year</p>
+<div class="sourceCode" id="cb127"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb127-1"><a href="gam.html#cb127-1" aria-hidden="true" tabindex="-1"></a>fits</span></code></pre></div>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["Study"],"name":[1],"type":["chr"],"align":["left"]},{"label":["Technology"],"name":[2],"type":["chr"],"align":["left"]},{"label":["Outcome"],"name":[3],"type":["chr"],"align":["left"]},{"label":["fit0"],"name":[4],"type":["list"],"align":["right"]},{"label":["fit1"],"name":[5],"type":["list"],"align":["right"]},{"label":["fit2"],"name":[6],"type":["list"],"align":["right"]}],"data":[{"1":"MTF","2":"Social media / device","3":"Depression","4":"<S3: gam>","5":"<S3: gam>","6":"<S3: gam>"},{"1":"MTF","2":"Television","3":"Depression","4":"<S3: gam>","5":"<S3: gam>","6":"<S3: gam>"},{"1":"US","2":"Social media / device","3":"Conduct","4":"<S3: gam>","5":"<S3: gam>","6":"<S3: gam>"},{"1":"US","2":"Television","3":"Conduct","4":"<S3: gam>","5":"<S3: gam>","6":"<S3: gam>"},{"1":"US","2":"Social media / device","3":"Emotion","4":"<S3: gam>","5":"<S3: gam>","6":"<S3: gam>"},{"1":"US","2":"Television","3":"Emotion","4":"<S3: gam>","5":"<S3: gam>","6":"<S3: gam>"},{"1":"YRBS","2":"Social media / device","3":"Suicide","4":"<S3: gam>","5":"<S3: gam>","6":"<S3: gam>"},{"1":"YRBS","2":"Television","3":"Suicide","4":"<S3: gam>","5":"<S3: gam>","6":"<S3: gam>"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb128-1"><a href="gam.html#cb128-1" aria-hidden="true" tabindex="-1"></a>foo <span class="ot">&lt;-</span> <span class="cf">function</span>(row) {</span>
+<span id="cb128-2"><a href="gam.html#cb128-2" aria-hidden="true" tabindex="-1"></a>  fit <span class="ot">&lt;-</span> fits<span class="sc">$</span>fit2[[row]]</span>
+<span id="cb128-3"><a href="gam.html#cb128-3" aria-hidden="true" tabindex="-1"></a>  newx <span class="ot">&lt;-</span> <span class="fu">distinct</span>(fit[[<span class="st">&quot;model&quot;</span>]][,<span class="dv">2</span><span class="sc">:</span><span class="dv">3</span>])</span>
+<span id="cb128-4"><a href="gam.html#cb128-4" aria-hidden="true" tabindex="-1"></a>  preds <span class="ot">&lt;-</span> <span class="fu">cbind</span>(newx, <span class="fu">predict</span>(fit, <span class="at">newdata =</span> newx, <span class="at">se.fit =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb128-5"><a href="gam.html#cb128-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">as_tibble</span>()</span>
+<span id="cb128-6"><a href="gam.html#cb128-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">names</span>(preds)[<span class="dv">2</span>] <span class="ot">&lt;-</span> <span class="st">&quot;x&quot;</span></span>
+<span id="cb128-7"><a href="gam.html#cb128-7" aria-hidden="true" tabindex="-1"></a>  preds<span class="sc">$</span>Year <span class="ot">&lt;-</span> preds<span class="sc">$</span>Year <span class="sc">+</span> <span class="dv">2017</span></span>
+<span id="cb128-8"><a href="gam.html#cb128-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(preds)</span>
+<span id="cb128-9"><a href="gam.html#cb128-9" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb128-10"><a href="gam.html#cb128-10" aria-hidden="true" tabindex="-1"></a>bar <span class="ot">&lt;-</span> <span class="cf">function</span>(row) {</span>
+<span id="cb128-11"><a href="gam.html#cb128-11" aria-hidden="true" tabindex="-1"></a>  fit <span class="ot">&lt;-</span> fits<span class="sc">$</span>fit2[[row]]</span>
+<span id="cb128-12"><a href="gam.html#cb128-12" aria-hidden="true" tabindex="-1"></a>  newx <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(fit[[<span class="st">&quot;model&quot;</span>]])</span>
+<span id="cb128-13"><a href="gam.html#cb128-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">names</span>(newx) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;y&quot;</span>, <span class="st">&quot;Year&quot;</span>, <span class="st">&quot;x&quot;</span>)</span>
+<span id="cb128-14"><a href="gam.html#cb128-14" aria-hidden="true" tabindex="-1"></a>  newx<span class="sc">$</span>Year <span class="ot">&lt;-</span> newx<span class="sc">$</span>Year <span class="sc">+</span> <span class="dv">2017</span></span>
+<span id="cb128-15"><a href="gam.html#cb128-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(newx)</span>
+<span id="cb128-16"><a href="gam.html#cb128-16" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb128-17"><a href="gam.html#cb128-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb128-18"><a href="gam.html#cb128-18" aria-hidden="true" tabindex="-1"></a>fits<span class="sc">$</span>outs <span class="ot">&lt;-</span> <span class="fu">map</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">8</span>, foo)</span>
+<span id="cb128-19"><a href="gam.html#cb128-19" aria-hidden="true" tabindex="-1"></a>fits<span class="sc">$</span>dats <span class="ot">&lt;-</span> <span class="fu">map</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">8</span>, bar)</span>
+<span id="cb128-20"><a href="gam.html#cb128-20" aria-hidden="true" tabindex="-1"></a>p01 <span class="ot">&lt;-</span> fits <span class="sc">%&gt;%</span> </span>
+<span id="cb128-21"><a href="gam.html#cb128-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span><span class="fu">c</span>(fit0<span class="sc">:</span>fit2, dats)) <span class="sc">%&gt;%</span> </span>
+<span id="cb128-22"><a href="gam.html#cb128-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest</span>(outs) <span class="sc">%&gt;%</span> </span>
+<span id="cb128-23"><a href="gam.html#cb128-23" aria-hidden="true" tabindex="-1"></a>  <span class="co"># mutate(Year2 = Year, Year = factor(ifelse(Year &lt; 2005, &quot;&lt; 2005&quot;, Year))) %&gt;% </span></span>
+<span id="cb128-24"><a href="gam.html#cb128-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(x, fit, <span class="at">col =</span> Year, <span class="at">group =</span> Year, <span class="at">fill =</span> Year)) <span class="sc">+</span></span>
+<span id="cb128-25"><a href="gam.html#cb128-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_viridis_c</span>(</span>
+<span id="cb128-26"><a href="gam.html#cb128-26" aria-hidden="true" tabindex="-1"></a>    <span class="at">aesthetics =</span> <span class="fu">c</span>(<span class="st">&quot;color&quot;</span>, <span class="st">&quot;fill&quot;</span>), </span>
+<span id="cb128-27"><a href="gam.html#cb128-27" aria-hidden="true" tabindex="-1"></a>    <span class="at">direction =</span> <span class="sc">-</span><span class="dv">1</span>, <span class="at">end =</span> .<span class="dv">95</span>, <span class="at">values =</span> <span class="fu">c</span>(.<span class="dv">6</span>, <span class="dv">1</span>), <span class="at">na.value =</span> <span class="st">&quot;#C9DF2F&quot;</span>,</span>
+<span id="cb128-28"><a href="gam.html#cb128-28" aria-hidden="true" tabindex="-1"></a>    <span class="at">guide =</span> <span class="st">&quot;legend&quot;</span>, </span>
+<span id="cb128-29"><a href="gam.html#cb128-29" aria-hidden="true" tabindex="-1"></a>    <span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">2005</span>, <span class="dv">2008</span>, <span class="dv">2011</span>, <span class="dv">2014</span>, <span class="dv">2017</span>), </span>
+<span id="cb128-30"><a href="gam.html#cb128-30" aria-hidden="true" tabindex="-1"></a>    <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;2005</span><span class="sc">\n</span><span class="st">(or before)&quot;</span>, <span class="dv">2008</span>, <span class="dv">2011</span>, <span class="dv">2014</span>, <span class="dv">2017</span>)</span>
+<span id="cb128-31"><a href="gam.html#cb128-31" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">+</span></span>
+<span id="cb128-32"><a href="gam.html#cb128-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">breaks =</span> <span class="fu">pretty_breaks</span>()) <span class="sc">+</span></span>
+<span id="cb128-33"><a href="gam.html#cb128-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">pretty_breaks</span>()) <span class="sc">+</span></span>
+<span id="cb128-34"><a href="gam.html#cb128-34" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Can add points but this renders trends invisibly small</span></span>
+<span id="cb128-35"><a href="gam.html#cb128-35" aria-hidden="true" tabindex="-1"></a>  <span class="co"># geom_point(</span></span>
+<span id="cb128-36"><a href="gam.html#cb128-36" aria-hidden="true" tabindex="-1"></a>  <span class="co">#   data = unnest(select(fits, -c(fit0:fit2, outs)), dats),</span></span>
+<span id="cb128-37"><a href="gam.html#cb128-37" aria-hidden="true" tabindex="-1"></a>  <span class="co">#   aes(x=x, y=y), size = .1, alpha = .075,</span></span>
+<span id="cb128-38"><a href="gam.html#cb128-38" aria-hidden="true" tabindex="-1"></a>  <span class="co">#   position = position_jitter(.25, 0, seed = 1)</span></span>
+<span id="cb128-39"><a href="gam.html#cb128-39" aria-hidden="true" tabindex="-1"></a>  <span class="co"># ) +</span></span>
+<span id="cb128-40"><a href="gam.html#cb128-40" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_ribbon</span>(</span>
+<span id="cb128-41"><a href="gam.html#cb128-41" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">ymin =</span> fit<span class="sc">-</span>se.fit<span class="sc">*</span><span class="dv">2</span>, <span class="at">ymax =</span> fit<span class="sc">+</span>se.fit<span class="sc">*</span><span class="dv">2</span>), </span>
+<span id="cb128-42"><a href="gam.html#cb128-42" aria-hidden="true" tabindex="-1"></a>    <span class="at">alpha =</span> .<span class="dv">15</span>, <span class="at">col =</span> <span class="cn">NA</span>, <span class="at">show.legend =</span> <span class="cn">FALSE</span></span>
+<span id="cb128-43"><a href="gam.html#cb128-43" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb128-44"><a href="gam.html#cb128-44" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">size =</span> .<span class="dv">6</span>) <span class="sc">+</span></span>
+<span id="cb128-45"><a href="gam.html#cb128-45" aria-hidden="true" tabindex="-1"></a>  <span class="fu">guides</span>(</span>
+<span id="cb128-46"><a href="gam.html#cb128-46" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="fu">guide_legend</span>(</span>
+<span id="cb128-47"><a href="gam.html#cb128-47" aria-hidden="true" tabindex="-1"></a>      <span class="at">override.aes =</span> <span class="fu">list</span>(<span class="at">size =</span> <span class="fl">1.25</span>)</span>
+<span id="cb128-48"><a href="gam.html#cb128-48" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb128-49"><a href="gam.html#cb128-49" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span> </span>
+<span id="cb128-50"><a href="gam.html#cb128-50" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Technology use&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Standardized latent factor score&quot;</span>) <span class="sc">+</span></span>
+<span id="cb128-51"><a href="gam.html#cb128-51" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(</span>
+<span id="cb128-52"><a href="gam.html#cb128-52" aria-hidden="true" tabindex="-1"></a>    Technology<span class="sc">~</span>Outcome, <span class="at">scales =</span> <span class="st">&quot;free_x&quot;</span>, <span class="at">labeller =</span> <span class="fu">label_wrap_gen</span>(<span class="dv">13</span>)</span>
+<span id="cb128-53"><a href="gam.html#cb128-53" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb128-54"><a href="gam.html#cb128-54" aria-hidden="true" tabindex="-1"></a>p01</span></code></pre></div>
+<p><img src="06-GAM_files/figure-html/unnamed-chunk-4-1.png" width="576" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb129"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb129-1"><a href="gam.html#cb129-1" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> out <span class="sc">%&gt;%</span> </span>
+<span id="cb129-2"><a href="gam.html#cb129-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(Technology, dev_fit1, <span class="at">shape =</span> Outcome)) <span class="sc">+</span></span>
+<span id="cb129-3"><a href="gam.html#cb129-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(</span>
+<span id="cb129-4"><a href="gam.html#cb129-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;Proportion</span><span class="sc">\n</span><span class="st">variance explained&quot;</span>,</span>
+<span id="cb129-5"><a href="gam.html#cb129-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, .<span class="dv">04</span>), </span>
+<span id="cb129-6"><a href="gam.html#cb129-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">labels =</span> <span class="cf">function</span>(x) <span class="fu">percent</span>(x, <span class="dv">1</span>)</span>
+<span id="cb129-7"><a href="gam.html#cb129-7" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb129-8"><a href="gam.html#cb129-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_discrete</span>(<span class="at">labels =</span> <span class="cf">function</span>(x) <span class="fu">str_replace</span>(x, <span class="st">&quot;/&quot;</span>, <span class="st">&quot;</span><span class="sc">\n</span><span class="st">/&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb129-9"><a href="gam.html#cb129-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">position =</span> <span class="fu">position_jitter</span>(.<span class="dv">1</span>, <span class="at">seed =</span> <span class="dv">1</span>), <span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb129-10"><a href="gam.html#cb129-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_shape_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="dv">15</span>, <span class="dv">16</span>, <span class="dv">21</span>, <span class="dv">22</span>)) <span class="sc">+</span></span>
+<span id="cb129-11"><a href="gam.html#cb129-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb129-12"><a href="gam.html#cb129-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>, </span>
+<span id="cb129-13"><a href="gam.html#cb129-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">aspect.ratio =</span> <span class="dv">1</span>, </span>
+<span id="cb129-14"><a href="gam.html#cb129-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.title.x =</span> <span class="fu">element_blank</span>()</span>
+<span id="cb129-15"><a href="gam.html#cb129-15" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb129-16"><a href="gam.html#cb129-16" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> out <span class="sc">%&gt;%</span>   </span>
+<span id="cb129-17"><a href="gam.html#cb129-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(dev_fit2<span class="sc">-</span>dev_fit1, aic_fit1<span class="sc">-</span>aic_fit2, <span class="at">shape =</span> Outcome)) <span class="sc">+</span></span>
+<span id="cb129-18"><a href="gam.html#cb129-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">3</span>, <span class="dv">3</span>), <span class="at">lty =</span> <span class="dv">2</span>, <span class="at">size =</span> .<span class="dv">25</span>) <span class="sc">+</span></span>
+<span id="cb129-19"><a href="gam.html#cb129-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_shape_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="dv">15</span>, <span class="dv">16</span>, <span class="dv">21</span>, <span class="dv">22</span>)) <span class="sc">+</span></span>
+<span id="cb129-20"><a href="gam.html#cb129-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb129-21"><a href="gam.html#cb129-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">&quot;AIC difference&quot;</span>) <span class="sc">+</span></span>
+<span id="cb129-22"><a href="gam.html#cb129-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_cartesian</span>(<span class="at">ylim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">10</span>, <span class="dv">10</span>)) <span class="sc">+</span></span>
+<span id="cb129-23"><a href="gam.html#cb129-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(</span>
+<span id="cb129-24"><a href="gam.html#cb129-24" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;Additional variance explained</span><span class="sc">\n</span><span class="st">by model with interaction&quot;</span>,</span>
+<span id="cb129-25"><a href="gam.html#cb129-25" aria-hidden="true" tabindex="-1"></a>    <span class="at">labels =</span> <span class="cf">function</span>(x) <span class="fu">percent</span>(x, .<span class="dv">01</span>)</span>
+<span id="cb129-26"><a href="gam.html#cb129-26" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb129-27"><a href="gam.html#cb129-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="st">&quot;Technology&quot;</span>, <span class="at">labeller =</span> <span class="fu">label_wrap_gen</span>(<span class="dv">13</span>)) <span class="sc">+</span></span>
+<span id="cb129-28"><a href="gam.html#cb129-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>()</span>
+<span id="cb129-29"><a href="gam.html#cb129-29" aria-hidden="true" tabindex="-1"></a>p01 <span class="sc">/</span> ((p1 <span class="sc">|</span> p2) <span class="sc">+</span> <span class="fu">plot_layout</span>(<span class="at">widths =</span> <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">6</span>))) <span class="sc">+</span> <span class="fu">plot_layout</span>(<span class="at">heights =</span> <span class="fu">c</span>(<span class="dv">65</span>, <span class="dv">35</span>))</span></code></pre></div>
+<p><img src="06-GAM_files/figure-html/Figure3-1.png" width="614.4" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb130"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb130-1"><a href="gam.html#cb130-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">&quot;Figure3.png&quot;</span>, <span class="at">width =</span> <span class="dv">7</span>, <span class="at">height =</span> <span class="dv">5</span>)</span>
+<span id="cb130-2"><a href="gam.html#cb130-2" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span>(out, Study<span class="sc">==</span><span class="st">&quot;MTF&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb130-3"><a href="gam.html#cb130-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">delta_aic =</span> aic_fit1<span class="sc">-</span>aic_fit2, <span class="at">delta_dev =</span> <span class="fu">percent</span>(dev_fit2<span class="sc">-</span>dev_fit1)) <span class="sc">%&gt;%</span> </span>
+<span id="cb130-4"><a href="gam.html#cb130-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Study<span class="sc">:</span>Outcome, <span class="fu">starts_with</span>(<span class="st">&quot;delta&quot;</span>)) </span></code></pre></div>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["Study"],"name":[1],"type":["chr"],"align":["left"]},{"label":["Technology"],"name":[2],"type":["chr"],"align":["left"]},{"label":["Outcome"],"name":[3],"type":["chr"],"align":["left"]},{"label":["delta_aic"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["delta_dev"],"name":[5],"type":["chr"],"align":["left"]}],"data":[{"1":"MTF","2":"Social media / device","3":"Depression","4":"2.07363","5":"0.010%"},{"1":"MTF","2":"Television","3":"Depression","4":"90.00266","5":"0.032%"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+<div id="session-information" class="section level2" number="9.5">
+<h2><span class="header-section-number">9.5</span> Session information</h2>
+<div class="sourceCode" id="cb131"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb131-1"><a href="gam.html#cb131-1" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">width =</span> <span class="dv">120</span>)</span>
+<span id="cb131-2"><a href="gam.html#cb131-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sessioninfo)</span>
+<span id="cb131-3"><a href="gam.html#cb131-3" aria-hidden="true" tabindex="-1"></a><span class="fu">session_info</span>()</span></code></pre></div>
+<pre><code>## ─ Session info ───────────────────────────────────────────────────────────────────────────────────────────────────────
+##  setting  value                       
+##  version  R version 4.0.3 (2020-10-10)
+##  os       Ubuntu 20.04.1 LTS          
+##  system   x86_64, linux-gnu           
+##  ui       X11                         
+##  language (EN)                        
+##  collate  C.UTF-8                     
+##  ctype    C.UTF-8                     
+##  tz       Europe/London               
+##  date     2020-12-18                  
+## 
+## ─ Packages ───────────────────────────────────────────────────────────────────────────────────────────────────────────
+##  package        * version  date       lib source                            
+##  abind            1.4-5    2016-07-21 [1] CRAN (R 4.0.2)                    
+##  assertthat       0.2.1    2019-03-21 [1] CRAN (R 4.0.2)                    
+##  backports        1.2.1    2020-12-09 [1] CRAN (R 4.0.3)                    
+##  base64enc        0.1-3    2015-07-28 [1] CRAN (R 4.0.2)                    
+##  bayesplot        1.7.2    2020-05-28 [1] CRAN (R 4.0.2)                    
+##  bookdown         0.21.6   2020-12-16 [1] Github (rstudio/bookdown@92c59d3) 
+##  boot             1.3-25   2020-04-26 [4] CRAN (R 4.0.0)                    
+##  bridgesampling   1.0-0    2020-02-26 [1] CRAN (R 4.0.2)                    
+##  brms           * 2.14.4   2020-11-03 [1] CRAN (R 4.0.3)                    
+##  Brobdingnag      1.2-6    2018-08-13 [1] CRAN (R 4.0.2)                    
+##  broom            0.7.2    2020-10-20 [1] CRAN (R 4.0.3)                    
+##  callr            3.5.1    2020-10-13 [1] CRAN (R 4.0.2)                    
+##  cellranger       1.1.0    2016-07-27 [1] CRAN (R 4.0.2)                    
+##  cli              2.2.0    2020-11-20 [1] CRAN (R 4.0.3)                    
+##  coda             0.19-4   2020-09-30 [1] CRAN (R 4.0.2)                    
+##  codetools        0.2-18   2020-11-04 [4] CRAN (R 4.0.3)                    
+##  colorspace       2.0-0    2020-11-11 [1] CRAN (R 4.0.3)                    
+##  colourpicker     1.1.0    2020-09-14 [1] CRAN (R 4.0.2)                    
+##  crayon           1.3.4    2017-09-16 [1] CRAN (R 4.0.2)                    
+##  crosstalk        1.1.0.1  2020-03-13 [1] CRAN (R 4.0.2)                    
+##  curl             4.3      2019-12-02 [1] CRAN (R 4.0.2)                    
+##  DBI              1.1.0    2019-12-15 [1] CRAN (R 4.0.2)                    
+##  dbplyr           2.0.0    2020-11-03 [1] CRAN (R 4.0.3)                    
+##  digest           0.6.27   2020-10-24 [1] CRAN (R 4.0.3)                    
+##  dplyr          * 1.0.2    2020-08-18 [1] CRAN (R 4.0.2)                    
+##  DT               0.16     2020-10-13 [1] CRAN (R 4.0.2)                    
+##  dygraphs         1.1.1.6  2018-07-11 [1] CRAN (R 4.0.2)                    
+##  ellipsis         0.3.1    2020-05-15 [1] CRAN (R 4.0.2)                    
+##  emmeans          1.5.3    2020-12-09 [1] CRAN (R 4.0.3)                    
+##  estimability     1.3      2018-02-11 [1] CRAN (R 4.0.2)                    
+##  evaluate         0.14     2019-05-28 [1] CRAN (R 4.0.2)                    
+##  fansi            0.4.1    2020-01-08 [1] CRAN (R 4.0.2)                    
+##  farver           2.0.3    2020-01-16 [1] CRAN (R 4.0.2)                    
+##  fastmap          1.0.1    2019-10-08 [1] CRAN (R 4.0.2)                    
+##  forcats        * 0.5.0    2020-03-01 [1] CRAN (R 4.0.2)                    
+##  fs               1.5.0    2020-07-31 [1] CRAN (R 4.0.2)                    
+##  future         * 1.21.0   2020-12-10 [1] CRAN (R 4.0.3)                    
+##  gamm4            0.2-6    2020-04-03 [1] CRAN (R 4.0.3)                    
+##  generics         0.1.0    2020-10-31 [1] CRAN (R 4.0.3)                    
+##  ggplot2        * 3.3.2    2020-06-19 [1] CRAN (R 4.0.2)                    
+##  ggridges         0.5.2    2020-01-12 [1] CRAN (R 4.0.2)                    
+##  ggstance       * 0.3.4    2020-04-02 [1] CRAN (R 4.0.2)                    
+##  globals          0.14.0   2020-11-22 [1] CRAN (R 4.0.3)                    
+##  glue             1.4.2    2020-08-27 [1] CRAN (R 4.0.2)                    
+##  gridExtra        2.3      2017-09-09 [1] CRAN (R 4.0.2)                    
+##  gtable           0.3.0    2019-03-25 [1] CRAN (R 4.0.2)                    
+##  gtools           3.8.2    2020-03-31 [1] CRAN (R 4.0.2)                    
+##  haven            2.3.1    2020-06-01 [1] CRAN (R 4.0.2)                    
+##  highr            0.8      2019-03-20 [1] CRAN (R 4.0.2)                    
+##  hms              0.5.3    2020-01-08 [1] CRAN (R 4.0.2)                    
+##  htmltools        0.5.0    2020-06-16 [1] CRAN (R 4.0.2)                    
+##  htmlwidgets      1.5.3    2020-12-10 [1] CRAN (R 4.0.3)                    
+##  httpuv           1.5.4    2020-06-06 [1] CRAN (R 4.0.2)                    
+##  httr             1.4.2    2020-07-20 [1] CRAN (R 4.0.2)                    
+##  igraph           1.2.6    2020-10-06 [1] CRAN (R 4.0.2)                    
+##  inline           0.3.17   2020-12-01 [1] CRAN (R 4.0.3)                    
+##  jsonlite         1.7.2    2020-12-09 [1] CRAN (R 4.0.3)                    
+##  knitr          * 1.30     2020-09-22 [1] CRAN (R 4.0.2)                    
+##  labeling         0.4.2    2020-10-20 [1] CRAN (R 4.0.3)                    
+##  later            1.1.0.1  2020-06-05 [1] CRAN (R 4.0.2)                    
+##  lattice          0.20-41  2020-04-02 [4] CRAN (R 4.0.0)                    
+##  lavaan         * 0.6-7    2020-07-31 [1] CRAN (R 4.0.2)                    
+##  lifecycle        0.2.0    2020-03-06 [1] CRAN (R 4.0.2)                    
+##  listenv          0.8.0    2019-12-05 [1] CRAN (R 4.0.2)                    
+##  lme4             1.1-26   2020-12-01 [1] CRAN (R 4.0.3)                    
+##  loo              2.4.1    2020-12-09 [1] CRAN (R 4.0.3)                    
+##  lubridate        1.7.9.2  2020-11-13 [1] CRAN (R 4.0.3)                    
+##  magrittr         2.0.1    2020-11-17 [1] CRAN (R 4.0.3)                    
+##  markdown         1.1      2019-08-07 [1] CRAN (R 4.0.2)                    
+##  MASS             7.3-53   2020-09-09 [4] CRAN (R 4.0.2)                    
+##  Matrix           1.2-18   2019-11-27 [4] CRAN (R 4.0.0)                    
+##  matrixStats      0.57.0   2020-09-25 [1] CRAN (R 4.0.2)                    
+##  mgcv           * 1.8-33   2020-08-27 [1] CRAN (R 4.0.2)                    
+##  mime             0.9      2020-02-04 [1] CRAN (R 4.0.2)                    
+##  miniUI           0.1.1.1  2018-05-18 [1] CRAN (R 4.0.2)                    
+##  minqa            1.2.4    2014-10-09 [1] CRAN (R 4.0.2)                    
+##  mnormt           2.0.2    2020-09-01 [1] CRAN (R 4.0.2)                    
+##  modelr           0.1.8    2020-05-19 [1] CRAN (R 4.0.2)                    
+##  multcomp         1.4-15   2020-11-14 [1] CRAN (R 4.0.3)                    
+##  munsell          0.5.0    2018-06-12 [1] CRAN (R 4.0.2)                    
+##  mvtnorm          1.1-1    2020-06-09 [1] CRAN (R 4.0.2)                    
+##  nlme           * 3.1-150  2020-10-24 [4] CRAN (R 4.0.3)                    
+##  nloptr           1.2.2.2  2020-07-02 [1] CRAN (R 4.0.2)                    
+##  pacman           0.5.1    2019-03-11 [1] CRAN (R 4.0.2)                    
+##  parallelly       1.22.0   2020-12-13 [1] CRAN (R 4.0.3)                    
+##  patchwork      * 1.1.0    2020-11-09 [1] CRAN (R 4.0.3)                    
+##  pbivnorm         0.6.0    2015-01-23 [1] CRAN (R 4.0.2)                    
+##  pillar           1.4.7    2020-11-20 [1] CRAN (R 4.0.3)                    
+##  pkgbuild         1.2.0    2020-12-15 [1] CRAN (R 4.0.3)                    
+##  pkgconfig        2.0.3    2019-09-22 [1] CRAN (R 4.0.2)                    
+##  plyr             1.8.6    2020-03-03 [1] CRAN (R 4.0.2)                    
+##  prettyunits      1.1.1    2020-01-24 [1] CRAN (R 4.0.2)                    
+##  processx         3.4.5    2020-11-30 [1] CRAN (R 4.0.3)                    
+##  projpred         2.0.2    2020-10-28 [1] CRAN (R 4.0.3)                    
+##  promises         1.1.1    2020-06-09 [1] CRAN (R 4.0.2)                    
+##  ps               1.5.0    2020-12-05 [1] CRAN (R 4.0.3)                    
+##  purrr          * 0.3.4    2020-04-17 [1] CRAN (R 4.0.2)                    
+##  R6               2.5.0    2020-10-28 [1] CRAN (R 4.0.3)                    
+##  Rcpp           * 1.0.5    2020-07-06 [1] CRAN (R 4.0.2)                    
+##  RcppParallel     5.0.2    2020-06-24 [1] CRAN (R 4.0.2)                    
+##  readr          * 1.4.0    2020-10-05 [1] CRAN (R 4.0.2)                    
+##  readxl           1.3.1    2019-03-13 [1] CRAN (R 4.0.2)                    
+##  reprex           0.3.0    2019-05-16 [1] CRAN (R 4.0.2)                    
+##  reshape2         1.4.4    2020-04-09 [1] CRAN (R 4.0.2)                    
+##  rlang            0.4.9    2020-11-26 [1] CRAN (R 4.0.3)                    
+##  rmarkdown        2.6.0001 2020-12-16 [1] Github (rstudio/rmarkdown@80f14b2)
+##  rsconnect        0.8.16   2019-12-13 [1] CRAN (R 4.0.2)                    
+##  rstan            2.21.3   2020-09-23 [1] Github (stan-dev/rstan@fd079b6)   
+##  rstantools       2.1.1    2020-07-06 [1] CRAN (R 4.0.2)                    
+##  rstudioapi       0.13     2020-11-12 [1] CRAN (R 4.0.3)                    
+##  rvest            0.3.6    2020-07-25 [1] CRAN (R 4.0.2)                    
+##  sandwich         3.0-0    2020-10-02 [1] CRAN (R 4.0.3)                    
+##  scales         * 1.1.1    2020-05-11 [1] CRAN (R 4.0.2)                    
+##  sessioninfo    * 1.1.1    2018-11-05 [1] CRAN (R 4.0.2)                    
+##  shiny            1.5.0    2020-06-23 [1] CRAN (R 4.0.2)                    
+##  shinyjs          2.0.0    2020-09-09 [1] CRAN (R 4.0.2)                    
+##  shinystan        2.5.0    2018-05-01 [1] CRAN (R 4.0.2)                    
+##  shinythemes      1.1.2    2018-11-06 [1] CRAN (R 4.0.2)                    
+##  StanHeaders      2.21.0-6 2020-08-16 [1] CRAN (R 4.0.2)                    
+##  statmod          1.4.35   2020-10-19 [1] CRAN (R 4.0.3)                    
+##  stringi          1.5.3    2020-09-09 [1] CRAN (R 4.0.2)                    
+##  stringr        * 1.4.0    2019-02-10 [1] CRAN (R 4.0.2)                    
+##  survival         3.2-7    2020-09-28 [4] CRAN (R 4.0.2)                    
+##  TH.data          1.0-10   2019-01-21 [1] CRAN (R 4.0.3)                    
+##  threejs          0.3.3    2020-01-21 [1] CRAN (R 4.0.2)                    
+##  tibble         * 3.0.4    2020-10-12 [1] CRAN (R 4.0.2)                    
+##  tidyr          * 1.1.2    2020-08-27 [1] CRAN (R 4.0.2)                    
+##  tidyselect       1.1.0    2020-05-11 [1] CRAN (R 4.0.2)                    
+##  tidyverse      * 1.3.0    2019-11-21 [1] CRAN (R 4.0.2)                    
+##  tmvnsim          1.0-2    2016-12-15 [1] CRAN (R 4.0.2)                    
+##  V8               3.4.0    2020-11-04 [1] CRAN (R 4.0.3)                    
+##  vctrs            0.3.5    2020-11-17 [1] CRAN (R 4.0.3)                    
+##  viridisLite      0.3.0    2018-02-01 [1] CRAN (R 4.0.2)                    
+##  withr            2.3.0    2020-09-22 [1] CRAN (R 4.0.2)                    
+##  xfun             0.19     2020-10-30 [1] CRAN (R 4.0.3)                    
+##  xml2             1.3.2    2020-04-23 [1] CRAN (R 4.0.2)                    
+##  xtable           1.8-4    2019-04-21 [1] CRAN (R 4.0.2)                    
+##  xts              0.12.1   2020-09-09 [1] CRAN (R 4.0.2)                    
+##  yaml             2.2.1    2020-02-01 [1] CRAN (R 4.0.2)                    
+##  zoo              1.8-8    2020-05-02 [1] CRAN (R 4.0.2)                    
+## 
+## [1] /home/matti/R/x86_64-pc-linux-gnu-library/4.0
+## [2] /usr/local/lib/R/site-library
+## [3] /usr/lib/R/site-library
+## [4] /usr/lib/R/library</code></pre>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="latent-variable-models.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/digital-wellbeing/timetrends/edit/master/06-GAM.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": "https://github.com/digital-wellbeing/timetrends/blob/master/06-GAM.Rmd",
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "section"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

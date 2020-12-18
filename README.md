@@ -1,10 +1,11 @@
 # Time trends in technology effects
 
+Analysis code associated with "There is no evidence that associations between adolescents’ digital technology engagement and mental health problems have increased" (Vuorre, Orben, Przybylski)
+
 Authors:
 
 - Matti Vuorre (matti.vuorre@oii.ox.ac.uk)
 - Amy Orben
-- Augustin Mutak (augustin@psihometar.hr)
 - Andrew Przybylski
 
 We study the timecourse of technology effects on adolescent wellbeing in three large representative datasets.
@@ -34,4 +35,6 @@ The datasets' Terms of Use prevent us for sharing the data files here, so you mu
 
 ## Analyses
 
-Each dataset has its own rmarkdown file for preprocessing, which saves clean data in `data/`. Run those before the analyses (rmarkdown files in root).
+The data analyses are organized into separate [R Markdown](https://rmarkdown.rstudio.com/) files. First, there are three files that do preprocessing of the raw datasets (extracting the relevant variables from the raw data). Then, the data is cleaned a bit further and visualized. The main analyses are in the modelling scripts.
+
+The project is organized as a R [bookdown](https://bookdown.org/yihui/bookdown/) project, so you can reproduce all analyses by building the book (e.g. in RStudio click the "Build Book" button). (Be advised, though, that the Bayesian GLMMs take a very long time to run [many days]). The results are rendered to `docs/index.html` and can be viewed in a web browser.

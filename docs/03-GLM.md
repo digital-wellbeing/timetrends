@@ -97,11 +97,7 @@ fits_year %>%
   )
 ```
 
-<img src="03-GLM_files/figure-html/yearly-correlations-figure-1.png" width="768" style="display: block; margin: auto;" />
-
-```r
-ggsave("Figure1.png", width = 6, height = 4)
-```
+<img src="03-GLM_files/figure-html/yearly-correlations-figure-1.png" width="576" style="display: block; margin: auto;" />
 
 
 ## Models
@@ -189,7 +185,7 @@ fits %>%
   )
 ```
 
-<img src="03-GLM_files/figure-html/ols-parameters-figure-1.png" width="768" style="display: block; margin: auto;" />
+<img src="03-GLM_files/figure-html/ols-parameters-figure-1.png" width="576" style="display: block; margin: auto;" />
 
 YRBS with separate logistic regressions for each outcome
 
@@ -241,7 +237,7 @@ bind_rows(tmp_dv, tmp_tv, .id = "Technology") %>%
   )
 ```
 
-<img src="03-GLM_files/figure-html/yrbs-logistic-1.png" width="768" style="display: block; margin: auto;" />
+<img src="03-GLM_files/figure-html/yrbs-logistic-1.png" width="576" style="display: block; margin: auto;" />
 
 
 ```r
@@ -253,108 +249,110 @@ session_info()
 ```
 ## ─ Session info ───────────────────────────────────────────────────────────────────────────────────────────────────────
 ##  setting  value                       
-##  version  R version 4.0.2 (2020-06-22)
-##  os       macOS Catalina 10.15.7      
-##  system   x86_64, darwin17.0          
+##  version  R version 4.0.3 (2020-10-10)
+##  os       Ubuntu 20.04.1 LTS          
+##  system   x86_64, linux-gnu           
 ##  ui       X11                         
 ##  language (EN)                        
-##  collate  en_GB.UTF-8                 
-##  ctype    en_GB.UTF-8                 
+##  collate  C.UTF-8                     
+##  ctype    C.UTF-8                     
 ##  tz       Europe/London               
-##  date     2020-10-02                  
+##  date     2020-12-18                  
 ## 
 ## ─ Packages ───────────────────────────────────────────────────────────────────────────────────────────────────────────
-##  package      * version    date       lib source                              
-##  assertthat     0.2.1      2019-03-21 [1] CRAN (R 4.0.0)                      
-##  backports      1.1.10     2020-09-15 [1] CRAN (R 4.0.2)                      
-##  blob           1.2.1      2020-01-20 [1] CRAN (R 4.0.0)                      
-##  bmlm           1.3.11     2019-02-21 [1] CRAN (R 4.0.0)                      
-##  bookdown       0.20       2020-06-23 [1] CRAN (R 4.0.2)                      
-##  broom        * 0.7.0.9001 2020-07-23 [1] Github (tidymodels/broom@7db1139)   
-##  callr          3.4.4      2020-09-07 [1] CRAN (R 4.0.2)                      
-##  cellranger     1.1.0      2016-07-27 [1] CRAN (R 4.0.0)                      
-##  cli            2.0.2      2020-02-28 [1] CRAN (R 4.0.0)                      
-##  coda           0.19-3     2019-07-05 [1] CRAN (R 4.0.0)                      
-##  codetools      0.2-16     2018-12-24 [1] CRAN (R 4.0.2)                      
-##  colorspace     1.4-1      2019-03-18 [1] CRAN (R 4.0.0)                      
-##  crayon         1.3.4      2017-09-16 [1] CRAN (R 4.0.0)                      
-##  curl           4.3        2019-12-02 [1] CRAN (R 4.0.0)                      
-##  DBI            1.1.0      2019-12-15 [1] CRAN (R 4.0.0)                      
-##  dbplyr         1.4.4      2020-05-27 [1] CRAN (R 4.0.0)                      
-##  digest         0.6.25     2020-02-23 [1] CRAN (R 4.0.0)                      
-##  dplyr        * 1.0.2      2020-08-18 [1] CRAN (R 4.0.2)                      
-##  ellipsis       0.3.1      2020-05-15 [1] CRAN (R 4.0.0)                      
-##  emmeans      * 1.5.1      2020-09-18 [1] CRAN (R 4.0.2)                      
-##  estimability   1.3        2018-02-11 [1] CRAN (R 4.0.0)                      
-##  evaluate       0.14       2019-05-28 [1] CRAN (R 4.0.0)                      
-##  fansi          0.4.1      2020-01-08 [1] CRAN (R 4.0.0)                      
-##  farver         2.0.3      2020-01-16 [1] CRAN (R 4.0.0)                      
-##  forcats      * 0.5.0      2020-03-01 [1] CRAN (R 4.0.0)                      
-##  fs             1.5.0      2020-07-31 [1] CRAN (R 4.0.2)                      
-##  generics       0.0.2      2018-11-29 [1] CRAN (R 4.0.0)                      
-##  ggplot2      * 3.3.2      2020-06-19 [1] CRAN (R 4.0.1)                      
-##  ggstance     * 0.3.4      2020-04-02 [1] CRAN (R 4.0.0)                      
-##  glue           1.4.2      2020-08-27 [1] CRAN (R 4.0.2)                      
-##  gridExtra      2.3        2017-09-09 [1] CRAN (R 4.0.0)                      
-##  gtable         0.3.0      2019-03-25 [1] CRAN (R 4.0.0)                      
-##  haven          2.3.1      2020-06-01 [1] CRAN (R 4.0.0)                      
-##  hms            0.5.3      2020-01-08 [1] CRAN (R 4.0.0)                      
-##  htmltools      0.5.0      2020-06-16 [1] CRAN (R 4.0.1)                      
-##  httr           1.4.2      2020-07-20 [1] CRAN (R 4.0.2)                      
-##  inline         0.3.16     2020-09-06 [1] CRAN (R 4.0.2)                      
-##  jsonlite       1.7.1      2020-09-07 [1] CRAN (R 4.0.2)                      
-##  knitr        * 1.30       2020-09-22 [1] CRAN (R 4.0.2)                      
-##  lattice        0.20-41    2020-04-02 [1] CRAN (R 4.0.2)                      
-##  lifecycle      0.2.0      2020-03-06 [1] CRAN (R 4.0.0)                      
-##  loo            2.3.1      2020-07-14 [1] CRAN (R 4.0.2)                      
-##  lubridate      1.7.9      2020-06-08 [1] CRAN (R 4.0.1)                      
-##  magrittr       1.5        2014-11-22 [1] CRAN (R 4.0.0)                      
-##  MASS         * 7.3-53     2020-09-09 [1] CRAN (R 4.0.2)                      
-##  Matrix         1.2-18     2019-11-27 [1] CRAN (R 4.0.2)                      
-##  matrixStats    0.57.0     2020-09-25 [1] CRAN (R 4.0.2)                      
-##  modelr         0.1.8      2020-05-19 [1] CRAN (R 4.0.0)                      
-##  multcomp     * 1.4-13     2020-04-08 [1] CRAN (R 4.0.0)                      
-##  munsell        0.5.0      2018-06-12 [1] CRAN (R 4.0.0)                      
-##  mvtnorm      * 1.1-1      2020-06-09 [1] CRAN (R 4.0.0)                      
-##  pacman         0.5.1      2019-03-11 [1] CRAN (R 4.0.0)                      
-##  pillar         1.4.6      2020-07-10 [1] CRAN (R 4.0.2)                      
-##  pkgbuild       1.1.0      2020-07-13 [1] CRAN (R 4.0.2)                      
-##  pkgconfig      2.0.3      2019-09-22 [1] CRAN (R 4.0.0)                      
-##  prettyunits    1.1.1      2020-01-24 [1] CRAN (R 4.0.0)                      
-##  processx       3.4.4      2020-09-03 [1] CRAN (R 4.0.2)                      
-##  ps             1.3.4      2020-08-11 [1] CRAN (R 4.0.2)                      
-##  purrr        * 0.3.4      2020-04-17 [1] CRAN (R 4.0.0)                      
-##  R6             2.4.1      2019-11-12 [1] CRAN (R 4.0.0)                      
-##  Rcpp           1.0.5      2020-07-06 [1] CRAN (R 4.0.2)                      
-##  RcppParallel   5.0.2      2020-06-24 [1] CRAN (R 4.0.0)                      
-##  readr        * 1.3.1      2018-12-21 [1] CRAN (R 4.0.0)                      
-##  readxl         1.3.1      2019-03-13 [1] CRAN (R 4.0.0)                      
-##  reprex         0.3.0      2019-05-16 [1] CRAN (R 4.0.0)                      
-##  rlang          0.4.7      2020-07-09 [1] CRAN (R 4.0.2)                      
-##  rmarkdown      2.4.0      2020-09-11 [1] Github (cpsievert/rmarkdown@b79fb4d)
-##  rstan          2.21.3     2020-09-29 [1] Github (stan-dev/rstan@ae36e6f)     
-##  rstudioapi     0.11       2020-02-07 [1] CRAN (R 4.0.0)                      
-##  rvest          0.3.6      2020-07-25 [1] CRAN (R 4.0.2)                      
-##  sandwich       2.5-1      2019-04-06 [1] CRAN (R 4.0.0)                      
-##  scales       * 1.1.1      2020-05-11 [1] CRAN (R 4.0.0)                      
-##  sessioninfo  * 1.1.1      2018-11-05 [1] CRAN (R 4.0.0)                      
-##  StanHeaders    2.21.0-6   2020-08-16 [1] CRAN (R 4.0.2)                      
-##  stringi        1.5.3      2020-09-09 [1] CRAN (R 4.0.2)                      
-##  stringr      * 1.4.0      2019-02-10 [1] CRAN (R 4.0.0)                      
-##  survival     * 3.2-3      2020-06-13 [1] CRAN (R 4.0.2)                      
-##  TH.data      * 1.0-10     2019-01-21 [1] CRAN (R 4.0.0)                      
-##  tibble       * 3.0.3      2020-07-10 [1] CRAN (R 4.0.2)                      
-##  tidyr        * 1.1.2      2020-08-27 [1] CRAN (R 4.0.2)                      
-##  tidyselect     1.1.0      2020-05-11 [1] CRAN (R 4.0.0)                      
-##  tidyverse    * 1.3.0      2019-11-21 [1] CRAN (R 4.0.0)                      
-##  V8             3.2.0      2020-06-19 [1] CRAN (R 4.0.2)                      
-##  vctrs          0.3.4      2020-08-29 [1] CRAN (R 4.0.2)                      
-##  withr          2.3.0      2020-09-22 [1] CRAN (R 4.0.2)                      
-##  xfun           0.18       2020-09-29 [1] CRAN (R 4.0.2)                      
-##  xml2           1.3.2      2020-04-23 [1] CRAN (R 4.0.0)                      
-##  xtable         1.8-4      2019-04-21 [1] CRAN (R 4.0.0)                      
-##  yaml           2.2.1      2020-02-01 [1] CRAN (R 4.0.0)                      
-##  zoo            1.8-8      2020-05-02 [1] CRAN (R 4.0.0)                      
+##  package      * version  date       lib source                            
+##  assertthat     0.2.1    2019-03-21 [1] CRAN (R 4.0.2)                    
+##  backports      1.2.1    2020-12-09 [1] CRAN (R 4.0.3)                    
+##  bmlm           1.3.11   2019-02-21 [1] CRAN (R 4.0.2)                    
+##  bookdown       0.21.6   2020-12-16 [1] Github (rstudio/bookdown@92c59d3) 
+##  broom        * 0.7.2    2020-10-20 [1] CRAN (R 4.0.3)                    
+##  callr          3.5.1    2020-10-13 [1] CRAN (R 4.0.2)                    
+##  cellranger     1.1.0    2016-07-27 [1] CRAN (R 4.0.2)                    
+##  cli            2.2.0    2020-11-20 [1] CRAN (R 4.0.3)                    
+##  coda           0.19-4   2020-09-30 [1] CRAN (R 4.0.2)                    
+##  codetools      0.2-18   2020-11-04 [4] CRAN (R 4.0.3)                    
+##  colorspace     2.0-0    2020-11-11 [1] CRAN (R 4.0.3)                    
+##  crayon         1.3.4    2017-09-16 [1] CRAN (R 4.0.2)                    
+##  curl           4.3      2019-12-02 [1] CRAN (R 4.0.2)                    
+##  DBI            1.1.0    2019-12-15 [1] CRAN (R 4.0.2)                    
+##  dbplyr         2.0.0    2020-11-03 [1] CRAN (R 4.0.3)                    
+##  digest         0.6.27   2020-10-24 [1] CRAN (R 4.0.3)                    
+##  dplyr        * 1.0.2    2020-08-18 [1] CRAN (R 4.0.2)                    
+##  ellipsis       0.3.1    2020-05-15 [1] CRAN (R 4.0.2)                    
+##  emmeans      * 1.5.3    2020-12-09 [1] CRAN (R 4.0.3)                    
+##  estimability   1.3      2018-02-11 [1] CRAN (R 4.0.2)                    
+##  evaluate       0.14     2019-05-28 [1] CRAN (R 4.0.2)                    
+##  fansi          0.4.1    2020-01-08 [1] CRAN (R 4.0.2)                    
+##  farver         2.0.3    2020-01-16 [1] CRAN (R 4.0.2)                    
+##  forcats      * 0.5.0    2020-03-01 [1] CRAN (R 4.0.2)                    
+##  fs             1.5.0    2020-07-31 [1] CRAN (R 4.0.2)                    
+##  generics       0.1.0    2020-10-31 [1] CRAN (R 4.0.3)                    
+##  ggplot2      * 3.3.2    2020-06-19 [1] CRAN (R 4.0.2)                    
+##  ggstance     * 0.3.4    2020-04-02 [1] CRAN (R 4.0.2)                    
+##  glue           1.4.2    2020-08-27 [1] CRAN (R 4.0.2)                    
+##  gridExtra      2.3      2017-09-09 [1] CRAN (R 4.0.2)                    
+##  gtable         0.3.0    2019-03-25 [1] CRAN (R 4.0.2)                    
+##  haven          2.3.1    2020-06-01 [1] CRAN (R 4.0.2)                    
+##  hms            0.5.3    2020-01-08 [1] CRAN (R 4.0.2)                    
+##  htmltools      0.5.0    2020-06-16 [1] CRAN (R 4.0.2)                    
+##  httr           1.4.2    2020-07-20 [1] CRAN (R 4.0.2)                    
+##  inline         0.3.17   2020-12-01 [1] CRAN (R 4.0.3)                    
+##  jsonlite       1.7.2    2020-12-09 [1] CRAN (R 4.0.3)                    
+##  knitr        * 1.30     2020-09-22 [1] CRAN (R 4.0.2)                    
+##  lattice        0.20-41  2020-04-02 [4] CRAN (R 4.0.0)                    
+##  lifecycle      0.2.0    2020-03-06 [1] CRAN (R 4.0.2)                    
+##  loo            2.4.1    2020-12-09 [1] CRAN (R 4.0.3)                    
+##  lubridate      1.7.9.2  2020-11-13 [1] CRAN (R 4.0.3)                    
+##  magrittr       2.0.1    2020-11-17 [1] CRAN (R 4.0.3)                    
+##  MASS         * 7.3-53   2020-09-09 [4] CRAN (R 4.0.2)                    
+##  Matrix         1.2-18   2019-11-27 [4] CRAN (R 4.0.0)                    
+##  matrixStats    0.57.0   2020-09-25 [1] CRAN (R 4.0.2)                    
+##  modelr         0.1.8    2020-05-19 [1] CRAN (R 4.0.2)                    
+##  multcomp     * 1.4-15   2020-11-14 [1] CRAN (R 4.0.3)                    
+##  munsell        0.5.0    2018-06-12 [1] CRAN (R 4.0.2)                    
+##  mvtnorm      * 1.1-1    2020-06-09 [1] CRAN (R 4.0.2)                    
+##  pacman         0.5.1    2019-03-11 [1] CRAN (R 4.0.2)                    
+##  pillar         1.4.7    2020-11-20 [1] CRAN (R 4.0.3)                    
+##  pkgbuild       1.2.0    2020-12-15 [1] CRAN (R 4.0.3)                    
+##  pkgconfig      2.0.3    2019-09-22 [1] CRAN (R 4.0.2)                    
+##  prettyunits    1.1.1    2020-01-24 [1] CRAN (R 4.0.2)                    
+##  processx       3.4.5    2020-11-30 [1] CRAN (R 4.0.3)                    
+##  ps             1.5.0    2020-12-05 [1] CRAN (R 4.0.3)                    
+##  purrr        * 0.3.4    2020-04-17 [1] CRAN (R 4.0.2)                    
+##  R6             2.5.0    2020-10-28 [1] CRAN (R 4.0.3)                    
+##  Rcpp           1.0.5    2020-07-06 [1] CRAN (R 4.0.2)                    
+##  RcppParallel   5.0.2    2020-06-24 [1] CRAN (R 4.0.2)                    
+##  readr        * 1.4.0    2020-10-05 [1] CRAN (R 4.0.2)                    
+##  readxl         1.3.1    2019-03-13 [1] CRAN (R 4.0.2)                    
+##  reprex         0.3.0    2019-05-16 [1] CRAN (R 4.0.2)                    
+##  rlang          0.4.9    2020-11-26 [1] CRAN (R 4.0.3)                    
+##  rmarkdown      2.6.0001 2020-12-16 [1] Github (rstudio/rmarkdown@80f14b2)
+##  rstan          2.21.3   2020-09-23 [1] Github (stan-dev/rstan@fd079b6)   
+##  rstudioapi     0.13     2020-11-12 [1] CRAN (R 4.0.3)                    
+##  rvest          0.3.6    2020-07-25 [1] CRAN (R 4.0.2)                    
+##  sandwich       3.0-0    2020-10-02 [1] CRAN (R 4.0.3)                    
+##  scales       * 1.1.1    2020-05-11 [1] CRAN (R 4.0.2)                    
+##  sessioninfo  * 1.1.1    2018-11-05 [1] CRAN (R 4.0.2)                    
+##  StanHeaders    2.21.0-6 2020-08-16 [1] CRAN (R 4.0.2)                    
+##  stringi        1.5.3    2020-09-09 [1] CRAN (R 4.0.2)                    
+##  stringr      * 1.4.0    2019-02-10 [1] CRAN (R 4.0.2)                    
+##  survival     * 3.2-7    2020-09-28 [4] CRAN (R 4.0.2)                    
+##  TH.data      * 1.0-10   2019-01-21 [1] CRAN (R 4.0.3)                    
+##  tibble       * 3.0.4    2020-10-12 [1] CRAN (R 4.0.2)                    
+##  tidyr        * 1.1.2    2020-08-27 [1] CRAN (R 4.0.2)                    
+##  tidyselect     1.1.0    2020-05-11 [1] CRAN (R 4.0.2)                    
+##  tidyverse    * 1.3.0    2019-11-21 [1] CRAN (R 4.0.2)                    
+##  V8             3.4.0    2020-11-04 [1] CRAN (R 4.0.3)                    
+##  vctrs          0.3.5    2020-11-17 [1] CRAN (R 4.0.3)                    
+##  withr          2.3.0    2020-09-22 [1] CRAN (R 4.0.2)                    
+##  xfun           0.19     2020-10-30 [1] CRAN (R 4.0.3)                    
+##  xml2           1.3.2    2020-04-23 [1] CRAN (R 4.0.2)                    
+##  xtable         1.8-4    2019-04-21 [1] CRAN (R 4.0.2)                    
+##  yaml           2.2.1    2020-02-01 [1] CRAN (R 4.0.2)                    
+##  zoo            1.8-8    2020-05-02 [1] CRAN (R 4.0.2)                    
 ## 
-## [1] /Library/Frameworks/R.framework/Versions/4.0/Resources/library
+## [1] /home/matti/R/x86_64-pc-linux-gnu-library/4.0
+## [2] /usr/local/lib/R/site-library
+## [3] /usr/lib/R/site-library
+## [4] /usr/lib/R/library
 ```

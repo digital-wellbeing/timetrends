@@ -1,5 +1,6 @@
 bookdown::gitbook:
   df_print: paged
+  highlight: kate
   css: style.css
   config:
     toc:

@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 4 YRBS preprocessing | Technology effect timecourses</title>
-  <meta name="description" content="Chapter 4 YRBS preprocessing | Technology effect timecourses" />
-  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
+  <title>Chapter 4 YRBS preprocessing | Technology association timecourses</title>
+  <meta name="description" content="Chapter 4 YRBS preprocessing | Technology association timecourses" />
+  <meta name="generator" content="bookdown 0.21.6 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 4 YRBS preprocessing | Technology effect timecourses" />
+  <meta property="og:title" content="Chapter 4 YRBS preprocessing | Technology association timecourses" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 4 YRBS preprocessing | Technology effect timecourses" />
+  <meta name="twitter:title" content="Chapter 4 YRBS preprocessing | Technology association timecourses" />
   
   
   
@@ -24,7 +24,7 @@
 <meta name="author" content="Matti Vuorre" />
 
 
-<meta name="date" content="2020-10-02" />
+<meta name="date" content="2020-12-18" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,7 +33,7 @@
   
 <link rel="prev" href="us-preprocessing.html"/>
 <link rel="next" href="data-descriptives.html"/>
-<script src="libs/header-attrs-2.4.0/header-attrs.js"></script>
+<script src="libs/header-attrs-2.6.1/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -51,9 +51,10 @@
 
 
 
-<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
 <link href="libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet" />
 <script src="libs/pagedtable-1.1/js/pagedtable.js"></script>
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
 
 
 <style type="text/css">
@@ -81,44 +82,48 @@ pre.numberSource code > span > a:first-child::before
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
     padding: 0 4px; width: 4em;
-    color: #aaaaaa;
+    background-color: #ffffff;
+    color: #a0a0a0;
   }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #a0a0a0;  padding-left: 4px; }
 div.sourceCode
-  {   }
+  { color: #1f1c1b; background-color: #ffffff; }
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code span { color: #1f1c1b; } /* Normal */
+code span.al { color: #bf0303; background-color: #f7e6e6; font-weight: bold; } /* Alert */
+code span.an { color: #ca60ca; } /* Annotation */
+code span.at { color: #0057ae; } /* Attribute */
+code span.bn { color: #b08000; } /* BaseN */
+code span.bu { color: #644a9b; font-weight: bold; } /* BuiltIn */
+code span.cf { color: #1f1c1b; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #924c9d; } /* Char */
+code span.cn { color: #aa5500; } /* Constant */
+code span.co { color: #898887; } /* Comment */
+code span.cv { color: #0095ff; } /* CommentVar */
+code span.do { color: #607880; } /* Documentation */
+code span.dt { color: #0057ae; } /* DataType */
+code span.dv { color: #b08000; } /* DecVal */
+code span.er { color: #bf0303; text-decoration: underline; } /* Error */
+code span.ex { color: #0095ff; font-weight: bold; } /* Extension */
+code span.fl { color: #b08000; } /* Float */
+code span.fu { color: #644a9b; } /* Function */
+code span.im { color: #ff5500; } /* Import */
+code span.in { color: #b08000; } /* Information */
+code span.kw { color: #1f1c1b; font-weight: bold; } /* Keyword */
+code span.op { color: #1f1c1b; } /* Operator */
+code span.ot { color: #006e28; } /* Other */
+code span.pp { color: #006e28; } /* Preprocessor */
+code span.re { color: #0057ae; background-color: #e0e9f8; } /* RegionMarker */
+code span.sc { color: #3daee9; } /* SpecialChar */
+code span.ss { color: #ff5500; } /* SpecialString */
+code span.st { color: #bf0303; } /* String */
+code span.va { color: #0057ae; } /* Variable */
+code span.vs { color: #bf0303; } /* VerbatimString */
+code span.wa { color: #bf0303; } /* Warning */
 </style>
+
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
@@ -172,25 +177,33 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="6" data-path="generalized-linear-model.html"><a href="generalized-linear-model.html"><i class="fa fa-check"></i><b>6</b> Generalized Linear Model</a>
 <ul>
-<li class="chapter" data-level="6.1" data-path="data-descriptives.html"><a href="data-descriptives.html#data"><i class="fa fa-check"></i><b>6.1</b> Data</a></li>
+<li class="chapter" data-level="6.1" data-path="generalized-linear-model.html"><a href="generalized-linear-model.html#data-1"><i class="fa fa-check"></i><b>6.1</b> Data</a></li>
 <li class="chapter" data-level="6.2" data-path="generalized-linear-model.html"><a href="generalized-linear-model.html#yearly-correlations-figure"><i class="fa fa-check"></i><b>6.2</b> Yearly correlations figure</a></li>
 <li class="chapter" data-level="6.3" data-path="generalized-linear-model.html"><a href="generalized-linear-model.html#models"><i class="fa fa-check"></i><b>6.3</b> Models</a></li>
 <li class="chapter" data-level="6.4" data-path="generalized-linear-model.html"><a href="generalized-linear-model.html#results"><i class="fa fa-check"></i><b>6.4</b> Results</a></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="bayesian-generalized-linear-mixed-model.html"><a href="bayesian-generalized-linear-mixed-model.html"><i class="fa fa-check"></i><b>7</b> Bayesian Generalized Linear Mixed Model</a>
 <ul>
-<li class="chapter" data-level="7.1" data-path="data-descriptives.html"><a href="data-descriptives.html#data"><i class="fa fa-check"></i><b>7.1</b> Data</a></li>
-<li class="chapter" data-level="7.2" data-path="generalized-linear-model.html"><a href="generalized-linear-model.html#models"><i class="fa fa-check"></i><b>7.2</b> Models</a>
+<li class="chapter" data-level="7.1" data-path="bayesian-generalized-linear-mixed-model.html"><a href="bayesian-generalized-linear-mixed-model.html#data-2"><i class="fa fa-check"></i><b>7.1</b> Data</a></li>
+<li class="chapter" data-level="7.2" data-path="bayesian-generalized-linear-mixed-model.html"><a href="bayesian-generalized-linear-mixed-model.html#models-1"><i class="fa fa-check"></i><b>7.2</b> Models</a>
 <ul>
 <li class="chapter" data-level="7.2.1" data-path="bayesian-generalized-linear-mixed-model.html"><a href="bayesian-generalized-linear-mixed-model.html#estimate"><i class="fa fa-check"></i><b>7.2.1</b> Estimate</a></li>
-<li class="chapter" data-level="7.2.2" data-path="generalized-linear-model.html"><a href="generalized-linear-model.html#results"><i class="fa fa-check"></i><b>7.2.2</b> Results</a></li>
+<li class="chapter" data-level="7.2.2" data-path="bayesian-generalized-linear-mixed-model.html"><a href="bayesian-generalized-linear-mixed-model.html#results-1"><i class="fa fa-check"></i><b>7.2.2</b> Results</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="latent-variable-models.html"><a href="latent-variable-models.html"><i class="fa fa-check"></i><b>8</b> Latent Variable Models</a>
 <ul>
-<li class="chapter" data-level="8.1" data-path="data-descriptives.html"><a href="data-descriptives.html#data"><i class="fa fa-check"></i><b>8.1</b> Data</a></li>
-<li class="chapter" data-level="8.2" data-path="generalized-linear-model.html"><a href="generalized-linear-model.html#models"><i class="fa fa-check"></i><b>8.2</b> Models</a></li>
-<li class="chapter" data-level="8.3" data-path="generalized-linear-model.html"><a href="generalized-linear-model.html#results"><i class="fa fa-check"></i><b>8.3</b> Results</a></li>
+<li class="chapter" data-level="8.1" data-path="latent-variable-models.html"><a href="latent-variable-models.html#data-3"><i class="fa fa-check"></i><b>8.1</b> Data</a></li>
+<li class="chapter" data-level="8.2" data-path="latent-variable-models.html"><a href="latent-variable-models.html#models-2"><i class="fa fa-check"></i><b>8.2</b> Models</a></li>
+<li class="chapter" data-level="8.3" data-path="latent-variable-models.html"><a href="latent-variable-models.html#results-2"><i class="fa fa-check"></i><b>8.3</b> Results</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="gam.html"><a href="gam.html"><i class="fa fa-check"></i><b>9</b> GAM</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="gam.html"><a href="gam.html#data-4"><i class="fa fa-check"></i><b>9.1</b> Data</a></li>
+<li class="chapter" data-level="9.2" data-path="gam.html"><a href="gam.html#models-3"><i class="fa fa-check"></i><b>9.2</b> Models</a></li>
+<li class="chapter" data-level="9.3" data-path="gam.html"><a href="gam.html#create-latent-variables-for-outcomes"><i class="fa fa-check"></i><b>9.3</b> Create latent variables for outcomes</a></li>
+<li class="chapter" data-level="9.4" data-path="gam.html"><a href="gam.html#estimate-gams"><i class="fa fa-check"></i><b>9.4</b> Estimate GAMs</a></li>
+<li class="chapter" data-level="9.5" data-path="gam.html"><a href="gam.html#session-information"><i class="fa fa-check"></i><b>9.5</b> Session information</a></li>
 </ul></li>
 </ul>
 
@@ -201,7 +214,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Technology effect timecourses</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Technology association timecourses</a>
           </h1>
         </div>
 
@@ -211,117 +224,120 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="yrbs-preprocessing" class="section level1" number="4">
 <h1><span class="header-section-number">Chapter 4</span> YRBS preprocessing</h1>
-<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="yrbs-preprocessing.html#cb50-1"></a><span class="co"># Load data without dichotomized and supplemental items</span></span>
-<span id="cb50-2"><a href="yrbs-preprocessing.html#cb50-2"></a>data &lt;-<span class="st"> </span><span class="kw">read_spss</span>(</span>
-<span id="cb50-3"><a href="yrbs-preprocessing.html#cb50-3"></a>  <span class="st">&quot;data-raw/yrbs/sadc_2017_national.sav&quot;</span>,</span>
-<span id="cb50-4"><a href="yrbs-preprocessing.html#cb50-4"></a>  <span class="dt">col_select =</span> <span class="kw">c</span>(</span>
-<span id="cb50-5"><a href="yrbs-preprocessing.html#cb50-5"></a>    year, age, sex,</span>
-<span id="cb50-6"><a href="yrbs-preprocessing.html#cb50-6"></a>    q25<span class="op">:</span>q29, q80, q81,</span>
-<span id="cb50-7"><a href="yrbs-preprocessing.html#cb50-7"></a>  )</span>
-<span id="cb50-8"><a href="yrbs-preprocessing.html#cb50-8"></a>)</span></code></pre></div>
-<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="yrbs-preprocessing.html#cb51-1"></a><span class="kw">prop.table</span>(<span class="kw">table</span>(data<span class="op">$</span>sex, <span class="dt">useNA =</span> <span class="st">&quot;always&quot;</span>))</span>
-<span id="cb51-2"><a href="yrbs-preprocessing.html#cb51-2"></a><span class="co"># Drop cases where age or sex are unknown</span></span>
-<span id="cb51-3"><a href="yrbs-preprocessing.html#cb51-3"></a>data &lt;-<span class="st"> </span><span class="kw">drop_na</span>(data, age, sex)</span></code></pre></div>
-<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="yrbs-preprocessing.html#cb52-1"></a><span class="co"># Choose appropriate years: 2007-2015</span></span>
-<span id="cb52-2"><a href="yrbs-preprocessing.html#cb52-2"></a>data &lt;-<span class="st"> </span>data <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(year <span class="op">&gt;</span><span class="st"> </span><span class="dv">2006</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="yrbs-preprocessing.html#cb53-1"></a><span class="co"># Convert SPSS labels to factor labels and remove other SPSS attributes</span></span>
-<span id="cb53-2"><a href="yrbs-preprocessing.html#cb53-2"></a>data &lt;-<span class="st"> </span><span class="kw">as_factor</span>(data)</span></code></pre></div>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="yrbs-preprocessing.html#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load data without dichotomized and supplemental items</span></span>
+<span id="cb48-2"><a href="yrbs-preprocessing.html#cb48-2" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read_spss</span>(</span>
+<span id="cb48-3"><a href="yrbs-preprocessing.html#cb48-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;data-raw/yrbs/sadc_2017_national.sav&quot;</span>,</span>
+<span id="cb48-4"><a href="yrbs-preprocessing.html#cb48-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">col_select =</span> <span class="fu">c</span>(</span>
+<span id="cb48-5"><a href="yrbs-preprocessing.html#cb48-5" aria-hidden="true" tabindex="-1"></a>    year, age, sex,</span>
+<span id="cb48-6"><a href="yrbs-preprocessing.html#cb48-6" aria-hidden="true" tabindex="-1"></a>    q25<span class="sc">:</span>q29, q80, q81,</span>
+<span id="cb48-7"><a href="yrbs-preprocessing.html#cb48-7" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb48-8"><a href="yrbs-preprocessing.html#cb48-8" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="yrbs-preprocessing.html#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">prop.table</span>(<span class="fu">table</span>(data<span class="sc">$</span>sex, <span class="at">useNA =</span> <span class="st">&quot;always&quot;</span>))</span>
+<span id="cb49-2"><a href="yrbs-preprocessing.html#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Drop cases where age or sex are unknown</span></span>
+<span id="cb49-3"><a href="yrbs-preprocessing.html#cb49-3" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">drop_na</span>(data, age, sex)</span></code></pre></div>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="yrbs-preprocessing.html#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Choose appropriate years: 2007-2015</span></span>
+<span id="cb50-2"><a href="yrbs-preprocessing.html#cb50-2" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span> <span class="fu">filter</span>(year <span class="sc">&gt;</span> <span class="dv">2006</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="yrbs-preprocessing.html#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert SPSS labels to factor labels and remove other SPSS attributes</span></span>
+<span id="cb51-2"><a href="yrbs-preprocessing.html#cb51-2" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">as_factor</span>(data)</span></code></pre></div>
 <div id="recode-variables" class="section level2" number="4.1">
 <h2><span class="header-section-number">4.1</span> Recode Variables</h2>
 <p>Read about the variables at
 <a href="https://www.cdc.gov/healthyyouth/data/yrbs/pdf/2017/2017_yrbs_sadc_documentation.pdf" class="uri">https://www.cdc.gov/healthyyouth/data/yrbs/pdf/2017/2017_yrbs_sadc_documentation.pdf</a></p>
-<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="yrbs-preprocessing.html#cb54-1"></a><span class="co"># Sad/Lonely and Dichotomous suicide variables to numeric (0 = no, 1 = yes)</span></span>
-<span id="cb54-2"><a href="yrbs-preprocessing.html#cb54-2"></a>data &lt;-<span class="st"> </span><span class="kw">mutate_at</span>(data, <span class="kw">vars</span>(q25, q26, q27), <span class="op">~</span><span class="dv">1</span> <span class="op">-</span><span class="st"> </span>(<span class="kw">as.numeric</span>(.) <span class="op">-</span><span class="st"> </span><span class="dv">1</span>))</span></code></pre></div>
-<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="yrbs-preprocessing.html#cb55-1"></a><span class="co"># During the past 12 months, how many times did you actually attempt suicide?</span></span>
-<span id="cb55-2"><a href="yrbs-preprocessing.html#cb55-2"></a>data &lt;-<span class="st"> </span><span class="kw">mutate</span>(data, <span class="dt">q28 =</span> <span class="kw">as.numeric</span>(q28) <span class="op">-</span><span class="st"> </span><span class="dv">1</span>)</span>
-<span id="cb55-3"><a href="yrbs-preprocessing.html#cb55-3"></a><span class="co"># This is dichotomized</span></span>
-<span id="cb55-4"><a href="yrbs-preprocessing.html#cb55-4"></a>data &lt;-<span class="st"> </span><span class="kw">mutate</span>(data, <span class="dt">q28 =</span> <span class="kw">ifelse</span>(q28<span class="op">==</span><span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>))</span></code></pre></div>
-<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="yrbs-preprocessing.html#cb56-1"></a><span class="co"># If you attempted suicide during the past 12 months, did any attempt result in an injury, poisoning, or overdose that had to be treated by a doctor or nurse?</span></span>
-<span id="cb56-2"><a href="yrbs-preprocessing.html#cb56-2"></a>data &lt;-<span class="st"> </span><span class="kw">mutate</span>(</span>
-<span id="cb56-3"><a href="yrbs-preprocessing.html#cb56-3"></a>  data,</span>
-<span id="cb56-4"><a href="yrbs-preprocessing.html#cb56-4"></a>  <span class="dt">q29 =</span> <span class="kw">factor</span>(q29, <span class="dt">levels =</span> <span class="kw">c</span>(<span class="st">&quot;Did not attempt suicide&quot;</span>, <span class="st">&quot;No&quot;</span>, <span class="st">&quot;Yes&quot;</span>)),</span>
-<span id="cb56-5"><a href="yrbs-preprocessing.html#cb56-5"></a>  <span class="dt">q29 =</span> <span class="kw">as.numeric</span>(q29)<span class="op">-</span><span class="dv">1</span></span>
-<span id="cb56-6"><a href="yrbs-preprocessing.html#cb56-6"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="yrbs-preprocessing.html#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Sad/Lonely and Dichotomous suicide variables to numeric (0 = no, 1 = yes)</span></span>
+<span id="cb52-2"><a href="yrbs-preprocessing.html#cb52-2" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">mutate_at</span>(data, <span class="fu">vars</span>(q25, q26, q27), <span class="sc">~</span><span class="dv">1</span> <span class="sc">-</span> (<span class="fu">as.numeric</span>(.) <span class="sc">-</span> <span class="dv">1</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="yrbs-preprocessing.html#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="co"># During the past 12 months, how many times did you actually attempt suicide?</span></span>
+<span id="cb53-2"><a href="yrbs-preprocessing.html#cb53-2" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">mutate</span>(data, <span class="at">q28 =</span> <span class="fu">as.numeric</span>(q28) <span class="sc">-</span> <span class="dv">1</span>)</span>
+<span id="cb53-3"><a href="yrbs-preprocessing.html#cb53-3" aria-hidden="true" tabindex="-1"></a><span class="co"># This is dichotomized</span></span>
+<span id="cb53-4"><a href="yrbs-preprocessing.html#cb53-4" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">mutate</span>(data, <span class="at">q28 =</span> <span class="fu">ifelse</span>(q28<span class="sc">==</span><span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="yrbs-preprocessing.html#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="co"># If you attempted suicide during the past 12 months, did any attempt result in an injury, poisoning, or overdose that had to be treated by a doctor or nurse?</span></span>
+<span id="cb54-2"><a href="yrbs-preprocessing.html#cb54-2" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">mutate</span>(</span>
+<span id="cb54-3"><a href="yrbs-preprocessing.html#cb54-3" aria-hidden="true" tabindex="-1"></a>  data,</span>
+<span id="cb54-4"><a href="yrbs-preprocessing.html#cb54-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">q29 =</span> <span class="fu">factor</span>(q29, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;Did not attempt suicide&quot;</span>, <span class="st">&quot;No&quot;</span>, <span class="st">&quot;Yes&quot;</span>)),</span>
+<span id="cb54-5"><a href="yrbs-preprocessing.html#cb54-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">q29 =</span> <span class="fu">as.numeric</span>(q29)<span class="sc">-</span><span class="dv">1</span></span>
+<span id="cb54-6"><a href="yrbs-preprocessing.html#cb54-6" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
 <p>Aggregate</p>
-<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="yrbs-preprocessing.html#cb57-1"></a>data &lt;-<span class="st"> </span>data <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb57-2"><a href="yrbs-preprocessing.html#cb57-2"></a><span class="st">  </span><span class="kw">mutate</span>(</span>
-<span id="cb57-3"><a href="yrbs-preprocessing.html#cb57-3"></a>    <span class="dt">Suicide =</span> <span class="kw">rowMeans</span>(<span class="kw">select</span>(., q25<span class="op">:</span>q28), <span class="dt">na.rm=</span>T)</span>
-<span id="cb57-4"><a href="yrbs-preprocessing.html#cb57-4"></a>  ) </span></code></pre></div>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="yrbs-preprocessing.html#cb55-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span> </span>
+<span id="cb55-2"><a href="yrbs-preprocessing.html#cb55-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb55-3"><a href="yrbs-preprocessing.html#cb55-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">Suicide =</span> <span class="fu">rowMeans</span>(<span class="fu">select</span>(., q25<span class="sc">:</span>q28), <span class="at">na.rm=</span>T)</span>
+<span id="cb55-4"><a href="yrbs-preprocessing.html#cb55-4" aria-hidden="true" tabindex="-1"></a>  ) </span></code></pre></div>
 </div>
 <div id="age" class="section level2" number="4.2">
 <h2><span class="header-section-number">4.2</span> Age</h2>
-<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="yrbs-preprocessing.html#cb58-1"></a><span class="co"># Recode age as continuous with correct values</span></span>
-<span id="cb58-2"><a href="yrbs-preprocessing.html#cb58-2"></a><span class="co"># Note: 12 and 18 include younger/older individuals</span></span>
-<span id="cb58-3"><a href="yrbs-preprocessing.html#cb58-3"></a>data &lt;-<span class="st"> </span><span class="kw">mutate</span>(data, <span class="dt">age =</span> <span class="kw">as.numeric</span>(age) <span class="op">+</span><span class="st"> </span><span class="dv">11</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="yrbs-preprocessing.html#cb59-1"></a><span class="co"># Focus on individuals 15 years old or younger</span></span>
-<span id="cb59-2"><a href="yrbs-preprocessing.html#cb59-2"></a>data &lt;-<span class="st"> </span><span class="kw">filter</span>(data, age <span class="op">&lt;=</span><span class="st"> </span><span class="dv">15</span>)</span>
-<span id="cb59-3"><a href="yrbs-preprocessing.html#cb59-3"></a>data &lt;-<span class="st"> </span><span class="kw">select</span>(data, <span class="op">-</span>age)</span></code></pre></div>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="yrbs-preprocessing.html#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Recode age as continuous with correct values</span></span>
+<span id="cb56-2"><a href="yrbs-preprocessing.html#cb56-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Note: 12 and 18 include younger/older individuals</span></span>
+<span id="cb56-3"><a href="yrbs-preprocessing.html#cb56-3" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">mutate</span>(data, <span class="at">age =</span> <span class="fu">as.numeric</span>(age) <span class="sc">+</span> <span class="dv">11</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="yrbs-preprocessing.html#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Focus on individuals 15 years old or younger</span></span>
+<span id="cb57-2"><a href="yrbs-preprocessing.html#cb57-2" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">filter</span>(data, age <span class="sc">&lt;=</span> <span class="dv">15</span>)</span>
+<span id="cb57-3"><a href="yrbs-preprocessing.html#cb57-3" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">select</span>(data, <span class="sc">-</span>age)</span></code></pre></div>
 </div>
 <div id="tech-variables" class="section level2" number="4.3">
 <h2><span class="header-section-number">4.3</span> Tech variables</h2>
-<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="yrbs-preprocessing.html#cb60-1"></a><span class="co"># Convert tech variable to numeric</span></span>
-<span id="cb60-2"><a href="yrbs-preprocessing.html#cb60-2"></a>data &lt;-<span class="st"> </span><span class="kw">mutate_at</span>(data, <span class="kw">vars</span>(q80, q81), <span class="op">~</span><span class="kw">as.numeric</span>(.))</span></code></pre></div>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="yrbs-preprocessing.html#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert tech variable to numeric</span></span>
+<span id="cb58-2"><a href="yrbs-preprocessing.html#cb58-2" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">mutate_at</span>(data, <span class="fu">vars</span>(q80, q81), <span class="sc">~</span><span class="fu">as.numeric</span>(.))</span></code></pre></div>
 </div>
 <div id="sex" class="section level2" number="4.4">
 <h2><span class="header-section-number">4.4</span> Sex</h2>
-<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="yrbs-preprocessing.html#cb61-1"></a><span class="kw">contrasts</span>(data<span class="op">$</span>sex) &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(.<span class="dv">5</span>, <span class="fl">-.5</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="yrbs-preprocessing.html#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="fu">contrasts</span>(data<span class="sc">$</span>sex) <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(.<span class="dv">5</span>, <span class="sc">-</span>.<span class="dv">5</span>))</span></code></pre></div>
 </div>
 <div id="rename-and-save" class="section level2" number="4.5">
 <h2><span class="header-section-number">4.5</span> Rename and save</h2>
-<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="yrbs-preprocessing.html#cb62-1"></a><span class="co"># Rename</span></span>
-<span id="cb62-2"><a href="yrbs-preprocessing.html#cb62-2"></a>data &lt;-<span class="st"> </span>data <span class="op">%&gt;%</span></span>
-<span id="cb62-3"><a href="yrbs-preprocessing.html#cb62-3"></a><span class="st">  </span><span class="kw">rename</span>(</span>
-<span id="cb62-4"><a href="yrbs-preprocessing.html#cb62-4"></a>    <span class="dt">Year =</span> year,</span>
-<span id="cb62-5"><a href="yrbs-preprocessing.html#cb62-5"></a>    <span class="dt">Sex =</span> sex,</span>
-<span id="cb62-6"><a href="yrbs-preprocessing.html#cb62-6"></a>    <span class="dt">TV =</span> q80,</span>
-<span id="cb62-7"><a href="yrbs-preprocessing.html#cb62-7"></a>    <span class="dt">DV =</span> q81,</span>
-<span id="cb62-8"><a href="yrbs-preprocessing.html#cb62-8"></a>    <span class="dt">sad_lonely =</span> q25,</span>
-<span id="cb62-9"><a href="yrbs-preprocessing.html#cb62-9"></a>    <span class="dt">suicide_1 =</span> q26,</span>
-<span id="cb62-10"><a href="yrbs-preprocessing.html#cb62-10"></a>    <span class="dt">suicide_2 =</span> q27,</span>
-<span id="cb62-11"><a href="yrbs-preprocessing.html#cb62-11"></a>    <span class="dt">suicide_3 =</span> q28,</span>
-<span id="cb62-12"><a href="yrbs-preprocessing.html#cb62-12"></a>    <span class="dt">suicide_4 =</span> q29,</span>
-<span id="cb62-13"><a href="yrbs-preprocessing.html#cb62-13"></a>  )</span></code></pre></div>
-<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="yrbs-preprocessing.html#cb63-1"></a>data</span>
-<span id="cb63-2"><a href="yrbs-preprocessing.html#cb63-2"></a><span class="co"># Save data to disk</span></span>
-<span id="cb63-3"><a href="yrbs-preprocessing.html#cb63-3"></a><span class="kw">saveRDS</span>(data, <span class="st">&quot;data/yrbs.rds&quot;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="yrbs-preprocessing.html#cb64-1"></a><span class="kw">options</span>(<span class="dt">width =</span> <span class="dv">120</span>)</span>
-<span id="cb64-2"><a href="yrbs-preprocessing.html#cb64-2"></a><span class="kw">library</span>(sessioninfo)</span>
-<span id="cb64-3"><a href="yrbs-preprocessing.html#cb64-3"></a><span class="kw">session_info</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="yrbs-preprocessing.html#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Rename</span></span>
+<span id="cb60-2"><a href="yrbs-preprocessing.html#cb60-2" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span></span>
+<span id="cb60-3"><a href="yrbs-preprocessing.html#cb60-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(</span>
+<span id="cb60-4"><a href="yrbs-preprocessing.html#cb60-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">Year =</span> year,</span>
+<span id="cb60-5"><a href="yrbs-preprocessing.html#cb60-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">Sex =</span> sex,</span>
+<span id="cb60-6"><a href="yrbs-preprocessing.html#cb60-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">TV =</span> q80,</span>
+<span id="cb60-7"><a href="yrbs-preprocessing.html#cb60-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">DV =</span> q81,</span>
+<span id="cb60-8"><a href="yrbs-preprocessing.html#cb60-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">sad_lonely =</span> q25,</span>
+<span id="cb60-9"><a href="yrbs-preprocessing.html#cb60-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">suicide_1 =</span> q26,</span>
+<span id="cb60-10"><a href="yrbs-preprocessing.html#cb60-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">suicide_2 =</span> q27,</span>
+<span id="cb60-11"><a href="yrbs-preprocessing.html#cb60-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">suicide_3 =</span> q28,</span>
+<span id="cb60-12"><a href="yrbs-preprocessing.html#cb60-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">suicide_4 =</span> q29,</span>
+<span id="cb60-13"><a href="yrbs-preprocessing.html#cb60-13" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
+<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="yrbs-preprocessing.html#cb61-1" aria-hidden="true" tabindex="-1"></a>data</span>
+<span id="cb61-2"><a href="yrbs-preprocessing.html#cb61-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Save data to disk</span></span>
+<span id="cb61-3"><a href="yrbs-preprocessing.html#cb61-3" aria-hidden="true" tabindex="-1"></a><span class="fu">saveRDS</span>(data, <span class="st">&quot;data/yrbs.rds&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="yrbs-preprocessing.html#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">width =</span> <span class="dv">120</span>)</span>
+<span id="cb62-2"><a href="yrbs-preprocessing.html#cb62-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sessioninfo)</span>
+<span id="cb62-3"><a href="yrbs-preprocessing.html#cb62-3" aria-hidden="true" tabindex="-1"></a><span class="fu">session_info</span>()</span></code></pre></div>
 <pre><code>## ─ Session info ───────────────────────────────────────────────────────────────────────────────────────────────────────
 ##  setting  value                       
-##  version  R version 4.0.2 (2020-06-22)
-##  os       macOS Catalina 10.15.7      
-##  system   x86_64, darwin17.0          
+##  version  R version 4.0.3 (2020-10-10)
+##  os       Ubuntu 20.04.1 LTS          
+##  system   x86_64, linux-gnu           
 ##  ui       X11                         
 ##  language (EN)                        
-##  collate  en_GB.UTF-8                 
-##  ctype    en_GB.UTF-8                 
+##  collate  C.UTF-8                     
+##  ctype    C.UTF-8                     
 ##  tz       Europe/London               
-##  date     2020-10-02                  
+##  date     2020-12-18                  
 ## 
 ## ─ Packages ───────────────────────────────────────────────────────────────────────────────────────────────────────────
-##  package     * version date       lib source                              
-##  assertthat    0.2.1   2019-03-21 [1] CRAN (R 4.0.0)                      
-##  bookdown      0.20    2020-06-23 [1] CRAN (R 4.0.2)                      
-##  cli           2.0.2   2020-02-28 [1] CRAN (R 4.0.0)                      
-##  crayon        1.3.4   2017-09-16 [1] CRAN (R 4.0.0)                      
-##  digest        0.6.25  2020-02-23 [1] CRAN (R 4.0.0)                      
-##  evaluate      0.14    2019-05-28 [1] CRAN (R 4.0.0)                      
-##  fansi         0.4.1   2020-01-08 [1] CRAN (R 4.0.0)                      
-##  glue          1.4.2   2020-08-27 [1] CRAN (R 4.0.2)                      
-##  htmltools     0.5.0   2020-06-16 [1] CRAN (R 4.0.1)                      
-##  knitr         1.30    2020-09-22 [1] CRAN (R 4.0.2)                      
-##  magrittr      1.5     2014-11-22 [1] CRAN (R 4.0.0)                      
-##  rlang         0.4.7   2020-07-09 [1] CRAN (R 4.0.2)                      
-##  rmarkdown     2.4.0   2020-09-11 [1] Github (cpsievert/rmarkdown@b79fb4d)
-##  sessioninfo * 1.1.1   2018-11-05 [1] CRAN (R 4.0.0)                      
-##  stringi       1.5.3   2020-09-09 [1] CRAN (R 4.0.2)                      
-##  stringr       1.4.0   2019-02-10 [1] CRAN (R 4.0.0)                      
-##  withr         2.3.0   2020-09-22 [1] CRAN (R 4.0.2)                      
-##  xfun          0.18    2020-09-29 [1] CRAN (R 4.0.2)                      
-##  yaml          2.2.1   2020-02-01 [1] CRAN (R 4.0.0)                      
+##  package     * version  date       lib source                            
+##  assertthat    0.2.1    2019-03-21 [1] CRAN (R 4.0.2)                    
+##  bookdown      0.21.6   2020-12-16 [1] Github (rstudio/bookdown@92c59d3) 
+##  cli           2.2.0    2020-11-20 [1] CRAN (R 4.0.3)                    
+##  crayon        1.3.4    2017-09-16 [1] CRAN (R 4.0.2)                    
+##  digest        0.6.27   2020-10-24 [1] CRAN (R 4.0.3)                    
+##  evaluate      0.14     2019-05-28 [1] CRAN (R 4.0.2)                    
+##  fansi         0.4.1    2020-01-08 [1] CRAN (R 4.0.2)                    
+##  glue          1.4.2    2020-08-27 [1] CRAN (R 4.0.2)                    
+##  htmltools     0.5.0    2020-06-16 [1] CRAN (R 4.0.2)                    
+##  knitr         1.30     2020-09-22 [1] CRAN (R 4.0.2)                    
+##  magrittr      2.0.1    2020-11-17 [1] CRAN (R 4.0.3)                    
+##  rlang         0.4.9    2020-11-26 [1] CRAN (R 4.0.3)                    
+##  rmarkdown     2.6.0001 2020-12-16 [1] Github (rstudio/rmarkdown@80f14b2)
+##  sessioninfo * 1.1.1    2018-11-05 [1] CRAN (R 4.0.2)                    
+##  stringi       1.5.3    2020-09-09 [1] CRAN (R 4.0.2)                    
+##  stringr       1.4.0    2019-02-10 [1] CRAN (R 4.0.2)                    
+##  withr         2.3.0    2020-09-22 [1] CRAN (R 4.0.2)                    
+##  xfun          0.19     2020-10-30 [1] CRAN (R 4.0.3)                    
+##  yaml          2.2.1    2020-02-01 [1] CRAN (R 4.0.2)                    
 ## 
-## [1] /Library/Frameworks/R.framework/Versions/4.0/Resources/library</code></pre>
+## [1] /home/matti/R/x86_64-pc-linux-gnu-library/4.0
+## [2] /usr/local/lib/R/site-library
+## [3] /usr/lib/R/site-library
+## [4] /usr/lib/R/library</code></pre>
 
 </div>
 </div>

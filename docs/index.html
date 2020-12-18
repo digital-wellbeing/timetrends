@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Technology effect timecourses</title>
-  <meta name="description" content="Technology effect timecourses" />
-  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
+  <title>Technology association timecourses</title>
+  <meta name="description" content="Technology association timecourses" />
+  <meta name="generator" content="bookdown 0.21.6 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Technology effect timecourses" />
+  <meta property="og:title" content="Technology association timecourses" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Technology effect timecourses" />
+  <meta name="twitter:title" content="Technology association timecourses" />
   
   
   
@@ -24,7 +24,7 @@
 <meta name="author" content="Matti Vuorre" />
 
 
-<meta name="date" content="2020-10-02" />
+<meta name="date" content="2020-12-18" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,7 +33,7 @@
   
 
 <link rel="next" href="mtf-preprocessing.html"/>
-<script src="libs/header-attrs-2.4.0/header-attrs.js"></script>
+<script src="libs/header-attrs-2.6.1/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -51,9 +51,10 @@
 
 
 
-<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
 <link href="libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet" />
 <script src="libs/pagedtable-1.1/js/pagedtable.js"></script>
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
 
 
 <style type="text/css">
@@ -81,44 +82,48 @@ pre.numberSource code > span > a:first-child::before
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
     padding: 0 4px; width: 4em;
-    color: #aaaaaa;
+    background-color: #ffffff;
+    color: #a0a0a0;
   }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #a0a0a0;  padding-left: 4px; }
 div.sourceCode
-  {   }
+  { color: #1f1c1b; background-color: #ffffff; }
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code span { color: #1f1c1b; } /* Normal */
+code span.al { color: #bf0303; background-color: #f7e6e6; font-weight: bold; } /* Alert */
+code span.an { color: #ca60ca; } /* Annotation */
+code span.at { color: #0057ae; } /* Attribute */
+code span.bn { color: #b08000; } /* BaseN */
+code span.bu { color: #644a9b; font-weight: bold; } /* BuiltIn */
+code span.cf { color: #1f1c1b; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #924c9d; } /* Char */
+code span.cn { color: #aa5500; } /* Constant */
+code span.co { color: #898887; } /* Comment */
+code span.cv { color: #0095ff; } /* CommentVar */
+code span.do { color: #607880; } /* Documentation */
+code span.dt { color: #0057ae; } /* DataType */
+code span.dv { color: #b08000; } /* DecVal */
+code span.er { color: #bf0303; text-decoration: underline; } /* Error */
+code span.ex { color: #0095ff; font-weight: bold; } /* Extension */
+code span.fl { color: #b08000; } /* Float */
+code span.fu { color: #644a9b; } /* Function */
+code span.im { color: #ff5500; } /* Import */
+code span.in { color: #b08000; } /* Information */
+code span.kw { color: #1f1c1b; font-weight: bold; } /* Keyword */
+code span.op { color: #1f1c1b; } /* Operator */
+code span.ot { color: #006e28; } /* Other */
+code span.pp { color: #006e28; } /* Preprocessor */
+code span.re { color: #0057ae; background-color: #e0e9f8; } /* RegionMarker */
+code span.sc { color: #3daee9; } /* SpecialChar */
+code span.ss { color: #ff5500; } /* SpecialString */
+code span.st { color: #bf0303; } /* String */
+code span.va { color: #0057ae; } /* Variable */
+code span.vs { color: #bf0303; } /* VerbatimString */
+code span.wa { color: #bf0303; } /* Warning */
 </style>
+
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
@@ -172,25 +177,33 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="6" data-path="generalized-linear-model.html"><a href="generalized-linear-model.html"><i class="fa fa-check"></i><b>6</b> Generalized Linear Model</a>
 <ul>
-<li class="chapter" data-level="6.1" data-path="data-descriptives.html"><a href="data-descriptives.html#data"><i class="fa fa-check"></i><b>6.1</b> Data</a></li>
+<li class="chapter" data-level="6.1" data-path="generalized-linear-model.html"><a href="generalized-linear-model.html#data-1"><i class="fa fa-check"></i><b>6.1</b> Data</a></li>
 <li class="chapter" data-level="6.2" data-path="generalized-linear-model.html"><a href="generalized-linear-model.html#yearly-correlations-figure"><i class="fa fa-check"></i><b>6.2</b> Yearly correlations figure</a></li>
 <li class="chapter" data-level="6.3" data-path="generalized-linear-model.html"><a href="generalized-linear-model.html#models"><i class="fa fa-check"></i><b>6.3</b> Models</a></li>
 <li class="chapter" data-level="6.4" data-path="generalized-linear-model.html"><a href="generalized-linear-model.html#results"><i class="fa fa-check"></i><b>6.4</b> Results</a></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="bayesian-generalized-linear-mixed-model.html"><a href="bayesian-generalized-linear-mixed-model.html"><i class="fa fa-check"></i><b>7</b> Bayesian Generalized Linear Mixed Model</a>
 <ul>
-<li class="chapter" data-level="7.1" data-path="data-descriptives.html"><a href="data-descriptives.html#data"><i class="fa fa-check"></i><b>7.1</b> Data</a></li>
-<li class="chapter" data-level="7.2" data-path="generalized-linear-model.html"><a href="generalized-linear-model.html#models"><i class="fa fa-check"></i><b>7.2</b> Models</a>
+<li class="chapter" data-level="7.1" data-path="bayesian-generalized-linear-mixed-model.html"><a href="bayesian-generalized-linear-mixed-model.html#data-2"><i class="fa fa-check"></i><b>7.1</b> Data</a></li>
+<li class="chapter" data-level="7.2" data-path="bayesian-generalized-linear-mixed-model.html"><a href="bayesian-generalized-linear-mixed-model.html#models-1"><i class="fa fa-check"></i><b>7.2</b> Models</a>
 <ul>
 <li class="chapter" data-level="7.2.1" data-path="bayesian-generalized-linear-mixed-model.html"><a href="bayesian-generalized-linear-mixed-model.html#estimate"><i class="fa fa-check"></i><b>7.2.1</b> Estimate</a></li>
-<li class="chapter" data-level="7.2.2" data-path="generalized-linear-model.html"><a href="generalized-linear-model.html#results"><i class="fa fa-check"></i><b>7.2.2</b> Results</a></li>
+<li class="chapter" data-level="7.2.2" data-path="bayesian-generalized-linear-mixed-model.html"><a href="bayesian-generalized-linear-mixed-model.html#results-1"><i class="fa fa-check"></i><b>7.2.2</b> Results</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="latent-variable-models.html"><a href="latent-variable-models.html"><i class="fa fa-check"></i><b>8</b> Latent Variable Models</a>
 <ul>
-<li class="chapter" data-level="8.1" data-path="data-descriptives.html"><a href="data-descriptives.html#data"><i class="fa fa-check"></i><b>8.1</b> Data</a></li>
-<li class="chapter" data-level="8.2" data-path="generalized-linear-model.html"><a href="generalized-linear-model.html#models"><i class="fa fa-check"></i><b>8.2</b> Models</a></li>
-<li class="chapter" data-level="8.3" data-path="generalized-linear-model.html"><a href="generalized-linear-model.html#results"><i class="fa fa-check"></i><b>8.3</b> Results</a></li>
+<li class="chapter" data-level="8.1" data-path="latent-variable-models.html"><a href="latent-variable-models.html#data-3"><i class="fa fa-check"></i><b>8.1</b> Data</a></li>
+<li class="chapter" data-level="8.2" data-path="latent-variable-models.html"><a href="latent-variable-models.html#models-2"><i class="fa fa-check"></i><b>8.2</b> Models</a></li>
+<li class="chapter" data-level="8.3" data-path="latent-variable-models.html"><a href="latent-variable-models.html#results-2"><i class="fa fa-check"></i><b>8.3</b> Results</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="gam.html"><a href="gam.html"><i class="fa fa-check"></i><b>9</b> GAM</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="gam.html"><a href="gam.html#data-4"><i class="fa fa-check"></i><b>9.1</b> Data</a></li>
+<li class="chapter" data-level="9.2" data-path="gam.html"><a href="gam.html#models-3"><i class="fa fa-check"></i><b>9.2</b> Models</a></li>
+<li class="chapter" data-level="9.3" data-path="gam.html"><a href="gam.html#create-latent-variables-for-outcomes"><i class="fa fa-check"></i><b>9.3</b> Create latent variables for outcomes</a></li>
+<li class="chapter" data-level="9.4" data-path="gam.html"><a href="gam.html#estimate-gams"><i class="fa fa-check"></i><b>9.4</b> Estimate GAMs</a></li>
+<li class="chapter" data-level="9.5" data-path="gam.html"><a href="gam.html#session-information"><i class="fa fa-check"></i><b>9.5</b> Session information</a></li>
 </ul></li>
 </ul>
 
@@ -201,7 +214,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Technology effect timecourses</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Technology association timecourses</a>
           </h1>
         </div>
 
@@ -210,16 +223,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
             <section class="normal" id="section-">
 <div id="header">
-<h1 class="title">Technology effect timecourses</h1>
+<h1 class="title">Technology association timecourses</h1>
 <p class="author"><em>Matti Vuorre</em></p>
-<p class="date"><em>2020-10-02</em></p>
+<p class="date"><em>2020-12-18</em></p>
 </div>
 <div id="preface" class="section level1" number="1">
 <h1><span class="header-section-number">Chapter 1</span> Preface</h1>
+<p>Analysis code associated with “There is no evidence that associations between adolescents’ digital technology engagement and mental health problems have increased” (Vuorre, Orben, Przybylski)</p>
 <p>We study the timecourse of technology effects on adolescent mental health in three large representative datasets.</p>
 <div id="analyses" class="section level2" number="1.1">
 <h2><span class="header-section-number">1.1</span> Analyses</h2>
-<p>The data analyses are organized into separate <a href="https://rmarkdown.rstudio.com/">R Markdown</a> files. First, there are three files that do preprocessing of the raw datasets (extracting the relevant variables from the raw data). Then, the data is cleaned a bit further and visualized. The main analyses are in the modelling scripts, that build up to the bayesian generalized linear mixed model.</p>
+<p>The data analyses are organized into separate <a href="https://rmarkdown.rstudio.com/">R Markdown</a> files. First, there are three files that do preprocessing of the raw datasets (extracting the relevant variables from the raw data). Then, the data is cleaned a bit further and visualized. The main analyses are in the modelling scripts.</p>
 <p>The project is organized as a R <a href="https://bookdown.org/yihui/bookdown/">bookdown</a> project, so you can reproduce all analyses by building the book (e.g. in RStudio click the “Build Book” button). (Be advised, though, that the Bayesian GLMMs take a very long time to run [many days]). The results are rendered to <code>docs/index.html</code> and can be viewed in a web browser.</p>
 </div>
 <div id="raw-data" class="section level2" number="1.2">
@@ -252,44 +266,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="reproducibility" class="section level2" number="1.3">
 <h2><span class="header-section-number">1.3</span> Reproducibility</h2>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="index.html#cb1-1"></a><span class="kw">options</span>(<span class="dt">width =</span> <span class="dv">120</span>)</span>
-<span id="cb1-2"><a href="index.html#cb1-2"></a><span class="kw">library</span>(sessioninfo)</span>
-<span id="cb1-3"><a href="index.html#cb1-3"></a><span class="kw">session_info</span>()</span></code></pre></div>
-<pre><code>## ─ Session info ───────────────────────────────────────────────────────────────────────────────────────────────────────
-##  setting  value                       
-##  version  R version 4.0.2 (2020-06-22)
-##  os       macOS Catalina 10.15.7      
-##  system   x86_64, darwin17.0          
-##  ui       X11                         
-##  language (EN)                        
-##  collate  en_GB.UTF-8                 
-##  ctype    en_GB.UTF-8                 
-##  tz       Europe/London               
-##  date     2020-10-02                  
-## 
-## ─ Packages ───────────────────────────────────────────────────────────────────────────────────────────────────────────
-##  package     * version date       lib source                              
-##  assertthat    0.2.1   2019-03-21 [1] CRAN (R 4.0.0)                      
-##  bookdown      0.20    2020-06-23 [1] CRAN (R 4.0.2)                      
-##  cli           2.0.2   2020-02-28 [1] CRAN (R 4.0.0)                      
-##  crayon        1.3.4   2017-09-16 [1] CRAN (R 4.0.0)                      
-##  digest        0.6.25  2020-02-23 [1] CRAN (R 4.0.0)                      
-##  evaluate      0.14    2019-05-28 [1] CRAN (R 4.0.0)                      
-##  fansi         0.4.1   2020-01-08 [1] CRAN (R 4.0.0)                      
-##  glue          1.4.2   2020-08-27 [1] CRAN (R 4.0.2)                      
-##  htmltools     0.5.0   2020-06-16 [1] CRAN (R 4.0.1)                      
-##  knitr         1.30    2020-09-22 [1] CRAN (R 4.0.2)                      
-##  magrittr      1.5     2014-11-22 [1] CRAN (R 4.0.0)                      
-##  rlang         0.4.7   2020-07-09 [1] CRAN (R 4.0.2)                      
-##  rmarkdown     2.4.0   2020-09-11 [1] Github (cpsievert/rmarkdown@b79fb4d)
-##  sessioninfo * 1.1.1   2018-11-05 [1] CRAN (R 4.0.0)                      
-##  stringi       1.5.3   2020-09-09 [1] CRAN (R 4.0.2)                      
-##  stringr       1.4.0   2019-02-10 [1] CRAN (R 4.0.0)                      
-##  withr         2.3.0   2020-09-22 [1] CRAN (R 4.0.2)                      
-##  xfun          0.18    2020-09-29 [1] CRAN (R 4.0.2)                      
-##  yaml          2.2.1   2020-02-01 [1] CRAN (R 4.0.0)                      
-## 
-## [1] /Library/Frameworks/R.framework/Versions/4.0/Resources/library</code></pre>
 
 </div>
 </div>
