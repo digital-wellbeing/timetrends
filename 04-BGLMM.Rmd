@@ -286,7 +286,7 @@ pars %>%
   )
 ```
 
-```{r, eval = TRUE}
+```{r, eval = TRUE, warning = FALSE}
 options(width = 120)
 library(sessioninfo)
 session_info()

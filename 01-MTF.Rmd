@@ -269,7 +269,7 @@ MTF <- drop_na(MTF, Depression)
 saveRDS(MTF, "data/mtf.rds")
 ```
 
-```{r, eval = TRUE}
+```{r, eval = TRUE, warning = FALSE}
 options(width = 120)
 library(sessioninfo)
 session_info()
