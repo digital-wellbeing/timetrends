@@ -1,7 +1,7 @@
 --- 
 title: "Technology association timecourses"
 author: "Matti Vuorre"
-date: "2020-12-18"
+date: "2021-03-01"
 site: bookdown::bookdown_site
 documentclass: book
 bibliography: []
@@ -15,6 +15,8 @@ description: ""
 Analysis code associated with "There is no evidence that associations between adolescents’ digital technology engagement and mental health problems have increased" (Vuorre, Orben, Przybylski)
 
 We study the timecourse of technology effects on adolescent mental health in three large representative datasets.
+
+The preprint, ["There is no evidence that associations between adolescents’ digital technology engagement and mental health problems have increased"](https://psyarxiv.com/nv5qj) is on PsyArxiv, and the article is current in press.
 
 ## Analyses
 

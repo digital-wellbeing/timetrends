@@ -24,7 +24,7 @@
 <meta name="author" content="Matti Vuorre" />
 
 
-<meta name="date" content="2020-12-18" />
+<meta name="date" content="2021-03-01" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,7 +33,7 @@
   
 <link rel="prev" href="generalized-linear-model.html"/>
 <link rel="next" href="latent-variable-models.html"/>
-<script src="libs/header-attrs-2.6.1/header-attrs.js"></script>
+<script src="libs/header-attrs-2.7.2/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -61,6 +61,7 @@
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
@@ -403,239 +404,240 @@ code span.wa { color: #bf0303; } /* Warning */
 <span id="cb103-65"><a href="bayesian-generalized-linear-mixed-model.html#cb103-65" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot_layout</span>(<span class="at">guides =</span> <span class="st">&quot;collect&quot;</span>) <span class="sc">&amp;</span></span>
 <span id="cb103-66"><a href="bayesian-generalized-linear-mixed-model.html#cb103-66" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;right&quot;</span>)</span></code></pre></div>
 <p><img src="04-BGLMM_files/figure-html/Parameter-figure-1.png" width="576" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="bayesian-generalized-linear-mixed-model.html#cb104-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">&quot;Figure2.png&quot;</span>, <span class="at">width =</span> <span class="dv">6</span>, <span class="at">height =</span> <span class="dv">4</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb105-1"><a href="bayesian-generalized-linear-mixed-model.html#cb105-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get YRBS item-specific effects</span></span>
-<span id="cb105-2"><a href="bayesian-generalized-linear-mixed-model.html#cb105-2" aria-hidden="true" tabindex="-1"></a>tmp1 <span class="ot">&lt;-</span> <span class="fu">slice</span>(fits, <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb105-3"><a href="bayesian-generalized-linear-mixed-model.html#cb105-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb105-4"><a href="bayesian-generalized-linear-mixed-model.html#cb105-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">o =</span> <span class="fu">map</span>(ml1, <span class="sc">~</span><span class="fu">rownames_to_column</span>(<span class="fu">as.data.frame</span>(<span class="fu">coef</span>(.)<span class="sc">$</span>item[,,<span class="dv">7</span>])))</span>
-<span id="cb105-5"><a href="bayesian-generalized-linear-mixed-model.html#cb105-5" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span> </span>
-<span id="cb105-6"><a href="bayesian-generalized-linear-mixed-model.html#cb105-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest</span>(o)</span>
-<span id="cb105-7"><a href="bayesian-generalized-linear-mixed-model.html#cb105-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb105-8"><a href="bayesian-generalized-linear-mixed-model.html#cb105-8" aria-hidden="true" tabindex="-1"></a>tmp <span class="ot">&lt;-</span> fits <span class="sc">%&gt;%</span> </span>
-<span id="cb105-9"><a href="bayesian-generalized-linear-mixed-model.html#cb105-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb105-10"><a href="bayesian-generalized-linear-mixed-model.html#cb105-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">p =</span> <span class="fu">map</span>(</span>
-<span id="cb105-11"><a href="bayesian-generalized-linear-mixed-model.html#cb105-11" aria-hidden="true" tabindex="-1"></a>      ml1, <span class="sc">~</span><span class="fu">posterior_summary</span>(., <span class="at">pars =</span> <span class="st">&quot;b_Year:[TV|SM|DV]&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb105-12"><a href="bayesian-generalized-linear-mixed-model.html#cb105-12" aria-hidden="true" tabindex="-1"></a>        <span class="fu">as.data.frame</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb105-13"><a href="bayesian-generalized-linear-mixed-model.html#cb105-13" aria-hidden="true" tabindex="-1"></a>        <span class="fu">rownames_to_column</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb105-14"><a href="bayesian-generalized-linear-mixed-model.html#cb105-14" aria-hidden="true" tabindex="-1"></a>        <span class="fu">tibble</span>()</span>
-<span id="cb105-15"><a href="bayesian-generalized-linear-mixed-model.html#cb105-15" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb105-16"><a href="bayesian-generalized-linear-mixed-model.html#cb105-16" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb105-17"><a href="bayesian-generalized-linear-mixed-model.html#cb105-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest</span>(p)</span>
-<span id="cb105-18"><a href="bayesian-generalized-linear-mixed-model.html#cb105-18" aria-hidden="true" tabindex="-1"></a>tmp <span class="sc">%&gt;%</span>   </span>
-<span id="cb105-19"><a href="bayesian-generalized-linear-mixed-model.html#cb105-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(Estimate, Outcome, <span class="at">col =</span> Outcome)) <span class="sc">+</span></span>
-<span id="cb105-20"><a href="bayesian-generalized-linear-mixed-model.html#cb105-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_brewer</span>(<span class="at">palette =</span> <span class="st">&quot;Set1&quot;</span>) <span class="sc">+</span></span>
-<span id="cb105-21"><a href="bayesian-generalized-linear-mixed-model.html#cb105-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(</span>
-<span id="cb105-22"><a href="bayesian-generalized-linear-mixed-model.html#cb105-22" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;Linear interaction estimate (±95%CI)&quot;</span>,</span>
-<span id="cb105-23"><a href="bayesian-generalized-linear-mixed-model.html#cb105-23" aria-hidden="true" tabindex="-1"></a>    <span class="at">breaks =</span> scales<span class="sc">::</span><span class="fu">pretty_breaks</span>(), </span>
-<span id="cb105-24"><a href="bayesian-generalized-linear-mixed-model.html#cb105-24" aria-hidden="true" tabindex="-1"></a>    <span class="at">expand =</span> <span class="fu">expansion</span>(.<span class="dv">2</span>)</span>
-<span id="cb105-25"><a href="bayesian-generalized-linear-mixed-model.html#cb105-25" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb105-26"><a href="bayesian-generalized-linear-mixed-model.html#cb105-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="dv">0</span>, <span class="at">size =</span> .<span class="dv">25</span>, <span class="at">lty =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
-<span id="cb105-27"><a href="bayesian-generalized-linear-mixed-model.html#cb105-27" aria-hidden="true" tabindex="-1"></a>  ggstance<span class="sc">::</span><span class="fu">geom_pointrangeh</span>(</span>
-<span id="cb105-28"><a href="bayesian-generalized-linear-mixed-model.html#cb105-28" aria-hidden="true" tabindex="-1"></a>    <span class="at">shape =</span> <span class="dv">21</span>, <span class="at">fill =</span> <span class="st">&quot;white&quot;</span>, <span class="at">fatten =</span> <span class="dv">3</span>,</span>
-<span id="cb105-29"><a href="bayesian-generalized-linear-mixed-model.html#cb105-29" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">xmin=</span>Q2<span class="fl">.5</span>, <span class="at">xmax=</span>Q97<span class="fl">.5</span>)</span>
-<span id="cb105-30"><a href="bayesian-generalized-linear-mixed-model.html#cb105-30" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb105-31"><a href="bayesian-generalized-linear-mixed-model.html#cb105-31" aria-hidden="true" tabindex="-1"></a>  <span class="co"># ggstance::geom_pointrangeh(</span></span>
-<span id="cb105-32"><a href="bayesian-generalized-linear-mixed-model.html#cb105-32" aria-hidden="true" tabindex="-1"></a>  <span class="co">#   data = tmp1, aes(xmin = Q2.5, xmax = Q97.5),</span></span>
-<span id="cb105-33"><a href="bayesian-generalized-linear-mixed-model.html#cb105-33" aria-hidden="true" tabindex="-1"></a>  <span class="co">#   size = .25, fatten = 1,</span></span>
-<span id="cb105-34"><a href="bayesian-generalized-linear-mixed-model.html#cb105-34" aria-hidden="true" tabindex="-1"></a>  <span class="co">#   position = ggstance::position_dodge2v(.25)</span></span>
-<span id="cb105-35"><a href="bayesian-generalized-linear-mixed-model.html#cb105-35" aria-hidden="true" tabindex="-1"></a>  <span class="co"># ) +</span></span>
-<span id="cb105-36"><a href="bayesian-generalized-linear-mixed-model.html#cb105-36" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="st">&quot;Technology&quot;</span>) <span class="sc">+</span></span>
-<span id="cb105-37"><a href="bayesian-generalized-linear-mixed-model.html#cb105-37" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
-<span id="cb105-38"><a href="bayesian-generalized-linear-mixed-model.html#cb105-38" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.title.y =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb105-39"><a href="bayesian-generalized-linear-mixed-model.html#cb105-39" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>,</span>
-<span id="cb105-40"><a href="bayesian-generalized-linear-mixed-model.html#cb105-40" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">8</span>)</span>
-<span id="cb105-41"><a href="bayesian-generalized-linear-mixed-model.html#cb105-41" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
-<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="bayesian-generalized-linear-mixed-model.html#cb106-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Sex</span></span>
-<span id="cb106-2"><a href="bayesian-generalized-linear-mixed-model.html#cb106-2" aria-hidden="true" tabindex="-1"></a>pars <span class="sc">%&gt;%</span> </span>
-<span id="cb106-3"><a href="bayesian-generalized-linear-mixed-model.html#cb106-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">str_detect</span>(Parameter, <span class="st">&quot;Sex1:Year:&quot;</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb106-4"><a href="bayesian-generalized-linear-mixed-model.html#cb106-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Parameter =</span> <span class="st">&quot;Sex x Year x Tech&quot;</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb106-5"><a href="bayesian-generalized-linear-mixed-model.html#cb106-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(Estimate, Outcome, <span class="at">shape =</span> Technology)) <span class="sc">+</span></span>
-<span id="cb106-6"><a href="bayesian-generalized-linear-mixed-model.html#cb106-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_brewer</span>(<span class="at">palette =</span> <span class="st">&quot;Set1&quot;</span>) <span class="sc">+</span></span>
-<span id="cb106-7"><a href="bayesian-generalized-linear-mixed-model.html#cb106-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(</span>
-<span id="cb106-8"><a href="bayesian-generalized-linear-mixed-model.html#cb106-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;Estimated parameter&quot;</span>,</span>
-<span id="cb106-9"><a href="bayesian-generalized-linear-mixed-model.html#cb106-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">breaks =</span> scales<span class="sc">::</span><span class="fu">pretty_breaks</span>(), </span>
-<span id="cb106-10"><a href="bayesian-generalized-linear-mixed-model.html#cb106-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">expand =</span> <span class="fu">expansion</span>(.<span class="dv">25</span>)</span>
-<span id="cb106-11"><a href="bayesian-generalized-linear-mixed-model.html#cb106-11" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb106-12"><a href="bayesian-generalized-linear-mixed-model.html#cb106-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="dv">0</span>, <span class="at">lty =</span> <span class="dv">2</span>, <span class="at">size =</span> .<span class="dv">25</span>) <span class="sc">+</span></span>
-<span id="cb106-13"><a href="bayesian-generalized-linear-mixed-model.html#cb106-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_linerangeh</span>(</span>
-<span id="cb106-14"><a href="bayesian-generalized-linear-mixed-model.html#cb106-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">xmin =</span> Q2<span class="fl">.5</span>, <span class="at">xmax =</span> Q97<span class="fl">.5</span>), <span class="at">size =</span> .<span class="dv">25</span>,</span>
-<span id="cb106-15"><a href="bayesian-generalized-linear-mixed-model.html#cb106-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">position =</span> <span class="fu">position_dodge2v</span>(.<span class="dv">4</span>), <span class="at">show.legend =</span> <span class="cn">FALSE</span></span>
-<span id="cb106-16"><a href="bayesian-generalized-linear-mixed-model.html#cb106-16" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb106-17"><a href="bayesian-generalized-linear-mixed-model.html#cb106-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_linerangeh</span>(</span>
-<span id="cb106-18"><a href="bayesian-generalized-linear-mixed-model.html#cb106-18" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">xmin =</span> Q10, <span class="at">xmax =</span> Q90), <span class="at">size =</span> .<span class="dv">75</span>,</span>
-<span id="cb106-19"><a href="bayesian-generalized-linear-mixed-model.html#cb106-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">position =</span> <span class="fu">position_dodge2v</span>(.<span class="dv">4</span>), <span class="at">show.legend =</span> <span class="cn">FALSE</span></span>
-<span id="cb106-20"><a href="bayesian-generalized-linear-mixed-model.html#cb106-20" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb106-21"><a href="bayesian-generalized-linear-mixed-model.html#cb106-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(</span>
-<span id="cb106-22"><a href="bayesian-generalized-linear-mixed-model.html#cb106-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">size =</span> <span class="dv">2</span>, <span class="at">position =</span> <span class="fu">position_dodge2v</span>(.<span class="dv">4</span>)</span>
-<span id="cb106-23"><a href="bayesian-generalized-linear-mixed-model.html#cb106-23" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb106-24"><a href="bayesian-generalized-linear-mixed-model.html#cb106-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="st">&quot;Parameter&quot;</span>, <span class="at">scales =</span> <span class="st">&quot;free_x&quot;</span>, <span class="at">nrow =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb106-25"><a href="bayesian-generalized-linear-mixed-model.html#cb106-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
-<span id="cb106-26"><a href="bayesian-generalized-linear-mixed-model.html#cb106-26" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.position =</span> <span class="st">&quot;bottom&quot;</span>,</span>
-<span id="cb106-27"><a href="bayesian-generalized-linear-mixed-model.html#cb106-27" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.title.y =</span> <span class="fu">element_blank</span>(), </span>
-<span id="cb106-28"><a href="bayesian-generalized-linear-mixed-model.html#cb106-28" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.spacing.x =</span> <span class="fu">unit</span>(<span class="dv">12</span>, <span class="st">&quot;pt&quot;</span>)</span>
-<span id="cb106-29"><a href="bayesian-generalized-linear-mixed-model.html#cb106-29" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
+<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="bayesian-generalized-linear-mixed-model.html#cb104-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get YRBS item-specific effects</span></span>
+<span id="cb104-2"><a href="bayesian-generalized-linear-mixed-model.html#cb104-2" aria-hidden="true" tabindex="-1"></a>tmp1 <span class="ot">&lt;-</span> <span class="fu">slice</span>(fits, <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb104-3"><a href="bayesian-generalized-linear-mixed-model.html#cb104-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb104-4"><a href="bayesian-generalized-linear-mixed-model.html#cb104-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">o =</span> <span class="fu">map</span>(ml1, <span class="sc">~</span><span class="fu">rownames_to_column</span>(<span class="fu">as.data.frame</span>(<span class="fu">coef</span>(.)<span class="sc">$</span>item[,,<span class="dv">7</span>])))</span>
+<span id="cb104-5"><a href="bayesian-generalized-linear-mixed-model.html#cb104-5" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span> </span>
+<span id="cb104-6"><a href="bayesian-generalized-linear-mixed-model.html#cb104-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest</span>(o)</span>
+<span id="cb104-7"><a href="bayesian-generalized-linear-mixed-model.html#cb104-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb104-8"><a href="bayesian-generalized-linear-mixed-model.html#cb104-8" aria-hidden="true" tabindex="-1"></a>tmp <span class="ot">&lt;-</span> fits <span class="sc">%&gt;%</span> </span>
+<span id="cb104-9"><a href="bayesian-generalized-linear-mixed-model.html#cb104-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb104-10"><a href="bayesian-generalized-linear-mixed-model.html#cb104-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">p =</span> <span class="fu">map</span>(</span>
+<span id="cb104-11"><a href="bayesian-generalized-linear-mixed-model.html#cb104-11" aria-hidden="true" tabindex="-1"></a>      ml1, <span class="sc">~</span><span class="fu">posterior_summary</span>(., <span class="at">pars =</span> <span class="st">&quot;b_Year:[TV|SM|DV]&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb104-12"><a href="bayesian-generalized-linear-mixed-model.html#cb104-12" aria-hidden="true" tabindex="-1"></a>        <span class="fu">as.data.frame</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb104-13"><a href="bayesian-generalized-linear-mixed-model.html#cb104-13" aria-hidden="true" tabindex="-1"></a>        <span class="fu">rownames_to_column</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb104-14"><a href="bayesian-generalized-linear-mixed-model.html#cb104-14" aria-hidden="true" tabindex="-1"></a>        <span class="fu">tibble</span>()</span>
+<span id="cb104-15"><a href="bayesian-generalized-linear-mixed-model.html#cb104-15" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb104-16"><a href="bayesian-generalized-linear-mixed-model.html#cb104-16" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb104-17"><a href="bayesian-generalized-linear-mixed-model.html#cb104-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest</span>(p)</span>
+<span id="cb104-18"><a href="bayesian-generalized-linear-mixed-model.html#cb104-18" aria-hidden="true" tabindex="-1"></a>tmp <span class="sc">%&gt;%</span>   </span>
+<span id="cb104-19"><a href="bayesian-generalized-linear-mixed-model.html#cb104-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(Estimate, Outcome, <span class="at">col =</span> Outcome)) <span class="sc">+</span></span>
+<span id="cb104-20"><a href="bayesian-generalized-linear-mixed-model.html#cb104-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_brewer</span>(<span class="at">palette =</span> <span class="st">&quot;Set1&quot;</span>) <span class="sc">+</span></span>
+<span id="cb104-21"><a href="bayesian-generalized-linear-mixed-model.html#cb104-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(</span>
+<span id="cb104-22"><a href="bayesian-generalized-linear-mixed-model.html#cb104-22" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;Linear interaction estimate (±95%CI)&quot;</span>,</span>
+<span id="cb104-23"><a href="bayesian-generalized-linear-mixed-model.html#cb104-23" aria-hidden="true" tabindex="-1"></a>    <span class="at">breaks =</span> scales<span class="sc">::</span><span class="fu">pretty_breaks</span>(), </span>
+<span id="cb104-24"><a href="bayesian-generalized-linear-mixed-model.html#cb104-24" aria-hidden="true" tabindex="-1"></a>    <span class="at">expand =</span> <span class="fu">expansion</span>(.<span class="dv">2</span>)</span>
+<span id="cb104-25"><a href="bayesian-generalized-linear-mixed-model.html#cb104-25" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb104-26"><a href="bayesian-generalized-linear-mixed-model.html#cb104-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="dv">0</span>, <span class="at">size =</span> .<span class="dv">25</span>, <span class="at">lty =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb104-27"><a href="bayesian-generalized-linear-mixed-model.html#cb104-27" aria-hidden="true" tabindex="-1"></a>  ggstance<span class="sc">::</span><span class="fu">geom_pointrangeh</span>(</span>
+<span id="cb104-28"><a href="bayesian-generalized-linear-mixed-model.html#cb104-28" aria-hidden="true" tabindex="-1"></a>    <span class="at">shape =</span> <span class="dv">21</span>, <span class="at">fill =</span> <span class="st">&quot;white&quot;</span>, <span class="at">fatten =</span> <span class="dv">3</span>,</span>
+<span id="cb104-29"><a href="bayesian-generalized-linear-mixed-model.html#cb104-29" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">xmin=</span>Q2<span class="fl">.5</span>, <span class="at">xmax=</span>Q97<span class="fl">.5</span>)</span>
+<span id="cb104-30"><a href="bayesian-generalized-linear-mixed-model.html#cb104-30" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb104-31"><a href="bayesian-generalized-linear-mixed-model.html#cb104-31" aria-hidden="true" tabindex="-1"></a>  <span class="co"># ggstance::geom_pointrangeh(</span></span>
+<span id="cb104-32"><a href="bayesian-generalized-linear-mixed-model.html#cb104-32" aria-hidden="true" tabindex="-1"></a>  <span class="co">#   data = tmp1, aes(xmin = Q2.5, xmax = Q97.5),</span></span>
+<span id="cb104-33"><a href="bayesian-generalized-linear-mixed-model.html#cb104-33" aria-hidden="true" tabindex="-1"></a>  <span class="co">#   size = .25, fatten = 1,</span></span>
+<span id="cb104-34"><a href="bayesian-generalized-linear-mixed-model.html#cb104-34" aria-hidden="true" tabindex="-1"></a>  <span class="co">#   position = ggstance::position_dodge2v(.25)</span></span>
+<span id="cb104-35"><a href="bayesian-generalized-linear-mixed-model.html#cb104-35" aria-hidden="true" tabindex="-1"></a>  <span class="co"># ) +</span></span>
+<span id="cb104-36"><a href="bayesian-generalized-linear-mixed-model.html#cb104-36" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="st">&quot;Technology&quot;</span>) <span class="sc">+</span></span>
+<span id="cb104-37"><a href="bayesian-generalized-linear-mixed-model.html#cb104-37" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb104-38"><a href="bayesian-generalized-linear-mixed-model.html#cb104-38" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.title.y =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb104-39"><a href="bayesian-generalized-linear-mixed-model.html#cb104-39" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>,</span>
+<span id="cb104-40"><a href="bayesian-generalized-linear-mixed-model.html#cb104-40" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">8</span>)</span>
+<span id="cb104-41"><a href="bayesian-generalized-linear-mixed-model.html#cb104-41" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
+<div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb105-1"><a href="bayesian-generalized-linear-mixed-model.html#cb105-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Sex</span></span>
+<span id="cb105-2"><a href="bayesian-generalized-linear-mixed-model.html#cb105-2" aria-hidden="true" tabindex="-1"></a>pars <span class="sc">%&gt;%</span> </span>
+<span id="cb105-3"><a href="bayesian-generalized-linear-mixed-model.html#cb105-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">str_detect</span>(Parameter, <span class="st">&quot;Sex1:Year:&quot;</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb105-4"><a href="bayesian-generalized-linear-mixed-model.html#cb105-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Parameter =</span> <span class="st">&quot;Sex x Year x Tech&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb105-5"><a href="bayesian-generalized-linear-mixed-model.html#cb105-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(Estimate, Outcome, <span class="at">shape =</span> Technology)) <span class="sc">+</span></span>
+<span id="cb105-6"><a href="bayesian-generalized-linear-mixed-model.html#cb105-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_brewer</span>(<span class="at">palette =</span> <span class="st">&quot;Set1&quot;</span>) <span class="sc">+</span></span>
+<span id="cb105-7"><a href="bayesian-generalized-linear-mixed-model.html#cb105-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(</span>
+<span id="cb105-8"><a href="bayesian-generalized-linear-mixed-model.html#cb105-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;Estimated parameter&quot;</span>,</span>
+<span id="cb105-9"><a href="bayesian-generalized-linear-mixed-model.html#cb105-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">breaks =</span> scales<span class="sc">::</span><span class="fu">pretty_breaks</span>(), </span>
+<span id="cb105-10"><a href="bayesian-generalized-linear-mixed-model.html#cb105-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">expand =</span> <span class="fu">expansion</span>(.<span class="dv">25</span>)</span>
+<span id="cb105-11"><a href="bayesian-generalized-linear-mixed-model.html#cb105-11" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb105-12"><a href="bayesian-generalized-linear-mixed-model.html#cb105-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="dv">0</span>, <span class="at">lty =</span> <span class="dv">2</span>, <span class="at">size =</span> .<span class="dv">25</span>) <span class="sc">+</span></span>
+<span id="cb105-13"><a href="bayesian-generalized-linear-mixed-model.html#cb105-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_linerangeh</span>(</span>
+<span id="cb105-14"><a href="bayesian-generalized-linear-mixed-model.html#cb105-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">xmin =</span> Q2<span class="fl">.5</span>, <span class="at">xmax =</span> Q97<span class="fl">.5</span>), <span class="at">size =</span> .<span class="dv">25</span>,</span>
+<span id="cb105-15"><a href="bayesian-generalized-linear-mixed-model.html#cb105-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">position =</span> <span class="fu">position_dodge2v</span>(.<span class="dv">4</span>), <span class="at">show.legend =</span> <span class="cn">FALSE</span></span>
+<span id="cb105-16"><a href="bayesian-generalized-linear-mixed-model.html#cb105-16" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb105-17"><a href="bayesian-generalized-linear-mixed-model.html#cb105-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_linerangeh</span>(</span>
+<span id="cb105-18"><a href="bayesian-generalized-linear-mixed-model.html#cb105-18" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">xmin =</span> Q10, <span class="at">xmax =</span> Q90), <span class="at">size =</span> .<span class="dv">75</span>,</span>
+<span id="cb105-19"><a href="bayesian-generalized-linear-mixed-model.html#cb105-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">position =</span> <span class="fu">position_dodge2v</span>(.<span class="dv">4</span>), <span class="at">show.legend =</span> <span class="cn">FALSE</span></span>
+<span id="cb105-20"><a href="bayesian-generalized-linear-mixed-model.html#cb105-20" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb105-21"><a href="bayesian-generalized-linear-mixed-model.html#cb105-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(</span>
+<span id="cb105-22"><a href="bayesian-generalized-linear-mixed-model.html#cb105-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">size =</span> <span class="dv">2</span>, <span class="at">position =</span> <span class="fu">position_dodge2v</span>(.<span class="dv">4</span>)</span>
+<span id="cb105-23"><a href="bayesian-generalized-linear-mixed-model.html#cb105-23" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb105-24"><a href="bayesian-generalized-linear-mixed-model.html#cb105-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="st">&quot;Parameter&quot;</span>, <span class="at">scales =</span> <span class="st">&quot;free_x&quot;</span>, <span class="at">nrow =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb105-25"><a href="bayesian-generalized-linear-mixed-model.html#cb105-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb105-26"><a href="bayesian-generalized-linear-mixed-model.html#cb105-26" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.position =</span> <span class="st">&quot;bottom&quot;</span>,</span>
+<span id="cb105-27"><a href="bayesian-generalized-linear-mixed-model.html#cb105-27" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.title.y =</span> <span class="fu">element_blank</span>(), </span>
+<span id="cb105-28"><a href="bayesian-generalized-linear-mixed-model.html#cb105-28" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.spacing.x =</span> <span class="fu">unit</span>(<span class="dv">12</span>, <span class="st">&quot;pt&quot;</span>)</span>
+<span id="cb105-29"><a href="bayesian-generalized-linear-mixed-model.html#cb105-29" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
 <p><img src="04-BGLMM_files/figure-html/unnamed-chunk-5-1.png" width="576" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb107-1"><a href="bayesian-generalized-linear-mixed-model.html#cb107-1" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">width =</span> <span class="dv">120</span>)</span>
-<span id="cb107-2"><a href="bayesian-generalized-linear-mixed-model.html#cb107-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sessioninfo)</span>
-<span id="cb107-3"><a href="bayesian-generalized-linear-mixed-model.html#cb107-3" aria-hidden="true" tabindex="-1"></a><span class="fu">session_info</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="bayesian-generalized-linear-mixed-model.html#cb106-1" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">width =</span> <span class="dv">120</span>)</span>
+<span id="cb106-2"><a href="bayesian-generalized-linear-mixed-model.html#cb106-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sessioninfo)</span>
+<span id="cb106-3"><a href="bayesian-generalized-linear-mixed-model.html#cb106-3" aria-hidden="true" tabindex="-1"></a><span class="fu">session_info</span>()</span></code></pre></div>
 <pre><code>## ─ Session info ───────────────────────────────────────────────────────────────────────────────────────────────────────
 ##  setting  value                       
 ##  version  R version 4.0.3 (2020-10-10)
-##  os       Ubuntu 20.04.1 LTS          
-##  system   x86_64, linux-gnu           
+##  os       macOS Big Sur 10.16         
+##  system   x86_64, darwin17.0          
 ##  ui       X11                         
 ##  language (EN)                        
-##  collate  C.UTF-8                     
-##  ctype    C.UTF-8                     
+##  collate  en_GB.UTF-8                 
+##  ctype    en_GB.UTF-8                 
 ##  tz       Europe/London               
-##  date     2020-12-18                  
+##  date     2021-03-01                  
 ## 
 ## ─ Packages ───────────────────────────────────────────────────────────────────────────────────────────────────────────
-##  package        * version  date       lib source                            
-##  abind            1.4-5    2016-07-21 [1] CRAN (R 4.0.2)                    
-##  arrayhelpers     1.1-0    2020-02-04 [1] CRAN (R 4.0.2)                    
-##  assertthat       0.2.1    2019-03-21 [1] CRAN (R 4.0.2)                    
-##  backports        1.2.1    2020-12-09 [1] CRAN (R 4.0.3)                    
-##  base64enc        0.1-3    2015-07-28 [1] CRAN (R 4.0.2)                    
-##  bayesplot        1.7.2    2020-05-28 [1] CRAN (R 4.0.2)                    
-##  bmlm             1.3.11   2019-02-21 [1] CRAN (R 4.0.2)                    
-##  bookdown         0.21.6   2020-12-16 [1] Github (rstudio/bookdown@92c59d3) 
-##  boot             1.3-25   2020-04-26 [4] CRAN (R 4.0.0)                    
-##  bridgesampling   1.0-0    2020-02-26 [1] CRAN (R 4.0.2)                    
-##  brms           * 2.14.4   2020-11-03 [1] CRAN (R 4.0.3)                    
-##  Brobdingnag      1.2-6    2018-08-13 [1] CRAN (R 4.0.2)                    
-##  broom            0.7.2    2020-10-20 [1] CRAN (R 4.0.3)                    
-##  callr            3.5.1    2020-10-13 [1] CRAN (R 4.0.2)                    
-##  cellranger       1.1.0    2016-07-27 [1] CRAN (R 4.0.2)                    
-##  cli              2.2.0    2020-11-20 [1] CRAN (R 4.0.3)                    
-##  coda             0.19-4   2020-09-30 [1] CRAN (R 4.0.2)                    
-##  codetools        0.2-18   2020-11-04 [4] CRAN (R 4.0.3)                    
-##  colorspace       2.0-0    2020-11-11 [1] CRAN (R 4.0.3)                    
-##  colourpicker     1.1.0    2020-09-14 [1] CRAN (R 4.0.2)                    
-##  crayon           1.3.4    2017-09-16 [1] CRAN (R 4.0.2)                    
-##  crosstalk        1.1.0.1  2020-03-13 [1] CRAN (R 4.0.2)                    
-##  curl             4.3      2019-12-02 [1] CRAN (R 4.0.2)                    
-##  DBI              1.1.0    2019-12-15 [1] CRAN (R 4.0.2)                    
-##  dbplyr           2.0.0    2020-11-03 [1] CRAN (R 4.0.3)                    
-##  digest           0.6.27   2020-10-24 [1] CRAN (R 4.0.3)                    
-##  distributional   0.2.1    2020-10-06 [1] CRAN (R 4.0.2)                    
-##  dplyr          * 1.0.2    2020-08-18 [1] CRAN (R 4.0.2)                    
-##  DT               0.16     2020-10-13 [1] CRAN (R 4.0.2)                    
-##  dygraphs         1.1.1.6  2018-07-11 [1] CRAN (R 4.0.2)                    
-##  ellipsis         0.3.1    2020-05-15 [1] CRAN (R 4.0.2)                    
-##  emmeans          1.5.3    2020-12-09 [1] CRAN (R 4.0.3)                    
-##  estimability     1.3      2018-02-11 [1] CRAN (R 4.0.2)                    
-##  evaluate         0.14     2019-05-28 [1] CRAN (R 4.0.2)                    
-##  fansi            0.4.1    2020-01-08 [1] CRAN (R 4.0.2)                    
-##  farver           2.0.3    2020-01-16 [1] CRAN (R 4.0.2)                    
-##  fastmap          1.0.1    2019-10-08 [1] CRAN (R 4.0.2)                    
-##  forcats        * 0.5.0    2020-03-01 [1] CRAN (R 4.0.2)                    
-##  fs               1.5.0    2020-07-31 [1] CRAN (R 4.0.2)                    
-##  future         * 1.21.0   2020-12-10 [1] CRAN (R 4.0.3)                    
-##  gamm4            0.2-6    2020-04-03 [1] CRAN (R 4.0.3)                    
-##  generics         0.1.0    2020-10-31 [1] CRAN (R 4.0.3)                    
-##  ggdist           2.3.0    2020-10-31 [1] CRAN (R 4.0.3)                    
-##  ggplot2        * 3.3.2    2020-06-19 [1] CRAN (R 4.0.2)                    
-##  ggridges         0.5.2    2020-01-12 [1] CRAN (R 4.0.2)                    
-##  ggstance       * 0.3.4    2020-04-02 [1] CRAN (R 4.0.2)                    
-##  globals          0.14.0   2020-11-22 [1] CRAN (R 4.0.3)                    
-##  glue             1.4.2    2020-08-27 [1] CRAN (R 4.0.2)                    
-##  gridExtra        2.3      2017-09-09 [1] CRAN (R 4.0.2)                    
-##  gtable           0.3.0    2019-03-25 [1] CRAN (R 4.0.2)                    
-##  gtools           3.8.2    2020-03-31 [1] CRAN (R 4.0.2)                    
-##  haven            2.3.1    2020-06-01 [1] CRAN (R 4.0.2)                    
-##  hms              0.5.3    2020-01-08 [1] CRAN (R 4.0.2)                    
-##  htmltools        0.5.0    2020-06-16 [1] CRAN (R 4.0.2)                    
-##  htmlwidgets      1.5.3    2020-12-10 [1] CRAN (R 4.0.3)                    
-##  httpuv           1.5.4    2020-06-06 [1] CRAN (R 4.0.2)                    
-##  httr             1.4.2    2020-07-20 [1] CRAN (R 4.0.2)                    
-##  igraph           1.2.6    2020-10-06 [1] CRAN (R 4.0.2)                    
-##  inline           0.3.17   2020-12-01 [1] CRAN (R 4.0.3)                    
-##  jsonlite         1.7.2    2020-12-09 [1] CRAN (R 4.0.3)                    
-##  knitr          * 1.30     2020-09-22 [1] CRAN (R 4.0.2)                    
-##  later            1.1.0.1  2020-06-05 [1] CRAN (R 4.0.2)                    
-##  lattice          0.20-41  2020-04-02 [4] CRAN (R 4.0.0)                    
-##  lifecycle        0.2.0    2020-03-06 [1] CRAN (R 4.0.2)                    
-##  listenv          0.8.0    2019-12-05 [1] CRAN (R 4.0.2)                    
-##  lme4             1.1-26   2020-12-01 [1] CRAN (R 4.0.3)                    
-##  loo              2.4.1    2020-12-09 [1] CRAN (R 4.0.3)                    
-##  lubridate        1.7.9.2  2020-11-13 [1] CRAN (R 4.0.3)                    
-##  magrittr         2.0.1    2020-11-17 [1] CRAN (R 4.0.3)                    
-##  markdown         1.1      2019-08-07 [1] CRAN (R 4.0.2)                    
-##  MASS             7.3-53   2020-09-09 [4] CRAN (R 4.0.2)                    
-##  Matrix           1.2-18   2019-11-27 [4] CRAN (R 4.0.0)                    
-##  matrixStats      0.57.0   2020-09-25 [1] CRAN (R 4.0.2)                    
-##  mgcv             1.8-33   2020-08-27 [1] CRAN (R 4.0.2)                    
-##  mime             0.9      2020-02-04 [1] CRAN (R 4.0.2)                    
-##  miniUI           0.1.1.1  2018-05-18 [1] CRAN (R 4.0.2)                    
-##  minqa            1.2.4    2014-10-09 [1] CRAN (R 4.0.2)                    
-##  modelr           0.1.8    2020-05-19 [1] CRAN (R 4.0.2)                    
-##  multcomp         1.4-15   2020-11-14 [1] CRAN (R 4.0.3)                    
-##  munsell          0.5.0    2018-06-12 [1] CRAN (R 4.0.2)                    
-##  mvtnorm          1.1-1    2020-06-09 [1] CRAN (R 4.0.2)                    
-##  nlme             3.1-150  2020-10-24 [4] CRAN (R 4.0.3)                    
-##  nloptr           1.2.2.2  2020-07-02 [1] CRAN (R 4.0.2)                    
-##  pacman           0.5.1    2019-03-11 [1] CRAN (R 4.0.2)                    
-##  parallelly       1.22.0   2020-12-13 [1] CRAN (R 4.0.3)                    
-##  patchwork      * 1.1.0    2020-11-09 [1] CRAN (R 4.0.3)                    
-##  pillar           1.4.7    2020-11-20 [1] CRAN (R 4.0.3)                    
-##  pkgbuild         1.2.0    2020-12-15 [1] CRAN (R 4.0.3)                    
-##  pkgconfig        2.0.3    2019-09-22 [1] CRAN (R 4.0.2)                    
-##  plyr             1.8.6    2020-03-03 [1] CRAN (R 4.0.2)                    
-##  prettyunits      1.1.1    2020-01-24 [1] CRAN (R 4.0.2)                    
-##  processx         3.4.5    2020-11-30 [1] CRAN (R 4.0.3)                    
-##  projpred         2.0.2    2020-10-28 [1] CRAN (R 4.0.3)                    
-##  promises         1.1.1    2020-06-09 [1] CRAN (R 4.0.2)                    
-##  ps               1.5.0    2020-12-05 [1] CRAN (R 4.0.3)                    
-##  purrr          * 0.3.4    2020-04-17 [1] CRAN (R 4.0.2)                    
-##  R6               2.5.0    2020-10-28 [1] CRAN (R 4.0.3)                    
-##  Rcpp           * 1.0.5    2020-07-06 [1] CRAN (R 4.0.2)                    
-##  RcppParallel     5.0.2    2020-06-24 [1] CRAN (R 4.0.2)                    
-##  readr          * 1.4.0    2020-10-05 [1] CRAN (R 4.0.2)                    
-##  readxl           1.3.1    2019-03-13 [1] CRAN (R 4.0.2)                    
-##  reprex           0.3.0    2019-05-16 [1] CRAN (R 4.0.2)                    
-##  reshape2         1.4.4    2020-04-09 [1] CRAN (R 4.0.2)                    
-##  rlang            0.4.9    2020-11-26 [1] CRAN (R 4.0.3)                    
-##  rmarkdown        2.6.0001 2020-12-16 [1] Github (rstudio/rmarkdown@80f14b2)
-##  rsconnect        0.8.16   2019-12-13 [1] CRAN (R 4.0.2)                    
-##  rstan            2.21.3   2020-09-23 [1] Github (stan-dev/rstan@fd079b6)   
-##  rstantools       2.1.1    2020-07-06 [1] CRAN (R 4.0.2)                    
-##  rstudioapi       0.13     2020-11-12 [1] CRAN (R 4.0.3)                    
-##  rvest            0.3.6    2020-07-25 [1] CRAN (R 4.0.2)                    
-##  sandwich         3.0-0    2020-10-02 [1] CRAN (R 4.0.3)                    
-##  scales           1.1.1    2020-05-11 [1] CRAN (R 4.0.2)                    
-##  sessioninfo    * 1.1.1    2018-11-05 [1] CRAN (R 4.0.2)                    
-##  shiny            1.5.0    2020-06-23 [1] CRAN (R 4.0.2)                    
-##  shinyjs          2.0.0    2020-09-09 [1] CRAN (R 4.0.2)                    
-##  shinystan        2.5.0    2018-05-01 [1] CRAN (R 4.0.2)                    
-##  shinythemes      1.1.2    2018-11-06 [1] CRAN (R 4.0.2)                    
-##  StanHeaders      2.21.0-6 2020-08-16 [1] CRAN (R 4.0.2)                    
-##  statmod          1.4.35   2020-10-19 [1] CRAN (R 4.0.3)                    
-##  stringi          1.5.3    2020-09-09 [1] CRAN (R 4.0.2)                    
-##  stringr        * 1.4.0    2019-02-10 [1] CRAN (R 4.0.2)                    
-##  survival         3.2-7    2020-09-28 [4] CRAN (R 4.0.2)                    
-##  svUnit           1.0.3    2020-04-20 [1] CRAN (R 4.0.2)                    
-##  TH.data          1.0-10   2019-01-21 [1] CRAN (R 4.0.3)                    
-##  threejs          0.3.3    2020-01-21 [1] CRAN (R 4.0.2)                    
-##  tibble         * 3.0.4    2020-10-12 [1] CRAN (R 4.0.2)                    
-##  tidybayes        2.3.1    2020-11-02 [1] CRAN (R 4.0.3)                    
-##  tidyr          * 1.1.2    2020-08-27 [1] CRAN (R 4.0.2)                    
-##  tidyselect       1.1.0    2020-05-11 [1] CRAN (R 4.0.2)                    
-##  tidyverse      * 1.3.0    2019-11-21 [1] CRAN (R 4.0.2)                    
-##  V8               3.4.0    2020-11-04 [1] CRAN (R 4.0.3)                    
-##  vctrs            0.3.5    2020-11-17 [1] CRAN (R 4.0.3)                    
-##  withr            2.3.0    2020-09-22 [1] CRAN (R 4.0.2)                    
-##  xfun             0.19     2020-10-30 [1] CRAN (R 4.0.3)                    
-##  xml2             1.3.2    2020-04-23 [1] CRAN (R 4.0.2)                    
-##  xtable           1.8-4    2019-04-21 [1] CRAN (R 4.0.2)                    
-##  xts              0.12.1   2020-09-09 [1] CRAN (R 4.0.2)                    
-##  yaml             2.2.1    2020-02-01 [1] CRAN (R 4.0.2)                    
-##  zoo              1.8-8    2020-05-02 [1] CRAN (R 4.0.2)                    
+##  package        * version    date       lib source                            
+##  abind            1.4-5      2016-07-21 [1] CRAN (R 4.0.0)                    
+##  arrayhelpers     1.1-0      2020-02-04 [1] CRAN (R 4.0.0)                    
+##  assertthat       0.2.1      2019-03-21 [1] CRAN (R 4.0.0)                    
+##  backports        1.2.1      2020-12-09 [1] CRAN (R 4.0.2)                    
+##  base64enc        0.1-3      2015-07-28 [1] CRAN (R 4.0.0)                    
+##  bayesplot        1.8.0      2021-01-10 [1] CRAN (R 4.0.2)                    
+##  bmlm             1.3.11     2019-02-21 [1] CRAN (R 4.0.0)                    
+##  bookdown         0.21.6     2021-03-01 [1] Github (rstudio/bookdown@ca0145f) 
+##  boot             1.3-27     2021-02-12 [1] CRAN (R 4.0.2)                    
+##  bridgesampling   1.0-0      2020-02-26 [1] CRAN (R 4.0.0)                    
+##  brms           * 2.14.4     2020-11-03 [1] CRAN (R 4.0.2)                    
+##  Brobdingnag      1.2-6      2018-08-13 [1] CRAN (R 4.0.0)                    
+##  broom            0.7.5.9000 2021-03-01 [1] Github (tidymodels/broom@0b3528b) 
+##  bslib            0.2.4      2021-01-25 [1] CRAN (R 4.0.3)                    
+##  callr            3.5.1      2020-10-13 [1] CRAN (R 4.0.2)                    
+##  cellranger       1.1.0      2016-07-27 [1] CRAN (R 4.0.0)                    
+##  cli              2.3.1      2021-02-23 [1] CRAN (R 4.0.3)                    
+##  coda             0.19-4     2020-09-30 [1] CRAN (R 4.0.2)                    
+##  codetools        0.2-18     2020-11-04 [1] CRAN (R 4.0.2)                    
+##  colorspace       2.0-0      2020-11-11 [1] CRAN (R 4.0.2)                    
+##  colourpicker     1.1.0      2020-09-14 [1] CRAN (R 4.0.2)                    
+##  crayon           1.4.1      2021-02-08 [1] CRAN (R 4.0.3)                    
+##  crosstalk        1.1.1      2021-01-12 [1] CRAN (R 4.0.2)                    
+##  curl             4.3        2019-12-02 [1] CRAN (R 4.0.0)                    
+##  DBI              1.1.1      2021-01-15 [1] CRAN (R 4.0.2)                    
+##  dbplyr           2.1.0      2021-02-03 [1] CRAN (R 4.0.2)                    
+##  digest           0.6.27     2020-10-24 [1] CRAN (R 4.0.2)                    
+##  distributional   0.2.2      2021-02-02 [1] CRAN (R 4.0.2)                    
+##  dplyr          * 1.0.4      2021-02-02 [1] CRAN (R 4.0.2)                    
+##  DT               0.17       2021-01-06 [1] CRAN (R 4.0.2)                    
+##  dygraphs         1.1.1.6    2018-07-11 [1] CRAN (R 4.0.0)                    
+##  ellipsis         0.3.1      2020-05-15 [1] CRAN (R 4.0.0)                    
+##  emmeans          1.5.4      2021-02-03 [1] CRAN (R 4.0.2)                    
+##  estimability     1.3        2018-02-11 [1] CRAN (R 4.0.0)                    
+##  evaluate         0.14       2019-05-28 [1] CRAN (R 4.0.0)                    
+##  fansi            0.4.2      2021-01-15 [1] CRAN (R 4.0.2)                    
+##  farver           2.0.3      2020-01-16 [1] CRAN (R 4.0.0)                    
+##  fastmap          1.1.0      2021-01-25 [1] CRAN (R 4.0.3)                    
+##  forcats        * 0.5.1      2021-01-27 [1] CRAN (R 4.0.2)                    
+##  fs               1.5.0      2020-07-31 [1] CRAN (R 4.0.2)                    
+##  future         * 1.21.0     2020-12-10 [1] CRAN (R 4.0.2)                    
+##  gamm4            0.2-6      2020-04-03 [1] CRAN (R 4.0.2)                    
+##  generics         0.1.0      2020-10-31 [1] CRAN (R 4.0.2)                    
+##  ggdist           2.4.0      2021-01-04 [1] CRAN (R 4.0.2)                    
+##  ggplot2        * 3.3.3      2020-12-30 [1] CRAN (R 4.0.2)                    
+##  ggridges         0.5.3      2021-01-08 [1] CRAN (R 4.0.2)                    
+##  ggstance       * 0.3.5      2020-12-17 [1] CRAN (R 4.0.2)                    
+##  globals          0.14.0     2020-11-22 [1] CRAN (R 4.0.2)                    
+##  glue             1.4.2      2020-08-27 [1] CRAN (R 4.0.2)                    
+##  gridExtra        2.3        2017-09-09 [1] CRAN (R 4.0.0)                    
+##  gtable           0.3.0      2019-03-25 [1] CRAN (R 4.0.0)                    
+##  gtools           3.8.2      2020-03-31 [1] CRAN (R 4.0.0)                    
+##  haven            2.3.1      2020-06-01 [1] CRAN (R 4.0.0)                    
+##  highr            0.8        2019-03-20 [1] CRAN (R 4.0.0)                    
+##  hms              1.0.0      2021-01-13 [1] CRAN (R 4.0.2)                    
+##  htmltools        0.5.1.1    2021-01-22 [1] CRAN (R 4.0.2)                    
+##  htmlwidgets      1.5.3      2020-12-10 [1] CRAN (R 4.0.2)                    
+##  httpuv           1.5.5      2021-01-13 [1] CRAN (R 4.0.2)                    
+##  httr             1.4.2      2020-07-20 [1] CRAN (R 4.0.2)                    
+##  igraph           1.2.6      2020-10-06 [1] CRAN (R 4.0.2)                    
+##  inline           0.3.17     2020-12-01 [1] CRAN (R 4.0.2)                    
+##  jquerylib        0.1.3      2020-12-17 [1] CRAN (R 4.0.2)                    
+##  jsonlite         1.7.2      2020-12-09 [1] CRAN (R 4.0.2)                    
+##  knitr          * 1.31       2021-01-27 [1] CRAN (R 4.0.2)                    
+##  later            1.1.0.1    2020-06-05 [1] CRAN (R 4.0.0)                    
+##  lattice          0.20-41    2020-04-02 [1] CRAN (R 4.0.3)                    
+##  lifecycle        1.0.0      2021-02-15 [1] CRAN (R 4.0.2)                    
+##  listenv          0.8.0      2019-12-05 [1] CRAN (R 4.0.0)                    
+##  lme4             1.1-26     2020-12-01 [1] CRAN (R 4.0.2)                    
+##  loo              2.4.1      2020-12-09 [1] CRAN (R 4.0.2)                    
+##  lubridate        1.7.9.2    2020-11-13 [1] CRAN (R 4.0.2)                    
+##  magrittr         2.0.1      2020-11-17 [1] CRAN (R 4.0.2)                    
+##  markdown         1.1        2019-08-07 [1] CRAN (R 4.0.0)                    
+##  MASS             7.3-53.1   2021-02-12 [1] CRAN (R 4.0.2)                    
+##  Matrix           1.3-2      2021-01-06 [1] CRAN (R 4.0.2)                    
+##  matrixStats      0.58.0     2021-01-29 [1] CRAN (R 4.0.2)                    
+##  mgcv             1.8-34     2021-02-16 [1] CRAN (R 4.0.2)                    
+##  mime             0.10       2021-02-13 [1] CRAN (R 4.0.2)                    
+##  miniUI           0.1.1.1    2018-05-18 [1] CRAN (R 4.0.0)                    
+##  minqa            1.2.4      2014-10-09 [1] CRAN (R 4.0.0)                    
+##  modelr           0.1.8      2020-05-19 [1] CRAN (R 4.0.0)                    
+##  multcomp         1.4-16     2021-02-08 [1] CRAN (R 4.0.2)                    
+##  munsell          0.5.0      2018-06-12 [1] CRAN (R 4.0.0)                    
+##  mvtnorm          1.1-1      2020-06-09 [1] CRAN (R 4.0.0)                    
+##  nlme             3.1-152    2021-02-04 [1] CRAN (R 4.0.2)                    
+##  nloptr           1.2.2.2    2020-07-02 [1] CRAN (R 4.0.2)                    
+##  pacman           0.5.1      2019-03-11 [1] CRAN (R 4.0.0)                    
+##  parallelly       1.23.0     2021-01-04 [1] CRAN (R 4.0.2)                    
+##  patchwork      * 1.1.1      2020-12-17 [1] CRAN (R 4.0.2)                    
+##  pillar           1.5.0      2021-02-22 [1] CRAN (R 4.0.3)                    
+##  pkgbuild         1.2.0      2020-12-15 [1] CRAN (R 4.0.2)                    
+##  pkgconfig        2.0.3      2019-09-22 [1] CRAN (R 4.0.0)                    
+##  plyr             1.8.6      2020-03-03 [1] CRAN (R 4.0.0)                    
+##  prettyunits      1.1.1      2020-01-24 [1] CRAN (R 4.0.0)                    
+##  processx         3.4.5      2020-11-30 [1] CRAN (R 4.0.2)                    
+##  projpred         2.0.2      2020-10-28 [1] CRAN (R 4.0.2)                    
+##  promises         1.2.0.1    2021-02-11 [1] CRAN (R 4.0.2)                    
+##  ps               1.5.0      2020-12-05 [1] CRAN (R 4.0.2)                    
+##  purrr          * 0.3.4      2020-04-17 [1] CRAN (R 4.0.0)                    
+##  R6               2.5.0      2020-10-28 [1] CRAN (R 4.0.2)                    
+##  Rcpp           * 1.0.6      2021-01-15 [1] CRAN (R 4.0.2)                    
+##  RcppParallel     5.0.3      2021-02-24 [1] CRAN (R 4.0.3)                    
+##  readr          * 1.4.0      2020-10-05 [1] CRAN (R 4.0.2)                    
+##  readxl           1.3.1      2019-03-13 [1] CRAN (R 4.0.0)                    
+##  reprex           1.0.0      2021-01-27 [1] CRAN (R 4.0.2)                    
+##  reshape2         1.4.4      2020-04-09 [1] CRAN (R 4.0.0)                    
+##  rlang            0.4.10     2020-12-30 [1] CRAN (R 4.0.2)                    
+##  rmarkdown        2.7.2      2021-03-01 [1] Github (rstudio/rmarkdown@9bfaf4a)
+##  rsconnect        0.8.16     2019-12-13 [1] CRAN (R 4.0.0)                    
+##  rstan            2.21.3     2020-09-29 [1] Github (stan-dev/rstan@ae36e6f)   
+##  rstantools       2.1.1      2020-07-06 [1] CRAN (R 4.0.2)                    
+##  rstudioapi       0.13       2020-11-12 [1] CRAN (R 4.0.2)                    
+##  rvest            0.3.6      2020-07-25 [1] CRAN (R 4.0.2)                    
+##  sandwich         3.0-0      2020-10-02 [1] CRAN (R 4.0.2)                    
+##  sass             0.3.1      2021-01-24 [1] CRAN (R 4.0.2)                    
+##  scales           1.1.1      2020-05-11 [1] CRAN (R 4.0.0)                    
+##  sessioninfo    * 1.1.1      2018-11-05 [1] CRAN (R 4.0.0)                    
+##  shiny            1.6.0      2021-01-25 [1] CRAN (R 4.0.3)                    
+##  shinyjs          2.0.0      2020-09-09 [1] CRAN (R 4.0.2)                    
+##  shinystan        2.5.0      2018-05-01 [1] CRAN (R 4.0.0)                    
+##  shinythemes      1.2.0      2021-01-25 [1] CRAN (R 4.0.3)                    
+##  StanHeaders      2.21.0-7   2020-12-17 [1] CRAN (R 4.0.2)                    
+##  statmod          1.4.35     2020-10-19 [1] CRAN (R 4.0.2)                    
+##  stringi          1.5.3      2020-09-09 [1] CRAN (R 4.0.2)                    
+##  stringr        * 1.4.0      2019-02-10 [1] CRAN (R 4.0.0)                    
+##  survival         3.2-7      2020-09-28 [1] CRAN (R 4.0.3)                    
+##  svUnit           1.0.3      2020-04-20 [1] CRAN (R 4.0.0)                    
+##  TH.data          1.0-10     2019-01-21 [1] CRAN (R 4.0.0)                    
+##  threejs          0.3.3      2020-01-21 [1] CRAN (R 4.0.0)                    
+##  tibble         * 3.1.0      2021-02-25 [1] CRAN (R 4.0.2)                    
+##  tidybayes        2.3.1      2020-11-02 [1] CRAN (R 4.0.2)                    
+##  tidyr          * 1.1.2      2020-08-27 [1] CRAN (R 4.0.2)                    
+##  tidyselect       1.1.0      2020-05-11 [1] CRAN (R 4.0.0)                    
+##  tidyverse      * 1.3.0      2019-11-21 [1] CRAN (R 4.0.0)                    
+##  utf8             1.1.4      2018-05-24 [1] CRAN (R 4.0.0)                    
+##  V8               3.4.0      2020-11-04 [1] CRAN (R 4.0.2)                    
+##  vctrs            0.3.6      2020-12-17 [1] CRAN (R 4.0.2)                    
+##  withr            2.4.1      2021-01-26 [1] CRAN (R 4.0.2)                    
+##  xfun             0.21       2021-02-10 [1] CRAN (R 4.0.2)                    
+##  xml2             1.3.2      2020-04-23 [1] CRAN (R 4.0.0)                    
+##  xtable           1.8-4      2019-04-21 [1] CRAN (R 4.0.0)                    
+##  xts              0.12.1     2020-09-09 [1] CRAN (R 4.0.2)                    
+##  yaml             2.2.1      2020-02-01 [1] CRAN (R 4.0.0)                    
+##  zoo              1.8-8      2020-05-02 [1] CRAN (R 4.0.0)                    
 ## 
-## [1] /home/matti/R/x86_64-pc-linux-gnu-library/4.0
-## [2] /usr/local/lib/R/site-library
-## [3] /usr/lib/R/site-library
-## [4] /usr/lib/R/library</code></pre>
+## [1] /Library/Frameworks/R.framework/Versions/4.0/Resources/library</code></pre>
 
 </div>
 </div>

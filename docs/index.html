@@ -24,7 +24,7 @@
 <meta name="author" content="Matti Vuorre" />
 
 
-<meta name="date" content="2020-12-18" />
+<meta name="date" content="2021-03-01" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,7 +33,7 @@
   
 
 <link rel="next" href="mtf-preprocessing.html"/>
-<script src="libs/header-attrs-2.6.1/header-attrs.js"></script>
+<script src="libs/header-attrs-2.7.2/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -61,6 +61,7 @@
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
@@ -225,12 +226,13 @@ code span.wa { color: #bf0303; } /* Warning */
 <div id="header">
 <h1 class="title">Technology association timecourses</h1>
 <p class="author"><em>Matti Vuorre</em></p>
-<p class="date"><em>2020-12-18</em></p>
+<p class="date"><em>2021-03-01</em></p>
 </div>
 <div id="preface" class="section level1" number="1">
 <h1><span class="header-section-number">Chapter 1</span> Preface</h1>
 <p>Analysis code associated with “There is no evidence that associations between adolescents’ digital technology engagement and mental health problems have increased” (Vuorre, Orben, Przybylski)</p>
 <p>We study the timecourse of technology effects on adolescent mental health in three large representative datasets.</p>
+<p>The preprint, <a href="https://psyarxiv.com/nv5qj">“There is no evidence that associations between adolescents’ digital technology engagement and mental health problems have increased”</a> is on PsyArxiv, and the article is current in press.</p>
 <div id="analyses" class="section level2" number="1.1">
 <h2><span class="header-section-number">1.1</span> Analyses</h2>
 <p>The data analyses are organized into separate <a href="https://rmarkdown.rstudio.com/">R Markdown</a> files. First, there are three files that do preprocessing of the raw datasets (extracting the relevant variables from the raw data). Then, the data is cleaned a bit further and visualized. The main analyses are in the modelling scripts.</p>

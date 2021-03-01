@@ -10,6 +10,8 @@ Authors:
 
 We study the timecourse of technology effects on adolescent wellbeing in three large representative datasets.
 
+The preprint, ["There is no evidence that associations between adolescents’ digital technology engagement and mental health problems have increased"](https://psyarxiv.com/nv5qj) is on PsyArxiv, and the article is current in press.
+
 ## Raw data
 
 The datasets' Terms of Use prevent us for sharing the data files here, so you must download the raw data yourself. Get the data as follows so it is in the format expected by our code: 

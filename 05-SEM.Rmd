@@ -18,8 +18,8 @@ opts_chunk$set(
   fig.width = 8,
   fig.align = 'center',
   # Save more figure formats
-  dev = c("png", "tiff"),
-  fig.ext = c("png", "tiff")
+  dev = c("png", "pdf", "tiff"),
+  fig.ext = c("png", "pdf", "tiff")
 
   )
 theme_set(

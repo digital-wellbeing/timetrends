@@ -22,8 +22,8 @@ opts_chunk$set(
   fig.height = 4,
   fig.align = 'center',
   # Save more figure formats
-  dev = c("png", "tiff"),
-  fig.ext = c("png", "tiff")
+  dev = c("png", "pdf", "tiff"),
+  fig.ext = c("png", "pdf", "tiff")
 )
 theme_set(
   theme_linedraw(base_size = 8) +
