@@ -1,0 +1,23 @@
+cff-version: 1.2.0
+title: Code supplement to "There is No evidence that associations between adolescents' digital technology engagement and mental health problems have increased"
+version: 1.0.1
+license: MIT
+type: software
+abstract: |
+  Digital technology is ubiquitous in modern adolescence, and researchers are concerned that it has negative impacts on mental health that, furthermore, increase over time. To investigate whether technology is becoming more harmful, we examined changes in associations between technology engagement and mental health in three nationally representative samples. Results were mixed across types of technology and mental health outcomes: Technology engagement had become less strongly associated with depression in the past decade, but social-media use had become more strongly associated with emotional problems. We detected no changes in five other associations or differential associations by sex. There is therefore little evidence for increases in the associations between adolescents' technology engagement and mental health. Information about new digital media has been collected for a relatively short time; drawing firm conclusions about changes in their associations with mental health may be premature. We urge transparent and credible collaborations between scientists and technology companies.
+message: Please cite as indicated.
+authors:
+  - family-names: Vuorre
+    given-names: Matti
+    orcid: https://orcid.org/0000-0001-5052-066X
+    affiliation: Tilburg University
+  - family-names: Orben
+    given-names: Amy
+    orcid: https://orcid.org/0000-0002-2937-4183
+    affiliation: University of Cambridge
+  - family-names: Przybylski
+    given-names: Andrew
+    orcid: https://orcid.org/0000-0001-5547-2185
+    affiliation: University of Oxford
+keywords:
+  - psychology
